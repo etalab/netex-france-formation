@@ -1,0 +1,23 @@
+# Un cas simple
+
+```elixir
+Mix.install([
+  {:req, "~> 0.5.8"}
+])
+```
+
+## Que faire
+
+Je me rends sur https://transport.data.gouv.fr/datasets?q=rochefort pour trouver les jeux de données en lien avec la ville de Rochefort (17).
+
+J'arrive sur le réseau R'bus https://transport.data.gouv.fr/datasets/arrets-horaires-et-parcours-theoriques-des-reseaux-naq-roc-nva-m-1.
+
+Puis sur le fichier NeTEx correspondant https://transport.data.gouv.fr/resources/82368
+
+```elixir
+folder = Path.join(__DIR__, "data")
+
+url = "https://transport.data.gouv.fr/api/datasets/arrets-horaires-et-parcours-theoriques-des-reseaux-naq-roc-nva-m-1"
+url = "https://transport.data.gouv.fr/api/datasets/213"
+%{status: 200, body: body} = Req.get!(url)
+```
