@@ -1,0 +1,33 @@
+# Exploration Rochefort
+
+```elixir
+Mix.install([
+  {:req, "~> 0.5.8"},
+  {:xml_query, "~> 2.0"},
+  {:unzip, "~> 0.12.0"},
+  {:kino, "~> 0.15.3"}
+])
+```
+
+## Lecture du fichier NeTEx de Rochefort
+
+```elixir
+file = __DIR__ <> "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip"
+
+zip_file = Unzip.LocalFile.open(file)
+{:ok, unzip} = Unzip.new(zip_file)
+file_entries = Unzip.list_entries(unzip) |> Enum.map(& %{"name" => &1.file_name})
+|> Kino.DataTable.new()
+
+```
+
+```elixir
+stream = Unzip.file_stream!(unzip, "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_A_A.xml")
+data = Enum.into(stream, <<>>, &IO.iodata_to_binary/1)
+
+:ok
+```
+
+```elixir
+XmlQuery.all(data, "//GeneralFrame")
+```
