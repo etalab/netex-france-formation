@@ -1,3 +1,5 @@
+<!-- livebook:{"persist_outputs":true} -->
+
 # Synthèse d'un fichier NeTEx
 
 ```elixir
@@ -49,6 +51,192 @@ zip
 end)
 
 
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 8, "type" => "DayType"}, %{"count" => 7, "type" => "OperatingPeriod"}, %{"count" => 307, "type" => "DayTypeAssignment"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 1, "type" => "Network"}, %{"count" => 14, "type" => "Line"}, %{"count" => 1, "type" => "Operator"}, %{"count" => 1, "type" => "Authority"}, %{"count" => 81, "type" => "SiteConnection"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 492, "type" => "RouteLink"}, %{"count" => 17, "type" => "Route"}, %{"count" => 17, "type" => "Direction"}, %{"count" => 17, "type" => "ServiceJourneyPattern"}, %{"count" => 509, "type" => "ScheduledStopPoint"}, %{"count" => 509, "type" => "PassengerStopAssignment"}, %{"count" => 17, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 214, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 80, "type" => "RouteLink"}, %{"count" => 4, "type" => "Route"}, %{"count" => 4, "type" => "Direction"}, %{"count" => 4, "type" => "ServiceJourneyPattern"}, %{"count" => 84, "type" => "ScheduledStopPoint"}, %{"count" => 84, "type" => "PassengerStopAssignment"}, %{"count" => 4, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 293, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 19, "type" => "RouteLink"}, %{"count" => 1, "type" => "Route"}, %{"count" => 1, "type" => "Direction"}, %{"count" => 1, "type" => "ServiceJourneyPattern"}, %{"count" => 20, "type" => "ScheduledStopPoint"}, %{"count" => 20, "type" => "PassengerStopAssignment"}, %{"count" => 1, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 111, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 116, "type" => "RouteLink"}, %{"count" => 4, "type" => "Route"}, %{"count" => 4, "type" => "Direction"}, %{"count" => 4, "type" => "ServiceJourneyPattern"}, %{"count" => 120, "type" => "ScheduledStopPoint"}, %{"count" => 120, "type" => "PassengerStopAssignment"}, %{"count" => 4, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 138, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 204, "type" => "RouteLink"}, %{"count" => 11, "type" => "Route"}, %{"count" => 11, "type" => "Direction"}, %{"count" => 11, "type" => "ServiceJourneyPattern"}, %{"count" => 215, "type" => "ScheduledStopPoint"}, %{"count" => 215, "type" => "PassengerStopAssignment"}, %{"count" => 11, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 196, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 102, "type" => "RouteLink"}, %{"count" => 5, "type" => "Route"}, %{"count" => 5, "type" => "Direction"}, %{"count" => 5, "type" => "ServiceJourneyPattern"}, %{"count" => 107, "type" => "ScheduledStopPoint"}, %{"count" => 107, "type" => "PassengerStopAssignment"}, %{"count" => 5, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 96, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 70, "type" => "RouteLink"}, %{"count" => 2, "type" => "Route"}, %{"count" => 2, "type" => "Direction"}, %{"count" => 2, "type" => "ServiceJourneyPattern"}, %{"count" => 72, "type" => "ScheduledStopPoint"}, %{"count" => 72, "type" => "PassengerStopAssignment"}, %{"count" => 2, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 10, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 6, "type" => "RouteLink"}, %{"count" => 1, "type" => "Route"}, %{"count" => 1, "type" => "Direction"}, %{"count" => 1, "type" => "ServiceJourneyPattern"}, %{"count" => 7, "type" => "ScheduledStopPoint"}, %{"count" => 7, "type" => "PassengerStopAssignment"}, %{"count" => 1, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 3, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 6, "type" => "RouteLink"}, %{"count" => 2, "type" => "Route"}, %{"count" => 2, "type" => "Direction"}, %{"count" => 2, "type" => "ServiceJourneyPattern"}, %{"count" => 8, "type" => "ScheduledStopPoint"}, %{"count" => 8, "type" => "PassengerStopAssignment"}, %{"count" => 2, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 2, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 20, "type" => "RouteLink"}, %{"count" => 2, "type" => "Route"}, %{"count" => 2, "type" => "Direction"}, %{"count" => 2, "type" => "ServiceJourneyPattern"}, %{"count" => 22, "type" => "ScheduledStopPoint"}, %{"count" => 22, "type" => "PassengerStopAssignment"}, %{"count" => 2, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 2, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 10, "type" => "RouteLink"}, %{"count" => 2, "type" => "Route"}, %{"count" => 2, "type" => "Direction"}, %{"count" => 2, "type" => "ServiceJourneyPattern"}, %{"count" => 12, "type" => "ScheduledStopPoint"}, %{"count" => 12, "type" => "PassengerStopAssignment"}, %{"count" => 2, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 2, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 74, "type" => "RouteLink"}, %{"count" => 6, "type" => "Route"}, %{"count" => 6, "type" => "Direction"}, %{"count" => 6, "type" => "ServiceJourneyPattern"}, %{"count" => 80, "type" => "ScheduledStopPoint"}, %{"count" => 80, "type" => "PassengerStopAssignment"}, %{"count" => 6, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 9, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 147, "type" => "RouteLink"}, %{"count" => 21, "type" => "Route"}, %{"count" => 21, "type" => "Direction"}, %{"count" => 21, "type" => "ServiceJourneyPattern"}, %{"count" => 168, "type" => "ScheduledStopPoint"}, %{"count" => 168, "type" => "PassengerStopAssignment"}, %{"count" => 21, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 28, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 218, "type" => "RouteLink"}, %{"count" => 28, "type" => "Route"}, %{"count" => 28, "type" => "Direction"}, %{"count" => 28, "type" => "ServiceJourneyPattern"}, %{"count" => 246, "type" => "ScheduledStopPoint"}, %{"count" => 246, "type" => "PassengerStopAssignment"}, %{"count" => 28, "type" => "DestinationDisplay"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"count" => 46, "type" => "ServiceJourney"}]
+```
+
+<!-- livebook:{"output":true} -->
+
+```
+:ok
 ```
 
 ## Points intéressants à améliorer
