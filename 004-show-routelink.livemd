@@ -44,27 +44,30 @@ xml_string = [routelink]
 |> String.replace(~r/<\?xml.*\?>/, "")
 
 Kino.Markdown.new("```xml\n#{xml_string}\n```")
-|> Kino.render()
+````
 
+```elixir
 {:xmlObj, :string, data} = :xmerl_xpath.string(~c"string(gis:LineString/gis:posList/text())", routelink)
 
-lat_lon = data
+coordinates = data
 |> :erlang.list_to_binary()
 |> String.split(~r/\s/)
 |> Enum.map(&String.to_float(&1))
 |> Enum.chunk_every(2)
-|> Enum.map(fn([lat, lon]) -> %{"lat" => lat, "lon" => lon} end)
-````
-
-<!-- livebook:{"attrs":"eyJjZW50ZXIiOiItMC45NTEwMjUwMDkxNTUyNzM0LCA0NS45MjYxNzQxNjM4MTgzIiwibGF5ZXJzIjpbeyJhY3RpdmUiOnRydWUsImNsdXN0ZXJfY29sb3JzIjpbIiM1MWJiZDYiLCIjZjFmMDc1IiwiI2YyOGNiMSJdLCJjbHVzdGVyX21heCI6NzUwLCJjbHVzdGVyX21pbiI6MTAwLCJjb29yZGluYXRlc19mb3JtYXQiOiJjb2x1bW5zIiwibGF5ZXJfY29sb3IiOiIjZTYzYjdhIiwibGF5ZXJfb3BhY2l0eSI6MC42LCJsYXllcl9yYWRpdXMiOjksImxheWVyX3NvdXJjZSI6ImxhdF9sb24iLCJsYXllcl9zb3VyY2VfcXVlcnkiOm51bGwsImxheWVyX3NvdXJjZV9xdWVyeV9zdHJpY3QiOm51bGwsImxheWVyX3R5cGUiOiJjaXJjbGUiLCJzb3VyY2VfY29vcmRpbmF0ZXMiOm51bGwsInNvdXJjZV9sYXRpdHVkZSI6ImxhdCIsInNvdXJjZV9sb25naXR1ZGUiOiJsb24iLCJzb3VyY2VfdHlwZSI6InRhYmxlIn1dLCJtYXB0aWxlcl9rZXkiOm51bGwsIm1hcHRpbGVyX2tleV9zZWNyZXQiOm51bGwsIm1sX2FsaWFzIjoiRWxpeGlyLk1hcExpYnJlIiwic3R5bGUiOiJzdHJlZXQgKG5vbi1jb21tZXJjaWFsKSIsInVzZV9tYXB0aWxlcl9rZXlfc2VjcmV0Ijp0cnVlLCJ6b29tIjoxNH0","chunks":null,"kind":"Elixir.KinoMapLibre.MapCell","livebook_object":"smart_cell"} -->
+|> Enum.map(fn(x) -> Enum.reverse(x) end)
+|> Enum.map(&List.to_tuple(&1))
+```
 
 ```elixir
-MapLibre.new(style: :street, center: {-0.9510250091552734, 45.9261741638183}, zoom: 14)
-|> MapLibre.add_table_source("lat_lon", lat_lon, {:lng_lat, ["lon", "lat"]})
+geom = %Geo.LineString{coordinates: coordinates}
+
+MapLibre.new(style: :street, center: {-0.9572910070419312, 45.925331115722656}, zoom: 15)
+|> MapLibre.add_geo_source("geom", geom)
 |> MapLibre.add_layer(
-  id: "lat_lon_circle_1",
-  source: "lat_lon",
-  type: :circle,
-  paint: [circle_color: "#e63b7a", circle_radius: 9, circle_opacity: 0.6]
+  id: "geom_line",
+  source: "geom",
+  type: :line,
+  paint: [line_color: "#f63b8a", line_opacity: 0.7, line_width: 5]
 )
+
 ```
