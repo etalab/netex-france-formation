@@ -1,0 +1,75 @@
+# Un cas "simple" (Famous Last Words)
+
+```elixir
+Mix.install([
+  {:req, "~> 0.5.8"},
+  {:xml_query, "~> 2.0"},
+  {:unzip, "~> 0.12.0"},
+  {:kino, "~> 0.14.2"}
+])
+```
+
+## Téléchargement d'un jeu de données
+
+Je me rends sur https://transport.data.gouv.fr/datasets?q=rochefort pour trouver les jeux de données en lien avec la ville de Rochefort (17).
+
+J'arrive sur le réseau R'bus https://transport.data.gouv.fr/datasets/arrets-horaires-et-parcours-theoriques-des-reseaux-naq-roc-nva-m-1.
+
+Puis sur le fichier NeTEx correspondant https://transport.data.gouv.fr/resources/82368
+
+```elixir
+folder = Path.join(__DIR__, "data")
+
+# url = "https://transport.data.gouv.fr/api/datasets/arrets-horaires-et-parcours-theoriques-des-reseaux-naq-roc-nva-m-1"
+# url = "https://transport.data.gouv.fr/api/datasets/213"
+url = "https://transport.data.gouv.fr/api/datasets/632a56a7a0eb7f886aeacfa7"
+%{status: 200, body: body} = Req.get!(url)
+
+[resource] = body["resources"]
+|> Enum.filter(&(&1["format"] == "NeTEx"))
+
+r_url = resource["url"]
+
+file = Path.join(folder, "1b99af06-13d6-45f1-80ae-7bd68fff960f.zip")
+
+if !File.exists?(file) do
+  %{status: 200} = Req.get!(r_url, into: File.stream!(file))
+end
+
+```
+
+```elixir
+zip_file = Unzip.LocalFile.open(file)
+{:ok, unzip} = Unzip.new(zip_file)
+file_entries = Unzip.list_entries(unzip) |> Enum.map(& &1.file_name)
+```
+
+```elixir
+defmodule One do
+  def one!([item]), do: item
+end
+```
+
+```elixir
+communs_file = file_entries |> Enum.filter(& &1 =~ ~r/commun.xml/) |> One.one!()
+
+stream = Unzip.file_stream!(unzip, communs_file)
+```
+
+```elixir
+file_content = Enum.into(stream, <<>>, &IO.iodata_to_binary/1)
+file_content = String.replace(file_content, "é", "e")
+file_content = String.replace(file_content, "è", "e")
+file_content = String.replace(file_content, "ê", "e")
+file_content = String.replace(file_content, "É", "E")
+file_content = String.replace(file_content, "ô", "o")
+```
+
+```elixir
+file_content
+|> String.split("\n")
+|> Enum.at(1787)
+|> Kino.render()
+
+XmlQuery.find!(file_content, "//Network")
+```
