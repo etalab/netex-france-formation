@@ -1,0 +1,52 @@
+# Synthèse d'un fichier NeTEx
+
+```elixir
+Mix.install([
+  {:unzip, "~> 0.12.0"},
+  {:kino, "~> 0.14.0"}
+])
+
+Code.require_file(__DIR__ <> "/lib/zip_support.ex")
+Code.require_file(__DIR__ <> "/lib/xml_support.ex")
+Code.require_file(__DIR__ <> "/lib/helpers.ex")
+
+:ok
+```
+
+## Lister les entités dans un fichier NeTEx
+
+Lorsqu'on explore une archive NeTEx donnée (et les XML qui sont à l'intérieur) , il est intéressant de faire un petit résumé des entités contenues.
+
+Ce LiveBook montre comment faire ça (pour l'instant sur les fichiers de la ville de Rochefort - ce Livebook sera "généralisé" pour permettre cela sur une URL arbitraire).
+
+```elixir
+import Helpers
+import ZipSupport
+import XmlSupport
+
+path = __DIR__ <> "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip"
+zip = open_zip!(path)
+
+zip
+|> list_zip_entries()
+|> Enum.reject(&String.ends_with?(&1, "/"))
+|> Enum.each(fn entry ->
+  Kino.render(Kino.Markdown.new("#### #{entry}"))
+
+  zip
+  |> read_entry!(entry)
+  |> string_to_xmerl!()
+  |> xpath!("//GeneralFrame")
+  |> Enum.each(fn general_frame ->
+    
+    summary = general_frame
+    |> xpath!("members/*")
+    |> count_xmerl_elements!()
+    |> Enum.map(fn({type, count}) -> %{"type" => type |> to_string(), "count" => count} end)
+
+    Kino.render(Kino.DataTable.new(summary, name: "GeneralFrame", num_rows: 9999, keys: ["type", "count"]))
+  end)
+end)
+
+
+```
