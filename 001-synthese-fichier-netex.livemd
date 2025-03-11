@@ -50,3 +50,9 @@ end)
 
 
 ```
+
+## Points intéressants à améliorer
+
+* [ ] Permettre d'analyser un fichier NeTEx arbitraire
+* [ ] Adapter le code (souplesse sur la structure des frames ?) si nécessaire
+* [ ] À terme, expliquer, via un "hover" ou un lien cliquable, chaque concept (lien vers NeTEx, résumé depuis le XSD, lien Transmodel...)
