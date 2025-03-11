@@ -28,15 +28,15 @@ ligne_b_entry = ZipSupport.list_zip_entries(zip)
 ````elixir
 content = ZipSupport.read_entry!(zip, ligne_b_entry) |> XmlSupport.string_to_xmerl!()
 
-defmodule Ok do
-def xmerl_to_string(xmerl_structure) do
-  xmerl_structure
-  |> :xmerl.export_simple(:xmerl_xml)
-  |> IO.iodata_to_binary()
-end
+defmodule PosList do
+  def extract_pos_list(string) do
+    string
+    |> Enum.split(~r/\s+/)
+  end  
 end
 
 routelink = content |> XmlSupport.xpath!("//RouteLink") |> List.first()
+
 xml_string = [routelink]
 |> :xmerl.export_simple(:xmerl_xml) 
 |> IO.iodata_to_binary()
@@ -44,11 +44,27 @@ xml_string = [routelink]
 |> String.replace(~r/<\?xml.*\?>/, "")
 
 Kino.Markdown.new("```xml\n#{xml_string}\n```")
+|> Kino.render()
 
+{:xmlObj, :string, data} = :xmerl_xpath.string(~c"string(gis:LineString/gis:posList/text())", routelink)
+
+lat_lon = data
+|> :erlang.list_to_binary()
+|> String.split(~r/\s/)
+|> Enum.map(&String.to_float(&1))
+|> Enum.chunk_every(2)
+|> Enum.map(fn([lat, lon]) -> %{"lat" => lat, "lon" => lon} end)
 ````
 
-<!-- livebook:{"attrs":"eyJjZW50ZXIiOm51bGwsImxheWVycyI6W3siYWN0aXZlIjp0cnVlLCJjbHVzdGVyX2NvbG9ycyI6WyIjNTFiYmQ2IiwiI2YxZjA3NSIsIiNmMjhjYjEiXSwiY2x1c3Rlcl9tYXgiOjc1MCwiY2x1c3Rlcl9taW4iOjEwMCwiY29vcmRpbmF0ZXNfZm9ybWF0IjoibG5nX2xhdCIsImxheWVyX2NvbG9yIjoiIzAwMDAwMCIsImxheWVyX29wYWNpdHkiOjEsImxheWVyX3JhZGl1cyI6NSwibGF5ZXJfc291cmNlIjoi8J+MjiBHZW9jb2RpbmciLCJsYXllcl9zb3VyY2VfcXVlcnkiOm51bGwsImxheWVyX3NvdXJjZV9xdWVyeV9zdHJpY3QiOm51bGwsImxheWVyX3R5cGUiOiJjaXJjbGUiLCJzb3VyY2VfY29vcmRpbmF0ZXMiOm51bGwsInNvdXJjZV9sYXRpdHVkZSI6bnVsbCwic291cmNlX2xvbmdpdHVkZSI6bnVsbCwic291cmNlX3R5cGUiOiJxdWVyeSJ9XSwibWFwdGlsZXJfa2V5IjpudWxsLCJtYXB0aWxlcl9rZXlfc2VjcmV0IjpudWxsLCJtbF9hbGlhcyI6IkVsaXhpci5NYXBMaWJyZSIsInN0eWxlIjoiZGVmYXVsdCIsInVzZV9tYXB0aWxlcl9rZXlfc2VjcmV0Ijp0cnVlLCJ6b29tIjowfQ","chunks":null,"kind":"Elixir.KinoMapLibre.MapCell","livebook_object":"smart_cell"} -->
+<!-- livebook:{"attrs":"eyJjZW50ZXIiOiItMC45NTEwMjUwMDkxNTUyNzM0LCA0NS45MjYxNzQxNjM4MTgzIiwibGF5ZXJzIjpbeyJhY3RpdmUiOnRydWUsImNsdXN0ZXJfY29sb3JzIjpbIiM1MWJiZDYiLCIjZjFmMDc1IiwiI2YyOGNiMSJdLCJjbHVzdGVyX21heCI6NzUwLCJjbHVzdGVyX21pbiI6MTAwLCJjb29yZGluYXRlc19mb3JtYXQiOiJjb2x1bW5zIiwibGF5ZXJfY29sb3IiOiIjZTYzYjdhIiwibGF5ZXJfb3BhY2l0eSI6MC42LCJsYXllcl9yYWRpdXMiOjksImxheWVyX3NvdXJjZSI6ImxhdF9sb24iLCJsYXllcl9zb3VyY2VfcXVlcnkiOm51bGwsImxheWVyX3NvdXJjZV9xdWVyeV9zdHJpY3QiOm51bGwsImxheWVyX3R5cGUiOiJjaXJjbGUiLCJzb3VyY2VfY29vcmRpbmF0ZXMiOm51bGwsInNvdXJjZV9sYXRpdHVkZSI6ImxhdCIsInNvdXJjZV9sb25naXR1ZGUiOiJsb24iLCJzb3VyY2VfdHlwZSI6InRhYmxlIn1dLCJtYXB0aWxlcl9rZXkiOm51bGwsIm1hcHRpbGVyX2tleV9zZWNyZXQiOm51bGwsIm1sX2FsaWFzIjoiRWxpeGlyLk1hcExpYnJlIiwic3R5bGUiOiJzdHJlZXQgKG5vbi1jb21tZXJjaWFsKSIsInVzZV9tYXB0aWxlcl9rZXlfc2VjcmV0Ijp0cnVlLCJ6b29tIjoxNH0","chunks":null,"kind":"Elixir.KinoMapLibre.MapCell","livebook_object":"smart_cell"} -->
 
 ```elixir
-MapLibre.new()
+MapLibre.new(style: :street, center: {-0.9510250091552734, 45.9261741638183}, zoom: 14)
+|> MapLibre.add_table_source("lat_lon", lat_lon, {:lng_lat, ["lon", "lat"]})
+|> MapLibre.add_layer(
+  id: "lat_lon_circle_1",
+  source: "lat_lon",
+  type: :circle,
+  paint: [circle_color: "#e63b7a", circle_radius: 9, circle_opacity: 0.6]
+)
 ```
