@@ -19,21 +19,21 @@ defmodule TestCase do
 
   test "it dumps all" do
     zip = open_zip!(@input)
-    entries = zip |> list_zip_entries()
 
-    entries
+    zip
+    |> list_zip_entries()
     |> Enum.reject(&String.ends_with?(&1, "/"))
     |> Enum.each(fn entry ->
       IO.puts("== #{entry} ==")
 
-      content = read_entry!(zip, entry)
-      xmerl = string_to_xmerl!(content)
-
-      general_frames = xpath!(xmerl, "//GeneralFrame")
-
-      general_frames
+      zip
+      |> read_entry!(entry)
+      |> string_to_xmerl!()
+      |> xpath!("//GeneralFrame")
       |> Enum.each(fn general_frame ->
-        count_xmerl_elements!(general_frame, "members/*")
+        general_frame
+        |> xpath!("members/*")
+        |> count_xmerl_elements!()
         |> IO.inspect(IEx.inspect_opts())
       end)
     end)
