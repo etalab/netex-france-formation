@@ -16,12 +16,11 @@ defmodule XmlSupport do
   end
 
   @doc """
-  Given a raw `xmerl` structure and a XPath query, list the elements
+  Given a raw `xmerl` structure, list the elements
   appearing together with their counts. Order is preserved.
   """
-  def count_xmerl_elements!(xmerl, xpath) do
+  def count_xmerl_elements!(xmerl) do
     xmerl
-    |> xpath!(xpath)
     |> Enum.map(&elem(&1, 2))
     |> Enum.chunk_by(& &1)
     |> Enum.map(fn chunk -> {hd(chunk), length(chunk)} end)
