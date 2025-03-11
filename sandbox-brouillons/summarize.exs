@@ -4,14 +4,14 @@ Mix.install([
 
 ExUnit.start()
 
-Code.require_file("lib/zip_support.ex")
-Code.require_file("lib/xml_support.ex")
-Code.require_file("lib/helpers.ex")
+Code.require_file("../lib/zip_support.ex")
+Code.require_file("../lib/xml_support.ex")
+Code.require_file("../lib/helpers.ex")
 
 defmodule TestCase do
   use ExUnit.Case
 
-  @input __DIR__ <> "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip"
+  @input __DIR__ <> "/../data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip"
 
   import Helpers
   import ZipSupport

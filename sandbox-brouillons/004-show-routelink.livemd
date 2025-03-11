@@ -28,13 +28,6 @@ ligne_b_entry = ZipSupport.list_zip_entries(zip)
 ````elixir
 content = ZipSupport.read_entry!(zip, ligne_b_entry) |> XmlSupport.string_to_xmerl!()
 
-defmodule PosList do
-  def extract_pos_list(string) do
-    string
-    |> Enum.split(~r/\s+/)
-  end  
-end
-
 routelink = content |> XmlSupport.xpath!("//RouteLink") |> List.first()
 
 xml_string = [routelink]
@@ -47,7 +40,9 @@ Kino.Markdown.new("```xml\n#{xml_string}\n```")
 ````
 
 ```elixir
-{:xmlObj, :string, data} = :xmerl_xpath.string(~c"string(gis:LineString/gis:posList/text())", routelink)
+{:xmlObj, :string, data} = :xmerl_xpath.string(
+  ~c"string(gis:LineString/gis:posList/text())", 
+  routelink)
 
 coordinates = data
 |> :erlang.list_to_binary()
