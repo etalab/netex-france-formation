@@ -1,0 +1,54 @@
+# Afficher des routelinks
+
+```elixir
+Mix.install([
+  {:kino_maplibre, "~> 0.1.12"},
+  {:unzip, "~> 0.12.0"}
+])
+
+Code.require_file(__DIR__ <> "/lib/zip_support.ex")
+Code.require_file(__DIR__ <> "/lib/xml_support.ex")
+Code.require_file(__DIR__ <> "/lib/helpers.ex")
+:ok
+```
+
+## Section
+
+```elixir
+zip_file = __DIR__ <> "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip"
+
+zip = ZipSupport.open_zip!(zip_file)
+
+ligne_b_entry = ZipSupport.list_zip_entries(zip)
+  |> Enum.filter(& &1 =~ ~r/RBUS_B_B/)
+  |> Helpers.one!()
+
+```
+
+````elixir
+content = ZipSupport.read_entry!(zip, ligne_b_entry) |> XmlSupport.string_to_xmerl!()
+
+defmodule Ok do
+def xmerl_to_string(xmerl_structure) do
+  xmerl_structure
+  |> :xmerl.export_simple(:xmerl_xml)
+  |> IO.iodata_to_binary()
+end
+end
+
+routelink = content |> XmlSupport.xpath!("//RouteLink") |> List.first()
+xml_string = [routelink]
+|> :xmerl.export_simple(:xmerl_xml) 
+|> IO.iodata_to_binary()
+|> String.replace("            ", "")
+|> String.replace(~r/<\?xml.*\?>/, "")
+
+Kino.Markdown.new("```xml\n#{xml_string}\n```")
+
+````
+
+<!-- livebook:{"attrs":"eyJjZW50ZXIiOm51bGwsImxheWVycyI6W3siYWN0aXZlIjp0cnVlLCJjbHVzdGVyX2NvbG9ycyI6WyIjNTFiYmQ2IiwiI2YxZjA3NSIsIiNmMjhjYjEiXSwiY2x1c3Rlcl9tYXgiOjc1MCwiY2x1c3Rlcl9taW4iOjEwMCwiY29vcmRpbmF0ZXNfZm9ybWF0IjoibG5nX2xhdCIsImxheWVyX2NvbG9yIjoiIzAwMDAwMCIsImxheWVyX29wYWNpdHkiOjEsImxheWVyX3JhZGl1cyI6NSwibGF5ZXJfc291cmNlIjoi8J+MjiBHZW9jb2RpbmciLCJsYXllcl9zb3VyY2VfcXVlcnkiOm51bGwsImxheWVyX3NvdXJjZV9xdWVyeV9zdHJpY3QiOm51bGwsImxheWVyX3R5cGUiOiJjaXJjbGUiLCJzb3VyY2VfY29vcmRpbmF0ZXMiOm51bGwsInNvdXJjZV9sYXRpdHVkZSI6bnVsbCwic291cmNlX2xvbmdpdHVkZSI6bnVsbCwic291cmNlX3R5cGUiOiJxdWVyeSJ9XSwibWFwdGlsZXJfa2V5IjpudWxsLCJtYXB0aWxlcl9rZXlfc2VjcmV0IjpudWxsLCJtbF9hbGlhcyI6IkVsaXhpci5NYXBMaWJyZSIsInN0eWxlIjoiZGVmYXVsdCIsInVzZV9tYXB0aWxlcl9rZXlfc2VjcmV0Ijp0cnVlLCJ6b29tIjowfQ","chunks":null,"kind":"Elixir.KinoMapLibre.MapCell","livebook_object":"smart_cell"} -->
+
+```elixir
+MapLibre.new()
+```
