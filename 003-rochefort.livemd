@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
 
 # Présentation Lignes et Horaires - Rochefort
 
@@ -305,3 +305,219 @@ Kino.Layout.tabs([
 ````
 
 ![](files/ligne_B_global.jpg)
+
+## Description d'une ligne
+
+![](files/liste_fichiers_netex_ligneB.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne : on définit la topologie de la ligne ainsi que ses horaires
+
+````elixir
+line_complete = Kino.Markdown.new("""
+```xml
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gis="http://www.opengis.net/gml/3.2" xmlns:siri="http://www.siri.org.uk/siri" version="1.1:FR-NETEX_RESEAU-2.2">
+  <PublicationTimestamp>2025-02-10T00:07:07Z</PublicationTimestamp>
+  <ParticipantRef>CA_ROCHEFORT_OCEAN</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame version="any" id="CA_ROCHEFORT_OCEAN:CompositeFrame:NETEX_RESEAUX-LOC">
+      <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
+      <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAUX:">version="1.1:FR-NETEX_RESEAUX-2.2"</TypeOfFrameRef>
+      <frames>
+        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>
+          <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>
+```
+""")
+
+line_topo = Kino.Markdown.new("""
+```xml
+<!--<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gis="http://www.opengis.net/gml/3.2" xmlns:siri="http://www.siri.org.uk/siri" version="1.1:FR-NETEX_RESEAU-2.2">
+  <PublicationTimestamp>2025-02-10T00:07:07Z</PublicationTimestamp>
+  <ParticipantRef>CA_ROCHEFORT_OCEAN</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame version="any" id="CA_ROCHEFORT_OCEAN:CompositeFrame:NETEX_RESEAUX-LOC">
+      <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
+      <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAUX:">version="1.1:FR-NETEX_RESEAUX-2.2"</TypeOfFrameRef>
+      <frames>-->
+        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>
+        <!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>-->
+```
+""")
+
+line_horaires = Kino.Markdown.new("""
+```xml
+<!--<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gis="http://www.opengis.net/gml/3.2" xmlns:siri="http://www.siri.org.uk/siri" version="1.1:FR-NETEX_RESEAU-2.2">
+  <PublicationTimestamp>2025-02-10T00:07:07Z</PublicationTimestamp>
+  <ParticipantRef>CA_ROCHEFORT_OCEAN</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame version="any" id="CA_ROCHEFORT_OCEAN:CompositeFrame:NETEX_RESEAUX-LOC">
+      <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
+      <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAUX:">version="1.1:FR-NETEX_RESEAUX-2.2"</TypeOfFrameRef>
+      <frames>
+        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>-->
+        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>
+      <!--</frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>-->
+```
+""")
+
+Kino.Layout.tabs([
+  Line: line_complete,
+  "Topologie de la ligne": line_topo,
+  "Horaires de la ligne": line_horaires
+])
+````
+
+### Fichier d'une ligne > LIGNE : topologie de la ligne
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
+
+**_Rappel définition_** : Une **Route** (itinéraire) est une séquence ordonnée de **RoutePoints** connectés par des **RouteLinks**, qui définit le chemin suivi par une ligne de transport public dans une direction donnée.
+Une **Route** appartient à une **Line** (Ligne), qui regroupe plusieurs itinéraires pouvant être dans des directions différentes.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets_Route.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...-->
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>Parc des Fourriers -> Hôpital</Name>
+        <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+        <DirectionType>inbound</DirectionType>
+        <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+       </Route>
+      <!--<Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne > LIGNE > Direction : on définit les directions possibles de nos Routes
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...-->
+      <!--<Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>Parc des Fourriers -> Hôpital</Name>
+        <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+        <DirectionType>inbound</DirectionType>-->
+        <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+      <!--</Route>-->
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>Hôpital</Name>
+      </Direction>
+      ...
+      <!--<ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne > LIGNE > RouteLink : on définit les segments d'itinéraires
+
+**_Rappel définition_** : Un **RouteLink** est un lien entre deux **RoutePoints** (points d'un itinéraire). Il constitue un segment élémentaire d'un **Route** (itinéraire) et permet de modéliser la continuité des trajets dans le réseau.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets_RouteLink.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>-->
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+        <Distance>913.5795215028178</Distance>
+        <gis:LineString srsName="4326" srsDimension="2" gis:id="LS99170">
+           <gis:posList count="36" srsDimension="2">45.92617416381836 -0.9510250091552734 45.926109313964844 -0.950980007648468 45.925838470458984 -0.9517800211906433 45.92591094970703 -0.9518700242042542 45.927120208740234 -0.9529399871826172 45.92715835571289 -0.9530400037765503 45.92716979980469 -0.9531800150871277 45.927101135253906 -0.9539200067520142 45.92639923095703 -0.9538800120353699 45.926231384277344 -0.9538999795913696 45.926109313964844 -0.9539700150489807 45.926021575927734 -0.9540600180625916 45.9258918762207 -0.9542499780654907 45.925228118896484 -0.9562399983406067 45.92522048950195 -0.9563300013542175 45.925228118896484 -0.9566100239753723 45.92530059814453 -0.9573000073432922 45.925331115722656 -0.9572910070419312</gis:posList>
+        </gis:LineString>
+        <FromPointRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ScheduledStopPointRefStructure" ref="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
+        <ToPointRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ScheduledStopPointRefStructure" ref="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC" version="any"/>
+      </RouteLink>
+      ...
+      <!--<Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
