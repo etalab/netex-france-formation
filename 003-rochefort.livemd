@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
 
 # Présentation Lignes et Horaires - Rochefort
 
@@ -26,28 +26,19 @@ NeTEx permet de définir l’ensemble des **lignes** du réseau ainsi que les **
 
 <!-- livebook:{"break_markdown":true} -->
 
-```xml
-<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
-  <Name>R'bus (Rochefort Océan)</Name>
-  <members>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>
-  </members>
-  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
-</Network>
-```
+Liste des fichiers NETEX
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/liste_fichiers_netex.jpg)
+
+## Description générale du réseau
+
+![](files/liste_fichiers_netex_common.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier "commun" > Network : on définit la liste de lignes
 
 ````elixir
 toto = Kino.Markdown.new("""
@@ -80,32 +71,61 @@ toto2 = Kino.Markdown.new("""
 ```xml
 <!--<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
   <Name>R'bus (Rochefort Océan)</Name>
-  <members>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>-->
+  <members>-->
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>-->
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>-->
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>-->
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>-->
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>-->
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>-->
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>-->
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>-->
+  <!--</members>
+  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
+</Network>-->
+```
+
+""")
+image1 = File.read!(__DIR__ <> "/files/planReaseauRBus_lignes_regulieres.jpg")
+image1 = Kino.Image.new(image1, "image/jpeg")
+
+toto3 = Kino.Markdown.new("""
+```xml
+<!--<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
+  <Name>R'bus (Rochefort Océan)</Name>
+  <members>-->
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>-->
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
+<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>-->
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>
     <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>
-  </members>
+  <!--</members>
   <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
-</Network>
+</Network>-->
 ```
 
 """)
-image = File.read!(__DIR__ <> "/files/planReaseauRBus_lignes_regulieres.jpg")
-image = Kino.Image.new(image, "image/jpeg")
+image2 = File.read!(__DIR__ <> "/files/planReaseauRBus_lignesScolaires.jpg")
+image2 = Kino.Image.new(image2, "image/jpeg")
 
 Kino.Layout.tabs([
-  T001: toto,
-  T002: Kino.Layout.grid([toto2, image], columns: {2, 1})
+  Network: toto,
+  Lignes_régulières: Kino.Layout.grid([toto2, image1], columns: {2, 1}),
+  Lignes_scolaires_et_RPI: Kino.Layout.grid([toto3, image2], columns: {2, 1})
 ])
 ````
