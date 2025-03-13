@@ -46,24 +46,30 @@ Liste des fichiers NETEX
 
 ### Fichier "commun" > Network : on définit la liste de lignes
 
-````elixir
-toto = Kino.Markdown.new("```xml\n" <> File.read!(__DIR__ <> "/lib-rochefort/001-network.xml") <> "\n```")
-toto2 = Kino.Markdown.new("```xml\n" <> File.read!(__DIR__ <> "/lib-rochefort/001-network-highlight-regular.xml") <> "\n```")
+```elixir
+Code.compile_file("lib/kino_tooling.ex", __DIR__)
+:ok
+```
 
-image1 = File.read!(__DIR__ <> "/files/planReaseauRBus_lignes_regulieres.jpg")
-image1 = Kino.Image.new(image1, "image/jpeg")
+<!-- livebook:{"output":true} -->
 
-toto3 = Kino.Markdown.new("```xml\n" <> File.read!(__DIR__ <> "/lib-rochefort/001-network-highlight-school.xml") <> "\n```")
+```
+:ok
+```
 
-image2 = File.read!(__DIR__ <> "/files/planReaseauRBus_lignesScolaires.jpg")
-image2 = Kino.Image.new(image2, "image/jpeg")
+```elixir
+xml_1 = "lib-rochefort/001-network.xml" |> Tooling.file() |> Tooling.xml()
+xml_2 = "lib-rochefort/001-network-highlight-regular.xml" |> Tooling.file() |> Tooling.xml()
+image_1 = "files/planReaseauRBus_lignes_regulieres.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
+xml_3 = "lib-rochefort/001-network-highlight-school.xml" |> Tooling.file() |> Tooling.xml()
+image_2 = "files/planReaseauRBus_lignesScolaires.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
 
 Kino.Layout.tabs([
-  Network: toto,
-  "Lignes régulières": Kino.Layout.grid([toto2, image1], columns: {2, 1}),
-  "Lignes scolaires et RPI": Kino.Layout.grid([toto3, image2], columns: {2, 1})
+  Network: xml_1,
+  "Lignes régulières": Kino.Layout.grid([xml_2, image_1], columns: {2, 1}),
+  "Lignes scolaires et RPI": Kino.Layout.grid([xml_3, image_2], columns: {2, 1})
 ])
-````
+```
 
 ### Fichier "commun" > Line : pour chaque ligne, on définit des informations générales
 
