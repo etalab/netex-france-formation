@@ -1,17 +1,111 @@
-<!-- livebook:{"file_entries":[{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
 
 # Présentation Lignes et Horaires - Rochefort
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.15.3"}
+])
+```
 
 ## Partir du réel - L'offre de Rochefort
 
 ![](files/rochefort_offre_brochure.jpg)
 
-```elixir
-1+2
+<!-- livebook:{"break_markdown":true} -->
+
+NeTEx permet de définir l’ensemble des **lignes** du réseau ainsi que les **horaires** de passage théoriques
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/planReaseauRBus_lignes_regulieres.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
+  <Name>R'bus (Rochefort Océan)</Name>
+  <members>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>
+  </members>
+  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
+</Network>
 ```
 
-<!-- livebook:{"output":true} -->
+````elixir
+toto = Kino.Markdown.new("""
+```xml
+<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
+  <Name>R'bus (Rochefort Océan)</Name>
+  <members>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>
+  </members>
+  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
+</Network>
+```
 
+""")
+
+toto2 = Kino.Markdown.new("""
+```xml
+<!--<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
+  <Name>R'bus (Rochefort Océan)</Name>
+  <members>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>-->
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>-->
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>
+    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>
+  </members>
+  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
+</Network>
 ```
-3
-```
+
+""")
+image = File.read!(__DIR__ <> "/files/planReaseauRBus_lignes_regulieres.jpg")
+image = Kino.Image.new(image, "image/jpeg")
+
+Kino.Layout.tabs([
+  T001: toto,
+  T002: Kino.Layout.grid([toto2, image], columns: {2, 1})
+])
+````
