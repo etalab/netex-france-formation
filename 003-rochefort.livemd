@@ -46,88 +46,15 @@ Liste des fichiers NETEX
 
 ### Fichier "commun" > Network : on définit la liste de lignes
 
-<!-- livebook:{"reevaluate_automatically":true} -->
-
 ````elixir
-toto = Kino.Markdown.new("""
-```xml
-<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
-  <Name>R'bus (Rochefort Océan)</Name>
-  <members>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>
-  </members>
-  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
-</Network>
-```
+toto = Kino.Markdown.new("```xml\n" <> File.read!(__DIR__ <> "/lib-rochefort/001-network.xml") <> "\n```")
+toto2 = Kino.Markdown.new("```xml\n" <> File.read!(__DIR__ <> "/lib-rochefort/001-network-highlight-regular.xml") <> "\n```")
 
-""")
-
-toto2 = Kino.Markdown.new("""
-```xml
-<!--<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
-  <Name>R'bus (Rochefort Océan)</Name>
-  <members>-->
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>-->
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>-->
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>-->
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>-->
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>-->
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>-->
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>-->
-  <!--</members>
-  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
-</Network>-->
-```
-
-""")
 image1 = File.read!(__DIR__ <> "/files/planReaseauRBus_lignes_regulieres.jpg")
 image1 = Kino.Image.new(image1, "image/jpeg")
 
-toto3 = Kino.Markdown.new("""
-```xml
-<!--<Network version="any" id="CA_ROCHEFORT_OCEAN:Network:RBUS:LOC">
-  <Name>R'bus (Rochefort Océan)</Name>
-  <members>-->
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S2:LOC"/>
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:A:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:D:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:J:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:C:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:E:LOC"/>-->
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI3:LOC"/>
-<!--<LineRef ref="CA_ROCHEFORT_OCEAN:Line:F:LOC"/>-->
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI1:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI2:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:RPI4:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S3:LOC"/>
-    <LineRef ref="CA_ROCHEFORT_OCEAN:Line:S1:LOC"/>
-  <!--</members>
-  <AuthorityRef ref="CA_ROCHEFORT_OCEAN:Authority:RBUS:LOC" version="any"/>
-</Network>-->
-```
+toto3 = Kino.Markdown.new("```xml\n" <> File.read!(__DIR__ <> "/lib-rochefort/001-network-highlight-school.xml") <> "\n```")
 
-""")
 image2 = File.read!(__DIR__ <> "/files/planReaseauRBus_lignesScolaires.jpg")
 image2 = Kino.Image.new(image2, "image/jpeg")
 
