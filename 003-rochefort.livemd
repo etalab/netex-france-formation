@@ -22,11 +22,17 @@ NeTEx permet de définir l’ensemble des **lignes** du réseau ainsi que les **
 
 <!-- livebook:{"break_markdown":true} -->
 
+❓supprimer le TAD ci-dessous ? Je crois qu'il n'est pas dans le NeTEx.
+
+<!-- livebook:{"break_markdown":true} -->
+
 ![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
 
 <!-- livebook:{"break_markdown":true} -->
 
 Liste des fichiers NETEX
+
+⚠️ TODO: ajouter texte explication -> lien PAN avec le fichier, le fait que c'est un zip etc
 
 <!-- livebook:{"break_markdown":true} -->
 
