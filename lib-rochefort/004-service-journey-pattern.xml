@@ -1,0 +1,27 @@
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...-->
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>HOPITAL</Name>
+        <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+        <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_F36FA40C125B3C6E9206EB371729B19A-B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
+        <pointsInSequence>
+          <StopPointInJourneyPattern order="1" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="2" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104745ScheduledScheduled:LOC">
+          ...
+        </pointsInSequence>
+        <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+      </ServiceJourneyPattern>
+      ...
+      <!--<ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
