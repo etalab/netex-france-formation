@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligneB_arrets_ServiceJourneyPattern.jpg","type":"attachment"},{"name":"ligneB_fiche_horaire.JPG","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
 
 # Présentation Lignes et Horaires - Rochefort
 
@@ -521,3 +521,287 @@ Une **Route** appartient à une **Line** (Ligne), qui regroupe plusieurs itinér
     </members>
 </GeneralFrame>-->
 ```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt
+
+**_Rappel définition_** : un **ScheduledStopPoint** représente un point d'arrêt programmé, c'est-à-dire un endroit où un véhicule de transport public est censé s'arrêter selon un horaire prévu. C'est un emplacement spécifique sur un itinéraire où les passagers peuvent monter ou descendre d'un véhicule
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...-->
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+        <Location>
+          <Longitude>-0.965409</Longitude>
+          <Latitude>45.958561</Latitude>
+        </Location>
+      </ScheduledStopPoint>
+      ...
+      <!--<PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les modèles de parcours
+
+**_Rappel définition_** : Un **ServiceJourneyPattern** est un schéma type de parcours suivi par un service de transport public en reliant des arrêts spécifiques dans un certain ordre.
+
+Ce sont des “sous-ensembles” de points ordonnés sur une Route.
+Seuls les arrêts réellement desservis (ScheduledStopPoint) sont définis dans l’ordre dans le ServiceJourneyPattern
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets_ServiceJourneyPattern.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...-->
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>HOPITAL</Name>
+        <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+        <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_F36FA40C125B3C6E9206EB371729B19A-B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
+        <pointsInSequence>
+          <StopPointInJourneyPattern order="1" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="2" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104745ScheduledScheduled:LOC">
+          ...
+        </pointsInSequence>
+        <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+      </ServiceJourneyPattern>
+      ...
+      <!--<ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+<p style="text-align: center;">
+=== Fin de la partie : Topologie de la ligne ===
+</p>
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne > HORAIRES : horaires de la ligne
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_fiche_horaire.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_HORAIRE:">version="1.1:FR-NETEX_HORAIRE-2.2"</TypeOfFrameRef>
+    <members>
+        <ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+        ...
+    </members>
+</GeneralFrame>
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
+
+**_Rappel définition_** : Un **ServiceJourney** (course) est un trajet effectif et programmé d’un véhicule de transport public, suivant un itinéraire précis (**Route**) et desservant des arrêts (**ScheduledStopPoints**) selon le modèle de parcours (**ServiceJourneyPattern**) et selon un horaire défini.
+
+````elixir
+service_journey = Kino.Markdown.new("""
+```xml
+<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+  <Name>HOPITAL</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_187883:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_187883:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>
+  <JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+  <passingTimes>
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    ...
+  </passingTimes>
+</ServiceJourney>
+```
+""")
+
+service_journey_patternRef = Kino.Markdown.new("""
+```xml
+<!--<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+  <Name>HOPITAL</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_187883:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_187883:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>-->
+  <JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+  <!--<passingTimes>
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    ...
+  </passingTimes>
+</ServiceJourney>-->
+```
+""")
+
+service_journey_pattern = Kino.Markdown.new("""
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...-->
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>HOPITAL</Name>
+        <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+        <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_F36FA40C125B3C6E9206EB371729B19A-B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
+        <pointsInSequence>
+          <StopPointInJourneyPattern order="1" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="2" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104745ScheduledScheduled:LOC">
+          ...
+        </pointsInSequence>
+        <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+      </ServiceJourneyPattern>
+      ...
+      <!--<ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+""")
+
+
+
+service_journey_passingTimes = Kino.Markdown.new("""
+```xml
+<!--<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+  <Name>HOPITAL</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_187883:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_187883:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>
+  <JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>-->
+  <passingTimes>
+    <TimetabledPassingTime version="any">
+      <ArrivalTime>08:39:00</ArrivalTime>
+      <DepartureTime>08:39:00</DepartureTime>
+    </TimetabledPassingTime>
+    <TimetabledPassingTime version="any">
+      <ArrivalTime>08:41:00</ArrivalTime>
+      <DepartureTime>08:41:00</DepartureTime>
+    </TimetabledPassingTime>
+    <TimetabledPassingTime version="any">
+      <ArrivalTime>08:43:00</ArrivalTime>
+      <DepartureTime>08:43:00</DepartureTime>
+    </TimetabledPassingTime>
+    ...
+  </passingTimes>
+<!--</ServiceJourney>-->
+```
+""")
+
+service_journey_dayTypes = Kino.Markdown.new("""
+```xml
+<!--<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+  <Name>HOPITAL</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_187883:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_187883:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>-->
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>
+  <!--<JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+  <passingTimes>
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    ...
+  </passingTimes>
+</ServiceJourney>-->
+```
+""")
+
+dayTypes_description = Kino.Markdown.new("""
+Les dayTypes permettent de définir sur quels jours types la course est valable
+
+Ici, la fiche horaire indique par exemple : “Toute l’année (sauf jours fériés)” et “Du Lundi au Samedi”
+
+Le fichier xml référence le DayType “S1ETE_LMWJVS”
+Celui-ci est réellement défini dans le fichier “calendrier”
+
+""")
+
+serviceJourneyImg = File.read!(__DIR__ <> "/files/ligneB_fiche_horaire_ServiceJourney - cropped.jpg")
+serviceJourneyImg = Kino.Image.new(serviceJourneyImg, "image/jpeg")
+
+passingTimesImg = File.read!(__DIR__ <> "/files/ligneB_fiche_horaire_ServiceJourney_passingTimes.jpg")
+passingTimesImg = Kino.Image.new(passingTimesImg, "image/jpeg")
+
+dayTypesImg = File.read!(__DIR__ <> "/files/ligneB_fiche_horaire_ServiceJourney_dayTypes.jpg")
+dayTypesImg = Kino.Image.new(dayTypesImg, "image/jpeg")
+
+Kino.Layout.tabs([
+  ServiceJourney: Kino.Layout.grid([service_journey, serviceJourneyImg], columns: 2),
+  JourneyPatternRef: Kino.Layout.grid([service_journey_patternRef, service_journey_pattern], columns: 2),
+  passingTimes: Kino.Layout.grid([service_journey_passingTimes, service_journey_pattern, passingTimesImg], columns: 3),
+  dayTypes: Kino.Layout.grid([service_journey_dayTypes, Kino.Layout.grid([dayTypesImg, dayTypes_description], columns: 2)], columns: 2),
+])
+````
