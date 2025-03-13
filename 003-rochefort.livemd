@@ -802,6 +802,12 @@ Kino.Layout.tabs([
   ServiceJourney: Kino.Layout.grid([service_journey, serviceJourneyImg], columns: 2),
   JourneyPatternRef: Kino.Layout.grid([service_journey_patternRef, service_journey_pattern], columns: 2),
   passingTimes: Kino.Layout.grid([service_journey_passingTimes, service_journey_pattern, passingTimesImg], columns: 3),
-  dayTypes: Kino.Layout.grid([service_journey_dayTypes, Kino.Layout.grid([dayTypesImg, dayTypes_description], columns: 2)], columns: 2),
+  dayTypes: Kino.Layout.grid([service_journey_dayTypes, dayTypesImg, dayTypes_description], columns: 3)
 ])
 ````
+
+### Choses à faire
+
+* Faire le diagramme micro-UML des concepts Transmodel utilisés ici (**Ariane**)
+* Faire la partie sur le Calendar (**Ariane**)
+* Masquer les sections Elixir de code (ou au moins les simplifier) (**Thibaut**)
