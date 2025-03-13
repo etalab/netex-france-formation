@@ -6,6 +6,8 @@
 Mix.install([
   {:kino, "~> 0.15.3"}
 ])
+Code.compile_file("lib/kino_tooling.ex", __DIR__)
+:ok
 ```
 
 ## Partir du réel - L'offre de Rochefort
@@ -45,17 +47,6 @@ Liste des fichiers NETEX
 <!-- livebook:{"break_markdown":true} -->
 
 ### Fichier "commun" > Network : on définit la liste de lignes
-
-```elixir
-Code.compile_file("lib/kino_tooling.ex", __DIR__)
-:ok
-```
-
-<!-- livebook:{"output":true} -->
-
-```
-:ok
-```
 
 ```elixir
 xml_1 = "lib-rochefort/001-network.xml" |> Tooling.file() |> Tooling.xml()
@@ -100,82 +91,17 @@ Kino.Layout.tabs([
 
 ### Fichier d'une ligne : on définit la topologie de la ligne ainsi que ses horaires
 
-````elixir
-line_complete = Kino.Markdown.new("""
-```xml
-<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gis="http://www.opengis.net/gml/3.2" xmlns:siri="http://www.siri.org.uk/siri" version="1.1:FR-NETEX_RESEAU-2.2">
-  <PublicationTimestamp>2025-02-10T00:07:07Z</PublicationTimestamp>
-  <ParticipantRef>CA_ROCHEFORT_OCEAN</ParticipantRef>
-  <dataObjects>
-    <CompositeFrame version="any" id="CA_ROCHEFORT_OCEAN:CompositeFrame:NETEX_RESEAUX-LOC">
-      <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-      <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAUX:">version="1.1:FR-NETEX_RESEAUX-2.2"</TypeOfFrameRef>
-      <frames>
-        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
-          ...
-        </GeneralFrame>
-          <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
-          ...
-        </GeneralFrame>
-      </frames>
-    </CompositeFrame>
-  </dataObjects>
-</PublicationDelivery>
-```
-""")
-
-line_topo = Kino.Markdown.new("""
-```xml
-<!--<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gis="http://www.opengis.net/gml/3.2" xmlns:siri="http://www.siri.org.uk/siri" version="1.1:FR-NETEX_RESEAU-2.2">
-  <PublicationTimestamp>2025-02-10T00:07:07Z</PublicationTimestamp>
-  <ParticipantRef>CA_ROCHEFORT_OCEAN</ParticipantRef>
-  <dataObjects>
-    <CompositeFrame version="any" id="CA_ROCHEFORT_OCEAN:CompositeFrame:NETEX_RESEAUX-LOC">
-      <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-      <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAUX:">version="1.1:FR-NETEX_RESEAUX-2.2"</TypeOfFrameRef>
-      <frames>-->
-        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
-          ...
-        </GeneralFrame>
-        <!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
-          ...
-        </GeneralFrame>
-      </frames>
-    </CompositeFrame>
-  </dataObjects>
-</PublicationDelivery>-->
-```
-""")
-
-line_horaires = Kino.Markdown.new("""
-```xml
-<!--<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gis="http://www.opengis.net/gml/3.2" xmlns:siri="http://www.siri.org.uk/siri" version="1.1:FR-NETEX_RESEAU-2.2">
-  <PublicationTimestamp>2025-02-10T00:07:07Z</PublicationTimestamp>
-  <ParticipantRef>CA_ROCHEFORT_OCEAN</ParticipantRef>
-  <dataObjects>
-    <CompositeFrame version="any" id="CA_ROCHEFORT_OCEAN:CompositeFrame:NETEX_RESEAUX-LOC">
-      <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-      <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAUX:">version="1.1:FR-NETEX_RESEAUX-2.2"</TypeOfFrameRef>
-      <frames>
-        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
-          ...
-        </GeneralFrame>-->
-        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
-          ...
-        </GeneralFrame>
-      <!--</frames>
-    </CompositeFrame>
-  </dataObjects>
-</PublicationDelivery>-->
-```
-""")
+```elixir
+line_complete = "lib-rochefort/003-line-frames.xml" |> Tooling.file() |> Tooling.xml()
+line_topo = "lib-rochefort/003-line-topo.xml" |> Tooling.file() |> Tooling.xml()
+line_horaires = "lib-rochefort/003-line-horaires.xml" |> Tooling.file() |> Tooling.xml()
 
 Kino.Layout.tabs([
   Line: line_complete,
   "Topologie de la ligne": line_topo,
   "Horaires de la ligne": line_horaires
 ])
-````
+```
 
 ### Fichier d'une ligne > LIGNE : topologie de la ligne
 

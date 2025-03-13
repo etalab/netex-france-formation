@@ -1,0 +1,18 @@
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:gis="http://www.opengis.net/gml/3.2" xmlns:siri="http://www.siri.org.uk/siri" version="1.1:FR-NETEX_RESEAU-2.2">
+  <PublicationTimestamp>2025-02-10T00:07:07Z</PublicationTimestamp>
+  <ParticipantRef>CA_ROCHEFORT_OCEAN</ParticipantRef>
+  <dataObjects>
+    <CompositeFrame version="any" id="CA_ROCHEFORT_OCEAN:CompositeFrame:NETEX_RESEAUX-LOC">
+      <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
+      <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAUX:">version="1.1:FR-NETEX_RESEAUX-2.2"</TypeOfFrameRef>
+      <frames>
+        <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>
+          <GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
+          ...
+        </GeneralFrame>
+      </frames>
+    </CompositeFrame>
+  </dataObjects>
+</PublicationDelivery>
