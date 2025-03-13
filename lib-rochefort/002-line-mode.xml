@@ -1,0 +1,26 @@
+<!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:B:LOC">
+  <keyList>
+    <KeyValue>
+      <Key>route_sort_order</Key>
+      <Value>10</Value>
+    </KeyValue>
+  </keyList>
+  <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
+  <ShortName>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</ShortName>-->
+  <TransportMode>bus</TransportMode>
+<!--<PublicCode>B</PublicCode>
+  <PrivateCode>B</PrivateCode>
+  <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>
+  <Presentation>
+    <Colour>ED1E25</Colour>
+    <TextColour>FFFFFF</TextColour>
+  </Presentation>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_B:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_B:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+</Line>-->

@@ -73,166 +73,13 @@ Kino.Layout.tabs([
 
 ### Fichier "commun" > Line : pour chaque ligne, on définit des informations générales
 
-````elixir
-line_complete = Kino.Markdown.new("""
-```xml
-<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:B:LOC">
-  <keyList>
-    <KeyValue>
-      <Key>route_sort_order</Key>
-      <Value>10</Value>
-    </KeyValue>
-  </keyList>
-  <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-  <ShortName>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</ShortName>
-  <TransportMode>bus</TransportMode>
-  <PublicCode>B</PublicCode>
-  <PrivateCode>B</PrivateCode>
-  <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>
-  <Presentation>
-    <Colour>ED1E25</Colour>
-    <TextColour>FFFFFF</TextColour>
-  </Presentation>
-  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_B:LOC">
-    <MobilityImpairedAccess>true</MobilityImpairedAccess>
-    <limitations>
-      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_B:LOC">
-        <WheelchairAccess>true</WheelchairAccess>
-      </AccessibilityLimitation>
-    </limitations>
-  </AccessibilityAssessment>
-</Line>
-```
-
-""")
-
-line_name = Kino.Markdown.new("""
-```xml
-<!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:B:LOC">
-   <keyList>
-     <KeyValue>
-       <Key>route_sort_order</Key>
-       <Value>10</Value>
-     </KeyValue>
-   </keyList>-->
-   <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-<!--<ShortName>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</ShortName>
-   <TransportMode>bus</TransportMode>
-   <PublicCode>B</PublicCode>
-   <PrivateCode>B</PrivateCode>
-   <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>
-   <Presentation>
-     <Colour>ED1E25</Colour>
-     <TextColour>FFFFFF</TextColour>
-   </Presentation>
-   <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_B:LOC">
-     <MobilityImpairedAccess>true</MobilityImpairedAccess>
-     <limitations>
-       <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_B:LOC">
-         <WheelchairAccess>true</WheelchairAccess>
-       </AccessibilityLimitation>
-     </limitations>
-   </AccessibilityAssessment>
-</Line>-->
-```
-
-""")
-
-line_mode = Kino.Markdown.new("""
-```xml
-<!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:B:LOC">
-  <keyList>
-    <KeyValue>
-      <Key>route_sort_order</Key>
-      <Value>10</Value>
-    </KeyValue>
-  </keyList>
-  <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-  <ShortName>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</ShortName>-->
-  <TransportMode>bus</TransportMode>
-<!--<PublicCode>B</PublicCode>
-  <PrivateCode>B</PrivateCode>
-  <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>
-  <Presentation>
-    <Colour>ED1E25</Colour>
-    <TextColour>FFFFFF</TextColour>
-  </Presentation>
-  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_B:LOC">
-    <MobilityImpairedAccess>true</MobilityImpairedAccess>
-    <limitations>
-      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_B:LOC">
-        <WheelchairAccess>true</WheelchairAccess>
-      </AccessibilityLimitation>
-    </limitations>
-  </AccessibilityAssessment>
-</Line>-->
-```
-""")
-
-line_code = Kino.Markdown.new("""
-```xml
-<!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:B:LOC">
-  <keyList>
-    <KeyValue>
-      <Key>route_sort_order</Key>
-      <Value>10</Value>
-    </KeyValue>
-  </keyList>
-  <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-  <ShortName>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</ShortName>
-  <TransportMode>bus</TransportMode>-->
-  <PublicCode>B</PublicCode>
-  <!--<PrivateCode>B</PrivateCode>
-  <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>
-  <Presentation>
-    <Colour>ED1E25</Colour>
-    <TextColour>FFFFFF</TextColour>
-  </Presentation>
-  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_B:LOC">
-    <MobilityImpairedAccess>true</MobilityImpairedAccess>
-    <limitations>
-      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_B:LOC">
-        <WheelchairAccess>true</WheelchairAccess>
-      </AccessibilityLimitation>
-    </limitations>
-  </AccessibilityAssessment>
-</Line>-->
-```
-""")
-
-line_logo = Kino.Markdown.new("""
-```xml
-<!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:B:LOC">
-  <keyList>
-    <KeyValue>
-      <Key>route_sort_order</Key>
-      <Value>10</Value>
-    </KeyValue>
-  </keyList>
-  <Name>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</Name>
-  <ShortName>Rochefort Parc de Fourriers / Rochefort Hôpital / Breuil-Magné La Croix</ShortName>
-  <TransportMode>bus</TransportMode>
-  <PublicCode>B</PublicCode>
-  <PrivateCode>B</PrivateCode>
-  <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>-->
-  <Presentation>
-    <Colour>ED1E25</Colour>
-    <TextColour>FFFFFF</TextColour>
-  </Presentation>
-  <!--<AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_B:LOC">
-    <MobilityImpairedAccess>true</MobilityImpairedAccess>
-    <limitations>
-      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_B:LOC">
-        <WheelchairAccess>true</WheelchairAccess>
-      </AccessibilityLimitation>
-    </limitations>
-  </AccessibilityAssessment>
-</Line>-->
-```
-""")
-
-logo_ligne = File.read!(__DIR__ <> "/files/logo_ligne_B.jpg")
-logo_ligne = Kino.Image.new(logo_ligne, "image/jpeg")
+```elixir
+line_complete = "lib-rochefort/002-line.xml" |> Tooling.file() |> Tooling.xml()
+line_name = "lib-rochefort/002-line-name.xml" |> Tooling.file() |> Tooling.xml()
+line_mode = "lib-rochefort/002-line-mode.xml" |> Tooling.file() |> Tooling.xml()
+line_code = "lib-rochefort/002-line-code.xml" |> Tooling.file() |> Tooling.xml()
+line_logo = "lib-rochefort/002-line-logo.xml" |> Tooling.file() |> Tooling.xml()
+logo_ligne = "files/logo_ligne_B.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
 
 Kino.Layout.tabs([
   Line: line_complete,
@@ -241,7 +88,7 @@ Kino.Layout.tabs([
   "Code de la ligne": line_code,
   "Badge de ligne": Kino.Layout.grid([line_logo, logo_ligne], columns: {6, 1})
 ])
-````
+```
 
 ![](files/ligne_B_global.jpg)
 
