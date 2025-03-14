@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligneB_arrets_ServiceJourneyPattern.jpg","type":"attachment"},{"name":"ligneB_fiche_horaire.JPG","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink_map.jpg","type":"attachment"},{"name":"ligneB_arrets_ServiceJourneyPattern.jpg","type":"attachment"},{"name":"ligneB_fiche_horaire.JPG","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
 
 # Présentation Lignes et Horaires - Rochefort
 
@@ -8,6 +8,23 @@ Mix.install([
 ])
 Code.compile_file("lib/kino_tooling.ex", __DIR__)
 :ok
+```
+
+## Rappel des concepts Transmodel - Ligne
+
+<!-- Learn more at https://mermaid-js.github.io/mermaid -->
+
+```mermaid
+graph TD;
+  Line-->Route;
+  Route-->RouteLink
+  Route-->JourneyPattern;
+  Route-->ScheduledStopPoint;
+  JourneyPattern-->ScheduledStopPoint;
+  JourneyPattern-->VehicleJourney;
+  VehicleJourney-->DatedVehicleJourney
+  VehicleJourney-->DayType;
+  DatedVehicleJourney-->OperatingDay
 ```
 
 ## Partir du réel - L'offre de Rochefort
@@ -204,7 +221,7 @@ Une **Route** appartient à une **Line** (Ligne), qui regroupe plusieurs itinér
 
 <!-- livebook:{"break_markdown":true} -->
 
-![](files/ligneB_arrets_RouteLink.jpg)
+![](files/ligneB_arrets_RouteLink_map.jpg)
 
 <!-- livebook:{"break_markdown":true} -->
 
