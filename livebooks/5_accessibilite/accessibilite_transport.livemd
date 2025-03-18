@@ -1,0 +1,179 @@
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_article_loi.png","type":"attachment"},{"name":"transport_doc_profil_1.png","type":"attachment"},{"name":"transport_doc_profil_2.png","type":"attachment"},{"name":"transport_example_01.png","type":"attachment"},{"name":"transport_example_02.png","type":"attachment"},{"name":"transport_example_03.png","type":"attachment"},{"name":"transport_example_04.png","type":"attachment"},{"name":"transport_example_05.png","type":"attachment"},{"name":"transport_example_06.png","type":"attachment"},{"name":"transport_example_07.png","type":"attachment"},{"name":"transport_example_08.png","type":"attachment"},{"name":"transport_exemple_implantation_quai.png","type":"attachment"},{"name":"transport_lisibilite_info_voy.png","type":"attachment"}]} -->
+
+# Accessibilité - transport
+
+## Précédemment ...
+
+Nous avons déjà vu de l'accessibilité dans des fichiers NeTEx aujourd'hui. Par exemple :
+
+```xml
+<Quay id="Yukaimaps:Quay:n-25372:LOC" version="any">
+  <!--<Name>Le Clos Saint-Marc</Name>-->
+  <!--<Centroid> (...)  </Centroid>-->
+  <AccessibilityAssessment id="Yukaimaps:AccessibilityAssessment:0:" version="any">
+    <MobilityImpairedAccess>false</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation>
+        <WheelchairAccess>false</WheelchairAccess>
+        <AudibleSignalsAvailable>unknown</AudibleSignalsAvailable>
+        <VisualSignsAvailable>true</VisualSignsAvailable>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <!--  (...)-->
+  <!--<TransportMode>bus</TransportMode>-->
+</Quay>
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+Essayons de comprendre, à l'aide de la documentation du profil NeTEx accessibilité France :
+
+https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#éléments-daccessibilité-de-base-partagés-par-tous-les-profils
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>[en autonomie]</summary>
+  <div class="p-4">
+
+![extrait du profil](files/transport_doc_profil_1.png)
+     (...) 
+![extrait du profil](files/transport_doc_profil_2.png)
+
+À retenir : 
+
+* les évaluations d'accessibilité (AccessibilityAssessment dans le fichier) sont des attributs génériques qu'on peut retrouver sur différents objets (arrêts de bus, gare, ligne, point d'intérêt)
+* ils peuvent valoir true (oui), false (non), partial (partiel) ou unknown (inconnu)
+* des textes de loi permettent en général de connaitre les conditions à respecter pour mettre `true`
+* si on met `partial`, on doit mettre une information complémentaire pour détailler. Cette info est susceptible d'être présentée au public
+    
+  </div>
+</details>
+
+## Exercice pratique
+
+Sur la base des photos d'arrêts suivantes, que mettriez-vous comme valeur
+
+* pour WheelchairAccess ?
+* pour VisualSignsAvailable ?
+* pour AudibleSignalsAvailable ?
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 1 : 
+![arrêt de bus exemple](files/transport_example_01.png) _© nlehuby (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=meta&map=18.42/48.866629/2.783386&pic=3cdaeae8-ad22-47de-b998-482a6231b591&speed=250&xyz=55.45/-22.01/0)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 2 : 
+![arrêt de bus exemple 2](files/transport_example_02.png) _© nlehuby, Jungle Bus (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=18.82/49.1923101/-0.2645603&pic=f31d59f9-f99d-4a7a-bf39-3bc2c85d0eb2&speed=250&xyz=355.60/-10.70/30)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 3 : 
+![arrêt de bus exemple](files/transport_example_03.png) _© Adrien Pavie pour Jungle Bus (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=meta&map=18.89/49.1352287/-0.2951964&pic=026c6e2a-d0d4-45be-967f-e786939bafd8&speed=250&xyz=7.29/-6.45/0)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 4 : 
+![arrêt de bus exemple](files/transport_example_04.png) _© Enzo Brière pour Jungle Bus (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=19.49/49.232637/-0.5590924&pic=649472f9-133f-48cb-b43a-fa232b5d5e79&speed=250&xyz=290.71/-0.23/30)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 5 : 
+![arrêt de bus exemple](files/transport_example_05.png) _© Adrien Pavie pour Jungle Bus (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=18.78/49.1809543/-0.2221841&pic=564faf33-cd0b-473b-a8d1-845744758882&speed=250&xyz=183.68/-21.20/1)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 6 : 
+![arrêt de bus exemple](files/transport_example_06.png) _© nlehuby, Jungle Bus (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=19.52/49.1619522/-0.4024459&pic=b011f70c-7822-43e9-84ef-899b3a962244&speed=250&xyz=85.18/-4.40/30)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 7 : 
+![arrêt de bus exemple](files/transport_example_07.png) _© nlehuby (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=18.65/48.8692928/2.6412382&pic=42c40a70-7223-4c96-9b75-47953ce991fc&speed=250&xyz=91.41/-10.98/0)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Exemple 8 : 
+![arrêt de bus exemple](files/transport_example_08.png) _© nlehuby, Jungle Bus (CC-BY-SA)_
+
+[Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=19.16/49.1654643/-0.3428899&pic=e82b9197-30d9-419a-8815-59a3322920c9&speed=250&xyz=109.73/-18.85/30)
+
+## Bonus
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Quels sont les critères au fait ?</summary>
+  <div class="p-4">
+
+#### que dit la loi ?
+
+Arrêté du 15 janvier 2007 portant application du décret n° 2006-1658 du 21 décembre 2006 relatif aux prescriptions techniques pour l'accessibilité de la voirie et des espaces publics : 
+
+![capture d'écran des critères d'après la loi](files/transport_article_loi.png)
+
+source : https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000048288441/
+
+#### en résumé :
+
+**WheelchairAccess** : le sol est plat, de revêtement lisse et stable, assez large pour faire demi-tour en fauteuil (1,50m) et sans obstacle permanent bloquant.
+
+- lisse : le revêtement ne cause pas de secousse
+- stable : pas de risques de s’enfoncer ou de glisser
+- plat : pente de moins de 5%, dévers de moins de 2%
+
+![illustration : exemple de schéma d'implantation d'un quai](files/transport_exemple_implantation_quai.png)
+
+_© Cerema. Points d’arrêts de bus et de cars accessibles à tous. De la norme au confort.
+Bron : Cerema, 2018. Collection : Références. ISBN : 978-2-37180-260-5_
+
+**VisualSignsAvailable** : Sont affichés :
+- le nom de l'arrêt
+- les lignes de transport desservies et leur destination 
+- en complément : un tableau présentant les horaires, le plan du réseau, de la ligne ou des abords / un écran d'affichage
+
+En pratique, il y a des critères additionnels sur la taille des caractères, la police, le contraste avec le fond, etc.
+
+![illustration : exemple de supports d'information voyageur](files/transport_lisibilite_info_voy.png)
+
+_© Cerema. Points d’arrêts de bus et de cars accessibles à tous. De la norme au confort.
+Bron : Cerema, 2018. Collection : Références. ISBN : 978-2-37180-260-5_
+
+**AudibleSignalsAvailable** : il y a des annonces sonores.
+
+En pratique, parfois déclenchée par un bouton ou une télécommande universelle.
+    
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Approche plus précise</summary>
+  <div class="p-4">
+
+Les attributs AccessibilityAssessment proposent une approche synthétique qui peut manquer de finesse.
+
+Pour plus de précision, utiliser en complément des attributs plus précis et moins ouvert à interprétation.
+
+Par exemple :
+- AccessibilityInfoFacilityList : visualDisplays, largePrintTimetables
+- PassengerInformationEquipmentList : realTimeDepartures
+- MobilityFacilityList : tactilePlatformEdges
+- MobilityFacilityList : raisedKerb
+    
+  </div>
+</details>

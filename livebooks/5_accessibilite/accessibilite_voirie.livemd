@@ -228,5 +228,5 @@ TODO :
 
 ## Reste à faire TODO
 
-* [ ] remplacer l'image de de Netex par un extrait 
+* [ ] remplacer l'image de Netex par un extrait 
 * [ ] Mettre des captures d'écran des extraits de doc du profil considérés, pour la version self-service et éviter les aller-retours entre onglets
