@@ -24,7 +24,23 @@ Modélisation schématique associée :
 <!-- livebook:{"break_markdown":true} -->
 
 extrait NeTEx associé:
-![extrait NeTEx modélisant le cas d'usage](files/voirie_exemple_netex_replie.png)
+
+```xml
+
+<members>
+    <Quay id="Yukaimaps:Quay:n-25372:LOC" version="any"> ... </Quay>
+    <Quay id="Yukaimaps:Quay:n-25397:LOC" version="any"> ... </Quay>
+    <StopPlace id="Yukaimaps:StopPlace:g_n-25372_bus:LOC" version="any"> ... </StopPlace>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any"> ... </SitePathLink>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-597_n-25367_n-25371:LOC" version="any"> ... </SitePathLink>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-631_n-25371_n-25403:LOC" version="any"> ... </SitePathLink>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-639_n-25366_n-25367:LOC" version="any"> ... </SitePathLink>
+    <CrossingEquipment id="Yukaimaps:CrossingEquipment:w-631_n-25371_n-25403:LOC" version="any"> ... </CrossingEquipment>
+    <CrossingEquipment id="Yukaimaps:CrossingEquipment:w-639_n-25366_n-25367:LOC" version="any"> ... </CrossingEquipment>
+    (...)
+</members>
+
+```
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -228,5 +244,4 @@ TODO :
 
 ## Reste à faire TODO
 
-* [ ] remplacer l'image de Netex par un extrait 
 * [ ] Mettre des captures d'écran des extraits de doc du profil considérés, pour la version self-service et éviter les aller-retours entre onglets
