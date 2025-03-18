@@ -1,0 +1,247 @@
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"}]} -->
+
+# Accessibilité - voirie
+
+## Cas d'usage
+
+Nous allons modéliser le cheminement piéton entre ces deux arrêts de bus :
+
+![photo du cheminement](files/voirie_exemple_vue_panoramax.png)
+*© Enzo Brière pour Jungle Bus (CC-BY-SA-4.0)*
+
+<!-- livebook:{"break_markdown":true} -->
+
+![vue de dessus](files/voirie_exemple_vue_dessus.png)
+*© IGN*
+
+<!-- livebook:{"break_markdown":true} -->
+
+Modélisation schématique associée :
+
+![](files/voirie_exemple_modelisation.png)
+*© Jungle Bus (CC-BY-SA)*
+
+<!-- livebook:{"break_markdown":true} -->
+
+extrait NeTEx associé:
+
+```xml
+
+<members>
+    <Quay id="Yukaimaps:Quay:n-25372:LOC" version="any"> ... </Quay>
+    <Quay id="Yukaimaps:Quay:n-25397:LOC" version="any"> ... </Quay>
+    <StopPlace id="Yukaimaps:StopPlace:g_n-25372_bus:LOC" version="any"> ... </StopPlace>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any"> ... </SitePathLink>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-597_n-25367_n-25371:LOC" version="any"> ... </SitePathLink>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-631_n-25371_n-25403:LOC" version="any"> ... </SitePathLink>
+    <SitePathLink id="Yukaimaps:SitePathLink:w-639_n-25366_n-25367:LOC" version="any"> ... </SitePathLink>
+    <CrossingEquipment id="Yukaimaps:CrossingEquipment:w-631_n-25371_n-25403:LOC" version="any"> ... </CrossingEquipment>
+    <CrossingEquipment id="Yukaimaps:CrossingEquipment:w-639_n-25366_n-25367:LOC" version="any"> ... </CrossingEquipment>
+    (...)
+</members>
+
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+*Fichier `exemple1.xml` de la partie `5_accessibilite`*
+
+<!-- livebook:{"break_markdown":true} -->
+
+Essayons de comprendre en s'appuyant sur la documentation :
+
+https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#les-cheminements
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Attributs de SitePathLink</summary>
+  <div class="p-4">
+SitePathLink :
+    
+- Distance
+- LineString
+- AccessibilityAssesment
+- MinimumWidth
+- AccessFeatureType    
+  </div>
+</details>
+
+https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#access-equipment
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Attributs de CrossingEquipment</summary>
+  <div class="p-4">
+CrossingEquipment :
+    
+- ZebraCrossing
+- PedestrianLights
+- AcousticCrossingAids
+- DroppedKerb
+- TactileWarningStrip   
+  </div>
+</details>
+
+## Exercice pratique
+
+Analyser le fichier NeTEx de voirie du Val-de-Marne.
+
+À télécharger sur : https://transport.data.gouv.fr/datasets/cheminements-pietons-dans-le-val-de-marne-dapres-openstreetmap
+
+*Fichier `cd94.netex.xml` de la partie `5_accessibilite`*
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Questions simples de prise en main
+
+<!-- livebook:{"break_markdown":true} -->
+
+1 - Combien y-a-t-il de passages piétons ?
+
+![illustration de passage piéton](files/voirie_wiki_crossing.jpg)
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
+  <div class="p-4">
+
+Mode opératoire :
+
+* Identifier dans la documentation ce qui caractérise un passage piéton : objet SitePathLink, attribut **AccesFeatureType**, valeur **crossing**
+* Rechercher dans le fichier toutes les occurrences : `<AccessFeatureType>crossing</AccessFeatureType>`
+* Compter le nombre de résultats
+ 
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+2 - Combien ont un feu piéton ?
+
+![illustration de feu piéton](files/voirie_wiki_pedestrian_lights.jpg)
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
+  <div class="p-4">
+
+Mode opératoire :
+
+* Identifier dans la documentation ce qui caractérise un feu piéton : objet CrossingEquipment, attribut **PedestrianLights**, valeur **true**
+* Rechercher dans le fichier toutes les occurrences : `<PedestrianLights>true</PedestrianLights>`
+* Compter le nombre de résultats
+ 
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+3 -  Combien ont un feu sonore ?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
+  <div class="p-4">
+
+Mode opératoire :
+
+* Identifier dans la documentation ce qui caractérise un feu sonore : objet CrossingEquipment, attribut **AcousticCrossingAids**, valeur **true**
+* Rechercher dans le fichier toutes les occurrences : `<AcousticCrossingAids>true</AcousticCrossingAids>`
+* Compter le nombre de résultats
+
+
+ 
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Questions plus avancées
+
+<!-- livebook:{"break_markdown":true} -->
+
+1 - Combien y a-t-il de bandes de guidage ?
+
+![illustration de bandes de guidage](files/voirie_wiki_tactile_guiding_strip.png)
+© Jean-Louis ZIMMERMANN (CC-BY-SA) [.](https://wiki.openstreetmap.org/wiki/File:FR75012_tactile_paving%26steps_2023-03-18.jpg)
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
+  <div class="p-4">
+
+Mode opératoire :
+
+* Identifier dans la documentation ce qui caractérise une bande de guidage : objet SitePathLink, attribut **TactileGuidingStrip**, valeur **true**
+* Rechercher dans le fichier toutes les occurrences : `<TactileGuidingStrip>true</TactileGuidingStrip>`
+* Compter le nombre de résultats
+ 
+  </div>
+</details>
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Erreurs fréquentes</summary>
+  <div class="p-4">
+
+**TactileWarningStrip** vs **TactileGuidingStrip**
+
+![photo des 2 types de revêtement podotactiles](files/voirie_wiki_tactile_pavings.jpg)
+© Jean-Louis ZIMMERMANN (CC-BY-SA) [.](https://wiki.openstreetmap.org/wiki/File:FR84087_tactile_paving%26crossing_2023-03-02.jpg)
+
+![illustration des 2 types de revêtement podotactiles](files/voirie_wiki_Tactile_Paving_Types.png)
+ © Ice-cold121 (CC-BY-SA) [.](https://commons.wikimedia.org/wiki/File:Tactile_Paving_Types.png)
+
+**TactileGuidanceStrips** vs **TactileGuidingStrip**
+
+TactileGuidanceStrips est un attribut de *CrossingEquipment* : il permet uniquement d'indiquer qu'un passage piéton est muni de bande de guidage.
+ 
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+2 - Quel est le plus long passage piéton ?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
+  <div class="p-4">
+
+Mode opératoire :
+
+* Identifier dans la documentation ce qui caractérise un passage piéton : objet SitePathLink, attribut **AccesFeatureType**, valeur **crossing**
+* Identifier dans la documentation ce qui caractérise la longueur d'un cheminement : objet SitePathLink, attribut **Distance**
+* Rechercher dans le fichier tous les passages piétons (avec `<AccessFeatureType>crossing</AccessFeatureType>`) et comparer leur longueur (`<Distance>(...)</Distance>`) jusqu'à trouver le plus long
+* Récupérer son identifiant 
+ 
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+2 bis - Est-ce que ce passage piéton en particulier a des bordures de trottoir abaissées ?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
+  <div class="p-4">
+
+Mode opératoire :
+
+* Retrouver notre passage piéton précédent, à l'aide de son identifiant
+* Identifier dans la documentation ce qui caractérise les bordures de trottoir abaissées : objet CrossingEquipment, attribut **DroppedKerb**, valeur **true**
+* Retrouver l'objet CrossingEquipment associé au SitePathLink (`placeEquipments/CrossingEquipmentRef`)
+* Dans cet objet, rechercher l'attribut DroppedKerb et sa valeur
+ 
+  </div>
+</details>
+
+## Bonus
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>??</summary>
+  <div class="p-4">
+
+TODO :
+* [ ] Parler d'ALM ?
+* [ ] Parler d'OSM ?
+* [ ] ajouter une section interactive qui permet de voir la partie géographique du fichier
+ 
+  </div>
+</details>
+
+## Reste à faire TODO
+
+* [ ] Mettre des captures d'écran des extraits de doc du profil considérés, pour la version self-service et éviter les aller-retours entre onglets
