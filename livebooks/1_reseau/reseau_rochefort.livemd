@@ -6,7 +6,7 @@
 Mix.install([
   {:kino, "~> 0.15.3"}
 ])
-Code.compile_file("lib/kino_tooling.ex", __DIR__)
+Code.compile_file(__DIR__ <> "/../../lib/kino_tooling.ex", __DIR__)
 :ok
 ```
 
