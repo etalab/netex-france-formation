@@ -66,11 +66,11 @@ Liste des fichiers NETEX
 ### Fichier "commun" > Network : on définit la liste de lignes
 
 ```elixir
-xml_1 = "lib-rochefort/001-network.xml" |> Tooling.file() |> Tooling.xml()
-xml_2 = "lib-rochefort/001-network-highlight-regular.xml" |> Tooling.file() |> Tooling.xml()
-image_1 = "files/planReaseauRBus_lignes_regulieres.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
-xml_3 = "lib-rochefort/001-network-highlight-school.xml" |> Tooling.file() |> Tooling.xml()
-image_2 = "files/planReaseauRBus_lignesScolaires.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
+xml_1 = "snippets/001-network.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+xml_2 = "snippets/001-network-highlight-regular.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+image_1 = "files/planReaseauRBus_lignes_regulieres.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+xml_3 = "snippets/001-network-highlight-school.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+image_2 = "files/planReaseauRBus_lignesScolaires.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
 
 Kino.Layout.tabs([
   Network: xml_1,
@@ -82,12 +82,12 @@ Kino.Layout.tabs([
 ### Fichier "commun" > Line : pour chaque ligne, on définit des informations générales
 
 ```elixir
-line_complete = "lib-rochefort/002-line.xml" |> Tooling.file() |> Tooling.xml()
-line_name = "lib-rochefort/002-line-name.xml" |> Tooling.file() |> Tooling.xml()
-line_mode = "lib-rochefort/002-line-mode.xml" |> Tooling.file() |> Tooling.xml()
-line_code = "lib-rochefort/002-line-code.xml" |> Tooling.file() |> Tooling.xml()
-line_logo = "lib-rochefort/002-line-logo.xml" |> Tooling.file() |> Tooling.xml()
-logo_ligne = "files/logo_ligne_B.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
+line_complete = "snippets/002-line.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_name = "snippets/002-line-name.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_mode = "snippets/002-line-mode.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_code = "snippets/002-line-code.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_logo = "snippets/002-line-logo.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+logo_ligne = "files/logo_ligne_B.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
 
 Kino.Layout.tabs([
   Line: line_complete,
@@ -109,9 +109,9 @@ Kino.Layout.tabs([
 ### Fichier d'une ligne : on définit la topologie de la ligne ainsi que ses horaires
 
 ```elixir
-line_complete = "lib-rochefort/003-line-frames.xml" |> Tooling.file() |> Tooling.xml()
-line_topo = "lib-rochefort/003-line-topo.xml" |> Tooling.file() |> Tooling.xml()
-line_horaires = "lib-rochefort/003-line-horaires.xml" |> Tooling.file() |> Tooling.xml()
+line_complete = "snippets/003-line-frames.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_topo = "snippets/003-line-topo.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_horaires = "snippets/003-line-horaires.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
 
 Kino.Layout.tabs([
   Line: line_complete,
@@ -361,11 +361,11 @@ Seuls les arrêts réellement desservis (ScheduledStopPoint) sont définis dans 
 **_Rappel définition_** : Un **ServiceJourney** (course) est un trajet effectif et programmé d’un véhicule de transport public, suivant un itinéraire précis (**Route**) et desservant des arrêts (**ScheduledStopPoints**) selon le modèle de parcours (**ServiceJourneyPattern**) et selon un horaire défini.
 
 ```elixir
-service_journey = "lib-rochefort/004-service-journey.xml" |> Tooling.file() |> Tooling.xml()
-service_journey_patternRef = "lib-rochefort/004-service-journey-pattern-ref.xml" |> Tooling.file() |> Tooling.xml()
-service_journey_pattern = "lib-rochefort/004-service-journey-pattern.xml" |> Tooling.file() |> Tooling.xml()
-service_journey_passingTimes = "lib-rochefort/004-service-journey-passing-times.xml" |> Tooling.file() |> Tooling.xml()
-service_journey_dayTypes = "lib-rochefort/004-service-journey-day-types.xml" |> Tooling.file() |> Tooling.xml()
+service_journey = "snippets/004-service-journey.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_patternRef = "snippets/004-service-journey-pattern-ref.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_pattern = "snippets/004-service-journey-pattern.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_passingTimes = "snippets/004-service-journey-passing-times.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_dayTypes = "snippets/004-service-journey-day-types.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
 
 dayTypes_description = Kino.Markdown.new("""
 Les dayTypes permettent de définir sur quels jours types la course est valable
@@ -376,9 +376,9 @@ Le fichier xml référence le DayType “S1ETE_LMWJVS”
 Celui-ci est réellement défini dans le fichier “calendrier”
 """)
 
-serviceJourneyImg = "files/ligneB_fiche_horaire_ServiceJourney - cropped.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
-passingTimesImg = "files/ligneB_fiche_horaire_ServiceJourney_passingTimes.jpg"  |> Tooling.file() |> Kino.Image.new("image/jpeg")
-dayTypesImg = "files/ligneB_fiche_horaire_ServiceJourney_dayTypes.jpg" |> Tooling.file() |> Kino.Image.new("image/jpeg")
+serviceJourneyImg = "files/ligneB_fiche_horaire_ServiceJourney - cropped.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+passingTimesImg = "files/ligneB_fiche_horaire_ServiceJourney_passingTimes.jpg"  |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+dayTypesImg = "files/ligneB_fiche_horaire_ServiceJourney_dayTypes.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
 
 Kino.Layout.tabs([
   ServiceJourney: Kino.Layout.grid([service_journey, serviceJourneyImg], columns: {2,1}),
