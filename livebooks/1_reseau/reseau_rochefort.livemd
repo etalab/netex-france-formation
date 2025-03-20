@@ -100,7 +100,13 @@ Il existe également sur le territoire :
 
 ## Direction : la donnée NeTEx
 
-<!-- livebook:{"break_markdown":true} -->
+Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
+
+* [Jeu de données Réseau urbain R'Bus](https://transport.data.gouv.fr/datasets?q=réseau+urbain+r%27bus), sur lequel nous allons zoomer ici, avec l'offre R'Bus, mais aussi:
+* [Réseau interurbain - Charente-Maritime 17 - Nouvelle-Aquitaine](https://transport.data.gouv.fr/datasets?q=charente+maritime+17) pour les lignes régionales
+* [Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine]) pour des définitions plus précises des arrêts ainsi qu'un agrégat de l'offre régionale.
+
+Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompresse, on voit que l'archive NeTEx comporte les fichiers suivants:
 
 ![](files/liste_fichiers_netex.jpg)
 
