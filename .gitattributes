@@ -1,5 +1,9 @@
 *.zip filter=lfs diff=lfs merge=lfs -text
 *.HEIC filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.xml filter=lfs diff=lfs merge=lfs -text
+
+# disable git-lfs for folder containing small XML snippets
+**/snippets/*.xml -filter -merge -diff

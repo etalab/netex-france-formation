@@ -6,16 +6,17 @@ Mix.install([
   {:unzip, "~> 0.12.0"}
 ])
 
-Code.require_file(__DIR__ <> "/lib/zip_support.ex")
-Code.require_file(__DIR__ <> "/lib/xml_support.ex")
-Code.require_file(__DIR__ <> "/lib/helpers.ex")
+repo_root = Path.join(__DIR__, "..")
+Code.require_file(repo_root <> "/lib/zip_support.ex")
+Code.require_file(repo_root <> "/lib/xml_support.ex")
+Code.require_file(repo_root <> "/lib/helpers.ex")
 :ok
 ```
 
 ## Section
 
 ```elixir
-zip_file = __DIR__ <> "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip"
+zip_file = repo_root <> "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip"
 
 zip = ZipSupport.open_zip!(zip_file)
 

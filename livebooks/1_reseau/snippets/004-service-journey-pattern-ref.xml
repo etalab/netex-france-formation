@@ -1,0 +1,21 @@
+<!--<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+  <Name>HOPITAL</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_187883:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_187883:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>-->
+  <JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+  <!--<passingTimes>
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    <TimetabledPassingTime version="any">
+    ...
+  </passingTimes>
+</ServiceJourney>-->

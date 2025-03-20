@@ -18,7 +18,8 @@ J'arrive sur le réseau R'bus https://transport.data.gouv.fr/datasets/arrets-hor
 Puis sur le fichier NeTEx correspondant https://transport.data.gouv.fr/resources/82368
 
 ```elixir
-folder = Path.join(__DIR__, "data")
+repo_root = Path.join(__DIR__, "..")
+folder = Path.join(repo_root, "data")
 
 # url = "https://transport.data.gouv.fr/api/datasets/arrets-horaires-et-parcours-theoriques-des-reseaux-naq-roc-nva-m-1"
 # url = "https://transport.data.gouv.fr/api/datasets/213"
