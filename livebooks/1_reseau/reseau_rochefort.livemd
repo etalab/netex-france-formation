@@ -41,6 +41,8 @@ Pour la suite de cette présentation, nous partons du réel, sur le territoire d
 
 ![](files/rochefort_offre_brochure.jpg)
 
+Source: [Fiche Mémo Mobilités de la Communauté d'agglomération Rochefort Océan](https://www.rochefort-ocean.com/organiser/informations-pratiques/se-deplacer)
+
 <!-- livebook:{"break_markdown":true} -->
 
 NeTEx permet de définir l’ensemble des **lignes** du réseau ainsi que les **horaires** de passage théoriques
