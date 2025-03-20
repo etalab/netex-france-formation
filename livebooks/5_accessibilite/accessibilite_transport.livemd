@@ -177,3 +177,20 @@ Par exemple :
     
   </div>
 </details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd"> partie précédente ??</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">formation NeTEx</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="accessibilite_voirie.livemd">Accessibilité - Voirie</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>

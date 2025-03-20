@@ -1,4 +1,4 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_aa_annexe1.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_acousticcrossingaids.png","type":"attachment"},{"name":"voirie_doc_crossingtype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_droppedkerb.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_doc_tactilewarningstrip.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_photo_kerb.png","type":"attachment"},{"name":"voirie_qgis_linestring.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_warning_strip.png","type":"attachment"},{"name":"voirie_xml_distance.png","type":"attachment"}]} -->
 
 # Accessibilité - voirie
 
@@ -54,7 +54,7 @@ extrait NeTEx associé:
 
 <!-- livebook:{"break_markdown":true} -->
 
-Essayons de comprendre en s'appuyant sur la documentation :
+Regardons les attributs, à l'aide de la documentation :
 
 https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#les-cheminements
 
@@ -113,6 +113,10 @@ linestring_xml = Kino.Markdown.new("""
 
 linestring_doc = Kino.Markdown.new("""
 ![géométrie du tronçon de cheminement](files/voirie_doc_linestring.png)
+
+Dans QGIS :
+![visualisation dans QGIS des tronçons de cheminement du fichier NeTEx](files/voirie_qgis_linestring.png)
+_fond de carte © contributeurs OpenStreetMap_
 """)
 
 linestring = Kino.Layout.grid([linestring_xml, linestring_doc], columns: {2, 2})
@@ -206,6 +210,8 @@ accessibility_doc = Kino.Markdown.new("""
 dans l'annexe :
 ![il y a des feux sonores d'aide à la traversée en bon état de marche](files/voirie_doc_aa_annexe.png)
 
+![illustration de feu sonore](files/voirie_tactile_acoustic_crossing.png) _© nlehuby (CC-BY-SA 4.0)_
+
 """)
 
 accessibility = Kino.Layout.grid([accessibility_xml, accessibility_doc], columns: {2, 2})
@@ -220,22 +226,131 @@ Kino.Layout.tabs([
 
 ````
 
-Pour le CrossingEquipment :
+Pour CrossingEquipment :
 
 https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#access-equipment
 
-<details class="rounded-lg my-4">
-  <summary class="cursor-pointer font-bold p-4"></i>Attributs de CrossingEquipment</summary>
-  <div class="p-4">
-CrossingEquipment :
-    
-- ZebraCrossing
-- PedestrianLights
-- AcousticCrossingAids
-- DroppedKerb
-- TactileWarningStrip   
-  </div>
-</details>
+````elixir
+divers_xml = Kino.Markdown.new("""
+
+```xml
+<CrossingEquipment id="Yukaimaps:CrossingEquipment:w-631_n-25371_n-25403:LOC" version="any">
+	<!--<keyList> 	... 	</keyList>-->
+	<CrossingType>roadCrossing</CrossingType>
+	<ZebraCrossing>false</ZebraCrossing>
+	<PedestrianLights>false</PedestrianLights>
+	<!--<AcousticCrossingAids>false</AcousticCrossingAids>
+	<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<VisualGuidanceBands>false</VisualGuidanceBands>
+	<DroppedKerb>true</DroppedKerb>
+	<MarkingStatus>none</MarkingStatus>
+	<BumpCrossing>false</BumpCrossing>
+	<VisualObstacle>none</VisualObstacle>-->
+</CrossingEquipment>
+```
+""")
+
+divers_doc = Kino.Markdown.new("""
+![CrossingType / ZebraCrossing / PedestrianLights](files/voirie_doc_crossingtype.png)
+
+""")
+
+divers = Kino.Layout.grid([divers_xml, divers_doc], columns: {2, 2})
+
+acoustic_xml = Kino.Markdown.new("""
+
+```xml
+<CrossingEquipment id="Yukaimaps:CrossingEquipment:w-631_n-25371_n-25403:LOC" version="any">
+	<!--<keyList> 	... 	</keyList>
+	<CrossingType>roadCrossing</CrossingType>
+	<ZebraCrossing>false</ZebraCrossing>
+	<PedestrianLights>false</PedestrianLights>-->
+	<AcousticCrossingAids>false</AcousticCrossingAids>
+	<!--<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<VisualGuidanceBands>false</VisualGuidanceBands>
+	<DroppedKerb>true</DroppedKerb>
+	<MarkingStatus>none</MarkingStatus>
+	<BumpCrossing>false</BumpCrossing>
+	<VisualObstacle>none</VisualObstacle>-->
+</CrossingEquipment>
+```
+""")
+
+acoustic_doc = Kino.Markdown.new("""
+![signale la présence de feux sonores](files/voirie_doc_acousticcrossingaids.png)
+
+![illustration de feu sonore](files/voirie_tactile_acoustic_crossing.png) _© nlehuby (CC-BY-SA 4.0)_
+
+""")
+
+acoustic = Kino.Layout.grid([acoustic_xml, acoustic_doc], columns: {2, 2})
+
+warningstrip_xml = Kino.Markdown.new("""
+
+```xml
+<CrossingEquipment id="Yukaimaps:CrossingEquipment:w-631_n-25371_n-25403:LOC" version="any">
+	<!--<keyList> 	... 	</keyList>
+	<CrossingType>roadCrossing</CrossingType>
+	<ZebraCrossing>false</ZebraCrossing>
+	<PedestrianLights>false</PedestrianLights>
+	<AcousticCrossingAids>false</AcousticCrossingAids>-->
+	<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<!--<VisualGuidanceBands>false</VisualGuidanceBands>
+	<DroppedKerb>true</DroppedKerb>
+	<MarkingStatus>none</MarkingStatus>
+	<BumpCrossing>false</BumpCrossing>
+	<VisualObstacle>none</VisualObstacle>-->
+</CrossingEquipment>
+```
+""")
+
+warningstrip_doc = Kino.Markdown.new("""
+![présence de bandes podotactiles](files/voirie_doc_tactilewarningstrip.png)
+
+![illustration de bandes podotactiles](files/voirie_wiki_tactile_warning_strip.png)
+_© Ryxhd123 (CC BY 3.0)_ [.](https://wiki.openstreetmap.org/wiki/File:Detectable_Warnings.jpg)
+
+""")
+
+warningstrip = Kino.Layout.grid([warningstrip_xml, warningstrip_doc], columns: {2, 2})
+
+droppedkerb_xml = Kino.Markdown.new("""
+
+```xml
+<CrossingEquipment id="Yukaimaps:CrossingEquipment:w-631_n-25371_n-25403:LOC" version="any">
+	<!--<keyList> 	... 	</keyList>
+	<CrossingType>roadCrossing</CrossingType>
+	<ZebraCrossing>false</ZebraCrossing>
+	<PedestrianLights>false</PedestrianLights>
+	<AcousticCrossingAids>false</AcousticCrossingAids>
+	<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<VisualGuidanceBands>false</VisualGuidanceBands>-->
+	<DroppedKerb>true</DroppedKerb>
+	<!--<MarkingStatus>none</MarkingStatus>
+	<BumpCrossing>false</BumpCrossing>
+	<VisualObstacle>none</VisualObstacle>-->
+</CrossingEquipment>
+```
+""")
+
+droppedkerb_doc = Kino.Markdown.new("""
+![signale la présence de bordures de trottoir abaissées](files/voirie_doc_droppedkerb.png)
+
+![illustration de DroppedKerb](files/voirie_photo_kerb.png) 
+_© CNIG_ 
+
+""")
+
+droppedkerb = Kino.Layout.grid([droppedkerb_xml, droppedkerb_doc], columns: {2, 2})
+
+Kino.Layout.tabs([
+  CrossingType: divers,
+  AcousticCrossingAids: acoustic,
+  TactileWarningStrip: warningstrip,
+  DroppedKerb: droppedkerb,
+])
+
+````
 
 ## Exercice pratique
 
@@ -291,7 +406,7 @@ Mode opératoire :
 
 3 -  Combien ont un feu sonore ?
 
-![illustration de feu sonore](files/voirie_tactile_acoustic_crossing.png) _© nlehuby (CC-BY-SA)_
+![illustration de feu sonore](files/voirie_tactile_acoustic_crossing.png) _© nlehuby (CC-BY-SA 4.0)_
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
@@ -317,7 +432,7 @@ Mode opératoire :
 1 - Combien y a-t-il de bandes de guidage ?
 
 ![illustration de bandes de guidage](files/voirie_wiki_tactile_guiding_strip.png)
-© Jean-Louis ZIMMERMANN (CC-BY-SA) [.](https://wiki.openstreetmap.org/wiki/File:FR75012_tactile_paving%26steps_2023-03-18.jpg)
+© Jean-Louis ZIMMERMANN (CC-BY-SA 4.0) [.](https://wiki.openstreetmap.org/wiki/File:FR75012_tactile_paving%26steps_2023-03-18.jpg)
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
@@ -339,10 +454,10 @@ Mode opératoire :
 **TactileWarningStrip** vs **TactileGuidingStrip**
 
 ![photo des 2 types de revêtement podotactiles](files/voirie_wiki_tactile_pavings.jpg)
-© Jean-Louis ZIMMERMANN (CC-BY-SA) [.](https://wiki.openstreetmap.org/wiki/File:FR84087_tactile_paving%26crossing_2023-03-02.jpg)
+*© Jean-Louis ZIMMERMANN (CC-BY-SA 4.0)* [.](https://wiki.openstreetmap.org/wiki/File:FR84087_tactile_paving%26crossing_2023-03-02.jpg)
 
 ![illustration des 2 types de revêtement podotactiles](files/voirie_wiki_Tactile_Paving_Types.png)
- © Ice-cold121 (CC-BY-SA) [.](https://commons.wikimedia.org/wiki/File:Tactile_Paving_Types.png)
+ © Ice-cold121 (CC-BY-SA 4.0) [.](https://commons.wikimedia.org/wiki/File:Tactile_Paving_Types.png)
 
 **TactileGuidanceStrips** vs **TactileGuidingStrip**
 
@@ -373,6 +488,8 @@ Mode opératoire :
 
 2 bis - Est-ce que ce passage piéton en particulier a des bordures de trottoir abaissées ?
 
+![illustration de bordures de trottoir abaissées](files/voirie_photo_kerb.png)
+
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
   <div class="p-4">
@@ -401,6 +518,19 @@ TODO :
   </div>
 </details>
 
-## Reste à faire TODO
+<!-- livebook:{"break_markdown":true} -->
 
-* [ ] Mettre des captures d'écran des extraits de doc du profil considérés, pour la version self-service et éviter les aller-retours entre onglets
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="accessibilite_transport.livemd"> Accessibilité - Transport</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">formation NeTEx</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="TODO.livemd">partie suivante ??</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
