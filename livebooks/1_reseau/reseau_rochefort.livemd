@@ -81,6 +81,10 @@ Kino.Layout.tabs([
 
 ### Fichier "commun" > Line : pour chaque ligne, on définit des informations générales
 
+<!-- livebook:{"break_markdown":true} -->
+
+**_Rappel définition_** : Une LIGNE (**Line**) est un groupe d’ITINÉRAIREs (voir plus bas - **Route**) qui est en général connu du public par une appellation commune (nom ou numéro, extrémités de ligne, etc.).
+
 ```elixir
 line_complete = "snippets/002-line.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
 line_name = "snippets/002-line-name.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -151,8 +155,9 @@ Kino.Layout.tabs([
 
 ### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
 
-**_Rappel définition_** : Une **Route** (itinéraire) est une séquence ordonnée de **RoutePoints** connectés par des **RouteLinks**, qui définit le chemin suivi par une ligne de transport public dans une direction donnée.
-Une **Route** appartient à une **Line** (Ligne), qui regroupe plusieurs itinéraires pouvant être dans des directions différentes.
+**_Rappel définition_** : Un ITINERAIRE (**Route**) est une liste ordonnée de POINTs (**RoutePoints**) définissant un seul chemin à travers le réseau routier (ou ferré). Un ITINERAIRE peut passer deux fois par un même POINT.
+
+Un ITINERAIRE appartient à une LIGNE (**Line**), qui regroupe plusieurs ITINERAIRES pouvant être dans des directions différentes.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -215,9 +220,9 @@ Une **Route** appartient à une **Line** (Ligne), qui regroupe plusieurs itinér
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Fichier d'une ligne > LIGNE > RouteLink : on définit les segments d'itinéraires
+### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
 
-**_Rappel définition_** : Un **RouteLink** est un lien entre deux **RoutePoints** (points d'un itinéraire). Il constitue un segment élémentaire d'un **Route** (itinéraire) et permet de modéliser la continuité des trajets dans le réseau.
+**_Rappel définition_** : Un TRONCON D'ITINERAIRE (**RouteLink**) est un tronçon orienté entre deux **RoutePoint** (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -253,9 +258,9 @@ Une **Route** appartient à une **Line** (Ligne), qui regroupe plusieurs itinér
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt
+### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt planifiés
 
-**_Rappel définition_** : un **ScheduledStopPoint** représente un point d'arrêt programmé, c'est-à-dire un endroit où un véhicule de transport public est censé s'arrêter selon un horaire prévu. C'est un emplacement spécifique sur un itinéraire où les passagers peuvent monter ou descendre d'un véhicule
+**_Rappel définition_** : un POINT D'ARRET PLANIFIE (**ScheduledStopPoint**) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -285,12 +290,9 @@ Une **Route** appartient à une **Line** (Ligne), qui regroupe plusieurs itinér
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les modèles de parcours
+### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
 
-**_Rappel définition_** : Un **ServiceJourneyPattern** est un schéma type de parcours suivi par un service de transport public en reliant des arrêts spécifiques dans un certain ordre.
-
-Ce sont des “sous-ensembles” de points ordonnés sur une Route.
-Seuls les arrêts réellement desservis (ScheduledStopPoint) sont définis dans l’ordre dans le ServiceJourneyPattern
+**_Rappel définition_** : Un PARCOURS COMMERCIAL (**ServiceJourneyPattern**) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers).
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -358,7 +360,7 @@ Seuls les arrêts réellement desservis (ScheduledStopPoint) sont définis dans 
 
 ### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
 
-**_Rappel définition_** : Un **ServiceJourney** (course) est un trajet effectif et programmé d’un véhicule de transport public, suivant un itinéraire précis (**Route**) et desservant des arrêts (**ScheduledStopPoints**) selon le modèle de parcours (**ServiceJourneyPattern**) et selon un horaire défini.
+**_Rappel définition_** : Une COURSE (**ServiceJourney**) est le mouvement défini d’un véhicule utilisant un PARCOURS (**JourneyPattern**) spécifiée. Elle est définie pour un TYPE DE JOUR (**DayType**) donné.
 
 ```elixir
 service_journey = "snippets/004-service-journey.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -406,3 +408,5 @@ Kino.Layout.tabs([
 ])
 
 ```
+
+Les DayTypeAssignment assignent des jours types (DayType) à des périodes de service (OperatingPeriod) ou des dates précises (Date).
