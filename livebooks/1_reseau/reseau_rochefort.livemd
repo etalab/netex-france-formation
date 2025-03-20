@@ -12,6 +12,12 @@ Code.compile_file(__DIR__ <> "/../../lib/kino_tooling.ex", __DIR__)
 
 ## Rappel des concepts Transmodel - Ligne
 
+Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel la suite de cette présentation s'appuie:
+
+🚨TODO: lien vers la présentation Transmodel détaillée ?
+
+<!-- livebook:{"break_markdown":true} -->
+
 <!-- Learn more at https://mermaid-js.github.io/mermaid -->
 
 ```mermaid
