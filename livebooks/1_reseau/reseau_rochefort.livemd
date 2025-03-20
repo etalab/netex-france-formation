@@ -21,16 +21,16 @@ Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la
 <!-- Learn more at https://mermaid-js.github.io/mermaid -->
 
 ```mermaid
-graph TD;
-  Line-->Route;
-  Route-->RouteLink
-  Route-->JourneyPattern;
-  Route-->ScheduledStopPoint;
-  JourneyPattern-->ScheduledStopPoint;
-  JourneyPattern-->VehicleJourney;
-  VehicleJourney-->DatedVehicleJourney
-  VehicleJourney-->DayType;
-  DatedVehicleJourney-->OperatingDay
+graph TD
+  Line["Line (Ligne)"] --> Route["Route (Itinéraire)"]
+  Route --> RouteLink["RouteLink (Segment d'itinéraire)"]
+  Route --> JourneyPattern["JourneyPattern (Modèle de parcours)"]
+  Route --> ScheduledStopPoint["ScheduledStopPoint (Point d'arrêt planifié)"]
+  JourneyPattern --> ScheduledStopPoint
+  JourneyPattern --> VehicleJourney["VehicleJourney (Course)"]
+  VehicleJourney --> DatedVehicleJourney["DatedVehicleJourney (Course datée)"]
+  VehicleJourney --> DayType["DayType (Type de jour)"]
+  DatedVehicleJourney --> OperatingDay["OperatingDay (Jour d'exploitation)"]
 ```
 
 ## Partir du réel - L'offre de Rochefort
