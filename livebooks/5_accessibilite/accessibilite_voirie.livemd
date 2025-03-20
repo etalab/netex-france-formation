@@ -1,6 +1,12 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"}]} -->
 
 # Accessibilité - voirie
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.15.3"}
+])
+```
 
 ## Cas d'usage
 
@@ -18,7 +24,7 @@ Nous allons modéliser le cheminement piéton entre ces deux arrêts de bus :
 
 Modélisation schématique associée :
 
-![](files/voirie_exemple_modelisation.png)
+![modélisation schématique de notre cas d'usage](files/voirie_exemple_modelisation.png)
 *© Jungle Bus (CC-BY-SA)*
 
 <!-- livebook:{"break_markdown":true} -->
@@ -52,18 +58,169 @@ Essayons de comprendre en s'appuyant sur la documentation :
 
 https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#les-cheminements
 
-<details class="rounded-lg my-4">
-  <summary class="cursor-pointer font-bold p-4"></i>Attributs de SitePathLink</summary>
-  <div class="p-4">
-SitePathLink :
-    
-- Distance
-- LineString
-- AccessibilityAssesment
-- MinimumWidth
-- AccessFeatureType    
-  </div>
-</details>
+````elixir
+distance_xml = Kino.Markdown.new("""
+```xml
+<SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any">
+	<!--<keyList> ... </keyList> -->
+	<Distance>64.09</Distance>
+	<!--<gml:LineString gml:id="w-582_n-25403_n-25366"> 	... 	</gml:LineString>
+	<From> 	... 	</From>
+	<To> 	... 	</To>
+	<AccessibilityAssessment id="Yukaimaps:AccessibilityAssessment:2:" version="any"> 	... 	</AccessibilityAssessment>
+	<PublicUse>all</PublicUse>
+	<Covered>outdoors</Covered>
+	<Lighting>wellLit</Lighting>
+	<NumberOfSteps>0</NumberOfSteps>
+	<Transition>level</Transition>
+	<AccessFeatureType>pavement</AccessFeatureType>
+	<PassageType>pathway</PassageType>
+	<FlooringType>asphalt</FlooringType>
+	<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<TactileGuidingStrip>false</TactileGuidingStrip>-->
+</SitePathLink>
+```
+""")
+
+distance_doc = Kino.Markdown.new("""
+![longueur du tronçon de cheminement](files/voirie_doc_distance.png)
+""")
+
+distance = Kino.Layout.grid([distance_xml, distance_doc], columns: {2, 2})
+
+linestring_xml = Kino.Markdown.new("""
+```xml
+<SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any">
+	<!--<keyList> ... </keyList> 
+	<Distance>64.09</Distance>-->
+	<gml:LineString gml:id="w-582_n-25403_n-25366"> 	... 	</gml:LineString>
+	<!--<From> 	... 	</From>
+	<To> 	... 	</To>
+	<AccessibilityAssessment id="Yukaimaps:AccessibilityAssessment:2:" version="any"> 	... 	</AccessibilityAssessment>
+	<PublicUse>all</PublicUse>
+	<Covered>outdoors</Covered>
+	<Lighting>wellLit</Lighting>
+	<NumberOfSteps>0</NumberOfSteps>
+	<Transition>level</Transition>
+	<AccessFeatureType>pavement</AccessFeatureType>
+	<PassageType>pathway</PassageType>
+	<FlooringType>asphalt</FlooringType>
+	<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<TactileGuidingStrip>false</TactileGuidingStrip>-->
+</SitePathLink>
+```
+""")
+
+linestring_doc = Kino.Markdown.new("""
+![géométrie du tronçon de cheminement](files/voirie_doc_linestring.png)
+""")
+
+linestring = Kino.Layout.grid([linestring_xml, linestring_doc], columns: {2, 2})
+
+accessfeaturetype_xml = Kino.Markdown.new("""
+```xml
+<SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any">
+	<!--<keyList> ... </keyList>
+	<Distance>64.09</Distance>
+	<gml:LineString gml:id="w-582_n-25403_n-25366"> 	... 	</gml:LineString>
+	<From> 	... 	</From>
+	<To> 	... 	</To>
+	<AccessibilityAssessment id="Yukaimaps:AccessibilityAssessment:2:" version="any"> 	... 	</AccessibilityAssessment>
+	<PublicUse>all</PublicUse>
+	<Covered>outdoors</Covered>
+	<Lighting>wellLit</Lighting>
+	<NumberOfSteps>0</NumberOfSteps>
+	<Transition>level</Transition>-->
+	<AccessFeatureType>pavement</AccessFeatureType>
+	<!--<PassageType>pathway</PassageType>
+	<FlooringType>asphalt</FlooringType>
+	<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<TactileGuidingStrip>false</TactileGuidingStrip>-->
+</SitePathLink>
+```
+""")
+
+accessfeaturetype_doc = Kino.Markdown.new("""
+![type de caractéristique associée au SitePathLink](files/voirie_doc_accessfeaturetype.png)
+""")
+
+accessfeaturetype = Kino.Layout.grid([accessfeaturetype_xml, accessfeaturetype_doc], columns: {2, 2})
+
+flooringtype_xml = Kino.Markdown.new("""
+```xml
+<SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any">
+	<!--<keyList> ... </keyList>
+	<Distance>64.09</Distance>
+	<gml:LineString gml:id="w-582_n-25403_n-25366"> 	... 	</gml:LineString>
+	<From> 	... 	</From>
+	<To> 	... 	</To>
+	<AccessibilityAssessment id="Yukaimaps:AccessibilityAssessment:2:" version="any"> 	... 	</AccessibilityAssessment>
+	<PublicUse>all</PublicUse>
+	<Covered>outdoors</Covered>
+	<Lighting>wellLit</Lighting>
+	<NumberOfSteps>0</NumberOfSteps>
+	<Transition>level</Transition>
+	<AccessFeatureType>pavement</AccessFeatureType>
+	<PassageType>pathway</PassageType>-->
+	<FlooringType>asphalt</FlooringType>
+	<!--<TactileWarningStrip>tactileStripAtBothEnds</TactileWarningStrip>
+	<TactileGuidingStrip>false</TactileGuidingStrip>-->
+</SitePathLink>
+```
+""")
+
+flooringtype_doc = Kino.Markdown.new("""
+![type de surface au sol](files/voirie_doc_flooringtype.png)
+""")
+
+flooringtype = Kino.Layout.grid([flooringtype_xml, flooringtype_doc], columns: {2, 2})
+
+accessibility_xml = Kino.Markdown.new("""
+
+pour un des 2 passages piétons :
+
+```xml
+<SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any">
+  <!-- ... -->
+  <AccessibilityAssessment id="Yukaimaps:AccessibilityAssessment:5:" version="any">
+    <MobilityImpairedAccess>unknown</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation>
+        <WheelchairAccess>unknown</WheelchairAccess>
+        <StepFreeAccess>true</StepFreeAccess>
+        <LiftFreeAccess>true</LiftFreeAccess>
+        <AudibleSignalsAvailable>false</AudibleSignalsAvailable>
+        <VisualSignsAvailable>true</VisualSignsAvailable>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <!--  ...
+  <AccessFeatureType>crossing</AccessFeatureType>-->
+</SitePathLink>
+```
+""")
+
+accessibility_doc = Kino.Markdown.new("""
+![voir en annexe](files/voirie_doc_aa.png)
+
+dans l'annexe :
+![il y a des feux sonores d'aide à la traversée en bon état de marche](files/voirie_doc_aa_annexe.png)
+
+""")
+
+accessibility = Kino.Layout.grid([accessibility_xml, accessibility_doc], columns: {2, 2})
+
+Kino.Layout.tabs([
+  Distance: distance,
+  Linestring: linestring,
+  AccessFeatureType: accessfeaturetype,
+  FlooringType: flooringtype,
+  AccessibilityAssessment: accessibility,
+])
+
+````
+
+Pour le CrossingEquipment :
 
 https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#access-equipment
 
