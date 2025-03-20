@@ -45,25 +45,33 @@ Source: [Fiche Mémo Mobilités de la Communauté d'agglomération Rochefort Oc�
 
 <!-- livebook:{"break_markdown":true} -->
 
-NeTEx permet de définir l’ensemble des **lignes** du réseau ainsi que les **horaires** de passage théoriques
+On retrouve sur le site associé R'Bus Transport la [liste des lignes disponibles](https://www.rbus-transport.com/horaires-par-ligne/).
+
+Voici les lignes régulières présentes au moment où cette formation a été conçue:
 
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/planReaseauRBus_lignes_regulieres.jpg)
 
+🚨TODO: source ?
+
 <!-- livebook:{"break_markdown":true} -->
 
-❓supprimer le TAD ci-dessous ? Je crois qu'il n'est pas dans le NeTEx.
+Il existe également sur le territoire :
+
+* du TAD (Transport À la Demande),
+* des circuits scolaires,
+* et des lignes régionales désservant la CARO.
 
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
 
-<!-- livebook:{"break_markdown":true} -->
+🚨TODO: source ?
 
-Liste des fichiers NETEX
+🚨TODO: découper en 3 ?
 
-⚠️ TODO: ajouter texte explication -> lien PAN avec le fichier, le fait que c'est un zip etc
+## Direction : la donnée NeTEx
 
 <!-- livebook:{"break_markdown":true} -->
 
