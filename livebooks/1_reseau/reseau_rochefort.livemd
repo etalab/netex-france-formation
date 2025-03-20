@@ -3,12 +3,6 @@
 # Présentation Lignes et Horaires - Rochefort
 
 ```elixir
-Mix.install([
-  {:kino, "~> 0.15.3"},
-  {:kino_maplibre, "~> 0.1.12"},
-  {:unzip, "~> 0.12.0"}
-])
-
 defmodule Rochefort do
   def repo_root do
     Path.join(__DIR__, "../..")
@@ -18,9 +12,19 @@ defmodule Rochefort do
     Path.join(repo_root(), "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip")
   end
 
-  def compile_code() do
+  def install_required_libraries() do
+    Mix.install([
+      {:kino, "~> 0.15.3"},
+      {:kino_maplibre, "~> 0.1.12"},
+      {:unzip, "~> 0.12.0"}
+    ])
+  end
+
+  def compile_required_code() do
     Code.compile_file("lib/zip_support.ex", repo_root())
     Code.compile_file("lib/kino_tooling.ex", repo_root())
+    Code.require_file("lib/xml_support.ex", repo_root())
+    Code.require_file("lib/helpers.ex", repo_root())
   end
   
   def list_netex_content(file \\ rbus_file()) do
@@ -29,10 +33,48 @@ defmodule Rochefort do
     |> ZipSupport.list_zip_entries()
     |> Enum.map(& %{"name" => &1})
     |> Kino.DataTable.new()
-  end  
+  end
 end
 
-Rochefort.compile_code()
+Rochefort.install_required_libraries()
+Rochefort.compile_required_code()
+
+# Geo library must be already required
+defmodule Rochefort.Carto do
+  def show_route_link(file_filter, route_link_xpath) do
+    zip = ZipSupport.open_zip!(Rochefort.rbus_file())
+    line_file = ZipSupport.list_zip_entries(zip)
+     |> Enum.filter(& &1 =~ file_filter)
+     |> Helpers.one!()
+
+    content = ZipSupport.read_entry!(zip, line_file) |> XmlSupport.string_to_xmerl!()
+    routelink = content |> XmlSupport.xpath!(route_link_xpath) |> List.first()
+
+    {:xmlObj, :string, data} = :xmerl_xpath.string(
+      ~c"string(gis:LineString/gis:posList/text())", 
+      routelink)
+    
+    coordinates = data
+    |> :erlang.list_to_binary()
+    |> String.split(~r/\s/)
+    |> Enum.map(&String.to_float(&1))
+    |> Enum.chunk_every(2)
+    |> Enum.map(fn(x) -> Enum.reverse(x) end)
+    |> Enum.map(&List.to_tuple(&1))
+
+    geom = %Geo.LineString{coordinates: coordinates}
+
+    # TODO: compute proper bounding box based on coordinates
+    MapLibre.new(style: :street, center: {-0.9572910070419312, 45.925331115722656}, zoom: 15)
+    |> MapLibre.add_geo_source("geom", geom)
+    |> MapLibre.add_layer(
+      id: "geom_line",
+      source: "geom",
+      type: :line,
+      paint: [line_color: "#f63b8a", line_opacity: 0.7, line_width: 5]
+    )
+  end
+end
 
 :ok
 ```
@@ -41,7 +83,7 @@ Rochefort.compile_code()
 
 Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel la suite de cette présentation s'appuie:
 
-🚨TODO: lien vers la présentation Transmodel détaillée ?
+* 🚨TODO: lien vers la présentation Transmodel détaillée ?
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -80,7 +122,7 @@ Voici les lignes régulières présentes au moment où cette formation a été c
 
 ![](files/planReaseauRBus_lignes_regulieres.jpg)
 
-🚨TODO: source ?
+* 🚨TODO: source ?
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -94,9 +136,8 @@ Il existe également sur le territoire :
 
 ![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
 
-🚨TODO: source ?
-
-🚨TODO: découper en 3 ?
+* 🚨TODO: source ?
+* 🚨TODO: découper en 3 ?
 
 ## Direction : la donnée NeTEx
 
@@ -112,19 +153,32 @@ Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompr
 Rochefort.list_netex_content()
 ```
 
-<!-- livebook:{"output":true} -->
-
-```text
-[%{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_calendriers.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_commun.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_A_A.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_B_B.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_C_C.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_D_D.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_E_E.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_F_F.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_J_J.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI1_RPI-1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI2_RPI-2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI3_RPI-3.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI4_RPI-4.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S1_S1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S2_S2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S3_S3.xml"}]
-```
-
 ## Description générale du réseau
 
-![](files/liste_fichiers_netex_common.jpg)
+Dans l'archive, nous allons à présent descendre dans le fichier "commun".
+
+* 🚨TODO - exercice "téléchargez le fichier NeTEx depuis le PAN, et ouvrez le avec un navigateur"
+* 🚨TODO - proposer un outil en ligne qui permet de résumer le fichier ? (pas le plugin VSCode directement)
+
+```xml
+<PublicationDelivery ...>
+  ...
+    <members>
+      <Network (x1) />
+      <Line (x14) />
+      <Operator (x1) />
+      <Authority (x1) />
+      <SiteConnection (x81) />
+    </members>
+  ...
+</PublicationDelivery>
+```
+
+* 🚨TODO - automatiser le résumé ci-dessus
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Fichier "commun" > Network : on définit la liste de lignes
+### Fichier "commun" > Network : on définit le réseau (et les lignes rattachées)
 
 ```elixir
 xml_1 = "snippets/001-network.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -164,6 +218,10 @@ Kino.Layout.tabs([
 ```
 
 ![](files/ligne_B_global.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+🚨TODO - exercice : trouvez le code, le nom et la couleur de la ligne F
 
 ## Description d'une ligne
 
@@ -211,6 +269,8 @@ Kino.Layout.tabs([
     </members>
 </GeneralFrame>
 ```
+
+* 🚨TODO - comptage de chaque entité
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -285,11 +345,9 @@ Un ITINERAIRE appartient à une LIGNE (**Line**), qui regroupe plusieurs ITINERA
 
 **_Rappel définition_** : Un TRONCON D'ITINERAIRE (**RouteLink**) est un tronçon orienté entre deux **RoutePoint** (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/ligneB_arrets_RouteLink_map.jpg)
-
-<!-- livebook:{"break_markdown":true} -->
+```elixir
+Rochefort.show_route_link(~r/RBUS_B_B/, "//RouteLink[1]")
+```
 
 ```xml
 <!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
