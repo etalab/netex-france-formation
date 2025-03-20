@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink_map.jpg","type":"attachment"},{"name":"ligneB_arrets_ServiceJourneyPattern.jpg","type":"attachment"},{"name":"ligneB_fiche_horaire.JPG","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink_map.jpg","type":"attachment"},{"name":"ligneB_arrets_ServiceJourneyPattern.jpg","type":"attachment"},{"name":"ligneB_fiche_horaire.JPG","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_calendriers.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
 
 # Présentation Lignes et Horaires - Rochefort
 
@@ -388,8 +388,21 @@ Kino.Layout.tabs([
 ])
 ```
 
-### Choses à faire
+## Description des périodes et des jours types
 
-* Faire le diagramme micro-UML des concepts Transmodel utilisés ici (**Ariane**)
-* Faire la partie sur le Calendar (**Ariane**)
-* Masquer les sections Elixir de code (ou au moins les simplifier) (**Thibaut**)
+![](files/liste_fichiers_netex_calendriers.jpg)
+
+```elixir
+generalFrame_calendrier = "snippets/005-calendar-general-frame.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+dayType = "snippets/005-calendar-day-type.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+operatingPeriod = "snippets/005-calendar-operating-period.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+dayTypeAssignment = "snippets/005-calendar-day-type-assignment.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+
+Kino.Layout.tabs([
+  GeneralFrame: generalFrame_calendrier,
+  dayType: dayType,
+  operatingPeriod: operatingPeriod,
+  dayTypeAssignment: Kino.Layout.grid([dayTypeAssignment, dayType, operatingPeriod], columns: 3)
+])
+
+```
