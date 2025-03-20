@@ -33,7 +33,11 @@ graph TD
   DatedVehicleJourney --> OperatingDay["OperatingDay (Jour d'exploitation)"]
 ```
 
-## Partir du réel - L'offre de Rochefort
+## Partir du réel - L'offre de "Rochefort Océan"
+
+Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
+
+<!-- livebook:{"break_markdown":true} -->
 
 ![](files/rochefort_offre_brochure.jpg)
 
