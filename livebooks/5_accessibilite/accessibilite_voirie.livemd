@@ -1,4 +1,4 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"}]} -->
 
 # Accessibilité - voirie
 
@@ -133,6 +133,8 @@ Mode opératoire :
 <!-- livebook:{"break_markdown":true} -->
 
 3 -  Combien ont un feu sonore ?
+
+![illustration de feu sonore](files/voirie_tactile_acoustic_crossing.png) _© nlehuby (CC-BY-SA)_
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Correction</summary>
