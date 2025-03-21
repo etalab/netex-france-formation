@@ -469,10 +469,6 @@ Remarque : On parle aussi de MISSION COMMERCIALE.
 </GeneralFrame>-->
 ```
 
-<!-- livebook:{"break_markdown":true} -->
-
-* TODO: PassengerAssignment -> lien avec l'agrégat, accessibilité, correspondances de lignes (?), nom de l'arrêt etc etc, mutualisé au niveau régional.
-
 ## ↘️↘️RouteLink
 
 ### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
@@ -529,6 +525,14 @@ Rochefort.Carto.show_route_link(
   "//RouteLink[#{Kino.Input.read(numero_du_routelink)}]"
 )
 ```
+
+## ↘️↘️PassengerStopAssignment
+
+### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
+
+**_Rappel définition_** : Un `PassengerStopAssignment` est un élément qui définit l'affectation d'un arrêt à une localisation physique précise. Il est utilisé pour associer notamment un `ScheduledStopPoint` à un `Quay` (ZONE D'EMBARQUEMENT).
+
+💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts ainsi que les informations d'accessibilité plus détaillées.
 
 ## ↘️Horaires de la ligne
 
