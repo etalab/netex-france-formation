@@ -124,7 +124,7 @@ Voici les lignes régulières présentes au moment où cette formation a été c
 
 ![](files/planReaseauRBus_lignes_regulieres.jpg)
 
-* 🚨TODO: source ?
+Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-76/)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -138,7 +138,8 @@ Il existe également sur le territoire :
 
 ![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
 
-* 🚨TODO: source ?
+Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-76/)
+
 * 🚨TODO: découper en 3 ?
 
 ## Direction : la donnée NeTEx
@@ -196,7 +197,6 @@ Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 Dans le fichier commun/partie Network, on définit le réseau (et les lignes rattachées).
 
 * 🚨TODO: EXERCICE: trouvez la section Network dans le fichier commun
-* 🚨TODO: Call-out "à vous d'agir" en parallèle de la présentation.
 
 ```elixir
 import Kino.Shorts
@@ -243,7 +243,47 @@ tabs([
 
 <!-- livebook:{"break_markdown":true} -->
 
-🚨TODO - exercice : trouvez le code, le nom et la couleur de la ligne F
+✍️ Exercice : trouvez le code, le nom le mode et les couleurs de la ligne F
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
+    
+* Code : F
+* Nom : Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud
+* Mode : bus
+* Couleurs : Blanc sur fond Violet
+    
+```xml
+<!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:F:LOC">
+    <keyList>
+      <KeyValue>
+        <Key>route_sort_order</Key>
+        <Value>7</Value>
+      </KeyValue>
+    </keyList>-->
+    <Name>Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud</Name>
+    <ShortName>Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud</ShortName>
+    <TransportMode>bus</TransportMode>
+    <PublicCode>F</PublicCode>
+    <!--<PrivateCode>F</PrivateCode>
+    <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>-->
+    <Presentation>
+      <Colour>8D61A9</Colour>
+      <TextColour>FFFFFF</TextColour>
+    </Presentation>
+    <!--<AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_F:LOC">
+      <MobilityImpairedAccess>true</MobilityImpairedAccess>
+      <limitations>
+        <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_F:LOC">
+          <WheelchairAccess>true</WheelchairAccess>
+        </AccessibilityLimitation>
+      </limitations>
+    </AccessibilityAssessment>
+  </Line>-->
+```
+  </div>
+</details>
 
 ## Description d'une ligne
 
