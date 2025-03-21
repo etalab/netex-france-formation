@@ -1,6 +1,6 @@
 <!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink_map.jpg","type":"attachment"},{"name":"ligneB_arrets_ServiceJourneyPattern.jpg","type":"attachment"},{"name":"ligneB_fiche_horaire.JPG","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_calendriers.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
 
-# Présentation Lignes et Horaires - Rochefort
+# Lignes et Horaires - Rochefort
 
 ```elixir
 defmodule Rochefort do
@@ -626,6 +626,23 @@ TODO: exercices
 
 Les DayTypeAssignment assignent des jours types (DayType) à des périodes de service (OperatingPeriod) ou des dates précises (Date).
 
-<!-- livebook:{"break_markdown":true} -->
+## Fin
 
 TODO: Ouverture / conclusion...
+
+<!-- livebook:{"break_markdown":true} -->
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">Introduction</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">Lignes et Horaires - Rochefort</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="TODO.livemd">Lieux d'arrêts - Rouen</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
