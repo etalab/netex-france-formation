@@ -1,0 +1,723 @@
+<!-- livebook:{"file_entries":[{"name":"ligneB_arrets.jpg","type":"attachment"},{"name":"ligneB_arrets_Route.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink.jpg","type":"attachment"},{"name":"ligneB_arrets_RouteLink_map.jpg","type":"attachment"},{"name":"ligneB_arrets_ServiceJourneyPattern.jpg","type":"attachment"},{"name":"ligneB_fiche_horaire.JPG","type":"attachment"},{"name":"ligne_B_global.jpg","type":"attachment"},{"name":"liste_fichiers_netex.jpg","type":"attachment"},{"name":"liste_fichiers_netex_calendriers.jpg","type":"attachment"},{"name":"liste_fichiers_netex_common.jpg","type":"attachment"},{"name":"liste_fichiers_netex_ligneB.jpg","type":"attachment"},{"name":"planReaseauRBus_TAD_lignesScolaires_Regio.jpg","type":"attachment"},{"name":"planReaseauRBus_lignes_regulieres.jpg","type":"attachment"},{"name":"rochefort_offre_brochure.jpg","type":"attachment"}],"persist_outputs":true} -->
+
+# Lignes et Horaires - Rochefort
+
+```elixir
+defmodule Rochefort do
+  def repo_root do
+    Path.join(__DIR__, "../..")
+  end
+
+  def rbus_file do
+    Path.join(repo_root(), "/data/ca_rochefort_ocean-aggregated-netex-2025-03-03.zip")
+  end
+
+  def install_required_libraries() do
+    Mix.install([
+      {:kino, "~> 0.15.3"},
+      {:kino_maplibre, "~> 0.1.12"},
+      {:unzip, "~> 0.12.0"}
+    ])
+  end
+
+  def compile_required_code() do
+    Code.compile_file("lib/zip_support.ex", repo_root())
+    Code.compile_file("lib/kino_tooling.ex", repo_root())
+    Code.require_file("lib/xml_support.ex", repo_root())
+    Code.require_file("lib/helpers.ex", repo_root())
+  end
+  
+  def list_netex_content(file \\ rbus_file()) do
+    file
+    |> ZipSupport.open_zip!()
+    |> ZipSupport.list_zip_entries()
+    |> Enum.map(& %{"name" => &1})
+    |> Kino.DataTable.new()
+  end
+end
+
+Rochefort.install_required_libraries()
+Rochefort.compile_required_code()
+
+# Geo library must be already required
+defmodule Rochefort.Carto do
+  def show_route_link(file_filter, route_link_xpath) do
+    zip = ZipSupport.open_zip!(Rochefort.rbus_file())
+    line_file = ZipSupport.list_zip_entries(zip)
+     |> Enum.filter(& &1 =~ file_filter)
+     |> Helpers.one!()
+
+    content = ZipSupport.read_entry!(zip, line_file) |> XmlSupport.string_to_xmerl!()
+    routelink = content |> XmlSupport.xpath!(route_link_xpath) |> List.first()
+
+    {:xmlObj, :string, data} = :xmerl_xpath.string(
+      ~c"string(gis:LineString/gis:posList/text())", 
+      routelink)
+    
+    coordinates = data
+    |> :erlang.list_to_binary()
+    |> String.split(~r/\s/)
+    |> Enum.map(&String.to_float(&1))
+    |> Enum.chunk_every(2)
+    |> Enum.map(fn(x) -> Enum.reverse(x) end)
+    |> Enum.map(&List.to_tuple(&1))
+
+    geom = %Geo.LineString{coordinates: coordinates}
+
+    # TODO: compute proper bounding box based on coordinates
+    MapLibre.new(style: :street, center: {-0.9572910070419312, 45.925331115722656}, zoom: 15)
+    |> MapLibre.add_geo_source("geom", geom)
+    |> MapLibre.add_layer(
+      id: "geom_line",
+      source: "geom",
+      type: :line,
+      paint: [line_color: "#f63b8a", line_opacity: 0.7, line_width: 5]
+    )
+  end
+end
+
+:ok
+```
+
+## Rappel des concepts Transmodel - Ligne
+
+Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel la suite de cette présentation s'appuie:
+
+* 🚨TODO: lien vers la présentation Transmodel détaillée ?
+
+<!-- livebook:{"break_markdown":true} -->
+
+<!-- Learn more at https://mermaid-js.github.io/mermaid -->
+
+```mermaid
+graph TD
+  Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
+  Route -- est sur une unique --> Line
+  Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
+  Route -- est dans une --> Direction(Direction)
+
+  Route -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
+  ServiceJourneyPattern -- est sur un unique --> Route
+  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
+  ServiceJourneyPattern -- est le support du --> ServiceJourney("ServiceJourney (Course)")
+  ServiceJourney -- est defini pour un --> DayType("DayType (Type de jour)")
+
+```
+
+## Partir du réel - L'offre de "Rochefort Océan"
+
+Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/rochefort_offre_brochure.jpg)
+
+Source: [Fiche Mémo Mobilités de la Communauté d'agglomération Rochefort Océan](https://www.rochefort-ocean.com/organiser/informations-pratiques/se-deplacer)
+
+<!-- livebook:{"break_markdown":true} -->
+
+On retrouve sur le site associé R'Bus Transport la [liste des lignes disponibles](https://www.rbus-transport.com/horaires-par-ligne/).
+
+Voici les lignes régulières présentes au moment où cette formation a été conçue:
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/planReaseauRBus_lignes_regulieres.jpg)
+
+Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-76/)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Il existe également sur le territoire :
+
+* du TAD (Transport À la Demande),
+* des circuits scolaires,
+* et des lignes régionales désservant la CARO.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
+
+Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-76/)
+
+* 🚨TODO: découper en 3 ?
+
+## Direction : la donnée NeTEx
+
+Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
+
+* [Jeu de données Réseau urbain R'Bus](https://transport.data.gouv.fr/datasets?q=réseau+urbain+r%27bus), sur lequel nous allons zoomer ici, avec l'offre R'Bus, mais aussi:
+
+* [Réseau interurbain - Charente-Maritime 17 - Nouvelle-Aquitaine](https://transport.data.gouv.fr/datasets?q=charente+maritime+17) pour les lignes régionales
+
+* [Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine]) pour des définitions plus précises des arrêts ainsi qu'un agrégat de l'offre régionale.
+
+🫵 A vous : téléchargez le fichier NeTEx de R'bus, décompressez le, et observez les noms des fichiers
+
+* 🚨TODO: "Collapser" la vue des fichiers plus bas
+
+Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompresse, on voit que l'archive NeTEx comporte les fichiers suivants:
+
+```elixir
+Rochefort.list_netex_content()
+```
+
+## Description générale du réseau
+
+Dans l'archive, nous allons à présent descendre dans le fichier "commun".
+
+🫵 A vous : ouvrez le fichier "commun" avec un navigateur (ou autre logiciel de lecture de fichier XML)
+
+* 🚨TODO - proposer un outil en ligne qui permet de résumer le fichier ? (pas le plugin VSCode directement)
+
+```xml
+<PublicationDelivery ...>
+  ...
+    <members>
+      <Network/> (x1)
+      <Line (x14) />
+      <Operator (x1) />
+      <Authority (x1) />
+      <SiteConnection (x81) />
+    </members>
+  ...
+</PublicationDelivery>
+```
+
+* 🚨TODO - automatiser le résumé ci-dessus
+
+## ↘️ Fichier "commun" > Network
+
+Dans le fichier commun/partie Network, on définit le réseau (et les lignes rattachées).
+
+* 🚨TODO: EXERCICE: trouvez la section Network dans le fichier commun
+
+```elixir
+import Kino.Shorts
+
+xml_1 = "snippets/001-network.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+xml_2 = "snippets/001-network-highlight-regular.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+image_1 = "files/planReaseauRBus_lignes_regulieres.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+xml_3 = "snippets/001-network-highlight-school.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+image_2 = "files/planReaseauRBus_lignesScolaires.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+
+tabs([
+  Network: xml_1,
+  "Lignes régulières": grid([xml_2, image_1], columns: {2, 1}),
+  "Lignes scolaires et RPI": grid([xml_3, image_2], columns: {2, 1})
+])
+```
+
+## ↘️ Fichier "commun" > Line
+
+Pour chaque ligne, on définit des informations générales
+
+<!-- livebook:{"break_markdown":true} -->
+
+**_Rappel définition_** : Une LIGNE (**Line**) est un groupe d’ITINÉRAIREs (voir plus bas - **Route**) qui est en général connu du public par une appellation commune (nom ou numéro, extrémités de ligne, etc.).
+
+```elixir
+line_complete = "snippets/002-line.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_name = "snippets/002-line-name.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_mode = "snippets/002-line-mode.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_code = "snippets/002-line-code.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_logo = "snippets/002-line-logo.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+logo_ligne = "files/logo_ligne_B.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+
+tabs([
+  Line: line_complete,
+  "Nom de la ligne": line_name,
+  "Mode de la ligne": line_mode,
+  "Code de la ligne": line_code,
+  "Badge de ligne": grid([line_logo, logo_ligne], columns: {6, 1})
+])
+```
+
+![](files/ligne_B_global.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+✍️ Exercice : trouvez le code, le nom le mode et les couleurs de la ligne F
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
+    
+* Code : F
+* Nom : Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud
+* Mode : bus
+* Couleurs : Blanc sur fond Violet
+    
+```xml
+<!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:F:LOC">
+    <keyList>
+      <KeyValue>
+        <Key>route_sort_order</Key>
+        <Value>7</Value>
+      </KeyValue>
+    </keyList>-->
+    <Name>Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud</Name>
+    <ShortName>Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud</ShortName>
+    <TransportMode>bus</TransportMode>
+    <PublicCode>F</PublicCode>
+    <!--<PrivateCode>F</PrivateCode>
+    <OperatorRef ref="CA_ROCHEFORT_OCEAN:Operator:RBUSo:LOC" version="any"/>-->
+    <Presentation>
+      <Colour>8D61A9</Colour>
+      <TextColour>FFFFFF</TextColour>
+    </Presentation>
+    <!--<AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:line_F:LOC">
+      <MobilityImpairedAccess>true</MobilityImpairedAccess>
+      <limitations>
+        <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:line_F:LOC">
+          <WheelchairAccess>true</WheelchairAccess>
+        </AccessibilityLimitation>
+      </limitations>
+    </AccessibilityAssessment>
+  </Line>-->
+```
+  </div>
+</details>
+
+## Description d'une ligne
+
+🫵 A vous : ouvrez le fichier de la ligne B
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/liste_fichiers_netex_ligneB.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Dans ce fichier, on définit :
+
+* la topologie de la ligne
+* ses horaires
+
+```elixir
+line_complete = "snippets/003-line-frames.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_topo = "snippets/003-line-topo.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+line_horaires = "snippets/003-line-horaires.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+
+tabs([
+  Line: line_complete,
+  "Topologie de la ligne": line_topo,
+  "Horaires de la ligne": line_horaires
+])
+```
+
+## ↘️Topologie de la ligne
+
+Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
+
+**_Rappel définition_** : Transmodel définit une LIGNE (`Line`) comme un groupe d’ITINERAIREs (`Route`) qui est généralement connu du public sous un nom ou un numéro similaire. Ces ITINERAIREs sont généralement très similaires d’un point de vue topologique, c’est-à-dire des variantes d’un itinéraire principal avec quelques écarts seulement sur certaines parties. Deux ITINERAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront généralement à la même LIGNE.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>
+```
+
+* 🚨TODO - comptage de chaque entité
+* 🚨TODO - question auto-formation Thibaut - comment reconstruire la vue résumée de la ligne à partir du fichier NeTEX ? Réponse: les noms des arrêts et leur accessibilité est centralisée dans le référentiel régional (agrégat). Route -> ServiceJourneyPattern -> (...) -> ScheduleStopPoint -> Quay/StopPlace
+
+## ↘️↘️Route
+
+### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
+
+**_Rappel définition_** : Un ITINERAIRE (**Route**) est une liste ordonnée de POINTs (**RoutePoints**) définissant un seul chemin à travers le réseau routier (ou ferré). Un ITINERAIRE peut passer deux fois par un même POINT.
+
+* 🚨TODO - définitions pas très claires sur le profil France ; on peut faire des retours
+* 🚨TODO - DRY définition
+* 🚨TODO - si faisable : au survol de "Route", afficher la définition en popup, mettre un lien vers le doc de définitions générales etc.
+* 🚨TODO - expliquer que la structure précise d'un fichier peut varier d'un territoire à un autre, mais que cela est en cours d'homogénéisation (travaux GT7 etc)
+* 🚨TODO - Les séquences de points sont actuellement, dans le fichier de Rochefort, définies à l'intérieur du ServiceJourneyPattern, et pas de la Route. En théorie dans le profil France: il est obligatoire de les avoirs dans la Route, et facultatif dans le ServiceJourneyPattern.
+
+Un ITINERAIRE appartient à une LIGNE (**Line**), qui regroupe plusieurs ITINERAIRES pouvant être dans des directions différentes.
+
+<!-- livebook:{"break_markdown":true} -->
+
+```mermaid
+graph LR
+  Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
+  Route -- est sur une unique --> Line
+  Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
+  Route -- est dans une --> Direction(Direction)
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets_Route.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+🚨TODO - je décroche : où sont les points, qui sont censés être là ??? Réponse: le RouteRef est pointé par un ServiceJourneyPattern, qui contient une séquence de ScheduleStopPoints, et via les refs des SSP on peut parfois mais pas tout le temps, remonter au RouteLink correspondant. Le PassengerStopAssignement permet  de faire le lien entre SCheduleStoppoint et Quay (qui est dans l'agrégat) et donc d'obtenir les informations d'accessibilités et les noms des arrêts (mutualisés sur la région).
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...-->
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>Parc des Fourriers -> Hôpital</Name>
+        <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+        <DirectionType>inbound</DirectionType>
+        <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+       </Route>
+      <!--<Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+## ↘️↘️Direction
+
+### Fichier d'une ligne > LIGNE > Direction : on définit les directions possibles de nos Routes
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...-->
+      <!--<Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>Parc des Fourriers -> Hôpital</Name>
+        <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+        <DirectionType>inbound</DirectionType>-->
+        <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+      <!--</Route>-->
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>Hôpital</Name>
+      </Direction>
+      ...
+      <!--<ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+## ↘️↘️ScheduledStopPoint
+
+### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt planifiés
+
+**_Rappel définition_** : un POINT D'ARRET PLANIFIE (**ScheduledStopPoint**) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
+
+<!-- livebook:{"break_markdown":true} -->
+
+* 🚨 TODO: expliquer que c'est un arrêt "simplifié" sans accessibilité, et qu'un lien est fait avec `StopPlace`/`Quay` dans l'agrégat ?
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...-->
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+        <Location>
+          <Longitude>-0.965409</Longitude>
+          <Latitude>45.958561</Latitude>
+        </Location>
+      </ScheduledStopPoint>
+      ...
+      <!--<PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+TODO: pour nous
+
+ROUTELINK: 
+CA_ROCHEFORT_OCEAN:RouteLink:B_9523CEB527B7855DF453D065F3F80B97_50_P204746_P105843_100:LOC
+
+FROMPOINTREF
+CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP204746ScheduledScheduled:LOC
+
+TOPOINTREF
+
+CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP105843ScheduledScheduled:LOC
+
+TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à partir des stop point ref
+
+## ↘️↘️ServiceJourneyPattern
+
+### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
+
+**_Rappel définition_** : Un PARCOURS COMMERCIAL (**ServiceJourneyPattern**) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers).
+
+Remarque : On parle aussi de MISSION COMMERCIALE.
+
+<!-- livebook:{"break_markdown":true} -->
+
+```mermaid
+graph LR
+  Route("Route (Itinéraire)") -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
+  ServiceJourneyPattern -- est sur un unique --> Route
+  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets_ServiceJourneyPattern.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...-->
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>HOPITAL</Name>
+        <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+        <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_F36FA40C125B3C6E9206EB371729B19A-B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
+        <pointsInSequence>
+          <StopPointInJourneyPattern order="1" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="2" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104745ScheduledScheduled:LOC">
+          ...
+        </pointsInSequence>
+        <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+      </ServiceJourneyPattern>
+      ...
+      <!--<ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+## ↘️↘️RouteLink
+
+### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
+
+**_Rappel définition_** : Un TRONCON D'ITINERAIRE (**RouteLink**) est un tronçon orienté entre deux **RoutePoint** (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
+
+<!-- livebook:{"break_markdown":true} -->
+
+Le `RouteLink` part ici d'un `ScheduleStopPoint` et arrive à un autre `ScheduleStopPoint`, en suivant un tracé qui est son itinéraire intermédiaire, donné sous forme de coordonnées géographiques:
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>-->
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+        <Distance>913.5795215028178</Distance>
+        <gis:LineString srsName="4326" srsDimension="2" gis:id="LS99170">
+           <gis:posList count="36" srsDimension="2">45.92617416381836 -0.9510250091552734 45.926109313964844 -0.950980007648468 45.925838470458984 -0.9517800211906433 45.92591094970703 -0.9518700242042542 45.927120208740234 -0.9529399871826172 45.92715835571289 -0.9530400037765503 45.92716979980469 -0.9531800150871277 45.927101135253906 -0.9539200067520142 45.92639923095703 -0.9538800120353699 45.926231384277344 -0.9538999795913696 45.926109313964844 -0.9539700150489807 45.926021575927734 -0.9540600180625916 45.9258918762207 -0.9542499780654907 45.925228118896484 -0.9562399983406067 45.92522048950195 -0.9563300013542175 45.925228118896484 -0.9566100239753723 45.92530059814453 -0.9573000073432922 45.925331115722656 -0.9572910070419312</gis:posList>
+        </gis:LineString>
+        <FromPointRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ScheduledStopPointRefStructure" ref="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
+        <ToPointRef xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ScheduledStopPointRefStructure" ref="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC" version="any"/>
+      </RouteLink>
+      ...
+      <!--<Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+Un programme informatique (ou un humain motivé) peut, à partir de ces coordonnées, afficher le tronçon sur une carte, comme ci-dessous.
+
+Choisissez la position (numéro d'index) du `RouteLink` dans le fichier:
+
+```elixir
+numero_du_routelink = Kino.Input.text("Numéro du RouteLink", default: "1")
+```
+
+Puis cliquez sur "Reevaluate" ci-dessous pour l'afficher:
+
+```elixir
+Rochefort.Carto.show_route_link(
+  ~r/RBUS_B_B/, 
+  "//RouteLink[#{Kino.Input.read(numero_du_routelink)}]"
+)
+```
+
+## ↘️↘️PassengerStopAssignment
+
+### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
+
+**_Rappel définition_** : Un `PassengerStopAssignment` est un élément qui définit l'affectation d'un arrêt à une localisation physique précise. Il est utilisé pour associer notamment un `ScheduledStopPoint` à un `Quay` (ZONE D'EMBARQUEMENT).
+
+💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts ainsi que les informations d'accessibilité plus détaillées.
+
+## ↘️Horaires de la ligne
+
+Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
+
+<!-- livebook:{"break_markdown":true} -->
+
+TODO: introduction textuelle.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_fiche_horaire.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+TODO: source (lien)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_HORAIRE:">version="1.1:FR-NETEX_HORAIRE-2.2"</TypeOfFrameRef>
+    <members>
+        <ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+        ...
+    </members>
+</GeneralFrame>
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+TODO: résumé
+
+## ↘️↘️ServiceJourney
+
+### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
+
+**_Rappel définition_** : Une COURSE (**ServiceJourney**) est le mouvement défini d’un véhicule utilisant un PARCOURS (**JourneyPattern**) spécifiée. Elle est définie pour un TYPE DE JOUR (**DayType**) donné.
+
+<!-- livebook:{"break_markdown":true} -->
+
+TODO Thibaut: refaire une phrase "en français pur" et la faire review par Ariane. Les "marquer" clairement pour faciliter la review.
+
+```elixir
+service_journey = "snippets/004-service-journey.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_patternRef = "snippets/004-service-journey-pattern-ref.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_pattern = "snippets/004-service-journey-pattern.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_passingTimes = "snippets/004-service-journey-passing-times.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_dayTypes = "snippets/004-service-journey-day-types.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+
+dayTypes_description = Kino.Markdown.new("""
+Les dayTypes permettent de définir sur quels jours types la course est valable
+
+Ici, la fiche horaire indique par exemple : “Toute l’année (sauf jours fériés)” et “Du Lundi au Samedi”
+
+Le fichier xml référence le DayType “S1ETE_LMWJVS”
+Celui-ci est réellement défini dans le fichier “calendrier”
+""")
+
+serviceJourneyImg = "files/ligneB_fiche_horaire_ServiceJourney - cropped.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+passingTimesImg = "files/ligneB_fiche_horaire_ServiceJourney_passingTimes.jpg"  |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+dayTypesImg = "files/ligneB_fiche_horaire_ServiceJourney_dayTypes.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+
+Kino.Layout.tabs([
+  ServiceJourney: Kino.Layout.grid([service_journey, serviceJourneyImg], columns: {2,1}),
+  JourneyPatternRef: Kino.Layout.grid([service_journey_patternRef, service_journey_pattern], columns: 2),
+  passingTimes: Kino.Layout.grid([service_journey_passingTimes, service_journey_pattern, passingTimesImg], columns: 3),
+  dayTypes: Kino.Layout.grid([service_journey_dayTypes, dayTypesImg, dayTypes_description], columns: 3)
+])
+```
+
+## Description des périodes et des jours types
+
+🫵 A vous : ouvrez le fichier des calendriers
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/liste_fichiers_netex_calendriers.jpg)
+
+```elixir
+generalFrame_calendrier = "snippets/005-calendar-general-frame.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+dayType = "snippets/005-calendar-day-type.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+operatingPeriod = "snippets/005-calendar-operating-period.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+dayTypeAssignment = "snippets/005-calendar-day-type-assignment.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+
+Kino.Layout.tabs([
+  GeneralFrame: generalFrame_calendrier,
+  DayType: dayType,
+  OperatingPeriod: operatingPeriod,
+  DayTypeAssignment: Kino.Layout.grid([dayTypeAssignment, dayType, operatingPeriod], columns: 3)
+])
+
+```
+
+TODO: résumé
+TODO: exercices
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les DayTypeAssignment assignent des jours types (DayType) à des périodes de service (OperatingPeriod) ou des dates précises (Date).
+
+## Fin
+
+TODO: Ouverture / conclusion...
+
+<!-- livebook:{"break_markdown":true} -->
+
+🫵 A vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Lieux d'arrêts - Rouen") ou revenir à la partie précédente ("Introduction")
+
+<!-- livebook:{"break_markdown":true} -->
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">Introduction</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">Lignes et Horaires - Rochefort</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="TODO.livemd">Lieux d'arrêts - Rouen</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
