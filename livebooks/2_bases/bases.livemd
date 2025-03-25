@@ -1,0 +1,106 @@
+# Les concepts de base
+
+## Modèles de données, normes et profils
+
+Avant de nous plonger dans le monde des transports, posons ensemble quelques définitions. Il est important qu'on utilise toutes et tous le même vocabulaire et qu'on soit précis dans son usage.
+Pour ne pas complètement vous endormir avec chaque définition, j'ai prévu un petit cas pratique.
+Lançons-nous !
+
+### Modèle de données
+
+Définition : un modèle abstrait **définissant des concepts et leurs attributs**, ainsi que les relations entre chaque concept. Le tout permet de s’accorder sur une **référence commune** avant d’échanger des informations (= des données)
+
+Autrement dit, cela représente :
+* Des définitions de concepts
+* Des élémnents de caractérisation des concepts
+* Des relations entre les concepts
+
+C'est utile pour :
+* S'accorder sur des concepts et leur description
+* Utiliser le même vocabulaire pour des implémentations différentes
+
+Exemple :
+_A dessiner en UML pour contenir les attributs_
+
+Exercice :
+Dans le modèle conceptuel de données ci-dessous,
+* Combien avons-nous de concepts ?
+* Combien d'attributs avons-nous dans le concept 'Nutriment' ?
+* Quel est le concept portant la granularité la plus fine ?
+
+Dans notre cas : Transmodel
+
+### Normes
+
+Définition : **document établi par consensus et approuvé par un organisme de normalisation reconnu** (ex. AFNOR, CEN, ISO), qui fournit, pour des usages communs et répétés, des règles, des lignes directrices ou des caractéristiques, pour des activités ou leurs résultats, garantissant un niveau d'ordre optimal dans un contexte donné.
+
+Autrement dit, cela représente :
+* Des règles métier d'usage des concepts définis dans le modèle conceptuel de données
+* Des règles sur l'échange des données
+* Des choix prédéfinis sur la présence obligatoire ou non de certains concepts et attributs
+* LEs valeurs permises pour certains attributs
+
+C'est utile pour :
+* Favoriser la standardisation des échanges de données
+* Garantir un certain niveau de qualité des données échangées
+
+Exemple :
+_To do_
+
+Exercice :
+Les deux normes présentées ci-dessus :
+- Proviennent-elles du même modèle de données ?
+- Sont-elles les mêmes ?
+
+Dans notre cas : NeTEx et SIRI
+
+Norme vs standard : la seule différence est dans la gouvernance !
+Une norme est définie par un organisme de normalisation (ex. AFNOR, ISO). Un standard est défini par un groupe d'acteur qui n'est pas un organisme de normalisation (ex. W3C, Unicode)
+
+### Profil de norme
+
+Définition : **sous-ensemble défini à partir d’une norme** ou d’un standard qui peut comporter des règles spécifiques.
+
+Autrement dit, cela représente :
+* Une vue réduite d'une norme ou d'un standard existant
+* Des règles métier ou d'échanges de données partagées par un groupe d'acteurs.
+
+C'est utile pour :
+* Favoriser l'usage d'une norme très riche
+* Soutenir les échanges entre un certain type d'acteurs (ex. travaillant dans une même région, fournissant des données à un même commanditaire)
+
+Exemple :
+_To do_
+
+Exercice :
+Sur la base des normes mentionnées plus haut, citez au moins deux profils pertinents ?
+
+Dans notre cas : le profil France de NeTEx
+
+## Les concepts de base dans NeTEx / Transmodel
+
+### Le transport public
+
+Dans Transmodel et toutes les normes qui en sont dérivées, le **Transport public** est tout service de transport promu et disponible à l'ensemble des usagers, quel que soit son mode d'opération. À noter, Transmodel ne réduit pas la définition du transport public à l'existence ou non de conditions d'accès aux services de transport.
+![PT](files/PT_selon_TM.png) _© CEN, TC278, WG3, SG4 (CC-BY-SA)_
+
+À retenir :
+* périmètre plus large que les simples 'transports en communs'
+* richesse des concepts et des attributs pour modéliser toutes les réalités du transport public
+
+### Transmodel, NeTEx et SIRI
+
+Rappel : 
+* Transmodel est le modèle conceptuel de données
+* NeTEx et SIRI sont des formats d'échanges normalisés issus de Transmodel
+
+Concrètement :
+* Les concepts utilisés dans NeTEx et SIRI sont définis dans Transmodel
+* NeTEx et SIRI portent une vue de Transmodel qui répond à leur périmètre fonctionnel
+
+NeTEx = **Ne**twork *T*imetable *Ex*change
+Pour toutes les données théoriques (= planifiées, connues d'avance) décrivant une offre de transport public allant de la description topologique du réseau à son offre tarifaire en passant par ses éléments d'accessibilité.
+
+SIRI = **S**ervice **I**nterface for **R**eal-time **I**nformation
+Pour toutes les données en temps réel (= dynamiques, non connues d'avance) décrivant l'état d'une offre de transport public à un instant T allant de la position des véhicules à l'état de fonctionnement des ascenseurs en passant par les taux d'affluence.
+
