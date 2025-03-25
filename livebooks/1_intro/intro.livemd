@@ -1,0 +1,26 @@
+# Bonjour et bienvenue !
+
+## Section
+
+Nous sommes très heureux de vous accueillir aujourd'hui pour cette première formation NeTEx !
+
+## Règles de base
+
+Avant de commencer, merci de bien vouloir :
+
+* vous assurer que votre connexion internet fonctionne,
+* que les notifications de vos messageries sont coupées,
+* que votre téléphone est sur silencieux.
+
+Cette formation est interactive, donc n'hésitez pas à nous mettre sur "pause" pour éclaircir un point.
+
+## Qui sommes-nous
+
+||Prénom|Affiliation|Expertise pour la formation|
+|------|------|------|------|
+|![Ariane](files/ariane.png)|Ariane|GS Group|Modélisation des réseaux de transport|
+|![François-Xavier](files/fx.png)|François-Xavier|GS Group|La représentation de la multimodalité|
+|![Noémie](files/noemie.png)|Noémie|Jungle Bus|L'accessibilité des transports et de la voirie|
+|![Thibaut](files/thibaut.png)|Thibaut|Indépendant|Modélisation des réseaux de transport|
+|![Thierry](files/thierry.png)|Thierry|GS Group|La représentation de la multimodalité|
+|![Tu-Tho](files/tutho.png)|Tu-Tho|Indépendante|Concepts de base & Ressources|
