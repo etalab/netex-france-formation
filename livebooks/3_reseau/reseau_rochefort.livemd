@@ -152,7 +152,7 @@ Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.
 
 * [Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine]) pour des définitions plus précises des arrêts ainsi qu'un agrégat de l'offre régionale.
 
-🫵 A vous : téléchargez le fichier NeTEx de R'bus, décompressez le, et observez les noms des fichiers
+🫵 À vous : téléchargez le fichier NeTEx de R'bus, décompressez le, et observez les noms des fichiers
 
 * 🚨TODO: "Collapser" la vue des fichiers plus bas
 
@@ -166,7 +166,7 @@ Rochefort.list_netex_content()
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 
-🫵 A vous : ouvrez le fichier "commun" avec un navigateur (ou autre logiciel de lecture de fichier XML)
+🫵 À vous : ouvrez le fichier "commun" avec un navigateur (ou autre logiciel de lecture de fichier XML)
 
 * 🚨TODO - proposer un outil en ligne qui permet de résumer le fichier ? (pas le plugin VSCode directement)
 
@@ -281,7 +281,7 @@ tabs([
 
 ## Description d'une ligne
 
-🫵 A vous : ouvrez le fichier de la ligne B
+🫵 À vous : ouvrez le fichier de la ligne B
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -669,7 +669,7 @@ Kino.Layout.tabs([
 
 ## Description des périodes et des jours types
 
-🫵 A vous : ouvrez le fichier des calendriers
+🫵 À vous : ouvrez le fichier des calendriers
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -703,7 +703,7 @@ TODO: Ouverture / conclusion...
 
 <!-- livebook:{"break_markdown":true} -->
 
-🫵 A vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Lieux d'arrêts - Rouen") ou revenir à la partie précédente ("Introduction")
+🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Lieux d'arrêts - Rouen") ou revenir à la partie précédente ("Introduction")
 
 <!-- livebook:{"break_markdown":true} -->
 
