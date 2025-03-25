@@ -15,7 +15,7 @@ Cette formation est interactive, donc n'hésitez pas à nous mettre sur "pause" 
 ## Qui sommes-nous
 
 ||Prénom|Affiliation|Expertise pour la formation|
-|------|-----------------------------|------------------|-------------------------|
+|------|--------------------------------------|------------------|-------------------------|
 |![Ariane](files/ariane.png)|Ariane|GS Group|Modélisation des réseaux de transport|
 |![François-Xavier](files/fx.png)|François-Xavier|GS Group|La représentation de la multimodalité|
 |![Noémie](files/noemie.png)|Noémie|Jungle Bus|L'accessibilité des transports et de la voirie|
