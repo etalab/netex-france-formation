@@ -38,7 +38,7 @@ Autrement dit, cela représente :
 * Des règles métier d'usage des concepts définis dans le modèle conceptuel de données
 * Des règles sur l'échange des données
 * Des choix prédéfinis sur la présence obligatoire ou non de certains concepts et attributs
-* LEs valeurs permises pour certains attributs
+* Les valeurs permises pour certains attributs
 
 C'est utile pour :
 * Favoriser la standardisation des échanges de données
