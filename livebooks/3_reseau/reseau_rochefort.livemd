@@ -216,11 +216,13 @@ tabs([
 
 ## ↘️ Fichier "commun" > Line
 
-Pour chaque ligne, on définit des informations générales
+Pour chaque ligne, on définit des informations générales telles que son nom, son code, son mode, etc.
 
 <!-- livebook:{"break_markdown":true} -->
 
 **_Rappel définition_** : Une LIGNE (`Line`) est un groupe d’ITINÉRAIREs (voir plus bas - `Route`) qui est en général connu du public par une appellation commune (nom ou numéro, extrémités de ligne, etc.).
+
+Cf [Profil France NETEX : Line](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#line-ligne)
 
 ```elixir
 line_complete = "snippets/002-line.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -316,7 +318,7 @@ tabs([
 
 Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 
-**_Rappel définition_** : Transmodel définit une LIGNE (`Line`) comme un groupe d’ITINERAIREs (`Route`) qui est généralement connu du public sous un nom ou un numéro similaire. Ces ITINERAIREs sont généralement très similaires d’un point de vue topologique, c’est-à-dire des variantes d’un itinéraire principal avec quelques écarts seulement sur certaines parties. Deux ITINERAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront généralement à la même LIGNE.
+Transmodel définit une LIGNE (`Line`) comme un groupe d’ITINERAIREs (`Route`) qui est généralement connu du public sous un nom ou un numéro similaire. Ces ITINERAIREs sont généralement très similaires d’un point de vue topologique, c’est-à-dire des variantes d’un itinéraire principal avec quelques écarts seulement sur certaines parties. Deux ITINERAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront généralement à la même LIGNE.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -351,6 +353,8 @@ Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 ### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
 
 **_Rappel définition_** : Un ITINERAIRE (`Route`) est une liste ordonnée de POINTs (`RoutePoints`) définissant un seul chemin à travers le réseau routier (ou ferré). Un ITINERAIRE peut passer deux fois par un même POINT.
+
+Cf [Profil France NETEX : Route](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-itin%C3%A9raire)
 
 * 🚨TODO - définitions pas très claires sur le profil France ; on peut faire des retours
 * 🚨TODO - DRY définition
@@ -439,6 +443,8 @@ graph LR
 
 **_Rappel définition_** : un POINT D'ARRET PLANIFIE (`ScheduledStopPoint`) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
 
+Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#scheduled-stop-point-point-darr%C3%AAt-planifi%C3%A9)
+
 <!-- livebook:{"break_markdown":true} -->
 
 * 🚨 TODO: expliquer que c'est un arrêt "simplifié" sans accessibilité, et qu'un lien est fait avec `StopPlace`/`Quay` dans l'agrégat ?
@@ -490,6 +496,8 @@ TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à p
 ### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
 
 **_Rappel définition_** : Un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers).
+
+Cf [Profil France NETEX : ServiceJourneyPattern](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#service-journey-pattern-parcours-commercial)
 
 Remarque : On parle aussi de MISSION COMMERCIALE.
 
@@ -543,6 +551,8 @@ graph LR
 ### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
 
 **_Rappel définition_** : Un TRONCON D'ITINERAIRE (`RouteLink`) est un tronçon orienté entre deux `RoutePoint` (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
+
+Cf [Profil France NETEX : RouteLink](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-link-tron%C3%A7on-ditin%C3%A9raire)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -600,6 +610,8 @@ Rochefort.Carto.show_route_link(
 ### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
 
 **_Rappel définition_** : Un `PassengerStopAssignment` est un élément qui définit l'affectation d'un arrêt à une localisation physique précise. Il est utilisé pour associer notamment un `ScheduledStopPoint` à un `Quay` (ZONE D'EMBARQUEMENT).
+
+Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
 
 💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts ainsi que les informations d'accessibilité plus détaillées.
 
