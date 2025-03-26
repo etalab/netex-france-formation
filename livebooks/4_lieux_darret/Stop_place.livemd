@@ -6,7 +6,7 @@
 Mix.install([
   {:kino, "~> 0.15.3"}
 ])
-Code.compile_file("../lib/kino_tooling.ex", __DIR__)
+Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
 :ok
  
 ```
@@ -450,3 +450,22 @@ Quai: xml_2])
 ## AUTRE EXEMPLE : RTM Castellane
 
 ## EXERCICES
+
+## FIN
+
+🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Accessibilité") ou revenir à la partie précédente ("Introduction")
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="../3_reseau/reseau_rochefort.livemd">Lignes et Horaires - Rochefort</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="Stop_place.livemd">Lieux d'arrêt - Rouen</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="../5_accessibilite/accessibilite_transport.livemd">Accessibilité - transport</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
