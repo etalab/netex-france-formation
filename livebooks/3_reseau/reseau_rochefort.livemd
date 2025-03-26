@@ -131,19 +131,15 @@ Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-
 
 Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-76/)
 
-* 🚨TODO: découper en 3 ?
-
 <!-- livebook:{"break_markdown":true} -->
 
 Il existe également sur le territoire :
 
 * du TAD (Transport À la Demande),
-* des circuits scolaires,
+* des circuits scolaires (S ou RPI - Regroupement Pédagogique Intercommunal),
 * et des lignes régionales désservant la CARO.
 
 Ces lignes ne seront pas abordées lors de cette présentation
-
-* 🚨 TODO : rappel de ce qu'est une ligne RPI
 
 ## DIRECTION : LA DONNEE NETEX
 
@@ -196,13 +192,22 @@ Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 ```
 
 * 🚨TODO - automatiser le résumé ci-dessus
-* 🚨 TODO : définir Operator, Authority, SiteConnection...
+
+Les notions de `Network` et de `Line` sont définies dans les sections suivantes.
+En ce qui concerne les autres éléments du fichier, en voici des définitions succintes :
+
+* `Operator` : un Operator représente une entreprise ou une entité qui exploite un service de transport public. Cela peut être une compagnie de bus, un exploitant ferroviaire, un opérateur de métro, etc. (ex : RATP, SNCF, Ilevia...)
+
+* `Authority` : Authority représente une autorité organisatrice des transports (AOT). C'est une entité qui planifie, régule ou finance les services de transport public. Cela peut être une organisation gouvernementale, une collectivité locale ou une entité privée ayant des responsabilités dans l’organisation des transports. Une Authority peut superviser plusieurs Operators (opérateurs de transport).
+
+* `SiteConnection` : un SiteConnection représente une connexion physique ou logique entre deux lieux (ex. gares, arrêts, terminaux, hubs de transport). Il est utilisé pour modéliser les correspondances piétonnes, les liaisons intermodales et les temps de transfert entre des sites de transport.
 
 ## 🔹 Fichier "commun" > Network
 
 Dans le fichier commun/partie Network, on définit le réseau (et les lignes rattachées).
 
-* 🚨TODO: EXERCICE: trouvez la section Network dans le fichier commun
+🫵 À vous : trouvez la section Network dans le fichier commun
+
 * 🚨TODO: Ne pas distinguer lignes Scolaires / non Scolaires
 * 🚨TODO: Dire qu'on ne fait ici que des références aux Lignes (ça ne les définit pas)
 * 🚨TODO: Ajouter un WARNING : ne pas utiliser les identifiants à des fins sémantiques. On ne doit pas parser un identifiant pour en extraire des données. Ces identifiants doivent être traités comme opaques.
@@ -236,6 +241,8 @@ Pour chaque ligne, on définit des informations générales telles que son nom, 
 **_Rappel définition_** : Une LIGNE (`Line`) est un groupe d’ITINÉRAIREs (voir plus bas - `Route`) qui est en général connu du public par une appellation commune (nom ou numéro, extrémités de ligne, etc.).
 
 Cf [Profil France NETEX : Line](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#line-ligne)
+
+L'objectif de la `Line` dans NETEX est de décrire de manière précise et structurée l'ensemble des éléments nécessaires à l'organisation et à l'exploitation d'un service de transport public. Cela permet aux autorités et opérateurs de transport de partager des informations sur les lignes de manière standardisée, facilitant ainsi la gestion des horaires et des itinéraires à l'échelle d'un réseau de transport.
 
 ```elixir
 line_complete = "snippets/002-line.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -331,8 +338,6 @@ tabs([
 
 Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 
-Transmodel définit une LIGNE (`Line`) comme un groupe d’ITINERAIREs (`Route`) qui est généralement connu du public sous un nom ou un numéro similaire. Ces ITINERAIREs sont généralement très similaires d’un point de vue topologique, c’est-à-dire des variantes d’un itinéraire principal avec quelques écarts seulement sur certaines parties. Deux ITINERAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront généralement à la même LIGNE.
-
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/ligneB_arrets.jpg)
@@ -365,18 +370,23 @@ Transmodel définit une LIGNE (`Line`) comme un groupe d’ITINERAIREs (`Route`)
 
 ### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
 
-**_Rappel définition_** : Un ITINERAIRE (`Route`) est une liste ordonnée de POINTs (`RoutePoints`) définissant un seul chemin à travers le réseau routier (ou ferré). Un ITINERAIRE peut passer deux fois par un même POINT.
+**_Rappel définition_** : Un ITINERAIRE (`Route`) est une liste ordonnée de POINTs (`RoutePoints`) définissant un seul chemin à travers le réseau routier (ou ferré) dans une DIRECTION (`Direction`) donnée. Un ITINERAIRE peut passer deux fois par un même POINT.
+
+Un ITINERAIRE appartient toujours à une LIGNE (`Line`). Une LIGNE est composée d'au moins un ITINERAIRE avec une DIRECTION. Une LIGNE peut donc comporter plusieurs ITINERAIREs, chacun avec sa DIRECTION.
+
+💡 Les `RoutePoints` constitutifs d'un ITINERAIRE sont toujours des POINTs. Ils **peuvent** être des `ScheduledStopPoint`, comme dans l'exemple de Rochefort.
+
+💡 Les ITINERAIREs sont généralement très similaires d’un point de vue topologique, c’est-à-dire des variantes d’un itinéraire principal avec quelques écarts seulement sur certaines parties (par exemple : arrêts en moins ou terminus anticipé par rapport à un itinéraire plus "complet").
+
+💡 Deux ITINERAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront le plus souvent à la même LIGNE.
 
 Cf [Profil France NETEX : Route](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-itin%C3%A9raire)
 
 * 🚨TODO - définitions pas très claires sur le profil France ; on peut faire des retours
-* 🚨TODO - DRY définition
 * 🚨TODO - si faisable : au survol de "Route", afficher la définition en popup, mettre un lien vers le doc de définitions générales etc.
 * 🚨TODO - expliquer que la structure précise d'un fichier peut varier d'un territoire à un autre, mais que cela est en cours d'homogénéisation (travaux GT7 etc)
 * 🚨TODO - Les séquences de points sont actuellement, dans le fichier de Rochefort, définies à l'intérieur du ServiceJourneyPattern, et pas de la Route. En théorie dans le profil France: il est obligatoire de les avoirs dans la Route, et facultatif dans le ServiceJourneyPattern.
 * 🚨TODO - mettre les fiches horaires pour clarifier la définition (pour indiquer qu'on ne dessert pas tous les arrêts (visualisation des terminus partiels, etc.))
-
-Un ITINERAIRE appartient à une LIGNE (`Line`), qui regroupe plusieurs ITINERAIRES pouvant être dans des directions différentes.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -427,6 +437,10 @@ graph LR
 
 ### Fichier d'une ligne > LIGNE > Direction : on définit les directions possibles de nos Routes
 
+**_Rappel définition_** :  une DIRECTION (`Direction`) représente le sens de circulation d'une ligne de transport, souvent utilisée pour décrire les parcours aller-retour ou les différentes orientations d'un ITINERAIRE (`Route`).
+
+Dans l'extrait ci-dessous, on visualise la définition de la `Direction` ainsi que la référence de la `Route` vers cette `Direction` (DirectionRef)
+
 ```xml
 <!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
     <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
@@ -461,10 +475,7 @@ graph LR
 
 Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#scheduled-stop-point-point-darr%C3%AAt-planifi%C3%A9)
 
-<!-- livebook:{"break_markdown":true} -->
-
-* 🚨 TODO: expliquer que c'est un arrêt "simplifié" sans accessibilité, et qu'un lien est fait avec `StopPlace`/`Quay` dans l'agrégat ?
-* 🚨 TODO: dire qu'un ScheduledStopPoint est un point LOGIQUE et non pas PHYSIQUE. Néanmoins pour des questions pratiques, la localisation a été précisé ici car les arrêts physiques sont définis dans l'aggrégat
+💡 Un ScheduledStopPoint est un arrêt **logique** et non pas **physique**, et ne contient donc normalement pas des données de localisation. Néanmoins pour des questions pratiques (avoir un jeu de données presque autoporteur), la localisation a été précisée ici car les arrêts physiques sont définis dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Le lien avec ces arrêts physiques est fait à l'aide des `PassengerStopAssignment` définis dans le chapitre suivant.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -517,22 +528,22 @@ TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à p
 Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
 
 * 🚨 TODO : rajouter micro-UML pour dire qu'on référence un ScheduledStopPoint et un Quay
-* 🚨 TODO : rajouter mention comme quoi c'est le lien du LOGIQUE vers le PHYSIQUE
 
-💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts ainsi que les informations d'accessibilité plus détaillées.
+💡 Comme indiqué dans la section précédente, un `PassengerStopAssignment` permet donc de faire le lien entre arrêt **logique** et arrêt **physique**.
+
+💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts, leur localisation précise, ainsi que les informations d'accessibilité plus détaillées.
 
 ## 🔹🔹ServiceJourneyPattern
 
 ### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
 
-**_Rappel définition_** : Un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers).
+**_Rappel définition_** : Un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers). Il liste les POINTs SUR PARCOURS (`PointInJourneyPattern`) parcourus, dans l'ordre, et sur un ITINERAIRE (`Route`) de référence (et donc dans la direction indiquée par l'itinéraire).
 
 Cf [Profil France NETEX : ServiceJourneyPattern](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#service-journey-pattern-parcours-commercial)
 
-Remarque : On parle aussi de MISSION COMMERCIALE.
+💡 On parle aussi de MISSION COMMERCIALE.
 
-* 🚨TODO : bien dire que ce sont des PointInJourneyPattern dans le ServiceJourneyPattern, et pas forcément des ScheduledStopPoint. Dans le cas de Rochefort, seuls des ScheduledStopPoint sont utilisés
-* 🚨TODO : compléter la définition
+💡 Dans notre exemple de Rochefort, les `PointInJourneyPattern` sont de type `ScheduledStopPoint`, ce qui n'est pas systématiquement le cas. En effet ils peuvent être de type `TimingPoint`.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -583,7 +594,138 @@ graph LR
 
 ### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
 
-* 🚨TODO : RouteLink à mettre à la fin de la présentation (rajouter un lien)
+💡 Nous n'aborderons pas les `RouteLink` en détails à ce stade. Pour plus d'informations, voir la [section correspondante en fin de présentation](#routelink-d%C3%A9tails).
+
+## 🔹Horaires de la ligne
+
+Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
+
+<!-- livebook:{"break_markdown":true} -->
+
+* 🚨TODO: introduction textuelle.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_fiche_horaire.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+* 🚨TODO: source (lien)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_HORAIRE:">version="1.1:FR-NETEX_HORAIRE-2.2"</TypeOfFrameRef>
+    <members>
+        <ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
+        ...
+    </members>
+</GeneralFrame>
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+* 🚨TODO: résumé
+
+## 🔹🔹ServiceJourney
+
+### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
+
+**_Rappel définition_** : Une COURSE (`ServiceJourney`) est le mouvement défini d’un véhicule utilisant un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) spécifié avec des arrêts et des horaires déterminés. C'est une instance de PARCOURS COMMERCIAL (`ServiceJourneyPattern`) pour un TYPE DE JOUR (`DayType`) donné.
+
+Cf [Profil France NETEX : ServiceJourney](https://normes.transport.data.gouv.fr/normes/netex/horaires/#service-journey-course-commerciale)
+
+<!-- livebook:{"break_markdown":true} -->
+
+* 🚨TODO Thibaut: refaire une phrase "en français pur" et la faire review par Ariane. Les "marquer" clairement pour faciliter la review.
+
+```elixir
+service_journey = "snippets/004-service-journey.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_patternRef = "snippets/004-service-journey-pattern-ref.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_pattern = "snippets/004-service-journey-pattern.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_passingTimes = "snippets/004-service-journey-passing-times.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+service_journey_dayTypes = "snippets/004-service-journey-day-types.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+
+dayTypes_description = Kino.Markdown.new("""
+Les dayTypes permettent de définir sur quels jours types la course est valable
+
+Ici, la fiche horaire indique par exemple : “Toute l’année (sauf jours fériés)” et “Du Lundi au Samedi”
+
+Le fichier xml référence le DayType “S1ETE_LMWJVS”
+Celui-ci est réellement défini dans le fichier “calendrier”
+""")
+
+serviceJourneyImg = "files/ligneB_fiche_horaire_ServiceJourney - cropped.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+passingTimesImg = "files/ligneB_fiche_horaire_ServiceJourney_passingTimes.jpg"  |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+dayTypesImg = "files/ligneB_fiche_horaire_ServiceJourney_dayTypes.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
+
+Kino.Layout.tabs([
+  ServiceJourney: Kino.Layout.grid([service_journey, serviceJourneyImg], columns: {2,1}),
+  JourneyPatternRef: Kino.Layout.grid([service_journey_patternRef, service_journey_pattern], columns: 2),
+  passingTimes: Kino.Layout.grid([service_journey_passingTimes, service_journey_pattern, passingTimesImg], columns: 3),
+  dayTypes: Kino.Layout.grid([service_journey_dayTypes, dayTypesImg, dayTypes_description], columns: 3)
+])
+```
+
+## DESCRIPTION DES PERIODES ET DES JOURS TYPES
+
+🫵 À vous : ouvrez le fichier des calendriers
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/liste_fichiers_netex_calendriers.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les DayTypeAssignment assignent des jours types (`DayType`) à des périodes de service (`OperatingPeriod`) ou des dates précises (`Date`). Ceci permet de définir les conditions de validité temporelle des COURSES (`ServiceJourney`) que nous avons vues dans la section précédente.
+
+```elixir
+generalFrame_calendrier = "snippets/005-calendar-general-frame.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+dayType = "snippets/005-calendar-day-type.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+operatingPeriod = "snippets/005-calendar-operating-period.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+dayTypeAssignment = "snippets/005-calendar-day-type-assignment.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
+
+Kino.Layout.tabs([
+  GeneralFrame: generalFrame_calendrier,
+  DayType: dayType,
+  OperatingPeriod: operatingPeriod,
+  DayTypeAssignment: Kino.Layout.grid([dayTypeAssignment, dayType, operatingPeriod], columns: 3)
+])
+
+```
+
+TODO: résumé
+TODO: exercices
+
+## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES
+
+Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie:
+
+* 🚨TODO: lien vers la présentation Transmodel détaillée ?
+* 🚨TODO: rajouter RouteLink
+* 🚨TODO: rajouter Network en chapeau
+
+<!-- livebook:{"break_markdown":true} -->
+
+<!-- Learn more at https://mermaid-js.github.io/mermaid -->
+
+```mermaid
+graph TD
+  Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
+  Route -- est sur une unique --> Line
+  Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
+  Route -- est dans une --> Direction(Direction)
+
+  Route -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
+  ServiceJourneyPattern -- est sur un unique --> Route
+  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
+  ServiceJourneyPattern -- est le support du --> ServiceJourney("ServiceJourney (Course)")
+  ServiceJourney -- est defini pour un --> DayType("DayType (Type de jour)")
+
+```
+
+## RouteLink - détails
 
 **_Rappel définition_** : Un TRONCON D'ITINERAIRE (`RouteLink`) est un tronçon orienté entre deux `RoutePoint` (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
@@ -591,7 +733,7 @@ Cf [Profil France NETEX : RouteLink](https://normes.transport.data.gouv.fr/norme
 
 <!-- livebook:{"break_markdown":true} -->
 
-Le `RouteLink` part ici d'un `ScheduleStopPoint` et arrive à un autre `ScheduleStopPoint`, en suivant un tracé qui est son itinéraire intermédiaire, donné sous forme de coordonnées géographiques:
+Dans notre exemple, le `RouteLink` part ici d'un `ScheduleStopPoint` et arrive à un autre `ScheduleStopPoint`, en suivant un tracé qui est son itinéraire intermédiaire, donné sous forme de coordonnées géographiques:
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -638,135 +780,6 @@ Rochefort.Carto.show_route_link(
   ~r/RBUS_B_B/, 
   "//RouteLink[#{Kino.Input.read(numero_du_routelink)}]"
 )
-```
-
-## 🔹Horaires de la ligne
-
-Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
-
-<!-- livebook:{"break_markdown":true} -->
-
-TODO: introduction textuelle.
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/ligneB_fiche_horaire.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-TODO: source (lien)
-
-<!-- livebook:{"break_markdown":true} -->
-
-```xml
-<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_HORAIRE-20250210000707Z:LOC">
-    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_HORAIRE:">version="1.1:FR-NETEX_HORAIRE-2.2"</TypeOfFrameRef>
-    <members>
-        <ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11011:LOC">
-        ...
-    </members>
-</GeneralFrame>
-```
-
-<!-- livebook:{"break_markdown":true} -->
-
-TODO: résumé
-
-## 🔹🔹ServiceJourney
-
-### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
-
-**_Rappel définition_** : Une COURSE (`ServiceJourney`) est le mouvement défini d’un véhicule utilisant un PARCOURS (`JourneyPattern`) spécifiée. Elle est définie pour un TYPE DE JOUR (`DayType`) donné.
-
-<!-- livebook:{"break_markdown":true} -->
-
-TODO Thibaut: refaire une phrase "en français pur" et la faire review par Ariane. Les "marquer" clairement pour faciliter la review.
-
-```elixir
-service_journey = "snippets/004-service-journey.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-service_journey_patternRef = "snippets/004-service-journey-pattern-ref.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-service_journey_pattern = "snippets/004-service-journey-pattern.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-service_journey_passingTimes = "snippets/004-service-journey-passing-times.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-service_journey_dayTypes = "snippets/004-service-journey-day-types.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-
-dayTypes_description = Kino.Markdown.new("""
-Les dayTypes permettent de définir sur quels jours types la course est valable
-
-Ici, la fiche horaire indique par exemple : “Toute l’année (sauf jours fériés)” et “Du Lundi au Samedi”
-
-Le fichier xml référence le DayType “S1ETE_LMWJVS”
-Celui-ci est réellement défini dans le fichier “calendrier”
-""")
-
-serviceJourneyImg = "files/ligneB_fiche_horaire_ServiceJourney - cropped.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
-passingTimesImg = "files/ligneB_fiche_horaire_ServiceJourney_passingTimes.jpg"  |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
-dayTypesImg = "files/ligneB_fiche_horaire_ServiceJourney_dayTypes.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
-
-Kino.Layout.tabs([
-  ServiceJourney: Kino.Layout.grid([service_journey, serviceJourneyImg], columns: {2,1}),
-  JourneyPatternRef: Kino.Layout.grid([service_journey_patternRef, service_journey_pattern], columns: 2),
-  passingTimes: Kino.Layout.grid([service_journey_passingTimes, service_journey_pattern, passingTimesImg], columns: 3),
-  dayTypes: Kino.Layout.grid([service_journey_dayTypes, dayTypesImg, dayTypes_description], columns: 3)
-])
-```
-
-## DESCRIPTION DES PERIODES ET DES JOURS TYPES
-
-🫵 À vous : ouvrez le fichier des calendriers
-
-* 🚨 TODO : continuer de mettre les liens vers la page du profil FR correspondante
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/liste_fichiers_netex_calendriers.jpg)
-
-```elixir
-generalFrame_calendrier = "snippets/005-calendar-general-frame.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-dayType = "snippets/005-calendar-day-type.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-operatingPeriod = "snippets/005-calendar-operating-period.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-dayTypeAssignment = "snippets/005-calendar-day-type-assignment.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-
-Kino.Layout.tabs([
-  GeneralFrame: generalFrame_calendrier,
-  DayType: dayType,
-  OperatingPeriod: operatingPeriod,
-  DayTypeAssignment: Kino.Layout.grid([dayTypeAssignment, dayType, operatingPeriod], columns: 3)
-])
-
-```
-
-TODO: résumé
-TODO: exercices
-
-<!-- livebook:{"break_markdown":true} -->
-
-Les DayTypeAssignment assignent des jours types (`DayType`) à des périodes de service (`OperatingPeriod`) ou des dates précises (`Date`).
-
-## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES
-
-Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie:
-
-* 🚨TODO: lien vers la présentation Transmodel détaillée ?
-* 🚨TODO: rajouter RouteLink
-* 🚨TODO: rajouter Network en chapeau
-
-<!-- livebook:{"break_markdown":true} -->
-
-<!-- Learn more at https://mermaid-js.github.io/mermaid -->
-
-```mermaid
-graph TD
-  Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
-  Route -- est sur une unique --> Line
-  Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
-  Route -- est dans une --> Direction(Direction)
-
-  Route -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
-  ServiceJourneyPattern -- est sur un unique --> Route
-  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
-  ServiceJourneyPattern -- est le support du --> ServiceJourney("ServiceJourney (Course)")
-  ServiceJourney -- est defini pour un --> DayType("DayType (Type de jour)")
-
 ```
 
 ## FIN
