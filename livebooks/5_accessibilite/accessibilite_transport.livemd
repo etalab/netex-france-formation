@@ -1,6 +1,17 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_article_loi.png","type":"attachment"},{"name":"transport_doc_profil_1.png","type":"attachment"},{"name":"transport_doc_profil_2.png","type":"attachment"},{"name":"transport_example_01.png","type":"attachment"},{"name":"transport_example_02.png","type":"attachment"},{"name":"transport_example_03.png","type":"attachment"},{"name":"transport_example_04.png","type":"attachment"},{"name":"transport_example_05.png","type":"attachment"},{"name":"transport_example_06.png","type":"attachment"},{"name":"transport_example_07.png","type":"attachment"},{"name":"transport_example_08.png","type":"attachment"},{"name":"transport_exemple_implantation_quai.png","type":"attachment"},{"name":"transport_lisibilite_info_voy.png","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_article_loi.png","type":"attachment"},"type":"attachment"},{"name":"transport_example_01.png","type":"attachment"},{"name":"transport_example_02.png","type":"attachment"},{"name":"transport_example_03.png","type":"attachment"},{"name":"transport_example_04.png","type":"attachment"},{"name":"transport_example_05.png","type":"attachment"},{"name":"transport_example_06.png","type":"attachment"},{"name":"transport_example_07.png","type":"attachment"},{"name":"transport_example_08.png","type":"attachment"},{"name":"transport_exemple_implantation_quai.png","type":"attachment"},{"name":"transport_lisibilite_info_voy.png","type":"attachment"}]} -->
 
-# Accessibilité - transport
+# Accessibilité - arrêt de transport
+
+## Introduction
+
+Ce que vous allez apprendre :
+
+* comment représenter l'accessibilité des arrêts avec NeTEx
+
+Déroulement de la formation :
+
+* analyse d'un extrait de fichier en s'appuyant sur la documentation
+* exercice pratique
 
 ## Précédemment ...
 
@@ -35,13 +46,11 @@ https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#éléments-dac
   <summary class="cursor-pointer font-bold p-4"></i>[en autonomie]</summary>
   <div class="p-4">
 
-![extrait du profil](files/transport_doc_profil_1.png)
-     (...) 
-![extrait du profil](files/transport_doc_profil_2.png)
+Lire le paragraphe du profil.
 
 À retenir : 
 
-* les évaluations d'accessibilité (AccessibilityAssessment dans le fichier) sont des attributs génériques qu'on peut retrouver sur différents objets (arrêts de bus, gare, ligne, point d'intérêt)
+* les ÉVALUATIONS D'ACCESSIBILITÉ (`AccessibilityAssessment`) sont des attributs génériques qu'on peut retrouver sur différents objets (arrêts de bus, gare, ligne, point d'intérêt)
 * ils peuvent valoir true (oui), false (non), partial (partiel) ou unknown (inconnu)
 * des textes de loi permettent en général de connaitre les conditions à respecter pour mettre `true`
 * si on met `partial`, on doit mettre une information complémentaire pour détailler. Cette info est susceptible d'être présentée au public
@@ -51,11 +60,11 @@ https://normes.transport.data.gouv.fr/normes/netex/accessibilite/#éléments-dac
 
 ## Exercice pratique
 
-Sur la base des photos d'arrêts suivantes, que mettriez-vous comme valeur
+🫵 Sur la base des photos d'arrêts suivantes, que mettriez-vous comme valeur
 
-* pour WheelchairAccess ?
-* pour VisualSignsAvailable ?
-* pour AudibleSignalsAvailable ?
+* pour WheelchairAccess ? (*on peut s’y déplacer en fauteuil roulant*)
+* pour VisualSignsAvailable ? (*une signalétique visuelle est disponible*)
+* pour AudibleSignalsAvailable ? (*une signalétique sonore est disponible*)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -167,7 +176,7 @@ En pratique, parfois déclenchée par un bouton ou une télécommande universell
 
 Les attributs AccessibilityAssessment proposent une approche synthétique qui peut manquer de finesse.
 
-Pour plus de précision, utiliser en complément des attributs plus précis et moins ouvert à interprétation.
+Pour plus de précision, utiliser en complément des attributs plus précis et moins ouverts à interprétation.
 
 Par exemple :
 - AccessibilityInfoFacilityList : visualDisplays, largePrintTimetables
@@ -177,3 +186,20 @@ Par exemple :
     
   </div>
 </details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd"> Description des arrêts</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;">accessibilité - transport</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="accessibilite_voirie.livemd">Accessibilité - cheminement</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
