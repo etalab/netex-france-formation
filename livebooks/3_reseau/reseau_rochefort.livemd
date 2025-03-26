@@ -521,11 +521,15 @@ TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à p
 
 ### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
 
-**_Rappel définition_** : Un `PassengerStopAssignment` est un élément qui définit l'affectation d'un arrêt à une localisation physique précise. Il est utilisé pour associer notamment un `ScheduledStopPoint` à un `Quay` (ZONE D'EMBARQUEMENT).
+**_Rappel définition_** : Un `PassengerStopAssignment` définit l'affectation d’un POINT D’ARRÊT PLANIFIÉ (`ScheduledStopPoint`) à un LIEU D’ARRÊT (ou un de ses composant de type ZONE D’EMBARQUEMENT (`Quay`) ou POSITION D’EMBARQUEMENT) pour un service passager.
 
 Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
 
-* 🚨 TODO : rajouter micro-UML pour dire qu'on référence un ScheduledStopPoint et un Quay
+```mermaid
+graph LR
+  PassengerStopAssignment -- référence un --> ScheduledStopPoint
+  PassengerStopAssignment -- référence un --> Quay
+```
 
 💡 Comme indiqué dans la section précédente, un `PassengerStopAssignment` permet donc de faire le lien entre arrêt **logique** et arrêt **physique**.
 
