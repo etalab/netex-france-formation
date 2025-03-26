@@ -406,8 +406,6 @@ graph LR
 
 🚨TODO - je décroche : où sont les points, qui sont censés être là ??? Réponse: le RouteRef est pointé par un ServiceJourneyPattern, qui contient une séquence de ScheduleStopPoints, et via les refs des SSP on peut parfois mais pas tout le temps, remonter au RouteLink correspondant. Le PassengerStopAssignement permet  de faire le lien entre SCheduleStoppoint et Quay (qui est dans l'agrégat) et donc d'obtenir les informations d'accessibilités et les noms des arrêts (mutualisés sur la région).
 
-🚨TODO - masquer DirectionType (inbound/outbound)
-
 <!-- livebook:{"break_markdown":true} -->
 
 ```xml
@@ -419,7 +417,7 @@ graph LR
       <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
         <Name>Parc des Fourriers -> Hôpital</Name>
         <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
-        <DirectionType>inbound</DirectionType>
+        <!--<DirectionType>inbound</DirectionType>-->
         <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
        </Route>
       <!--<Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
