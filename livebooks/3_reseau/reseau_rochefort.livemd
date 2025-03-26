@@ -143,6 +143,8 @@ Il existe également sur le territoire :
 
 Ces lignes ne seront pas abordées lors de cette présentation
 
+* 🚨 TODO : rappel de ce qu'est une ligne RPI
+
 ## DIRECTION : LA DONNEE NETEX
 
 Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
@@ -153,6 +155,8 @@ Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.
 
 * [Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine]) pour des définitions plus précises des arrêts ainsi qu'un agrégat de l'offre régionale.
 
+* 🚨 TODO : faire un backup des données du PAN
+
 🫵 À vous : téléchargez le fichier NeTEx de R'bus, décompressez le, et observez les noms des fichiers
 
 * 🚨TODO: "Collapser" la vue des fichiers plus bas
@@ -161,6 +165,12 @@ Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompr
 
 ```elixir
 Rochefort.list_netex_content()
+```
+
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_calendriers.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_commun.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_A_A.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_B_B.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_C_C.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_D_D.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_E_E.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_F_F.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_J_J.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI1_RPI-1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI2_RPI-2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI3_RPI-3.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI4_RPI-4.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S1_S1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S2_S2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S3_S3.xml"}]
 ```
 
 ## DESCRIPTION GENERALE DU RESEAU
@@ -186,12 +196,16 @@ Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 ```
 
 * 🚨TODO - automatiser le résumé ci-dessus
+* 🚨 TODO : définir Operator, Authority, SiteConnection...
 
 ## 🔹 Fichier "commun" > Network
 
 Dans le fichier commun/partie Network, on définit le réseau (et les lignes rattachées).
 
 * 🚨TODO: EXERCICE: trouvez la section Network dans le fichier commun
+* 🚨TODO: Ne pas distinguer lignes Scolaires / non Scolaires
+* 🚨TODO: Dire qu'on ne fait ici que des références aux Lignes (ça ne les définit pas)
+* 🚨TODO: Ajouter un WARNING : ne pas utiliser les identifiants à des fins sémantiques. On ne doit pas parser un identifiant pour en extraire des données. Ces identifiants doivent être traités comme opaques.
 
 **_Rappel définition_** : Un `Network` est un GROUPE DE LIGNES disposant d’un nom sous lequel un réseau de transport est connu.
 
@@ -360,6 +374,7 @@ Cf [Profil France NETEX : Route](https://normes.transport.data.gouv.fr/normes/ne
 * 🚨TODO - si faisable : au survol de "Route", afficher la définition en popup, mettre un lien vers le doc de définitions générales etc.
 * 🚨TODO - expliquer que la structure précise d'un fichier peut varier d'un territoire à un autre, mais que cela est en cours d'homogénéisation (travaux GT7 etc)
 * 🚨TODO - Les séquences de points sont actuellement, dans le fichier de Rochefort, définies à l'intérieur du ServiceJourneyPattern, et pas de la Route. En théorie dans le profil France: il est obligatoire de les avoirs dans la Route, et facultatif dans le ServiceJourneyPattern.
+* 🚨TODO - mettre les fiches horaires pour clarifier la définition (pour indiquer qu'on ne dessert pas tous les arrêts (visualisation des terminus partiels, etc.))
 
 Un ITINERAIRE appartient à une LIGNE (`Line`), qui regroupe plusieurs ITINERAIRES pouvant être dans des directions différentes.
 
@@ -380,6 +395,8 @@ graph LR
 <!-- livebook:{"break_markdown":true} -->
 
 🚨TODO - je décroche : où sont les points, qui sont censés être là ??? Réponse: le RouteRef est pointé par un ServiceJourneyPattern, qui contient une séquence de ScheduleStopPoints, et via les refs des SSP on peut parfois mais pas tout le temps, remonter au RouteLink correspondant. Le PassengerStopAssignement permet  de faire le lien entre SCheduleStoppoint et Quay (qui est dans l'agrégat) et donc d'obtenir les informations d'accessibilités et les noms des arrêts (mutualisés sur la région).
+
+🚨TODO - masquer DirectionType (inbound/outbound)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -447,6 +464,7 @@ Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv
 <!-- livebook:{"break_markdown":true} -->
 
 * 🚨 TODO: expliquer que c'est un arrêt "simplifié" sans accessibilité, et qu'un lien est fait avec `StopPlace`/`Quay` dans l'agrégat ?
+* 🚨 TODO: dire qu'un ScheduledStopPoint est un point LOGIQUE et non pas PHYSIQUE. Néanmoins pour des questions pratiques, la localisation a été précisé ici car les arrêts physiques sont définis dans l'aggrégat
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -490,6 +508,19 @@ CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP105843
 
 TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à partir des stop point ref
 
+## 🔹🔹PassengerStopAssignment
+
+### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
+
+**_Rappel définition_** : Un `PassengerStopAssignment` est un élément qui définit l'affectation d'un arrêt à une localisation physique précise. Il est utilisé pour associer notamment un `ScheduledStopPoint` à un `Quay` (ZONE D'EMBARQUEMENT).
+
+Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
+
+* 🚨 TODO : rajouter micro-UML pour dire qu'on référence un ScheduledStopPoint et un Quay
+* 🚨 TODO : rajouter mention comme quoi c'est le lien du LOGIQUE vers le PHYSIQUE
+
+💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts ainsi que les informations d'accessibilité plus détaillées.
+
 ## 🔹🔹ServiceJourneyPattern
 
 ### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
@@ -499,6 +530,9 @@ TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à p
 Cf [Profil France NETEX : ServiceJourneyPattern](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#service-journey-pattern-parcours-commercial)
 
 Remarque : On parle aussi de MISSION COMMERCIALE.
+
+* 🚨TODO : bien dire que ce sont des PointInJourneyPattern dans le ServiceJourneyPattern, et pas forcément des ScheduledStopPoint. Dans le cas de Rochefort, seuls des ScheduledStopPoint sont utilisés
+* 🚨TODO : compléter la définition
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -548,6 +582,8 @@ graph LR
 ## 🔹🔹RouteLink
 
 ### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
+
+* 🚨TODO : RouteLink à mettre à la fin de la présentation (rajouter un lien)
 
 **_Rappel définition_** : Un TRONCON D'ITINERAIRE (`RouteLink`) est un tronçon orienté entre deux `RoutePoint` (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
@@ -603,16 +639,6 @@ Rochefort.Carto.show_route_link(
   "//RouteLink[#{Kino.Input.read(numero_du_routelink)}]"
 )
 ```
-
-## 🔹🔹PassengerStopAssignment
-
-### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
-
-**_Rappel définition_** : Un `PassengerStopAssignment` est un élément qui définit l'affectation d'un arrêt à une localisation physique précise. Il est utilisé pour associer notamment un `ScheduledStopPoint` à un `Quay` (ZONE D'EMBARQUEMENT).
-
-Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
-
-💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts ainsi que les informations d'accessibilité plus détaillées.
 
 ## 🔹Horaires de la ligne
 
@@ -688,6 +714,8 @@ Kino.Layout.tabs([
 
 🫵 À vous : ouvrez le fichier des calendriers
 
+* 🚨 TODO : continuer de mettre les liens vers la page du profil FR correspondante
+
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/liste_fichiers_netex_calendriers.jpg)
@@ -716,9 +744,11 @@ Les DayTypeAssignment assignent des jours types (`DayType`) à des périodes de 
 
 ## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES
 
-Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel la suite de cette présentation s'appuie:
+Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie:
 
 * 🚨TODO: lien vers la présentation Transmodel détaillée ?
+* 🚨TODO: rajouter RouteLink
+* 🚨TODO: rajouter Network en chapeau
 
 <!-- livebook:{"break_markdown":true} -->
 
