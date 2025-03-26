@@ -79,7 +79,7 @@ end
 :ok
 ```
 
-## Partir du réel - L'offre de "Rochefort Océan"
+## PARTIR DU REEL - L'OFFRE DE "ROCHEFORT OCEAN"
 
 Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
 
@@ -119,7 +119,7 @@ Il existe également sur le territoire :
 
 Ces lignes ne seront pas abordées lors de cette présentation
 
-## Direction : la donnée NeTEx
+## DIRECTION : LA DONNEE NETEX
 
 Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
 
@@ -139,13 +139,7 @@ Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompr
 Rochefort.list_netex_content()
 ```
 
-<!-- livebook:{"output":true} -->
-
-```text
-[%{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_calendriers.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_commun.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_A_A.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_B_B.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_C_C.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_D_D.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_E_E.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_F_F.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_J_J.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI1_RPI-1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI2_RPI-2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI3_RPI-3.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI4_RPI-4.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S1_S1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S2_S2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S3_S3.xml"}]
-```
-
-## Description générale du réseau
+## DESCRIPTION GENERALE DU RESEAU
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 
@@ -169,7 +163,7 @@ Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 
 * 🚨TODO - automatiser le résumé ci-dessus
 
-## ↘️ Fichier "commun" > Network
+## 🔹 Fichier "commun" > Network
 
 Dans le fichier commun/partie Network, on définit le réseau (et les lignes rattachées).
 
@@ -195,7 +189,7 @@ tabs([
 ])
 ```
 
-## ↘️ Fichier "commun" > Line
+## 🔹 Fichier "commun" > Line
 
 Pour chaque ligne, on définit des informations générales telles que son nom, son code, son mode, etc.
 
@@ -268,7 +262,7 @@ tabs([
   </div>
 </details>
 
-## Description d'une ligne
+## DESCRIPTION D'UNE LIGNE
 
 🫵 À vous : ouvrez le fichier de la ligne B
 
@@ -295,7 +289,7 @@ tabs([
 ])
 ```
 
-## ↘️Topologie de la ligne
+## 🔹Topologie de la ligne
 
 Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 
@@ -329,7 +323,7 @@ Transmodel définit une LIGNE (`Line`) comme un groupe d’ITINERAIREs (`Route`)
 * 🚨TODO - comptage de chaque entité
 * 🚨TODO - question auto-formation Thibaut - comment reconstruire la vue résumée de la ligne à partir du fichier NeTEX ? Réponse: les noms des arrêts et leur accessibilité est centralisée dans le référentiel régional (agrégat). Route -> ServiceJourneyPattern -> (...) -> ScheduleStopPoint -> Quay/StopPlace
 
-## ↘️↘️Route
+## 🔹🔹Route
 
 ### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
 
@@ -388,7 +382,7 @@ graph LR
 </GeneralFrame>-->
 ```
 
-## ↘️↘️Direction
+## 🔹🔹Direction
 
 ### Fichier d'une ligne > LIGNE > Direction : on définit les directions possibles de nos Routes
 
@@ -418,7 +412,7 @@ graph LR
 </GeneralFrame>-->
 ```
 
-## ↘️↘️ScheduledStopPoint
+## 🔹🔹ScheduledStopPoint
 
 ### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt planifiés
 
@@ -472,7 +466,7 @@ CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP105843
 
 TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à partir des stop point ref
 
-## ↘️↘️ServiceJourneyPattern
+## 🔹🔹ServiceJourneyPattern
 
 ### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
 
@@ -527,7 +521,7 @@ graph LR
 </GeneralFrame>-->
 ```
 
-## ↘️↘️RouteLink
+## 🔹🔹RouteLink
 
 ### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
 
@@ -586,7 +580,7 @@ Rochefort.Carto.show_route_link(
 )
 ```
 
-## ↘️↘️PassengerStopAssignment
+## 🔹🔹PassengerStopAssignment
 
 ### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
 
@@ -596,7 +590,7 @@ Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data
 
 💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts ainsi que les informations d'accessibilité plus détaillées.
 
-## ↘️Horaires de la ligne
+## 🔹Horaires de la ligne
 
 Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
 
@@ -628,7 +622,7 @@ TODO: source (lien)
 
 TODO: résumé
 
-## ↘️↘️ServiceJourney
+## 🔹🔹ServiceJourney
 
 ### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
 
@@ -666,7 +660,7 @@ Kino.Layout.tabs([
 ])
 ```
 
-## Description des périodes et des jours types
+## DESCRIPTION DES PERIODES ET DES JOURS TYPES
 
 🫵 À vous : ouvrez le fichier des calendriers
 
@@ -696,7 +690,7 @@ TODO: exercices
 
 Les DayTypeAssignment assignent des jours types (`DayType`) à des périodes de service (`OperatingPeriod`) ou des dates précises (`Date`).
 
-## Récapitulatifs des concepts Transmodel utilisés
+## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES
 
 Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel la suite de cette présentation s'appuie:
 
@@ -721,7 +715,7 @@ graph TD
 
 ```
 
-## Fin
+## FIN
 
 TODO: Ouverture / conclusion...
 
