@@ -1,6 +1,8 @@
-# Bonjour et bienvenue !
+# Introduction
 
-Nous sommes très heureux de vous accueillir aujourd'hui pour cette première formation NeTEx !
+## Bonjour et bienvenue !
+
+Nous sommes très heureux de vous accueillir aujourd'hui pour cette formation NeTEx !
 
 ## Règles de base
 
