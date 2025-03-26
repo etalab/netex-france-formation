@@ -162,6 +162,12 @@ Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompr
 Rochefort.list_netex_content()
 ```
 
+<!-- livebook:{"output":true} -->
+
+```text
+[%{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_calendriers.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_commun.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_A_A.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_B_B.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_C_C.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_D_D.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_E_E.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_F_F.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_J_J.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI1_RPI-1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI2_RPI-2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI3_RPI-3.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI4_RPI-4.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S1_S1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S2_S2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S3_S3.xml"}]
+```
+
 ## Description générale du réseau
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
@@ -214,7 +220,7 @@ Pour chaque ligne, on définit des informations générales
 
 <!-- livebook:{"break_markdown":true} -->
 
-**_Rappel définition_** : Une LIGNE (**Line**) est un groupe d’ITINÉRAIREs (voir plus bas - **Route**) qui est en général connu du public par une appellation commune (nom ou numéro, extrémités de ligne, etc.).
+**_Rappel définition_** : Une LIGNE (`Line`) est un groupe d’ITINÉRAIREs (voir plus bas - `Route`) qui est en général connu du public par une appellation commune (nom ou numéro, extrémités de ligne, etc.).
 
 ```elixir
 line_complete = "snippets/002-line.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -344,7 +350,7 @@ Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 
 ### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
 
-**_Rappel définition_** : Un ITINERAIRE (**Route**) est une liste ordonnée de POINTs (**RoutePoints**) définissant un seul chemin à travers le réseau routier (ou ferré). Un ITINERAIRE peut passer deux fois par un même POINT.
+**_Rappel définition_** : Un ITINERAIRE (`Route`) est une liste ordonnée de POINTs (`RoutePoints`) définissant un seul chemin à travers le réseau routier (ou ferré). Un ITINERAIRE peut passer deux fois par un même POINT.
 
 * 🚨TODO - définitions pas très claires sur le profil France ; on peut faire des retours
 * 🚨TODO - DRY définition
@@ -352,7 +358,7 @@ Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 * 🚨TODO - expliquer que la structure précise d'un fichier peut varier d'un territoire à un autre, mais que cela est en cours d'homogénéisation (travaux GT7 etc)
 * 🚨TODO - Les séquences de points sont actuellement, dans le fichier de Rochefort, définies à l'intérieur du ServiceJourneyPattern, et pas de la Route. En théorie dans le profil France: il est obligatoire de les avoirs dans la Route, et facultatif dans le ServiceJourneyPattern.
 
-Un ITINERAIRE appartient à une LIGNE (**Line**), qui regroupe plusieurs ITINERAIRES pouvant être dans des directions différentes.
+Un ITINERAIRE appartient à une LIGNE (`Line`), qui regroupe plusieurs ITINERAIRES pouvant être dans des directions différentes.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -431,7 +437,7 @@ graph LR
 
 ### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt planifiés
 
-**_Rappel définition_** : un POINT D'ARRET PLANIFIE (**ScheduledStopPoint**) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
+**_Rappel définition_** : un POINT D'ARRET PLANIFIE (`ScheduledStopPoint`) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -483,7 +489,7 @@ TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à p
 
 ### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
 
-**_Rappel définition_** : Un PARCOURS COMMERCIAL (**ServiceJourneyPattern**) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers).
+**_Rappel définition_** : Un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers).
 
 Remarque : On parle aussi de MISSION COMMERCIALE.
 
@@ -536,7 +542,7 @@ graph LR
 
 ### Fichier d'une ligne > LIGNE > RouteLink : on définit les tronçons d'itinéraires
 
-**_Rappel définition_** : Un TRONCON D'ITINERAIRE (**RouteLink**) est un tronçon orienté entre deux **RoutePoint** (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
+**_Rappel définition_** : Un TRONCON D'ITINERAIRE (`RouteLink`) est un tronçon orienté entre deux `RoutePoint` (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -633,7 +639,7 @@ TODO: résumé
 
 ### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
 
-**_Rappel définition_** : Une COURSE (**ServiceJourney**) est le mouvement défini d’un véhicule utilisant un PARCOURS (**JourneyPattern**) spécifiée. Elle est définie pour un TYPE DE JOUR (**DayType**) donné.
+**_Rappel définition_** : Une COURSE (`ServiceJourney`) est le mouvement défini d’un véhicule utilisant un PARCOURS (`JourneyPattern`) spécifiée. Elle est définie pour un TYPE DE JOUR (`DayType`) donné.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -695,7 +701,7 @@ TODO: exercices
 
 <!-- livebook:{"break_markdown":true} -->
 
-Les DayTypeAssignment assignent des jours types (DayType) à des périodes de service (OperatingPeriod) ou des dates précises (Date).
+Les DayTypeAssignment assignent des jours types (`DayType`) à des périodes de service (`OperatingPeriod`) ou des dates précises (`Date`).
 
 ## Fin
 
