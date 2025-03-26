@@ -198,6 +198,10 @@ Dans le fichier commun/partie Network, on définit le réseau (et les lignes rat
 
 * 🚨TODO: EXERCICE: trouvez la section Network dans le fichier commun
 
+**_Rappel définition_** : Un `Network` est un GROUPE DE LIGNES disposant d’un nom sous lequel un réseau de transport est connu.
+
+Cf [Profil France NETEX : Network](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#network-r%C3%A9seau)
+
 ```elixir
 import Kino.Shorts
 
