@@ -11,11 +11,11 @@ Code.compile_file("../lib/kino_tooling.ex", __DIR__)
  
 ```
 
-## Introduction
+## INTRODUCTION
 
 Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux Stop Places.
 
-🔹 Pourquoi cette partie ?
+## 🔹 Pourquoi cette partie ?
 
 Avec la digitalisation des systèmes de transport, le standard NeTEx est devenu un format clé pour l’échange et l’exploitation des données de transport public en Europe. Il permet de structurer de manière cohérente les informations sur les arrêts de bus, gares ferroviaires, stations de métro et pôles d’échange multimodaux.
 
@@ -29,13 +29,13 @@ Pour bien utiliser ces fichiers, il est essentiel de savoir :
 
 ✅ Extraire les bonnes informations pour leur intégration dans d’autres systèmes (Systèmes d’Information Voyageurs, outils SIG, planificateurs d’itinéraires).
 
-🔹 Ce que vous allez apprendre
+## 🔹 Ce que vous allez apprendre
 
 Au fil de cette formation, nous allons explorer :
 
 📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts.
 
-📌 Les principaux éléments XML décrivant un Stop Place (StopPlace, StopPoint, StopArea, etc.).
+📌 Les principaux éléments XML décrivant un Stop Place (StopPlace, StopPlace Component, Quay).
 
 📌 Comment lire un fichier NeTEx et en extraire des informations utiles.
 
@@ -43,17 +43,33 @@ Au fil de cette formation, nous allons explorer :
 
 📌 Les bonnes pratiques pour exploiter efficacement ces fichiers.
 
-🔹 Déroulement de la formation
+## 🔹 La démarche pour cette partie
+
+📌 Identifier un lieu d'arrêt multimodal representatif
+
+📌 Décrire la réalité (Physique, Cartographique, Plan d Ligne)
+
+📌 Identifier le Fichier NeTEx sur le PAN
+
+📌 Recontituer le Lieu d'arrêt décrit par le fichier NeTex
+
+📌 Comparaison avec la réalité
+
+📌Identifier des axes d'amélioration
+
+## 🔹 Déroulement de la formation
 
 Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux lieux d'arrêt, suivie de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
 
 À la fin de cette partie, vous serez en mesure de lire, comprendre les principes de strucuration des fichiers NeTEx comprenant la description de Lieux d'arrêt pour des usages concrets.
 
+<!-- livebook:{"break_markdown":true} -->
+
 💡 Bon à savoir : Aucun prérequis technique avancé n’est nécessaire, mais une familiarité avec les données de transport ou les formats XML sera un plus.
 
 🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
 
-## Notion de stop place (lieu d'arret)
+## CONCEPTS STOPPLACE (lieu d'arret)
 
 Vue simplifée des concepts manipulés
 
@@ -75,7 +91,7 @@ graph TD;
   StopPlaceComponent-->AccessSpace
 ```
 
-## Modelisation des "Stop Place"
+## 🔹 Modelisation des "Stop Place"
 
 Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
 
@@ -87,7 +103,7 @@ Un Stop Place n’est pas seulement un point d’arrêt unique, mais peut être 
 
 Les concepts fondamentaux des Stop Places dans Transmodel, sont présentés ci-après sur la base de leur structuration, des relations entre entités et des principes avancés de modélisation.
 
-🔹 Structure et Hiérarchie des Stop Places
+🔹🔹 Structure et Hiérarchie des Stop Places
 
 Dans Transmodel, la modélisation des Stop Places s’appuie sur une hiérarchie en plusieurs niveaux, permettant de structurer les infrastructures d’arrêt selon leur complexité et leur organisation spatiale. Cette hiérarchie se compose principalement des éléments suivants :
 
@@ -103,33 +119,7 @@ Exemples de Stop Places
 
 📌 Un pôle d’échange multimodal combinant train, tram, bus et parkings relais.
 
-**Stop Area (Zone d’arrêt)**
-
-Un Stop Place est constitué d’une ou plusieurs Stop Areas, qui regroupent les infrastructures d’arrêt selon leur fonction et leur position géographique.
-
-Types de Stop Areas :
-
-📌 Quais ou zones d’embarquement/débarquement : espaces spécifiques où les passagers montent et descendent.
-
-📌 Zones d’attente et d’accès : espaces de transit, halls de gare, entrées et sorties.
-
-📌 Zones spécifiques par mode de transport : un Stop Place multimodal peut inclure une Stop Area pour le train, une autre pour le métro, une autre pour les bus, etc.
-
-* **Stop Point (Point d’arrêt précis)**
-
-Au sein d’une Stop Area, on distingue des Stop Points, qui sont les points exacts où un véhicule s’arrête pour prendre ou déposer des passagers.
-
-Exemples de Stop Points :
-
-📌 Une porte spécifique dans un terminal d’aéroport.
-
-📌 Une borne d’arrêt précise sur un quai de bus.
-
-📌 Un point GPS exact d’arrêt pour un tramway.
-
-Chaque Stop Point est associé à un mode de transport spécifique et à des horaires précis.
-
-🔹 La Récursivité dans la Modélisation des Stop Places
+🔹🔹 La Récursivité dans la Modélisation des Stop Places
 
 Un des concepts essentiels de la modélisation des Stop Places dans Transmodel est la récursivité. Cela signifie qu’un Stop Place peut contenir d’autres Stop Places, formant ainsi une structure imbriquée adaptée aux infrastructures complexes.
 
@@ -159,7 +149,7 @@ Quelques relations courantes dans Transmodel
 
 📌 Connexion : un Stop Place peut être relié à un autre via des infrastructures de liaison (passages souterrains, passerelles, escaliers).
 
-🔹 Autres Concepts Clés
+🔹🔹 Autres Concepts Clés
 
 En complément de la récursivité, plusieurs autres principes sont fondamentaux dans la modélisation des Stop Places :
 
@@ -191,7 +181,7 @@ Les arrêts peuvent être différenciés en :
 
 📌 Arrêts virtuels : utilisés pour la planification et les itinéraires sans correspondance à un lieu physique unique.
 
-🔹 Atouts de la modelisation NeTEx pour les lieux d'arrêt.
+🔹🔹 Atouts de la modelisation NeTEx pour les lieux d'arrêt.
 
 La modélisation des Stop Places dans Transmodel repose sur une hiérarchisation rigoureuse, une structuration récursive, et une modélisation relationnelle des arrêts. Grâce à ces principes, les systèmes d’information de transport peuvent :
 
@@ -205,7 +195,7 @@ Cette approche permet une gestion avancée des infrastructures de transport, ess
 
 💡 NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information**
 
-## Définitions
+## 🔹Définitions
 
 ### Transmodel
 
@@ -256,11 +246,11 @@ Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de
 
 ![](files/OrgaLAProfilNeTEx.JPG)
 
-## Présentation Cas d'usage : ASTUCE ROUEN
+## PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
 
 Essai de texte
 
-## Vue Réelle
+## 🔹 Vue Réelle
 
 ### Présentation du Théâtre des Arts et des Arrêts
 
@@ -284,7 +274,7 @@ Ensuite, à travers des exercices pratiques, nous explorerons des moyens d'amél
 
 Les sites de référence :
 
-* https://www://Rouen.fr
+* https://rouen.fr/transports-en-commun
 * https://www.reseau-astuce.fr/
 
 <!-- livebook:{"break_markdown":true} -->
@@ -303,7 +293,7 @@ L'agglomeration Rouanaise
 
 ![](files/Tram.JPG)
 
-## Vue cartographique
+## 🔹 Vue cartographique
 
 ![](files/AggloRouen.jpeg)
 
@@ -315,11 +305,17 @@ L'agglomeration Rouanaise
 
 **!! Inserer interpretation IA du fichier NeTex**
 
-## Interpretation PAN NeTEx
+## 🔹 Interpretation PAN NeTEx
 
-Le fichier utilisé pour ce cas d'usage est le suivant : **_inserer un lien vers le fichier profil Arrets FR_**
+Le fichier utilisé pour ce cas d'usage est le suivant :
 
-![Fichier profil NeTex Arret France] ()
+https://transport.data.gouv.fr/datasets/base-de-donnees-multimodale-des-reseaux-de-transport-public-normands
+
+Dossier : PT_TH_OFFER_TCAR_netex_20241120_308_OPENDATA.zip
+Fichier : Arrets.xml (Arret / Quai)
+Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
+N fichiers Lines (ServiceJOurney)
+TCAR = Transport en Commun Agglomération ROuen
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -451,6 +447,6 @@ Kino.Layout.tabs([
 Quai: xml_2])
 ````
 
-## Autre Exemple : RTM Castellane
+## AUTRE EXEMPLE : RTM Castellane
 
-## Exercices
+## EXERCICES
