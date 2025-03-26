@@ -79,6 +79,30 @@ end
 :ok
 ```
 
+## INTRODUCTION
+
+Bienvenue dans la partie de formation qui traite du Réseau ! Nous aborderons entre autres les principes des Lignes, des Itinéraires, des Horaires et Calendriers...
+
+🔹 **Déroulement de la formation**
+
+* Nous commencerons par une approche sur le réel, en partant de l'offre de "Rochefort Océan"
+
+* Nous plongerons ensuite dans les données des fichiers NeTEx
+
+* Et nous metterons au fur et à mesure en lien le réel et les données NeTEx, pour ce qui concerne la topologie et les horaires des lignes ainsi que la définition des calendriers.
+
+🔹 **Ce que vous allez apprendre**
+
+* Les bases du format NeTEx et son utilisation dans la modélisation des lignes et des horaires de passage.
+
+* Les principaux éléments XML décrivant un Réseau (Line, Route, ServiceJourneyPattern, ServiceJourney...) et les Calendriers.
+
+* Comment lire un fichier NeTEx et en extraire des informations utiles.
+
+💡 Bon à savoir : Aucun prérequis technique avancé n’est nécessaire, mais une familiarité avec les données de transport ou le format XML sera un plus.
+
+🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
+
 ## PARTIR DU REEL - L'OFFRE DE "ROCHEFORT OCEAN"
 
 Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
