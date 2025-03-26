@@ -1,12 +1,25 @@
 <!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_aa_annexe1.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_acousticcrossingaids.png","type":"attachment"},{"name":"voirie_doc_crossingtype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_droppedkerb.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_doc_tactilewarningstrip.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_photo_kerb.png","type":"attachment"},{"name":"voirie_qgis_linestring.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_warning_strip.png","type":"attachment"},{"name":"voirie_xml_distance.png","type":"attachment"}]} -->
 
-# Accessibilité - voirie
+# Accessibilité - description des cheminements piétons
 
 ```elixir
 Mix.install([
   {:kino, "~> 0.15.3"}
 ])
 ```
+
+## Introduction
+
+Ce que vous allez apprendre :
+
+* comment représenter des cheminements piétons avec NeTEx
+* comment utiliser la documentation pour trouver les attributs d'accessibilité associés
+
+Déroulement de la formation :
+
+* cas pratique
+* lecture de la documentation et découverte de quelques attributs emblématiques
+* exercice pratique de prise en main d'un fichier réel
 
 ## Cas d'usage
 
@@ -354,7 +367,7 @@ Kino.Layout.tabs([
 
 ## Exercice pratique
 
-Analyser le fichier NeTEx de voirie du Val-de-Marne.
+🫵 Analyser le fichier NeTEx de voirie du Val-de-Marne.
 
 À télécharger sur : https://transport.data.gouv.fr/datasets/cheminements-pietons-dans-le-val-de-marne-dapres-openstreetmap
 
@@ -504,19 +517,11 @@ Mode opératoire :
   </div>
 </details>
 
-## Bonus
+## Outillage
 
-<details class="rounded-lg my-4">
-  <summary class="cursor-pointer font-bold p-4"></i>??</summary>
-  <div class="p-4">
+[**Accèslibre Mobilités**](https://mtes-mct.github.io/alm-docs/) : la suite logicielle pour collecter et publier les données d'accessibilité des transports et de la voirie
 
-TODO :
-* [ ] Parler d'ALM ?
-* [ ] Parler d'OSM ?
-* [ ] ajouter une section interactive qui permet de voir la partie géographique du fichier
- 
-  </div>
-</details>
+![logo ALM](https://mtes-mct.github.io/alm-docs/img/logo_AccesLibreMobilites.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -527,10 +532,10 @@ TODO :
 </div>
 <div class="flex">
 <i class="ri-home-fill"></i>
-<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">formation NeTEx</a>
+<a class="flex ml-2" style="color: #61758a;">Accessibilité - cheminements</a>
 </div>
 <div class="flex">
-<a class="flex mr-2" style="color: #61758a;" href="TODO.livemd">partie suivante ??</a>
+<a class="flex mr-2" style="color: #61758a;" href="TODO.livemd">Conclusion</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>
