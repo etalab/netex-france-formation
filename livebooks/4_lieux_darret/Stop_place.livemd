@@ -1,0 +1,471 @@
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+
+# Lieux_Arret
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.15.3"}
+])
+Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
+:ok
+ 
+```
+
+## INTRODUCTION
+
+Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux Stop Places.
+
+## 🔹 Pourquoi cette partie ?
+
+Avec la digitalisation des systèmes de transport, le standard NeTEx est devenu un format clé pour l’échange et l’exploitation des données de transport public en Europe. Il permet de structurer de manière cohérente les informations sur les arrêts de bus, gares ferroviaires, stations de métro et pôles d’échange multimodaux.
+
+Pour bien utiliser ces fichiers, il est essentiel de savoir :
+
+✅ Lire et comprendre la structure XML des fichiers NeTEx.
+
+✅ Identifier les éléments essentiels décrivant un lieu d’arrêt.
+
+✅ Interpréter les relations entre ces éléments (hiérarchie, accessibilité, connexions).
+
+✅ Extraire les bonnes informations pour leur intégration dans d’autres systèmes (Systèmes d’Information Voyageurs, outils SIG, planificateurs d’itinéraires).
+
+## 🔹 Ce que vous allez apprendre
+
+Au fil de cette formation, nous allons explorer :
+
+📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts.
+
+📌 Les principaux éléments XML décrivant un Stop Place (StopPlace, StopPlace Component, Quay).
+
+📌 Comment lire un fichier NeTEx et en extraire des informations utiles.
+
+📌 Comment interpréter les relations spatiales et fonctionnelles entre arrêts.
+
+📌 Les bonnes pratiques pour exploiter efficacement ces fichiers.
+
+## 🔹 La démarche pour cette partie
+
+📌 Identifier un lieu d'arrêt multimodal representatif
+
+📌 Décrire la réalité (Physique, Cartographique, Plan d Ligne)
+
+📌 Identifier le Fichier NeTEx sur le PAN
+
+📌 Recontituer le Lieu d'arrêt décrit par le fichier NeTex
+
+📌 Comparaison avec la réalité
+
+📌Identifier des axes d'amélioration
+
+## 🔹 Déroulement de la formation
+
+Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux lieux d'arrêt, suivie de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
+
+À la fin de cette partie, vous serez en mesure de lire, comprendre les principes de strucuration des fichiers NeTEx comprenant la description de Lieux d'arrêt pour des usages concrets.
+
+<!-- livebook:{"break_markdown":true} -->
+
+💡 Bon à savoir : Aucun prérequis technique avancé n’est nécessaire, mais une familiarité avec les données de transport ou les formats XML sera un plus.
+
+🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
+
+## CONCEPTS STOPPLACE (lieu d'arret)
+
+Vue simplifée des concepts manipulés
+
+La représentation des Lieux d'arrêt par NeTex est issue de TRANSMODEL. Transmodel a intégré la conceptualisation IFOPT référence en matière de représentation de lieu d'arrêt.
+
+Une vision simplifiée de la hierarchie des concepts de structuration des Lieux d'arret est la suivante.
+
+<!-- livebook:{"break_markdown":true} -->
+
+<!-- Learn more at https://mermaid-js.github.io/mermaid -->
+
+```mermaid
+graph TD;
+ StopPlace-->StopPlace;
+  StopPlace-->StopPlaceComponent;
+  StopPlaceComponent-->StopPlaceEntrance
+  StopPlaceComponent-->Quay
+  Quay-->Quay
+  StopPlaceComponent-->AccessSpace
+```
+
+## 🔹 Modelisation des "Stop Place"
+
+Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
+
+<!-- livebook:{"break_markdown":true} -->
+
+Dans le domaine des systèmes d’information pour le transport public, la modélisation des Stop Places (lieux d’arrêt) est un enjeu clé pour assurer une représentation cohérente et interopérable des infrastructures d’arrêt. Transmodel, le modèle de référence européen pour les données de transport, définit une structure hiérarchique et relationnelle permettant de représenter fidèlement ces éléments à différentes échelles.
+
+Un Stop Place n’est pas seulement un point d’arrêt unique, mais peut être un regroupement d’arrêts physiques, incluant plusieurs modes de transport et divers équipements d’infrastructure. La modélisation repose sur des principes de récursivité, de relations spatiales et d’agrégation hiérarchique, facilitant l’organisation des données et leur échange entre systèmes.
+
+Les concepts fondamentaux des Stop Places dans Transmodel, sont présentés ci-après sur la base de leur structuration, des relations entre entités et des principes avancés de modélisation.
+
+🔹🔹 Structure et Hiérarchie des Stop Places
+
+Dans Transmodel, la modélisation des Stop Places s’appuie sur une hiérarchie en plusieurs niveaux, permettant de structurer les infrastructures d’arrêt selon leur complexité et leur organisation spatiale. Cette hiérarchie se compose principalement des éléments suivants :
+
+* **Stop Place** (Lieu d’arrêt principal)
+
+Le Stop Place est l’entité centrale du modèle. Il représente un site d’arrêt pouvant inclure plusieurs infrastructures d’arrêt individuelles. Un Stop Place peut être une simple station de bus, une gare ferroviaire ou une grande station multimodale combinant plusieurs types de transport (métro, tramway, bus, train).
+
+Exemples de Stop Places
+
+📌 Une station de métro comprenant plusieurs quais et entrées.
+
+📌 Une gare ferroviaire intégrant plusieurs voies et correspondances avec des bus et tramways.
+
+📌 Un pôle d’échange multimodal combinant train, tram, bus et parkings relais.
+
+🔹🔹 La Récursivité dans la Modélisation des Stop Places
+
+Un des concepts essentiels de la modélisation des Stop Places dans Transmodel est la récursivité. Cela signifie qu’un Stop Place peut contenir d’autres Stop Places, formant ainsi une structure imbriquée adaptée aux infrastructures complexes.
+
+* **Définition de la récursivité dans Transmodel**
+
+La récursivité permet d’exprimer des relations hiérarchiques où un Stop Place peut être composé d’autres Stop Places, qui eux-mêmes contiennent des Stop Areas et des Stop Points.
+
+Exemple concret de récursivité :
+
+📌 Un aéroport international (Stop Place) peut contenir plusieurs terminaux (Stop Places imbriqués)
+
+📌 Chaque terminal peut avoir plusieurs halls d’embarquement (Stop Areas).
+
+📌 Chaque hall contient plusieurs portes de départ (Stop Points).
+
+Cette structuration permet une représentation modulaire et extensible des infrastructures de transport, facilitant la gestion des données et leur exploitation par des systèmes d’information.
+
+* **Relations entre les niveaux hiérarchiques**
+
+La récursivité s’accompagne de relations spatiales et fonctionnelles entre les différents niveaux de la hiérarchie.
+
+Quelques relations courantes dans Transmodel
+
+📌 Contenu/Contenant : un Stop Place peut contenir plusieurs Stop Areas et Stop Places secondaires.
+
+📌 Proximité : deux Stop Places distincts peuvent être reliés s’ils sont situés à courte distance (ex. une gare et une station de bus adjacente).
+
+📌 Connexion : un Stop Place peut être relié à un autre via des infrastructures de liaison (passages souterrains, passerelles, escaliers).
+
+🔹🔹 Autres Concepts Clés
+
+En complément de la récursivité, plusieurs autres principes sont fondamentaux dans la modélisation des Stop Places :
+
+* **Accessibilité et équipements**
+
+La prise en compte des équipements et de l’accessibilité est essentielle dans la structuration des Stop Places :
+
+📌 Présence de rampes, ascenseurs, escaliers mécaniques.
+
+📌 Indication des zones accessibles aux personnes à mobilité réduite.
+
+📌 Présence de signalétique, guichets d’information, bornes de validation.
+
+* **Correspondances et Intermodalité**
+
+Un Stop Place peut être relié à d’autres infrastructures de transport pour permettre des correspondances optimisées. Ces connexions peuvent être modélisées par :
+
+📌 Arrêts adjacents (ex. arrêt de bus devant une gare ferroviaire).
+
+📌 Passages piétons, tunnels, escaliers reliant différentes zones d’un Stop Place.
+
+📌 Horaires de correspondance coordonnés pour minimiser le temps d’attente.
+
+* **Typologie des arrêts**
+
+Les arrêts peuvent être différenciés en :
+
+📌 Arrêts physiques : lieux réels où les passagers montent/descendent.
+
+📌 Arrêts virtuels : utilisés pour la planification et les itinéraires sans correspondance à un lieu physique unique.
+
+🔹🔹 Atouts de la modelisation NeTEx pour les lieux d'arrêt.
+
+La modélisation des Stop Places dans Transmodel repose sur une hiérarchisation rigoureuse, une structuration récursive, et une modélisation relationnelle des arrêts. Grâce à ces principes, les systèmes d’information de transport peuvent :
+
+📌 Structurer précisément les données des arrêts.
+
+📌 Faciliter l’interopérabilité entre réseaux multimodaux.
+
+📌 Optimiser la gestion des correspondances et de l’accessibilité.
+
+Cette approche permet une gestion avancée des infrastructures de transport, essentielle pour les opérateurs et les autorités organisatrices.
+
+💡 NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information**
+
+## 🔹Définitions
+
+### Transmodel
+
+Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
+
+🔹 **Stop Place** (Lieu d'arrêt)
+
+📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement
+
+📌 Un Lieu d'arrêt peut être constitué de Lieux d'arrêt.
+
+🔹  **Stop Place Component (composant de LA)**
+
+Cet élément décrit une partie de la structure d'un Lieu d'arrêt. Il est possible de définir une notion de Niveau (LEVEL) associée à  chaque composant . Il ne peut se décliner que sous la forme de :
+  📌  **Zone d'embarquement** (QUAY),
+
+📌 d’**ESPACE DE LIEU** (ACCESS SPACE),
+
+Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans accès direct aux vehicules (Hall de gare, Passage, Magasin, Salle d'attente, Restaurant, ...)
+
+📌  **ENTREE DE LIEU D'ARRET** (STOP PLACE ENTRANCE).
+
+🔹 **Quay** (Zone d'embarquement)
+
+Il s’agit d’un lieu tel qu’une plateforme, une zone ou un quai qui permet aux voyageurs d’accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+
+🔹  **Entrance** (Entrée)
+
+Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt
+
+#### Profil FRANCE
+
+Le profil NeTex france Arrêt utilise ces concepts pour organiser la définition NeTex des Lieux d'arrêt.
+
+🔹 **Groupe de Lieu**
+
+Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
+
+🔹 **Lieu d’arrêt multimodal** (stop place) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
+
+📌  **Lieu d’arret monomodal** (stop place)
+
+📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (STOP PLACE en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
+
+🔹 **ZE** (Quay) :Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/OrgaLAProfilNeTEx.JPG)
+
+## PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
+
+Essai de texte
+
+## 🔹 Vue Réelle
+
+### Présentation du Théâtre des Arts et des Arrêts
+
+Situé en plein centre-ville de Rouen, le **Théâtre des Arts** est desservi par plusieurs modes de transport :
+
+* 🚌 **Bus traditionnel**
+* 🚍 **Bus à Haut Niveau de Service (BHNS)**
+* 🚋 **Tramway**
+
+Ce théâtre se trouve à proximité d'une **gare routière**, offrant ainsi une accessibilité renforcée.
+
+Il est important de noter que certains arrêts proches portent le nom **"Théâtre des Arts"**, tandis que d'autres possèdent des appellations différentes, comme **"Gare Routière"**.
+
+### Objectifs de cette présentation
+
+Dans un premier temps, nous verrons que la représentation d'un **lieu d'arrêt** peut être très simple, comme c'est le cas dans le **fichier ASTUCE**.
+
+Ensuite, à travers des exercices pratiques, nous explorerons des moyens d'améliorer cette description pour **mieux refléter la réalité** et ainsi **optimiser l'information à destination des usagers**.
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les sites de référence :
+
+* https://rouen.fr/transports-en-commun
+* https://www.reseau-astuce.fr/
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ReseauAstuce.txt)
+
+<!-- livebook:{"break_markdown":true} -->
+
+L'agglomeration Rouanaise
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/Agglo.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/Tram.JPG)
+
+## 🔹 Vue cartographique
+
+![](files/AggloRouen.jpeg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/TdA2.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+**!! Inserer interpretation IA du fichier NeTex**
+
+## 🔹 Interpretation PAN NeTEx
+
+Le fichier utilisé pour ce cas d'usage est le suivant :
+
+https://transport.data.gouv.fr/datasets/base-de-donnees-multimodale-des-reseaux-de-transport-public-normands
+
+Dossier : PT_TH_OFFER_TCAR_netex_20241120_308_OPENDATA.zip
+Fichier : Arrets.xml (Arret / Quai)
+Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
+N fichiers Lines (ServiceJOurney)
+TCAR = Transport en Commun Agglomération ROuen
+
+````elixir
+xml_1=Kino.Markdown.new("""
+```xml
+<!-- GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
+               <members>
+                  <StopPlace id="FR:76157:StopPlace:AUTOPT202405271601341344:ATOUMOD000" version="1">
+                     <Name>Chemin de la Corniche</Name>
+                     <PrivateCode>FR:76157:LMO:AUTOPT202405271601341344:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:a66e3fa7a1534b4c8eb9347a58a16383:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:941919f530f74dbe8c2430897e2f0918:LOC">
+                           <Longitude>1.0413157</Longitude>
+                           <Latitude>49.444458</Latitude>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="multimodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:2ee1e0dd47a64f4a82a37c053a3dc1d4:LOC" version="any">
+                        <Town>Canteleu</Town>
+                        <PostalRegion>76157</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>tram</TransportMode>
+                     <StopPlaceType>onstreetTram</StopPlaceType>
+                  </StopPlace>
+-->
+                  <StopPlace id="FR:76410:LMO:AUTOPT202405271601341800:ATOUMOD000" version="1">
+                     <Name>Hôtel de Ville de Maromme</Name>
+                     <PrivateCode>FR:76410:LMO:AUTOPT202405271601341800:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:bb6c30565fd1489c99d3a1a3f6120c1c:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:3cba9cc58dda433e98164ec3fe69d147:LOC">
+                           <Longitude>1.0401848</Longitude>
+                           <Latitude>49.4820606</Latitude>
+                           <gml:pos srsName="EPSG:2154">557942.286531513 6933172.42178157</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="monomodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:eedee9c06e0d43dd9e7dfe2504b81dee:LOC" version="any">
+                        <Town>Maromme</Town>
+                        <PostalRegion>76410</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>bus</TransportMode>
+                     <StopPlaceType>onstreetBus</StopPlaceType>
+                     <quays>
+                        <QuayRef ref="FR:76410:ZE:11107:ATOUMOD001" versionRef="1"/>
+                     </quays>
+                  </StopPlace>
+
+```
+""")
+xml_2=Kino.Markdown.new("""
+```xml
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+
+   <dataObjects>
+      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
+
+         <frames>
+              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
+               <members>
+                  
+                  <StopPlace id="FR:76575:LMO:AUTOPT202405271601342882:ATOUMOD000" version="1">
+                     <Name>Ernest Renan</Name>
+                     <PrivateCode>FR:76575:LMO:AUTOPT202405271601342882:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:53e35d0c6ca6413c9a935c60c96aa83a:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:08f7e9955e234a1581eea5969c4931ba:LOC">
+                           <Longitude>1.0731568</Longitude>
+                           <Latitude>49.3983285</Latitude>
+                           <gml:pos srsName="EPSG:2154">560104.485616109 6923800.38240824</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="monomodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:0d39d6c7340e4bf080f4294ca6e688ae:LOC" version="any">
+                        <Town>Saint-Étienne-du-Rouvray</Town>
+                        <PostalRegion>76575</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>metro</TransportMode>
+                     <StopPlaceType>metroStation</StopPlaceType>
+                     <quays>
+                        <QuayRef ref="FR:76575:ZE:11399:ATOUMOD001" versionRef="1"/>
+                     </quays>
+                  </StopPlace>
+-->
+                  <Quay id="FR:76410:ZE:11107:ATOUMOD001" version="1" dataSourceRef="ATOUMOD000:Authority:001:LOC">
+                     <Name>Hôtel de Ville de Maromme</Name>
+                     <PrivateCode>11107</PrivateCode>
+                     <Centroid id="ATOUMOD001:Centroid:dc989ebe13ba4bf1926385eba8d1bfae:LOC" version="any">
+                        <Location id="ATOUMOD001:Location:476e70bcbcf540c688f77c2d86831709:LOC">
+                           <Longitude>1.0401848</Longitude>
+                           <Latitude>49.4820606</Latitude>
+                           <gml:pos srsName="EPSG:2154">557942.286531513 6933172.42178157</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <PostalAddress id="ATOUMOD001:PostalAddress:1166444555ca42378c6be6341462a84c:LOC" version="any">
+                        <Town>Maromme</Town>
+                        <PostalRegion>76410</PostalRegion>
+                     </PostalAddress>
+                     <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:cf6d5d6fb0d9459ab8be58467828b3c7:LOC" version="any">
+                        <MobilityImpairedAccess>true</MobilityImpairedAccess>
+                        <suitabilities>
+                           <Suitability id="ATOUMOD001:Suitability:11107x1:LOC" version="any">
+                              <MobilityNeed>wheelchair</MobilityNeed>
+                              <Suitable>suitable</Suitable>
+                           </Suitability>
+                        </suitabilities>
+                     </AccessibilityAssessment>
+                     <SiteRef ref="FR:76410:LMO:AUTOPT202405271601341800:ATOUMOD000" versionRef="1"/>
+                     <TransportMode>bus</TransportMode>
+                  </Quay>
+                  <!--
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery>
+-->
+
+```
+""")
+Kino.Layout.tabs([
+  Arrêts: xml_1,
+Quai: xml_2])
+````
+
+## AUTRE EXEMPLE : RTM Castellane
+
+## EXERCICES
+
+## FIN
+
+🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Accessibilité") ou revenir à la partie précédente ("Introduction")
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="../3_reseau/reseau_rochefort.livemd">Lignes et Horaires - Rochefort</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="Stop_place.livemd">Lieux d'arrêt - Rouen</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="../5_accessibilite/accessibilite_transport.livemd">Accessibilité - transport</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
