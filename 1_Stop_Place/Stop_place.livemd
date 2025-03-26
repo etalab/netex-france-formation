@@ -59,6 +59,8 @@ Vue simplifée des concepts manipulés
 
 La représentation des Lieux d'arrêt par NeTex est issue de TRANSMODEL. Transmodel a intégré la conceptualisation IFOPT référence en matière de représentation de lieu d'arrêt.
 
+Une vision simplifiée de la hierarchie des concepts de structuration des Lieux d'arret est la suivante.
+
 <!-- livebook:{"break_markdown":true} -->
 
 <!-- Learn more at https://mermaid-js.github.io/mermaid -->
@@ -67,9 +69,10 @@ La représentation des Lieux d'arrêt par NeTex est issue de TRANSMODEL. Transmo
 graph TD;
  StopPlace-->StopPlace;
   StopPlace-->StopPlaceComponent;
-  StopPlace-->Entrée
-  StopPlace-->ZoneEmbarquement
-  ZoneEmbarquement-->ZoneEmbarquement
+  StopPlaceComponent-->StopPlaceEntrance
+  StopPlaceComponent-->Quay
+  Quay-->Quay
+  StopPlaceComponent-->AccessSpace
 ```
 
 ## Modelisation des "Stop Place"
@@ -100,7 +103,7 @@ Exemples de Stop Places
 
 📌 Un pôle d’échange multimodal combinant train, tram, bus et parkings relais.
 
-Stop Area (Zone d’arrêt)**
+**Stop Area (Zone d’arrêt)**
 
 Un Stop Place est constitué d’une ou plusieurs Stop Areas, qui regroupent les infrastructures d’arrêt selon leur fonction et leur position géographique.
 
@@ -221,6 +224,8 @@ Cet élément décrit une partie de la structure d'un Lieu d'arrêt. Il est poss
 
 📌 d’**ESPACE DE LIEU** (ACCESS SPACE),
 
+Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans accès direct aux vehicules (Hall de gare, Passage, Magasin, Salle d'attente, Restaurant, ...)
+
 📌  **ENTREE DE LIEU D'ARRET** (STOP PLACE ENTRANCE).
 
 🔹 **Quay** (Zone d'embarquement)
@@ -305,6 +310,10 @@ L'agglomeration Rouanaise
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/TdA2.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+**!! Inserer interpretation IA du fichier NeTex**
 
 ## Interpretation PAN NeTEx
 
