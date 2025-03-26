@@ -79,31 +79,6 @@ end
 :ok
 ```
 
-## Rappel des concepts Transmodel - Ligne
-
-Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel la suite de cette présentation s'appuie:
-
-* 🚨TODO: lien vers la présentation Transmodel détaillée ?
-
-<!-- livebook:{"break_markdown":true} -->
-
-<!-- Learn more at https://mermaid-js.github.io/mermaid -->
-
-```mermaid
-graph TD
-  Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
-  Route -- est sur une unique --> Line
-  Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
-  Route -- est dans une --> Direction(Direction)
-
-  Route -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
-  ServiceJourneyPattern -- est sur un unique --> Route
-  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
-  ServiceJourneyPattern -- est le support du --> ServiceJourney("ServiceJourney (Course)")
-  ServiceJourney -- est defini pour un --> DayType("DayType (Type de jour)")
-
-```
-
 ## Partir du réel - L'offre de "Rochefort Océan"
 
 Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
@@ -128,19 +103,21 @@ Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-
 
 <!-- livebook:{"break_markdown":true} -->
 
+![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
+
+Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-76/)
+
+* 🚨TODO: découper en 3 ?
+
+<!-- livebook:{"break_markdown":true} -->
+
 Il existe également sur le territoire :
 
 * du TAD (Transport À la Demande),
 * des circuits scolaires,
 * et des lignes régionales désservant la CARO.
 
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/planReaseauRBus_TAD_lignesScolaires_Regio.jpg)
-
-Source: [Plan du réseau RBus](https://www.rbus-transport.com/a-plans-du-reseau-76/)
-
-* 🚨TODO: découper en 3 ?
+Ces lignes ne seront pas abordées lors de cette présentation
 
 ## Direction : la donnée NeTEx
 
@@ -718,6 +695,31 @@ TODO: exercices
 <!-- livebook:{"break_markdown":true} -->
 
 Les DayTypeAssignment assignent des jours types (`DayType`) à des périodes de service (`OperatingPeriod`) ou des dates précises (`Date`).
+
+## Récapitulatifs des concepts Transmodel utilisés
+
+Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel la suite de cette présentation s'appuie:
+
+* 🚨TODO: lien vers la présentation Transmodel détaillée ?
+
+<!-- livebook:{"break_markdown":true} -->
+
+<!-- Learn more at https://mermaid-js.github.io/mermaid -->
+
+```mermaid
+graph TD
+  Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
+  Route -- est sur une unique --> Line
+  Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
+  Route -- est dans une --> Direction(Direction)
+
+  Route -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
+  ServiceJourneyPattern -- est sur un unique --> Route
+  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
+  ServiceJourneyPattern -- est le support du --> ServiceJourney("ServiceJourney (Course)")
+  ServiceJourney -- est defini pour un --> DayType("DayType (Type de jour)")
+
+```
 
 ## Fin
 
