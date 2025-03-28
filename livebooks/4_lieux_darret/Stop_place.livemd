@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
 
 # Lieux_Arret
 
@@ -312,10 +312,16 @@ Le fichier utilisé pour ce cas d'usage est le suivant :
 https://transport.data.gouv.fr/datasets/base-de-donnees-multimodale-des-reseaux-de-transport-public-normands
 
 Dossier : PT_TH_OFFER_TCAR_netex_20241120_308_OPENDATA.zip
-Fichier : Arrets.xml (Arret / Quai)
-Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
-N fichiers Lines (ServiceJOurney)
+
+* Fichier : Arrets.xml (Arret / Quai)
+
+* Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
+
+* N fichiers Lines (ServiceJOurney)
+
 TCAR = Transport en Commun Agglomération ROuen
+
+## 🔹🔹 Fichier Arrêt
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -419,7 +425,8 @@ xml_2=Kino.Markdown.new("""
                         <Town>Maromme</Town>
                         <PostalRegion>76410</PostalRegion>
                      </PostalAddress>
-                     <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:cf6d5d6fb0d9459ab8be58467828b3c7:LOC" version="any">
+                    <!--          
+                    <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:cf6d5d6fb0d9459ab8be58467828b3c7:LOC" version="any">
                         <MobilityImpairedAccess>true</MobilityImpairedAccess>
                         <suitabilities>
                            <Suitability id="ATOUMOD001:Suitability:11107x1:LOC" version="any">
@@ -428,6 +435,7 @@ xml_2=Kino.Markdown.new("""
                            </Suitability>
                         </suitabilities>
                      </AccessibilityAssessment>
+                     -->
                      <SiteRef ref="FR:76410:LMO:AUTOPT202405271601341800:ATOUMOD000" versionRef="1"/>
                      <TransportMode>bus</TransportMode>
                   </Quay>
@@ -447,7 +455,87 @@ Kino.Layout.tabs([
 Quai: xml_2])
 ````
 
+## 🔹🔹 Fichier Network
+
 ## AUTRE EXEMPLE : RTM Castellane
+
+Cette section illustre les possibilités offertes par NeTex pour représenter des lieux d'arrêts multimodaux structurés selon les récommandations du profils France Arrêts.
+
+Les informations présentés sont construites à partir de données reccueilies via des échagnes NeTEx et une Base de Données normalisée Transmodel.
+
+## 🔹Le Lieu d'arrêt dans la vraie vie
+
+La Régie des Transports Métropolitains (RTM) exploite un réseau de transports en commun dans la métropole Aix-Marseille-Provence, comprenant :
+
+* **Métro** : réseau de métro de Marseille compte deux lignes
+
+* **Tramway** : Le réseau de tramway comprend trois lignes principales.
+
+* **Bus** : Le réseau de bus de la RTM est constitué de 104 lignes, desservant l'ensemble de la métropole.
+
+* **Services maritimes** : La RTM propose des services maritimes, notamment des navettes reliant le Vieux-Port à des destinations comme la Pointe Rouge et l'Estaque.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/MRS1.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+La Castelanne est un lieu central où se situe un ensemble d'arrêt de différents modes.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/MRS2.JPG)
+
+## 🔹 Une représentation Transmodel / NeTEx
+
+Transmodel et NeTex permettent une représentation hiérarchique et organisée des Lieux d'arrêt complexes.
+
+**Transmodel** & **NeTex** offrent une vision organisée et représentative de la réalité du lieu d'arrêt.
+
+Un couplage avec **SIRI** (via des identifiants partagés) permet d'offrir des services puissant en termes de supervision (etat des équipements, accessibilités, cheminement, ...)
+
+Le résultat de cette représentation et son organisation hiérarchique mise à disposition des exploitants de la RTM est la suivante :
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Le Lieux d'arrêt Multitimodal
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RTM1.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Le lieu d'arrêt Monomodal Metro
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RTMpoleMetro.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Le lieu d'arret Métro (M2)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RTMmetro.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Lien vers la topologie et l'offre de transport
+
+<!-- livebook:{"break_markdown":true} -->
+
+Comme vu précédemment dans cette formation NeTex découple la représentation logique (Topologie, offre de transport, tarif) de la présentation Physique que nous venons de voir.
+
+Une passerelle entre les deux descriptions est nativement présente dans l'eco système Transmodel.
+
+Le couplage avec SIRI permet une adaptation simple aux évènements d'exploitation : Cas d'un changement de Quai
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/LienVersTopologieSSP.JPG)
 
 ## EXERCICES
 
