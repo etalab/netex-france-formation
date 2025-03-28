@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"ConceptsLA.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"RepLA.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"RgrptModal.JPG","type":"attachment"},{"name":"RgrptpereFils.JPG","type":"attachment"},{"name":"SansTrou.JPG","type":"attachment"},{"name":"StructArret.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"},{"name":"lacOMPLEXE.JPG","type":"attachment"}]} -->
 
 # Lieux_Arret
 
@@ -14,6 +14,8 @@ Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
 ## I. INTRODUCTION
 
 Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux Stop Places.
+
+La prise en compte de la multi modalité dans la description des lieux d'arrêt va être sous jascente tout au long de cette partie de la formation.
 
 ## 1.1 Pourquoi cette partie ?
 
@@ -35,7 +37,7 @@ Au fil de cette formation, nous allons explorer :
 
 📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts.
 
-📌 Les principaux éléments XML décrivant un Stop Place (StopPlace, StopPlace Component, Quay).
+📌 Les principaux éléments XML décrivant un Stop Place (`StopPlace`, `Quay`).
 
 📌 Comment lire un fichier NeTEx et en extraire des informations utiles.
 
@@ -47,7 +49,7 @@ Au fil de cette formation, nous allons explorer :
 
 📌 Identifier un lieu d'arrêt multimodal representatif
 
-📌 Décrire la réalité (Physique, Cartographique, Plan d Ligne)
+📌 Décrire la réalité (Physique, Cartographique, Plan de Ligne)
 
 📌 Identifier le Fichier NeTEx sur le PAN
 
@@ -111,61 +113,59 @@ Les définitions des éléments constituant cette organisation sont les suivante
 
 Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
 
-🔹 **Lieu d’arrêt multimodal** (STOP PLACE) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
+🔹 **Lieu d’arrêt multimodal** (`STOP PLACE`) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
 
-📌  **Lieu d’arret monomodal** (STOP PLACE)
+📌  **Lieu d’arret monomodal** (`STOP PLACE`)
 
-📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (STOP PLACE en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
+📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (`STOP PLACE` en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
 
-🔹 **Zone d'Embarquement** (QUAY) :Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+🔹 **Zone d'Embarquement** (`QUAY`) :Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
 
 ## 2.3. Les notions NeTex Associées
 
-Transmodel et NeTEx offrent une
+🔹 ***Les éléments de définition***
 
 <!-- livebook:{"break_markdown":true} -->
 
-<!-- Learn more at https://mermaid-js.github.io/mermaid -->
-
-```mermaid
-graph TD;
- StopPlace-->StopPlace;
-  StopPlace-->StopPlaceComponent;
-  StopPlaceComponent-->StopPlaceEntrance
-  StopPlaceComponent-->Quay
-  Quay-->Quay
-  StopPlaceComponent-->AccessSpace
-```
+![](files/ConceptsLA.JPG)
 
 <!-- livebook:{"break_markdown":true} -->
 
 Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
 
-### **Stop Place** (Lieu d'arrêt)
+### `STOPPLACE` (Lieu d'arrêt)
 
 📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement
 
 📌 Un Lieu d'arrêt peut être constitué de Lieux d'arrêt.
 
-#### **Zone d'embarquement** (QUAY),
-
-📌 d’**ESPACE DE LIEU** (ACCESS SPACE),
-
-Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans accès direct aux vehicules (Hall de gare, Passage, Magasin, Salle d'attente, Restaurant, ...)
-
-📌  **ENTREE DE LIEU D'ARRET** (STOP PLACE ENTRANCE).
-
-🔹 **Quay** (Zone d'embarquement)
+#### `QUAY` (Zone d'embarquement)
 
 Il s’agit d’un lieu tel qu’une plateforme, une zone ou un quai qui permet aux voyageurs d’accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
 
-🔹  **Entrance** (Entrée)
+### `ACCESSSPACE` (Espace de Lieu d'arrêt)
+
+Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans accès direct aux vehicules (Hall de gare, Passage, Magasin, Salle d'attente, Restaurant, ...)
+
+### `STOPPLACEENTRANCE` (Entrée)
 
 Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt
 
+<!-- livebook:{"break_markdown":true} -->
+
+🔹***Exemple de Lieux d'arrêt modélisables en NeTex***
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RepLA.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/lacOMPLEXE.JPG)
+
 ## 2.4. Pour en savoir un peu plus ...
 
-Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
+Nous allons ici brièvement décrire les principes de modelisation d'un ('lieu d'arrêt`) tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -316,15 +316,15 @@ L'agglomeration Rouanaise
 
 ## 3.2. Vue cartographique
 
+Tel que présenté sur le site de l'opérateur nous pouvons voir les différents arrêts sur un fond cartographique.
+
+<!-- livebook:{"break_markdown":true} -->
+
 ![](files/AggloRouen.jpeg)
 
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/TdA2.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-**!! Inserer interpretation IA du fichier NeTex**
 
 ## 3.3. Modélisation PAN NeTEx
 
@@ -360,7 +360,19 @@ Cela ne préjuge pas de la capacité de Transmodel & NeTEx à prendre en charge 
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Fichier Arrêt
+### Fichier "Arret"
+
+<!-- livebook:{"break_markdown":true} -->
+
+Le fichier Arret.xml décrit les `StopPlace`et les `Quay`
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/StructArret.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+regardons la définition de membres de ce fichier.
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -498,11 +510,79 @@ Quai: xml_2])
 
 <!-- livebook:{"break_markdown":true} -->
 
+TODO
+
+<!-- livebook:{"break_markdown":true} -->
+
 ### Fichier Line
+
+<!-- livebook:{"break_markdown":true} -->
+
+TODO
 
 ## 3.4. Modélisation du "Théâtre des Arts"
 
+Objet de cette partie, nous allons nous mettre à la place décortiquer les informations contenues dans le fichiers NeTex pour construire le lieu d'arrêt.
+
+<!-- livebook:{"break_markdown":true} -->
+
 **Ajouter** Lien vers le fichier Arret (netex-france-formation/data/'_lieux_darrets/PAN/')
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Etape 1 : identifier & extraire les éléments de nom "théâtre des Arts"
+
+<!-- livebook:{"break_markdown":true} -->
+
+Si l'on recherche des `Stop Place` et des `Quay` de nom "Théatre des Arts" nous trouvons 16 éléments.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/AvecTrous.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+***Question*** : A partir du fichier "Arret.xml compléter les 2 informations manquantes
+
+<!-- livebook:{"break_markdown":true} -->
+
+***Réponse***
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/SansTrou.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Etape2 - Organiser en utilisant les liens
+
+Sur la base des identifiants présent dans les éléments ayant pour nom "Théâtre des Arts"
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RgrptpereFils.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Etape 3 - Regroupement Modal
+
+Nous allons regrouper les éléments selon les informations "modales" qu'ils portent
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RgrptModal.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+**Analyse des regroupements**
+
+* Regroupement basic : 1 Lieu d'arrêt => 1 Zone d'embarquement.
+* Pas de hiérarchisation
+* Pas de regroupement modal / Multimodal
+
+## 3.5. Cas pratique d'amélioration de la représentation
+
+TODO
 
 ## IV. AUTRE EXEMPLE : RTM Castellane
 
