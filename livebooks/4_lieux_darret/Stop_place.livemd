@@ -11,11 +11,11 @@ Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
  
 ```
 
-## INTRODUCTION
+## I. INTRODUCTION
 
 Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux Stop Places.
 
-## 🔹 Pourquoi cette partie ?
+## 1.1 Pourquoi cette partie ?
 
 Avec la digitalisation des systèmes de transport, le standard NeTEx est devenu un format clé pour l’échange et l’exploitation des données de transport public en Europe. Il permet de structurer de manière cohérente les informations sur les arrêts de bus, gares ferroviaires, stations de métro et pôles d’échange multimodaux.
 
@@ -29,7 +29,7 @@ Pour bien utiliser ces fichiers, il est essentiel de savoir :
 
 ✅ Extraire les bonnes informations pour leur intégration dans d’autres systèmes (Systèmes d’Information Voyageurs, outils SIG, planificateurs d’itinéraires).
 
-## 🔹 Ce que vous allez apprendre
+## 1.2 Ce que vous allez apprendre
 
 Au fil de cette formation, nous allons explorer :
 
@@ -43,7 +43,7 @@ Au fil de cette formation, nous allons explorer :
 
 📌 Les bonnes pratiques pour exploiter efficacement ces fichiers.
 
-## 🔹 La démarche pour cette partie
+## 1.3 La démarche pour cette partie
 
 📌 Identifier un lieu d'arrêt multimodal representatif
 
@@ -57,7 +57,7 @@ Au fil de cette formation, nous allons explorer :
 
 📌Identifier des axes d'amélioration
 
-## 🔹 Déroulement de la formation
+## 1.4 Déroulement de la formation
 
 Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux lieux d'arrêt, suivie de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
 
@@ -69,13 +69,59 @@ Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux
 
 🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
 
-## CONCEPTS STOPPLACE (lieu d'arret)
+## II. LA MULTIMODALITE (niveau des lieux d'arrêt)
 
-Vue simplifée des concepts manipulés
+## 2.1. Qu'est que la multi modalité ?
 
-La représentation des Lieux d'arrêt par NeTex est issue de TRANSMODEL. Transmodel a intégré la conceptualisation IFOPT référence en matière de représentation de lieu d'arrêt.
+La multimodalité dans les transports fait référence à l'utilisation combinée de plusieurs modes de transport pour effectuer un trajet.
 
-Une vision simplifiée de la hierarchie des concepts de structuration des Lieux d'arret est la suivante.
+Cela peut inclure des modes tels que la voiture, le train, le vélo, le bus, le métro, et même la marche. L'objectif est de tirer parti des avantages spécifiques de chaque mode pour optimiser les trajets en termes de temps, coût, confort ou impact environnemental.
+
+**Limitation de la formation** : Dans le cadre de cette formation nous allons nous attacher à décliner ce concept complexe sur la une des briques qui permet de mettre en oeuvre la multimodalité : **La description des lieux d'arrêt**.
+
+💡 **Pourquoi des lieux d'arrêt multimodaux** ?
+
+Les lieux d’arrêt multimodaux sont des espaces conçus pour faciliter l’interconnexion entre plusieurs modes de transport (bus, train, vélo, voiture, tramway). Leur mise en place répond à plusieurs enjeux liés à la mobilité, l’accessibilité et l’efficacité des transports en permettant :
+
+* de Faciliter l’interconnexion des transports
+
+  Ces lieux permettent aux voyageurs de passer facilement d’un mode de transport à un autre (exemple : descendre d’un train et prendre un bus sans difficulté). Ils contribuent à optimiser le temps de trajet et réduisent les interruptions.
+
+* Améliorer l’accessibilité et l’inclusivité
+
+  Ils permettent aux personnes à mobilité réduite d’accéder plus facilement aux différents moyens de transport.
+
+  Les infrastructures (ascenseurs, rampes, signalisation) sont souvent adaptées pour un meilleur confort des usagers.
+
+## 2.2 Approche du Profil NeTex Arrêt France
+
+Le profil NeTEx France Arrêt décrit une organisation hiérarchique des lieux d'arret.
+
+* https://normes.transport.data.gouv.fr/normes/netex/arrets/
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/OrgaLAProfilNeTEx.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les définitions des éléments constituant cette organisation sont les suivantes :
+
+🔹 **Groupe de Lieux**
+
+Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
+
+🔹 **Lieu d’arrêt multimodal** (STOP PLACE) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
+
+📌  **Lieu d’arret monomodal** (STOP PLACE)
+
+📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (STOP PLACE en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
+
+🔹 **Zone d'Embarquement** (QUAY) :Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+
+## 2.3. Les notions NeTex Associées
+
+Transmodel et NeTEx offrent une
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -91,7 +137,33 @@ graph TD;
   StopPlaceComponent-->AccessSpace
 ```
 
-## 🔹 Modelisation des "Stop Place"
+<!-- livebook:{"break_markdown":true} -->
+
+Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
+
+### **Stop Place** (Lieu d'arrêt)
+
+📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement
+
+📌 Un Lieu d'arrêt peut être constitué de Lieux d'arrêt.
+
+#### **Zone d'embarquement** (QUAY),
+
+📌 d’**ESPACE DE LIEU** (ACCESS SPACE),
+
+Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans accès direct aux vehicules (Hall de gare, Passage, Magasin, Salle d'attente, Restaurant, ...)
+
+📌  **ENTREE DE LIEU D'ARRET** (STOP PLACE ENTRANCE).
+
+🔹 **Quay** (Zone d'embarquement)
+
+Il s’agit d’un lieu tel qu’une plateforme, une zone ou un quai qui permet aux voyageurs d’accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+
+🔹  **Entrance** (Entrée)
+
+Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt
+
+## 2.4. Pour en savoir un peu plus ...
 
 Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
 
@@ -195,62 +267,11 @@ Cette approche permet une gestion avancée des infrastructures de transport, ess
 
 💡 NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information**
 
-## 🔹Définitions
-
-### Transmodel
-
-Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
-
-🔹 **Stop Place** (Lieu d'arrêt)
-
-📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement
-
-📌 Un Lieu d'arrêt peut être constitué de Lieux d'arrêt.
-
-🔹  **Stop Place Component (composant de LA)**
-
-Cet élément décrit une partie de la structure d'un Lieu d'arrêt. Il est possible de définir une notion de Niveau (LEVEL) associée à  chaque composant . Il ne peut se décliner que sous la forme de :
-  📌  **Zone d'embarquement** (QUAY),
-
-📌 d’**ESPACE DE LIEU** (ACCESS SPACE),
-
-Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans accès direct aux vehicules (Hall de gare, Passage, Magasin, Salle d'attente, Restaurant, ...)
-
-📌  **ENTREE DE LIEU D'ARRET** (STOP PLACE ENTRANCE).
-
-🔹 **Quay** (Zone d'embarquement)
-
-Il s’agit d’un lieu tel qu’une plateforme, une zone ou un quai qui permet aux voyageurs d’accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
-
-🔹  **Entrance** (Entrée)
-
-Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt
-
-#### Profil FRANCE
-
-Le profil NeTex france Arrêt utilise ces concepts pour organiser la définition NeTex des Lieux d'arrêt.
-
-🔹 **Groupe de Lieu**
-
-Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
-
-🔹 **Lieu d’arrêt multimodal** (stop place) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
-
-📌  **Lieu d’arret monomodal** (stop place)
-
-📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (STOP PLACE en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
-
-🔹 **ZE** (Quay) :Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/OrgaLAProfilNeTEx.JPG)
-
-## PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
+## III. PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
 
 Essai de texte
 
-## 🔹 Vue Réelle
+## 3.1. Vue Réelle
 
 ### Présentation du Théâtre des Arts et des Arrêts
 
@@ -293,7 +314,7 @@ L'agglomeration Rouanaise
 
 ![](files/Tram.JPG)
 
-## 🔹 Vue cartographique
+## 3.2. Vue cartographique
 
 ![](files/AggloRouen.jpeg)
 
@@ -305,7 +326,11 @@ L'agglomeration Rouanaise
 
 **!! Inserer interpretation IA du fichier NeTex**
 
-## 🔹 Interpretation PAN NeTEx
+## 3.3. Modélisation PAN NeTEx
+
+### Fichiers disponibles
+
+<!-- livebook:{"break_markdown":true} -->
 
 Le fichier utilisé pour ce cas d'usage est le suivant :
 
@@ -321,7 +346,21 @@ Dossier : PT_TH_OFFER_TCAR_netex_20241120_308_OPENDATA.zip
 
 TCAR = Transport en Commun Agglomération ROuen
 
-## 🔹🔹 Fichier Arrêt
+<!-- livebook:{"break_markdown":true} -->
+
+### Principes de Modélisation
+
+<!-- livebook:{"break_markdown":true} -->
+
+**La représentation faite d'un arrêt en NeTEx dépend du choix des organisations en charge de la modelisation.**
+
+Plusieurs représentation d'un même lieu d'arrêt sont possible de la plus simple à la plus complexe.
+
+Cela ne préjuge pas de la capacité de Transmodel & NeTEx à prendre en charge une modélisation plus complète et précise.
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier Arrêt
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -455,9 +494,17 @@ Kino.Layout.tabs([
 Quai: xml_2])
 ````
 
-## 🔹🔹 Fichier Network
+### Fichier Network
 
-## AUTRE EXEMPLE : RTM Castellane
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier Line
+
+## 3.4. Modélisation du "Théâtre des Arts"
+
+**Ajouter** Lien vers le fichier Arret (netex-france-formation/data/'_lieux_darrets/PAN/')
+
+## IV. AUTRE EXEMPLE : RTM Castellane
 
 Cette section illustre les possibilités offertes par NeTex pour représenter des lieux d'arrêts multimodaux structurés selon les récommandations du profils France Arrêts.
 
