@@ -1553,7 +1553,233 @@ Une première possibilité d'amélioration consisterait à rattacher plusieurs Z
 
 Pour cela l'impact sur la description XML consisterait à modifier les liens entre les différents éléments et supprimer un lieu d'arrêt devenu inutile.
 
-<!-- livebook:{"break_markdown":true} -->
+````elixir
+xml_1=Kino.Markdown.new("""
+```xml
+<!-- <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
+               <members>
+                  <StopPlace id="FR:76540:LMO:AUTOPT202405271601343888:ATOUMOD000" version="1">
+                     <Name>Théâtre des Arts</Name>
+                     <PrivateCode>FR:76540:LMO:AUTOPT202405271601343888:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:4922681049774ba4bede9f39c9bc0809:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:6d464e4448a64c80a6a1a0b9a1d781d2:LOC">
+                           <Longitude>1.0891443</Longitude>
+                           <Latitude>49.4403002</Latitude>
+                           <gml:pos srsName="EPSG:2154">561377.998406113 6928440.45331435</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="monomodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:1bd2ac32ad414d5097fdad4c76000ed5:LOC" version="any">
+                        <Town>Rouen</Town>
+                        <PostalRegion>76540</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>tram</TransportMode>
+                     <StopPlaceType>onstreetTram</StopPlaceType>
+                     <quays>
+-->
+                        <QuayRef ref="FR:76540:ZE:11598:ATOUMOD001" versionRef="1"/>
+<!--      
+                  </quays>
+                  </StopPlace>
+                  <StopPlace id="FR:76540:LMO:AUTOPT202405271601343890:ATOUMOD000" version="1">
+                     <Name>Théâtre des Arts</Name>
+                     <PrivateCode>FR:76540:LMO:AUTOPT202405271601343890:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:4048e5545f084ca4ac3570b5090d6e60:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:d7e866f39a9542c68d30003a9c20effe:LOC">
+                           <Longitude>1.0891554</Longitude>
+                           <Latitude>49.4404081</Latitude>
+                           <gml:pos srsName="EPSG:2154">561379.093975609 6928452.43521626</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="monomodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:e0df228bea80433496fb5d497a21d840:LOC" version="any">
+                        <Town>Rouen</Town>
+                        <PostalRegion>76540</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>tram</TransportMode>
+                     <StopPlaceType>onstreetTram</StopPlaceType>
+                     <quays>
+-->
+                        <QuayRef ref="FR:76540:ZE:11599:ATOUMOD001" versionRef="1"/>
+<!--  
+                  </quays>
+                  </StopPlace>
+                  <Quay id="FR:76540:ZE:11599:ATOUMOD001" version="1" dataSourceRef="ATOUMOD000:Authority:001:LOC">
+                     <Name>Théâtre des Arts</Name>
+                     <PrivateCode>11599</PrivateCode>
+                     <Centroid id="ATOUMOD001:Centroid:72872749eedc477b92622f589f1e38fd:LOC" version="any">
+                        <Location id="ATOUMOD001:Location:cab75551075548758b5ba6fb1d92b2dd:LOC">
+                           <Longitude>1.0891554</Longitude>
+                           <Latitude>49.4404081</Latitude>
+                           <gml:pos srsName="EPSG:2154">561379.093975609 6928452.43521626</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <PostalAddress id="ATOUMOD001:PostalAddress:b8889d6b69a6433f9fb2968c75f161d4:LOC" version="any">
+                        <Town>Rouen</Town>
+                        <PostalRegion>76540</PostalRegion>
+                     </PostalAddress>
+                     <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:65cf25400935471faf5e899f9a33e61b:LOC" version="any">
+                        <MobilityImpairedAccess>true</MobilityImpairedAccess>
+                        <suitabilities>
+                           <Suitability id="ATOUMOD001:Suitability:11599x1:LOC" version="any">
+                              <MobilityNeed>wheelchair</MobilityNeed>
+                              <Suitable>suitable</Suitable>
+                           </Suitability>
+                        </suitabilities>
+                     </AccessibilityAssessment>
+-->
+                     <SiteRef ref="FR:76540:LMO:AUTOPT202405271601343890:ATOUMOD000" versionRef="1"/>
+                    
+<!--
+                  <TransportMode>tram</TransportMode>
+                  </Quay>
+<Quay id="FR:76540:ZE:11598:ATOUMOD001" version="1" dataSourceRef="ATOUMOD000:Authority:001:LOC">
+                     <Name>Théâtre des Arts</Name>
+                     <PrivateCode>11598</PrivateCode>
+                     <Centroid id="ATOUMOD001:Centroid:43dd2b6eb6914a10ac1a1d188ffc3e6d:LOC" version="any">
+                        <Location id="ATOUMOD001:Location:82727c5757224d5c8c155aa2c96436c7:LOC">
+                           <Longitude>1.0891443</Longitude>
+                           <Latitude>49.4403002</Latitude>
+                           <gml:pos srsName="EPSG:2154">561377.998406113 6928440.45331435</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <PostalAddress id="ATOUMOD001:PostalAddress:416e5efc65f245d6886b025035b6f493:LOC" version="any">
+                        <Town>Rouen</Town>
+                        <PostalRegion>76540</PostalRegion>
+                     </PostalAddress>
+                     <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:10168f54f66940eeb931fa8ca39e43a6:LOC" version="any">
+                        <MobilityImpairedAccess>true</MobilityImpairedAccess>
+                        <suitabilities>
+                           <Suitability id="ATOUMOD001:Suitability:11598x1:LOC" version="any">
+                              <MobilityNeed>wheelchair</MobilityNeed>
+                              <Suitable>suitable</Suitable>
+                           </Suitability>
+                        </suitabilities>
+                     </AccessibilityAssessment>
+-->
+                     <SiteRef ref="FR:76540:LMO:AUTOPT202405271601343888:ATOUMOD000" versionRef="1"/>
+                   
+<!-- <TransportMode>tram</TransportMode>
+                  </Quay>
+                </members>
+            </GeneralFrame>
+-->
+```
+""")
+xml_2=Kino.Markdown.new("""
+```xml
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+
+   <dataObjects>
+      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
+
+         <frames>
+              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
+               <members>
+                  
+                 <StopPlace id="FR:76540:LMO:AUTOPT202405271601343888:ATOUMOD000" version="1">
+                     <Name>Théâtre des Arts</Name>
+                     <PrivateCode>FR:76540:LMO:AUTOPT202405271601343888:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:4922681049774ba4bede9f39c9bc0809:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:6d464e4448a64c80a6a1a0b9a1d781d2:LOC">
+                           <Longitude>1.0891443</Longitude>
+                           <Latitude>49.4403002</Latitude>
+                           <gml:pos srsName="EPSG:2154">561377.998406113 6928440.45331435</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="monomodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:1bd2ac32ad414d5097fdad4c76000ed5:LOC" version="any">
+                        <Town>Rouen</Town>
+                        <PostalRegion>76540</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>tram</TransportMode>
+                     <StopPlaceType>onstreetTram</StopPlaceType>
+                     <quays>
+                        <QuayRef ref="FR:76540:ZE:11598:ATOUMOD001" versionRef="1"/>
+-->
+                        <QuayRef ref= "FR:76540:ZE:11599:ATOUMOD001" versionRef="1"/>   
+<!--
+                      </quays>
+                  </StopPlace>
+                  <Quay id="FR:76540:ZE:11599:ATOUMOD001" version="1" dataSourceRef="ATOUMOD000:Authority:001:LOC">
+                     <Name>Théâtre des Arts</Name>
+                     <PrivateCode>11599</PrivateCode>
+                     <Centroid id="ATOUMOD001:Centroid:72872749eedc477b92622f589f1e38fd:LOC" version="any">
+                        <Location id="ATOUMOD001:Location:cab75551075548758b5ba6fb1d92b2dd:LOC">
+                           <Longitude>1.0891554</Longitude>
+                           <Latitude>49.4404081</Latitude>
+                           <gml:pos srsName="EPSG:2154">561379.093975609 6928452.43521626</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <PostalAddress id="ATOUMOD001:PostalAddress:b8889d6b69a6433f9fb2968c75f161d4:LOC" version="any">
+                        <Town>Rouen</Town>
+                        <PostalRegion>76540</PostalRegion>
+                     </PostalAddress>
+                     <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:65cf25400935471faf5e899f9a33e61b:LOC" version="any">
+                        <MobilityImpairedAccess>true</MobilityImpairedAccess>
+                        <suitabilities>
+                           <Suitability id="ATOUMOD001:Suitability:11599x1:LOC" version="any">
+                              <MobilityNeed>wheelchair</MobilityNeed>
+                              <Suitable>suitable</Suitable>
+                           </Suitability>
+                        </suitabilities>
+                     </AccessibilityAssessment>
+-->
+                     <SiteRef ref="FR:76540:LMO:AUTOPT202405271601343888:ATOUMOD000"" versionRef="1"/>
+<!--
+                  <TransportMode>tram</TransportMode>
+                  </Quay>
+                  <Quay id="FR:76540:ZE:11598:ATOUMOD001" version="1" dataSourceRef="ATOUMOD000:Authority:001:LOC">
+                     <Name>Théâtre des Arts</Name>
+                     <PrivateCode>11598</PrivateCode>
+                     <Centroid id="ATOUMOD001:Centroid:43dd2b6eb6914a10ac1a1d188ffc3e6d:LOC" version="any">
+                        <Location id="ATOUMOD001:Location:82727c5757224d5c8c155aa2c96436c7:LOC">
+                           <Longitude>1.0891443</Longitude>
+                           <Latitude>49.4403002</Latitude>
+                           <gml:pos srsName="EPSG:2154">561377.998406113 6928440.45331435</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <PostalAddress id="ATOUMOD001:PostalAddress:416e5efc65f245d6886b025035b6f493:LOC" version="any">
+                        <Town>Rouen</Town>
+                        <PostalRegion>76540</PostalRegion>
+                     </PostalAddress>
+                     <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:10168f54f66940eeb931fa8ca39e43a6:LOC" version="any">
+                        <MobilityImpairedAccess>true</MobilityImpairedAccess>
+                        <suitabilities>
+                           <Suitability id="ATOUMOD001:Suitability:11598x1:LOC" version="any">
+                              <MobilityNeed>wheelchair</MobilityNeed>
+                              <Suitable>suitable</Suitable>
+                           </Suitability>
+                        </suitabilities>
+                     </AccessibilityAssessment>
+
+                     <SiteRef ref="FR:76540:LMO:AUTOPT202405271601343888:ATOUMOD000" versionRef="1"/>
+                    
+    <TransportMode>tram</TransportMode>
+                  </Quay>
+                  <!--
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery>
+-->
+
+```
+""")
+Kino.Layout.tabs([
+  Actuel: xml_1,
+MultiQuais: xml_2])
+````
 
 ### Amélioration 2 : Regroupement Monomodaux
 
