@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
 
 # Lieux_Arret
 
@@ -114,9 +114,6 @@ Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de
 🔹 **Lieu d’arrêt multimodal** (`STOP PLACE`) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
 
 📌  **Lieu d’arret monomodal** (`STOP PLACE`)
-
-Lieu comprenant un ou plusieurs emplacements où les véhicules peuvent s’arrêter et où les voyageurs peuvent monter à bord ou descendre des véhicules ou préparer leur déplacement.
-Ce type de lieu ne contiendra que des possibilités d’accès à des véhicules d’un même mode (le mode desservi sera donc l’un de ses attributs). Il correspond à ce qui est souvent appelé arrêt commercial (mais les vocabulaires varient…)
 
 📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (`STOP PLACE` en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
 
@@ -301,6 +298,10 @@ Les sites de référence :
 
 <!-- livebook:{"break_markdown":true} -->
 
+![](files/ReseauAstuce.txt)
+
+<!-- livebook:{"break_markdown":true} -->
+
 L'agglomeration Rouanaise :
 
 * Plusieurs Communes
@@ -342,13 +343,11 @@ Les synoptiques de lignes du transporteur offrent une autre vison du (des) lieu(
 
 ![](files/TdA1.JPG)
 
-## 💡 💡 Question
+<!-- livebook:{"break_markdown":true} -->
 
-Quelles sont les Principales caractériques de ce lieu d'arrêt ?
+Question : Principales caractériques de ce lieu d'arrêt ?
 
-## => Réponse
-
-Proposition de réponse non exhaustive
+Réponses :
 
 * **Multimodal** : Tram, BHNS, Bus
 
@@ -362,59 +361,19 @@ Proposition de réponse non exhaustive
 
 <!-- livebook:{"break_markdown":true} -->
 
-Pour accèder aux fichiers utilisés pendant cette session, réalisez les op&rations suivantes :
+Le fichier utilisé pour ce cas d'usage est le suivant :
 
-1. ***Télécharger le fichier sur le PAN***
+https://transport.data.gouv.fr/datasets/base-de-donnees-multimodale-des-reseaux-de-transport-public-normands
 
-https://transport.data.gouv.fr/datasets/base-de-donnees-multimodale-des-reseaux-de-transport-public-normands (Agrégat de réseaux urbains et interurbains de Normandie)
+Dossier : PT_TH_OFFER_TCAR_netex_20241120_308_OPENDATA.zip
 
-Cela vous amène sur la page suivante :
+* Fichier : Arrets.xml (Arret / Quai)
 
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/ChargementFichier1.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-Y télécharger le fichier NeTEx (en bas à droite")
-
-<!-- livebook:{"break_markdown":true} -->
-
-1. ***Rechercher & télécharger l'offre ASTUCE***
-
-Ce .zip agglomère toute l'offre transport public Normandie sous forme de .zip.
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/ChargementFichier2.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-> Dans notre contexte nous allons regarder l'offre de l'agglomération Rouanaise décrite dans le .zip
-> 
-> * **PT_TH_OFFER_TCAR_netex_20250325_669_OPENDATA.zip**
-> 
->   =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR CE FICHIER**</span>
-
-<!-- livebook:{"break_markdown":true} -->
-
-> NOTE : **TCAR** = Transports en Commun Agglomération de Rouen
-
-Ce dossier contient
-
-* 1 fichier : Arrets.xml (Arret / Quai)
-
-* 1 fichier Calendrier.xml
-
-* 1 Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
+* Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
 
 * N fichiers Lines (ServiceJOurney)
 
-Dans la suite de la session nous allons être amenés à utiliser les fichiers **Arrets**, **Réseaux** et **Lignes**
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/ChargementFichier3.JPG)
+TCAR = Transport en Commun Agglomération ROuen
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -434,8 +393,6 @@ Dans la suite de la session nous allons être amenés à utiliser les fichiers *
 
 <!-- livebook:{"break_markdown":true} -->
 
-> =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER ARRETS.XML**</span>
-
 Le fichier Arret décrit les `Stop Place`et les `Quay`. A partir d'un extrait de ce fichier nous pouvons lire les données qui définissent un arrêt et un Quai.
 
 Le nombre d'éléments décrits dans ce fichier sont les suivants :
@@ -454,10 +411,6 @@ Le nombre d'éléments décrits dans ce fichier sont les suivants :
 </PublicationDelivery>
 ````
 `````
-
-<!-- livebook:{"break_markdown":true} -->
-
-Regardons les éléments de définition d'un lieu d'arrêt
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -591,13 +544,11 @@ Kino.Layout.tabs([
 Quai: xml_2])
 ````
 
-### Fichier Réseau
+### Fichier Network
 
 <!-- livebook:{"break_markdown":true} -->
 
-> =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER RESEAUX.XML**</span>
-
-La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
+Le fichier 'réseaux' décrit :
 
 * le réseau `Network`;
 * les lignes `line`du réseau;
@@ -629,7 +580,40 @@ Le nombre d'éléments décrits dans ce fichier sont les suivants :
 
 <!-- livebook:{"break_markdown":true} -->
 
-Les données de définition de ces éléments sont remontées dans le tableau suivant.
+### Fichier Line
+
+<!-- livebook:{"break_markdown":true} -->
+
+Ce fichier décrit chaque ligne identifiée dans le fichier reseau en terme de :
+
+* Itinéraires `Route`
+* Sens `Direction`
+* Parcours commercial `ServiceJourneyPattern`
+* Affichage de distination `Destination Display`
+* Point d'arrêt topologique `ScheduleStopPoint`
+* Affectation de Point d'arrêt `PassengerStopAssignement`
+* Tronçon d'itineraire `RouteLink`
+
+Le nombre d'éléments décrits dans ce fichier sont les suivants :
+
+<!-- livebook:{"break_markdown":true} -->
+
+`````XML
+<PublicationDelivery ...>
+  ...
+    <members>
+      <Route/> (x2) 
+      <Direction/> (x2)
+      <ServiceJourneyPattern/> (x2)
+      <DestinationDisplay/> (x2)
+      <ScheduleStopPoint/> (x30)
+      <PassengerStopAssignment/> (x30)
+      <RouteLink/> (x28)
+    </members>
+  ...
+</PublicationDelivery>
+````
+`````
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -857,8 +841,7 @@ xml_3=Kino.Markdown.new("""
 							<members>
 								<LineRef ref="ATOUMOD001:Line:10:LOC" versionRef="1"/>
 								<LineRef ref="ATOUMOD001:Line:100:LOC" versionRef="1"/>
-								<LineRef ref="ATOUMOD001:Line:101:LOC" versionRef="1"/>
-  
+								<LineRef ref="ATOUMOD001:Line:101:LOC" versionRef="1"/>  
                 <LineRef ref="ATOUMOD001:Line:102:LOC" versionRef="1"/>
 								<LineRef ref="ATOUMOD001:Line:103:LOC" versionRef="1"/>
 		<!--				<LineRef ref="ATOUMOD001:Line:104:LOC" versionRef="1"/>
@@ -1057,340 +1040,9 @@ Organisations: xml_4,
 CorrespondanceIntersite: xml_5])
 ````
 
-### Fichier Ligne
-
-<!-- livebook:{"break_markdown":true} -->
-
-> =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER Ligne_ATOUMOD001_91.XML**</span>
-
-La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
-
-Ce fichier décrit chaque ligne identifiée dans le fichier reseau en terme de :
-
-* Itinéraires `Route`
-* Sens `Direction`
-* Parcours commercial `ServiceJourneyPattern`
-* Affichage de distination `Destination Display`
-* Point d'arrêt topologique `ScheduleStopPoint`
-* Affectation de Point d'arrêt `PassengerStopAssignement`
-* Tronçon d'itineraire `RouteLink`
-
-Le nombre d'éléments décrits dans ce fichier sont identifiés ci dessous.
-
-A noter la présence de 2 frames dans le fichier :
-
-* Une frame regroupent la description topologique de la ligne
-
-* Une frame regroupant la description des horaires théoriques de la ligne.
-
-<!-- livebook:{"break_markdown":true} -->
-
-`````XML
-<PublicationDelivery ...>
-  ...
-  <GeneralFrame>
-    <members>
-      <!-- Description de la Ligne -->
-      <Route/> (x2) 
-      <Direction/> (x2)
-      <ServiceJourneyPattern/> (x2)
-      <DestinationDisplay/> (x2)
-      <ScheduleStopPoint/> (x30)
-      <PassengerStopAssignment/> (x30)
-      <RouteLink/> (x28)
-    </members>
-  </GeneralFrame>
-  
-   <GeneralFrame>
-     <members>
-       <! Description des horaires -->
-       <ServiceJouney/> (x1501)
-    </members>
-     </GeneralFrame>
-  ...
-</PublicationDelivery>
-````
-`````
-
-<!-- livebook:{"break_markdown":true} -->
-
-La section suivante présente le contenu du fichier NeTEx pour ses différents membres
-
-<span style="color: palevioletred;">
-**!!!!  TO DO **tableau vide**  !!!!**
-</span>
-
-````elixir
-xml_1=Kino.Markdown.new("""
-```xml
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery>
-   <dataObjects>
-      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
-
-         <frames>
-              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
-               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
-               <members>
-                  
-               
-                
-               </members>
-            </GeneralFrame>
-         </frames>
-      </CompositeFrame>
-   </dataObjects>
-</PublicationDelivery>
--->
-
-
-```
-""")
-xml_2=Kino.Markdown.new("""
-```xml
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery>
-   <dataObjects>
-      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
-
-         <frames>
-              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
-               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
-               <members>
-                  
-               
-                
-               </members>
-            </GeneralFrame>
-         </frames>
-      </CompositeFrame>
-   </dataObjects>
-</PublicationDelivery>
--->
-```
-""")
-xml_3=Kino.Markdown.new("""
-```xml
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery>
-   <dataObjects>
-      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
-
-         <frames>
-              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
-               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
-               <members>
-                  
-               
-                
-               </members>
-            </GeneralFrame>
-         </frames>
-      </CompositeFrame>
-   </dataObjects>
-</PublicationDelivery>
--->
-```
-""")
-xml_4=Kino.Markdown.new("""
-```xml
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery>
-   <dataObjects>
-      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
-
-         <frames>
-              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
-               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
-               <members>
-                  
-               
-                
-               </members>
-            </GeneralFrame>
-         </frames>
-      </CompositeFrame>
-   </dataObjects>
-</PublicationDelivery>
--->
-```
-""")
-xml_5=Kino.Markdown.new("""
-```xml
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery>
-   <dataObjects>
-      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
-
-         <frames>
-              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
-               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
-               <members>
-                  
-               
-                
-               </members>
-            </GeneralFrame>
-         </frames>
-      </CompositeFrame>
-   </dataObjects>
-</PublicationDelivery>
--->
-```
-""")
-xml_6=Kino.Markdown.new("""
-```xml
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery>
-   <dataObjects>
-      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
-
-         <frames>
-              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
-               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
-               <members>
-                  
-               
-                
-               </members>
-            </GeneralFrame>
-         </frames>
-      </CompositeFrame>
-   </dataObjects>
-</PublicationDelivery>
--->
-```
-""")
-Kino.Layout.tabs([
-  Itinéraires: xml_1,
-Direction: xml_2,
-ParcoursCommercial: xml_3,
-Destination: xml_4,
-PointArretLogique: xml_5,
-Affectation: xml_6])
-````
-
 ## 3.4. Modélisation du "Théâtre des Arts"
 
-Objet de cette partie, nous allons nous mettre à la place décortiquer les informations contenues dans le fichiers NeTex pour construire le lieu d'arrêt.
-
-<span style="background-color: grey; color: white;">
-**A partir du fichier Arrets.xml**
-</span>
-
-<!-- livebook:{"break_markdown":true} -->
-
-***Légendes*** :
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/Legende.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-### Etape 1 : identifier & extraire les éléments de nom "théâtre des Arts"
-
-<!-- livebook:{"break_markdown":true} -->
-
-Si l'on recherche des `Stop Place` et des `Quay` de nom "Théatre des Arts" nous trouvons 16 éléments.
-
-* En vrac :
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/AvecTrous.JPG)
-
-## 💡 💡 Question
-
-A partir du fichier "Arret.xml compléter les 2 informations manquantes
-
-## => Réponse
-
-![](files/Reponse.JPG)
-
-## 3.4.2 Etape 2 - Organiser en utilisant les liens
-
-Sur la base des identifiants présents dans les éléments ayant pour nom "Théâtre des Arts", les relations suivantes peuvent être établis
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/GrpLienManquant.JPG)
-
-## 💡 💡 Question
-
-Compléter les liens manquants
-
-## ==> Réponse
-
-![](files/GrpLien2.JPG)
-
-## 3.4.3 Etape 3 - Regroupement Modal
-
-Nous allons regrouper les éléments selon les informations "modales" qu'ils portent
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/GrpMode.JPG)
-
-## 3.4.4 Analyse modelisation NeTex "Théâtre des Arts
-
-## 💡 💡 Question
-
-Quels commentaires vous inspire cette modélisation ?
-
-## => Réponse
-
-**Analyse des regroupements** non exhaustive
-
-* Regroupement basic : 1 Lieu d'arrêt => 1 Zone d'embarquement.
-* Pas de hiérarchisation
-* Pas de regroupement modal / Multimodal
-* Quid Métro vs Tram ??
-
-## 3.5 Cas pratique d'amélioration Théâtre des Arts
-
-### La représentation existante
-
-Sur la base de nos principes de repésentation, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTex est la suivante :
-
-* Un Lieu d'arrêt = Un Quai
-* Pas de regroupement
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/Existant.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-### Amélioration 1 : Lieu d'arrêt Multi Quais
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/LA_MultiQuais.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-### Amélioration 2 : Regroupement Monomodaux
-
-TO DO
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/LA_MonomodalBus.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-### Amélioration 3 : Lieu d'arrêt Multimodal
-
-TO DO
-
-<!-- livebook:{"break_markdown":true} -->
-
-### Amélioration 4 :  Pole Ajout d'un pôle Monomaodal
-
-Objectif : intégrer la gare routière localisée à proximité du Théâtre des Arts
-
-TO DO
+**Ajouter** Lien vers le fichier Arret (netex-france-formation/data/'_lieux_darrets/PAN/')
 
 ## IV. AUTRE EXEMPLE : RTM Castellane
 
