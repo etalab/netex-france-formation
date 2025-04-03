@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Alt_LA_MultiModal.JPG","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"MultiModal_PoleMono.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
 
 # Lieux_Arret
 
@@ -1116,13 +1116,10 @@ A noter la présence de 2 frames dans le fichier :
 
 La section suivante présente le contenu du fichier NeTEx pour ses différents membres
 
-<span style="color: palevioletred;">
-**!!!!  TO DO **tableau vide**  !!!!**
-</span>
-
 ````elixir
 xml_1=Kino.Markdown.new("""
 ```xml
+<!-- DESCRIPTION DES ITINERAIRES DE LA LIGNE -->
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <PublicationDelivery>
    <dataObjects>
@@ -1132,7 +1129,27 @@ xml_1=Kino.Markdown.new("""
               <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
                <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
                <members>
-                  
+-->
+                    <Route id="ATOUMOD001:Route:91xA:LOC" version="1">
+                     <Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle - Aller</Name>
+                     <LineRef ref="ATOUMOD001:Line:91:LOC" versionRef="1"/>
+                     <DirectionType>outbound</DirectionType>
+                     <DirectionRef ref="ATOUMOD001:Direction:91xA:LOC" versionRef="1"/>
+                     <InverseRouteRef ref="ATOUMOD001:Route:91xR:LOC" versionRef="1"/>
+                  </Route>
+<!--
+                  <Direction id="ATOUMOD001:Direction:91xA:LOC" version="1">
+                     <Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle - Aller</Name>
+                     <DirectionType>outbound</DirectionType>
+                  </Direction>
+
+                  <Route id="ATOUMOD001:Route:91xR:LOC" version="1">
+                     <Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle - Retour</Name>
+                     <LineRef ref="ATOUMOD001:Line:91:LOC" versionRef="1"/>
+                     <DirectionType>inbound</DirectionType>
+                     <DirectionRef ref="ATOUMOD001:Direction:91xR:LOC" versionRef="1"/>
+                     <InverseRouteRef ref="ATOUMOD001:Route:91xA:LOC" versionRef="1"/>
+                  </Route>        
                
                 
                </members>
@@ -1148,6 +1165,7 @@ xml_1=Kino.Markdown.new("""
 """)
 xml_2=Kino.Markdown.new("""
 ```xml
+<!-- DESCRIPTION DES SENS DES ITINERAIRES -->
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <PublicationDelivery>
    <dataObjects>
@@ -1157,9 +1175,33 @@ xml_2=Kino.Markdown.new("""
               <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
                <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
                <members>
-                  
+                     <Route id="ATOUMOD001:Route:91xA:LOC" version="1">
+                     <Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle - Aller</Name>
+                     <LineRef ref="ATOUMOD001:Line:91:LOC" versionRef="1"/>
+                     <DirectionType>outbound</DirectionType>
+                     <DirectionRef ref="ATOUMOD001:Direction:91xA:LOC" versionRef="1"/>
+                     <InverseRouteRef ref="ATOUMOD001:Route:91xR:LOC" versionRef="1"/>
+                  </Route>
+-->
+                  <Direction id="ATOUMOD001:Direction:91xA:LOC" version="1">
+                     <Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle - Aller</Name>
+                     <DirectionType>outbound</DirectionType>
+                  </Direction>
+<!--
+                  <Route id="ATOUMOD001:Route:91xR:LOC" version="1">
+                     <Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle - Retour</Name>
+                     <LineRef ref="ATOUMOD001:Line:91:LOC" versionRef="1"/>
+                     <DirectionType>inbound</DirectionType>
+                     <DirectionRef ref="ATOUMOD001:Direction:91xR:LOC" versionRef="1"/>
+                     <InverseRouteRef ref="ATOUMOD001:Route:91xA:LOC" versionRef="1"/>
+                  </Route>
+-->
+                  <Direction id="ATOUMOD001:Direction:91xR:LOC" version="1">
+                     <Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle - Retour</Name>
+                     <DirectionType>inbound</DirectionType>
+                  </Direction>            
                
-                
+  <--              
                </members>
             </GeneralFrame>
          </frames>
@@ -1171,6 +1213,7 @@ xml_2=Kino.Markdown.new("""
 """)
 xml_3=Kino.Markdown.new("""
 ```xml
+<!-- DESCRIPTION DES PARCOURS COMMERCIAUX SUR UN ITINERAIRE -->
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <PublicationDelivery>
    <dataObjects>
@@ -1180,9 +1223,78 @@ xml_3=Kino.Markdown.new("""
               <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
                <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
                <members>
-                  
+-->
+           <ServiceJourneyPattern id="ATOUMOD001:ServiceJourneyPattern:164:LOC" version="1">
+                     <Name>CHU Charles Nicolle ROUEN</Name>
+                     <PrivateCode>164</PrivateCode>
+                     <RouteRef ref="ATOUMOD001:Route:91xA:LOC" versionRef="1"/>
+                     <DestinationDisplayRef ref="ATOUMOD001:DestinationDisplay:164:LOC" versionRef="1"/>
+                     <pointsInSequence>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x1:LOC" version="any" order="1">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:11132:LOC" versionRef="1"/>
+                           <ForAlighting>false</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+<!--
+                         ...
+                          <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x2:LOC" version="any" order="2">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10420:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x3:LOC" version="any" order="3">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10276:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x4:LOC" version="any" order="4">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10246:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x5:LOC" version="any" order="5">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10623:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x6:LOC" version="any" order="6">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:11424:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x7:LOC" version="any" order="7">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:13147:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x8:LOC" version="any" order="8">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:13041:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        <StopPointInJourneyPattern id="ATOUMOD001:StopPointInJourneyPattern:164x9:LOC" version="any" order="9">
+                           <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10134:LOC" versionRef="1"/>
+                           <ForAlighting>true</ForAlighting>
+                           <ForBoarding>true</ForBoarding>
+                           <RequestStop>false</RequestStop>
+                        </StopPointInJourneyPattern>
+                        ...
+-->
+                     </pointsInSequence>
+                     <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+                  </ServiceJourneyPattern/>
+<!--
+                  <ServiceJourneyPattern id="ATOUMOD001:ServiceJourneyPattern:325:LOC" version="1"/>
+                  ...       
                
-                
                </members>
             </GeneralFrame>
          </frames>
@@ -1194,6 +1306,7 @@ xml_3=Kino.Markdown.new("""
 """)
 xml_4=Kino.Markdown.new("""
 ```xml
+<!-- DESCRIPTION DES AFFICHAGES DE DESTINATION DE LA LIGNE -->
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <PublicationDelivery>
    <dataObjects>
@@ -1203,9 +1316,15 @@ xml_4=Kino.Markdown.new("""
               <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
                <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
                <members>
-                  
-               
-                
+-->              
+                    <DestinationDisplay id="ATOUMOD001:DestinationDisplay:164:LOC" version="1">
+                     <FrontText>CHU Charles Nicolle</FrontText>
+                  </DestinationDisplay>
+
+                  <DestinationDisplay id="ATOUMOD001:DestinationDisplay:325:LOC" version="1">
+                     <FrontText>Mont aux Malades</FrontText>
+                  </DestinationDisplay>
+          <!      
                </members>
             </GeneralFrame>
          </frames>
@@ -1217,6 +1336,7 @@ xml_4=Kino.Markdown.new("""
 """)
 xml_5=Kino.Markdown.new("""
 ```xml
+<!-- DESCRIPTION DES POINTS D'ARRET LOGIQUE DE LA LIGNE -->
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <PublicationDelivery>
    <dataObjects>
@@ -1226,8 +1346,34 @@ xml_5=Kino.Markdown.new("""
               <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
                <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
                <members>
-                  
-               
+                ...
+-->
+                 <ScheduledStopPoint id="ATOUMOD001:ScheduledStopPoint:11132:LOC" version="1">
+                     <Name>Mont aux Malades</Name>
+                     <Location id="ATOUMOD001:Location:b6c79ef9dea349888e222f8cf6f546c9:LOC">
+                        <Longitude>1.0722056</Longitude>
+                        <Latitude>49.4651343</Latitude>
+                        <gml:pos srsName="EPSG:2154">560216.883575832 6931232.56581007</gml:pos>
+                     </Location>
+                  </ScheduledStopPoint>
+<!--
+                  <ScheduledStopPoint id="ATOUMOD001:ScheduledStopPoint:10420:LOC" version="1">
+                     <Name>Les Coquets</Name>
+                     <Location id="ATOUMOD001:Location:37a35c9e5f964db1979b299a3839ae22:LOC">
+                        <Longitude>1.0766144</Longitude>
+                        <Latitude>49.4624135</Latitude>
+                        <gml:pos srsName="EPSG:2154">560529.126435356 6930922.13720351</gml:pos>
+                     </Location>
+                  </ScheduledStopPoint>
+                  <ScheduledStopPoint id="ATOUMOD001:ScheduledStopPoint:10276:LOC" version="1">
+                     <Name>Place Colbert</Name>
+                     <Location id="ATOUMOD001:Location:c3a31ef9994d44caa51501aedfeb9b0d:LOC">
+                        <Longitude>1.0710986</Longitude>
+                        <Latitude>49.4614035</Latitude>
+                        <gml:pos srsName="EPSG:2154">560126.492664532 6930819.55245077</gml:pos>
+                     </Location>
+                  </ScheduledStopPoint> 
+-->
                 
                </members>
             </GeneralFrame>
@@ -1240,6 +1386,7 @@ xml_5=Kino.Markdown.new("""
 """)
 xml_6=Kino.Markdown.new("""
 ```xml
+<!-- DESCRIPTION DES AFFECTATIONS lOGIQUE <-> PHYSIQUE DE LA LIGNE -->
 <!-- <?xml version="1.0" encoding="UTF-8"?>
 <PublicationDelivery>
    <dataObjects>
@@ -1249,9 +1396,35 @@ xml_6=Kino.Markdown.new("""
               <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
                <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
                <members>
-                  
-               
-                
+               ...
+-->
+                  <PassengerStopAssignment id="ATOUMOD001:PassengerStopAssignment:11132:LOC" version="1" order="0">
+                     <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:11132:LOC" versionRef="1"/>
+                     <StopPlaceRef ref="FR:76451:LMO:AUTOPT202405271601342612:ATOUMOD000" versionRef="1"/>
+                     <QuayRef ref="FR:76451:ZE:11132:ATOUMOD001" versionRef="1"/>
+                  </PassengerStopAssignment>
+                  <PassengerStopAssignment id="ATOUMOD001:PassengerStopAssignment:10420:LOC" version="1" order="0">
+                     <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10420:LOC" versionRef="1"/>
+                     <StopPlaceRef ref="FR:76451:LMO:AUTOPT202405271601341230:ATOUMOD000" versionRef="1"/>
+                     <QuayRef ref="FR:76451:ZE:10420:ATOUMOD001" versionRef="1"/>
+                  </PassengerStopAssignment>
+<!--
+                  <PassengerStopAssignment id="ATOUMOD001:PassengerStopAssignment:10276:LOC" version="1" order="0">
+                     <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10276:LOC" versionRef="1"/>
+                     <StopPlaceRef ref="FR:76451:LMO:AUTOPT202405271601341118:ATOUMOD000" versionRef="1"/>
+                     <QuayRef ref="FR:76451:ZE:10276:ATOUMOD001" versionRef="1"/>
+                  </PassengerStopAssignment>
+                  <PassengerStopAssignment id="ATOUMOD001:PassengerStopAssignment:10246:LOC" version="1" order="0">
+                     <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10246:LOC" versionRef="1"/>
+                     <StopPlaceRef ref="FR:76451:LMO:AUTOPT202405271601344374:ATOUMOD000" versionRef="1"/>
+                     <QuayRef ref="FR:76451:ZE:10246:ATOUMOD001" versionRef="1"/>
+                  </PassengerStopAssignment>
+                  <PassengerStopAssignment id="ATOUMOD001:PassengerStopAssignment:10623:LOC" version="1" order="0">
+                     <ScheduledStopPointRef ref="ATOUMOD001:ScheduledStopPoint:10623:LOC" versionRef="1"/>
+                     <StopPlaceRef ref="FR:76540:LMO:AUTOPT202405271601341948:ATOUMOD000" versionRef="1"/>
+                     <QuayRef ref="FR:76540:ZE:10623:ATOUMOD001" versionRef="1"/>
+                  </PassengerStopAssignment>
+                  ...
                </members>
             </GeneralFrame>
          </frames>
@@ -1349,9 +1522,13 @@ Quels commentaires vous inspire cette modélisation ?
 
 ## 3.5 Cas pratique d'amélioration Théâtre des Arts
 
+> **NOTE** : Ce cas pratique ne préjuge pas des données mise à disposition du PAN. L'objectif ici est d'utiliser ces données pour illustrer les possibilités offertes par TRANSMODEL / NeTEx.
+
+<!-- livebook:{"break_markdown":true} -->
+
 ### La représentation existante
 
-Sur la base de nos principes de repésentation, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTex est la suivante :
+Sur la base de nos principes de repésentation, issus du **profil NeTEx France**, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTex est la suivante :
 
 * Un Lieu d'arrêt = Un Quai
 * Pas de regroupement
@@ -1366,13 +1543,22 @@ Sur la base de nos principes de repésentation, si l'on s'intéresse au lieu "Th
 
 <!-- livebook:{"break_markdown":true} -->
 
+Une première possibilité d'amélioration consisterait à rattacher plusieurs Zones d'embarquement `QUAY` à un même Lieu d'arrêt `STOPPLACE`
+
+<!-- livebook:{"break_markdown":true} -->
+
 ![](files/LA_MultiQuais.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Pour cela l'impact sur la description XML consisterait à modifier les liens entre les différents éléments et supprimer un lieu d'arrêt devenu inutile.
 
 <!-- livebook:{"break_markdown":true} -->
 
 ### Amélioration 2 : Regroupement Monomodaux
 
-TO DO
+Ce regroupement est une alternative si l'on ne prend pas en compte la proximité géographique.
+Sinon cette optimisation n'est pas pertinente.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1386,11 +1572,19 @@ TO DO
 
 <!-- livebook:{"break_markdown":true} -->
 
+![](files/Alt_LA_MultiModal.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
 ### Amélioration 4 :  Pole Ajout d'un pôle Monomaodal
 
 Objectif : intégrer la gare routière localisée à proximité du Théâtre des Arts
 
 TO DO
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/MultiModal_PoleMono.JPG)
 
 ## IV. AUTRE EXEMPLE : RTM Castellane
 
