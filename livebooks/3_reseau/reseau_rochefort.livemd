@@ -79,7 +79,7 @@ end
 :ok
 ```
 
-## INTRODUCTION
+## INTRODUCTION - 00:00:00
 
 Bienvenue dans la partie de formation qui traite du Réseau ! Nous aborderons entre autres les principes des Lignes, des Itinéraires, des Horaires et Calendriers...
 
@@ -103,7 +103,7 @@ Bienvenue dans la partie de formation qui traite du Réseau ! Nous aborderons en
 
 🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
 
-## PARTIR DU REEL - L'OFFRE DE "ROCHEFORT OCEAN"
+## PARTIR DU REEL - L'OFFRE DE "ROCHEFORT OCEAN" - 00:02:00
 
 Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
 
@@ -141,7 +141,7 @@ Il existe également sur le territoire :
 
 Ces lignes ne seront pas abordées lors de cette présentation
 
-## DIRECTION : LA DONNEE NETEX
+## DIRECTION : LA DONNEE NETEX - 00:05:00
 
 Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
 
@@ -163,7 +163,7 @@ Rochefort.list_netex_content()
 [%{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_calendriers.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_commun.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_A_A.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_B_B.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_C_C.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_D_D.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_E_E.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_F_F.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_J_J.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI1_RPI-1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI2_RPI-2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI3_RPI-3.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI4_RPI-4.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S1_S1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S2_S2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S3_S3.xml"}]
 ```
 
-## DESCRIPTION GENERALE DU RESEAU
+## DESCRIPTION GENERALE DU RESEAU - 00:10:00
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 
@@ -194,7 +194,7 @@ En ce qui concerne les autres éléments du fichier, en voici des définitions s
 
 * `SiteConnection` : un SiteConnection représente une connexion physique ou logique entre deux lieux (ex. gares, arrêts, terminaux, hubs de transport). Il est utilisé pour modéliser les correspondances piétonnes, les liaisons intermodales et les temps de transfert entre des sites de transport.
 
-## 🔹 Fichier "commun" > Network
+## 🔹 Fichier "commun" > Network - 00:13:00
 
 Dans le fichier commun/partie Network, on définit le réseau (et les lignes rattachées).
 
@@ -232,7 +232,7 @@ grid([xml_1, image_1, image_2], columns: {2, 1, 1})
 
 Nombre de lignes rattachées au réseau : 14
 
-## 🔹 Fichier "commun" > Line
+## 🔹 Fichier "commun" > Line - 00:18:00
 
 Pour chaque ligne, on définit des informations générales telles que son nom, son code, son mode, etc.
 
@@ -309,7 +309,7 @@ tabs([
   </div>
 </details>
 
-## DESCRIPTION D'UNE LIGNE
+## DESCRIPTION D'UNE LIGNE - 00:25:00
 
 ![](files/liste_fichiers_netex_ligneB.jpg)
 
@@ -617,6 +617,11 @@ On retrouve la `Route` via son identifiant référencée (RouteRef) :
 --> son nom est "Parc des Fourriers -> La Croix Breuil Magne"
 On cherche l'élément `Direction` qui possède cet identifiant et on visualise son `Name` :
 
+```xml
+<Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
+  <Name>La Croix Breuil Magne</Name>
+</Direction>
+```
 
 **Question 2**
 
@@ -801,7 +806,7 @@ Kino.Layout.tabs([
 ])
 ```
 
-## DESCRIPTION DES PERIODES ET DES JOURS TYPES
+## DESCRIPTION DES PERIODES ET DES JOURS TYPES - 01:10:00
 
 🫵 À vous : ouvrez le fichier des calendriers
 
@@ -828,10 +833,106 @@ Kino.Layout.tabs([
 
 ```
 
-TODO: résumé
-TODO: exercices
+✍️ **Exercice** :
 
-## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES
+1. Quelles sont les conditions temporelles de validité du `ServiceJourney` (COURSE) d'identifiant _CA_ROCHEFORT_OCEAN:ServiceJourney:S11185:LOC_ ?
+
+2. Quel est l'horaire de passage au `ScheduledStopPoint` d'identifiant _CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC_ ?
+   (💡 Indice : le ServiceJourneyPattern référencé contient les _pointsInSequence_ dans le même ordre que les _passingTimes_ de la COURSE)
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
+
+**Question 1**
+
+Dans le fichier de la ligne B, on retrouve le `ServiceJourney` qui a cet identifiant et on récupère le `DayType` référencé:
+
+```xml
+<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11185:LOC">
+  <!--<Name>LA CROIX BREUIL MAGNE</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_188097:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_188097:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>-->
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>
+  <!--<JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+  <passingTimes>
+    ...
+  </passingTimes>-->
+</ServiceJourney>
+```
+
+Dans le fichier des calendrier, on retrouve le `DayType` : la COURSE est valide du lundi au samedi !
+
+```xml
+<DayType version="any" id="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC">
+  <properties>
+    <PropertyOfDay>
+      <DaysOfWeek>Monday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Tuesday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Wednesday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Thursday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Friday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Saturday</DaysOfWeek>
+    </PropertyOfDay>
+  </properties>
+</DayType>
+```
+On récupère tous les `DayTypeAssignment` qui référencent ce `DayType` :
+
+```xml
+<DayTypeAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:DayTypeAssignment:S1ETE_LMWJVS15:LOC">
+    <OperatingPeriodRef ref="CA_ROCHEFORT_OCEAN:OperatingPeriod:S1ETE_LMWJVS-0:LOC" version="any"/>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" version="any"/>
+  </DayTypeAssignment>
+<DayTypeAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:DayTypeAssignment:S1ETE_LMWJVS16:LOC">
+  <Date>2025-07-14</Date>
+  <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" version="any"/>
+  <isAvailable>false</isAvailable>
+</DayTypeAssignment>
+<DayTypeAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:DayTypeAssignment:S1ETE_LMWJVS17:LOC">
+  <Date>2025-08-15</Date>
+  <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" version="any"/>
+  <isAvailable>false</isAvailable>
+</DayTypeAssignment>
+```
+Pour le 1er, on voit qu'il faut aller chercher l'`OperatingPeriod` correspondante :
+
+```xml
+<OperatingPeriod version="any" id="CA_ROCHEFORT_OCEAN:OperatingPeriod:S1ETE_LMWJVS-0:LOC">
+  <FromDate>2025-07-07T00:00:00</FromDate>
+  <ToDate>2025-08-30T00:00:00</ToDate>
+</OperatingPeriod>
+```
+
+On peut donc conclure que la COURSE est valide du lundi au samedi, tout l'été du 7 juillet 2025 au 30 août 2025, y compris les 14 juillet et 15 août !
+
+
+
+**Question 2**
+TODO
+
+  </div>
+</details>
+
+## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES - 01:25:00
 
 Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie:
 
@@ -858,7 +959,7 @@ graph TD
 
 ```
 
-## RouteLink - détails
+## RouteLink - détails - BONUS
 
 **_Rappel définition_** : Un TRONCON D'ITINERAIRE (`RouteLink`) est un tronçon orienté entre deux `RoutePoint` (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
