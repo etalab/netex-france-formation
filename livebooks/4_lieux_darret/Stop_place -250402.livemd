@@ -1,0 +1,1146 @@
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+
+# Lieux_Arret
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.15.3"}
+])
+Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
+:ok
+ 
+```
+
+## I. INTRODUCTION
+
+Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux Stop Places.
+
+## 1.1 Pourquoi cette partie ?
+
+Avec la digitalisation des systèmes de transport, le standard NeTEx est devenu un format clé pour l’échange et l’exploitation des données de transport public en Europe. Il permet de structurer de manière cohérente les informations sur les arrêts de bus, gares ferroviaires, stations de métro et pôles d’échange multimodaux.
+
+Pour bien utiliser ces fichiers, il est essentiel de savoir :
+
+✅ Lire et comprendre la structure XML des fichiers NeTEx.
+
+✅ Identifier les éléments essentiels décrivant un lieu d’arrêt.
+
+✅ Interpréter les relations entre ces éléments (hiérarchie, accessibilité, connexions).
+
+✅ Extraire les bonnes informations pour leur intégration dans d’autres systèmes (Systèmes d’Information Voyageurs, outils SIG, planificateurs d’itinéraires).
+
+## 1.2 Ce que vous allez apprendre
+
+Au fil de cette formation, nous allons explorer :
+
+📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts.
+
+📌 Les principaux éléments XML décrivant un Stop Place (StopPlace, StopPlace Component, Quay).
+
+📌 Comment lire un fichier NeTEx et en extraire des informations utiles.
+
+📌 Comment interpréter les relations spatiales et fonctionnelles entre arrêts.
+
+📌 Les bonnes pratiques pour exploiter efficacement ces fichiers.
+
+## 1.3 La démarche pour cette partie
+
+📌 Identifier un lieu d'arrêt multimodal representatif
+
+📌 Décrire la réalité (Physique, Cartographique, Plan d Ligne)
+
+📌 Identifier le Fichier NeTEx sur le PAN
+
+📌 Recontituer le Lieu d'arrêt décrit par le fichier NeTex
+
+📌 Comparaison avec la réalité
+
+📌Identifier des axes d'amélioration
+
+## 1.4 Déroulement de la formation
+
+Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux lieux d'arrêt, suivie de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
+
+À la fin de cette partie, vous serez en mesure de lire, comprendre les principes de strucuration des fichiers NeTEx comprenant la description de Lieux d'arrêt pour des usages concrets.
+
+<!-- livebook:{"break_markdown":true} -->
+
+💡 Bon à savoir : Aucun prérequis technique avancé n’est nécessaire, mais une familiarité avec les données de transport ou les formats XML sera un plus.
+
+🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
+
+## II. LA MULTIMODALITE (niveau des lieux d'arrêt)
+
+## 2.1. Qu'est que la multi modalité ?
+
+La multimodalité dans les transports fait référence à l'utilisation combinée de plusieurs modes de transport pour effectuer un trajet.
+
+Cela peut inclure des modes tels que la voiture, le train, le vélo, le bus, le métro, et même la marche. L'objectif est de tirer parti des avantages spécifiques de chaque mode pour optimiser les trajets en termes de temps, coût, confort ou impact environnemental.
+
+**Limitation de la formation** : Dans le cadre de cette formation nous allons nous attacher à décliner ce concept complexe sur la une des briques qui permet de mettre en oeuvre la multimodalité : **La description des lieux d'arrêt**.
+
+💡 **Pourquoi des lieux d'arrêt multimodaux** ?
+
+Les lieux d’arrêt multimodaux sont des espaces conçus pour faciliter l’interconnexion entre plusieurs modes de transport (bus, train, vélo, voiture, tramway). Leur mise en place répond à plusieurs enjeux liés à la mobilité, l’accessibilité et l’efficacité des transports en permettant :
+
+* de Faciliter l’interconnexion des transports
+
+  Ces lieux permettent aux voyageurs de passer facilement d’un mode de transport à un autre (exemple : descendre d’un train et prendre un bus sans difficulté). Ils contribuent à optimiser le temps de trajet et réduisent les interruptions.
+
+* Améliorer l’accessibilité et l’inclusivité
+
+  Ils permettent aux personnes à mobilité réduite d’accéder plus facilement aux différents moyens de transport.
+
+  Les infrastructures (ascenseurs, rampes, signalisation) sont souvent adaptées pour un meilleur confort des usagers.
+
+## 2.2 Approche du Profil NeTex Arrêt France
+
+Le profil NeTEx France Arrêt décrit une organisation hiérarchique des lieux d'arret.
+
+* https://normes.transport.data.gouv.fr/normes/netex/arrets/
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/OrgaLAProfilNeTEx.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les définitions des éléments constituant cette organisation sont les suivantes :
+
+🔹 **Groupe de Lieux**
+
+Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
+
+🔹 **Lieu d’arrêt multimodal** (`STOP PLACE`) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
+
+📌  **Lieu d’arret monomodal** (`STOP PLACE`)
+
+📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (`STOP PLACE` en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
+
+🔹 **Zone d'Embarquement** (`QUAY`) :Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+
+## 2.3. Les notions NeTex Associées
+
+🔹  **Définitions**
+
+<!-- livebook:{"break_markdown":true} -->
+
+Nous allons voir dans cette section les éléments Transmodel transmis via NeTex qui permettent de définir un lieu d'arrêt.
+
+Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
+
+**A NOTER** : Un concept Transmodel = Un balise XML NeTEx
+
+<!-- livebook:{"break_markdown":true} -->
+
+### `STOPPLACE` (Lieu d'arrêt)
+
+📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement
+
+📌 Un Lieu d'arrêt peut être constitué de Lieux d'arrêt.
+
+#### `QUAY` (Zone d'embarquement)
+
+Il s’agit d’un lieu tel qu’une plateforme, une zone ou un quai qui permet aux voyageurs d’accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+
+### `ACCESSSPACE` (Espace de Lieu d'arrêt)
+
+Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans accès direct aux vehicules (Hall de gare, Passage, Magasin, Salle d'attente, Restaurant, ...)
+
+### `STOPPLACEENTRANCE` (Entrée)
+
+Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les éléments composants un lieu d'arrêt multimodal sont liés par les relations suivantes.
+
+**A NOTER** : Les relations entre objets se font via des balises XML contenant des identifiants (...Ref)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/Capture.JPG)
+
+## 2.4. Pour en savoir un peu plus ...
+
+Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
+
+<!-- livebook:{"break_markdown":true} -->
+
+Dans le domaine des systèmes d’information pour le transport public, la modélisation des Stop Places (lieux d’arrêt) est un enjeu clé pour assurer une représentation cohérente et interopérable des infrastructures d’arrêt. Transmodel, le modèle de référence européen pour les données de transport, définit une structure hiérarchique et relationnelle permettant de représenter fidèlement ces éléments à différentes échelles.
+
+Un Stop Place n’est pas seulement un point d’arrêt unique, mais peut être un regroupement d’arrêts physiques, incluant plusieurs modes de transport et divers équipements d’infrastructure. La modélisation repose sur des principes de récursivité, de relations spatiales et d’agrégation hiérarchique, facilitant l’organisation des données et leur échange entre systèmes.
+
+Les concepts fondamentaux des Stop Places dans Transmodel, sont présentés ci-après sur la base de leur structuration, des relations entre entités et des principes avancés de modélisation.
+
+🔹🔹 Structure et Hiérarchie des Stop Places
+
+Dans Transmodel, la modélisation des Stop Places s’appuie sur une hiérarchie en plusieurs niveaux, permettant de structurer les infrastructures d’arrêt selon leur complexité et leur organisation spatiale. Cette hiérarchie se compose principalement des éléments suivants :
+
+* **Stop Place** (Lieu d’arrêt principal)
+
+Le Stop Place est l’entité centrale du modèle. Il représente un site d’arrêt pouvant inclure plusieurs infrastructures d’arrêt individuelles. Un Stop Place peut être une simple station de bus, une gare ferroviaire ou une grande station multimodale combinant plusieurs types de transport (métro, tramway, bus, train).
+
+Exemples de Stop Places
+
+📌 Une station de métro comprenant plusieurs quais et entrées.
+
+📌 Une gare ferroviaire intégrant plusieurs voies et correspondances avec des bus et tramways.
+
+📌 Un pôle d’échange multimodal combinant train, tram, bus et parkings relais.
+
+🔹🔹 La Récursivité dans la Modélisation des Stop Places
+
+Un des concepts essentiels de la modélisation des Stop Places dans Transmodel est la récursivité. Cela signifie qu’un Stop Place peut contenir d’autres Stop Places, formant ainsi une structure imbriquée adaptée aux infrastructures complexes.
+
+* **Définition de la récursivité dans Transmodel**
+
+La récursivité permet d’exprimer des relations hiérarchiques où un Stop Place peut être composé d’autres Stop Places, qui eux-mêmes contiennent des Stop Areas et des Stop Points.
+
+Exemple concret de récursivité :
+
+📌 Un aéroport international (Stop Place) peut contenir plusieurs terminaux (Stop Places imbriqués)
+
+📌 Chaque terminal peut avoir plusieurs halls d’embarquement (Stop Areas).
+
+📌 Chaque hall contient plusieurs portes de départ (Stop Points).
+
+Cette structuration permet une représentation modulaire et extensible des infrastructures de transport, facilitant la gestion des données et leur exploitation par des systèmes d’information.
+
+* **Relations entre les niveaux hiérarchiques**
+
+La récursivité s’accompagne de relations spatiales et fonctionnelles entre les différents niveaux de la hiérarchie.
+
+Quelques relations courantes dans Transmodel
+
+📌 Contenu/Contenant : un Stop Place peut contenir plusieurs Stop Areas et Stop Places secondaires.
+
+📌 Proximité : deux Stop Places distincts peuvent être reliés s’ils sont situés à courte distance (ex. une gare et une station de bus adjacente).
+
+📌 Connexion : un Stop Place peut être relié à un autre via des infrastructures de liaison (passages souterrains, passerelles, escaliers).
+
+🔹🔹 Autres Concepts Clés
+
+En complément de la récursivité, plusieurs autres principes sont fondamentaux dans la modélisation des Stop Places :
+
+* **Accessibilité et équipements**
+
+La prise en compte des équipements et de l’accessibilité est essentielle dans la structuration des Stop Places :
+
+📌 Présence de rampes, ascenseurs, escaliers mécaniques.
+
+📌 Indication des zones accessibles aux personnes à mobilité réduite.
+
+📌 Présence de signalétique, guichets d’information, bornes de validation.
+
+* **Correspondances et Intermodalité**
+
+Un Stop Place peut être relié à d’autres infrastructures de transport pour permettre des correspondances optimisées. Ces connexions peuvent être modélisées par :
+
+📌 Arrêts adjacents (ex. arrêt de bus devant une gare ferroviaire).
+
+📌 Passages piétons, tunnels, escaliers reliant différentes zones d’un Stop Place.
+
+📌 Horaires de correspondance coordonnés pour minimiser le temps d’attente.
+
+* **Typologie des arrêts**
+
+Les arrêts peuvent être différenciés en :
+
+📌 Arrêts physiques : lieux réels où les passagers montent/descendent.
+
+📌 Arrêts virtuels : utilisés pour la planification et les itinéraires sans correspondance à un lieu physique unique.
+
+🔹🔹 Atouts de la modelisation NeTEx pour les lieux d'arrêt.
+
+La modélisation des Stop Places dans Transmodel repose sur une hiérarchisation rigoureuse, une structuration récursive, et une modélisation relationnelle des arrêts. Grâce à ces principes, les systèmes d’information de transport peuvent :
+
+📌 Structurer précisément les données des arrêts.
+
+📌 Faciliter l’interopérabilité entre réseaux multimodaux.
+
+📌 Optimiser la gestion des correspondances et de l’accessibilité.
+
+Cette approche permet une gestion avancée des infrastructures de transport, essentielle pour les opérateurs et les autorités organisatrices.
+
+💡 NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information**
+
+## III. PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
+
+Cette section va nous permettre d'analyser une modelisation d'un lieu d'arrêt multimodal en partant du constat : Sa description dans son environnement réel et via sa représentation cartographique analyser sa représentation via les échanges NeTEx.
+
+## 3.1. Etape 1 - Vue Réelle
+
+### Présentation du Théâtre des Arts et des Arrêts
+
+Situé en plein centre-ville de Rouen, le **Théâtre des Arts** est desservi par plusieurs modes de transport :
+
+* 🚌 **Bus traditionnel**
+* 🚍 **Bus à Haut Niveau de Service (BHNS)**
+* 🚋 **Tramway**
+
+Ce théâtre se trouve à proximité d'une **gare routière**, offrant ainsi une accessibilité renforcée.
+
+Il est important de noter que certains arrêts proches portent le nom **"Théâtre des Arts"**, tandis que d'autres possèdent des appellations différentes, comme **"Gare Routière"**.
+
+### Objectifs de cette présentation
+
+Dans un premier temps, nous verrons que la représentation d'un **lieu d'arrêt** peut être très simple, comme c'est le cas dans le **fichier ASTUCE**.
+
+Ensuite, à travers des exercices pratiques, nous explorerons des moyens d'améliorer cette description pour **mieux refléter la réalité** et ainsi **optimiser l'information à destination des usagers**.
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les sites de référence :
+
+* https://rouen.fr/transports-en-commun
+* https://www.reseau-astuce.fr/
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ReseauAstuce.txt)
+
+<!-- livebook:{"break_markdown":true} -->
+
+L'agglomeration Rouanaise :
+
+* Plusieurs Communes
+
+* Un réseau
+
+* Un Opérateur
+
+* Une AOT
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/Agglo.JPG)
+
+## 3.2. Vue cartographique
+
+Une représentation de la zone géographique autour du théâtre des arts est disponible sur le site du transporteur.
+
+Y sont représentés :
+
+* Les arrêts de transport public localisés autour du Théâtre.
+
+  * De l'opérateur
+  * Du fournisseur du fond cartographique
+
+* Des points d'intérêt ( Agence Astuce, station de chargement electrique)
+
+* Pour chaque point d'arret : le mode associé via le picto (Ferré vs Bus)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/TdA2.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Les synoptiques de lignes du transporteur offrent une autre vison du (des) lieu(x) d'arrêt multimodal.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/TdA1.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Question : Principales caractériques de ce lieu d'arrêt ?
+
+Réponses :
+
+* **Multimodal** : Tram, BHNS, Bus
+
+* **Pas d'unicité géographiqe**  : les arrêts Théâtre des Arts sont plus éloignés du théâtre que d'autres ayant des noms différents : exemple gare routière
+
+* ...
+
+## 3.3. Modélisation PAN NeTEx
+
+### Fichiers disponibles
+
+<!-- livebook:{"break_markdown":true} -->
+
+Le fichier utilisé pour ce cas d'usage est le suivant :
+
+https://transport.data.gouv.fr/datasets/base-de-donnees-multimodale-des-reseaux-de-transport-public-normands
+
+Dossier : PT_TH_OFFER_TCAR_netex_20241120_308_OPENDATA.zip
+
+* Fichier : Arrets.xml (Arret / Quai)
+
+* Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
+
+* N fichiers Lines (ServiceJOurney)
+
+TCAR = Transport en Commun Agglomération ROuen
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Principes de Modélisation
+
+<!-- livebook:{"break_markdown":true} -->
+
+**La représentation faite d'un arrêt en NeTEx dépend du choix des organisations en charge de la modelisation.**
+
+* Plusieurs représentation d'un même lieu d'arrêt sont possible de la plus simple à la plus complexe.
+
+* Cela ne préjuge pas de la capacité de Transmodel & NeTEx à prendre en charge une modélisation plus complète et précise.
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier Arrêt
+
+<!-- livebook:{"break_markdown":true} -->
+
+Le fichier Arret décrit les `Stop Place`et les `Quay`. A partir d'un extrait de ce fichier nous pouvons lire les données qui définissent un arrêt et un Quai.
+
+Le nombre d'éléments décrits dans ce fichier sont les suivants :
+
+<!-- livebook:{"break_markdown":true} -->
+
+`````XML
+<PublicationDelivery ...>
+  ...
+    <members>
+      <StopPlace/> (x2261) 
+      <Quay /> (x2252)
+
+    </members>
+  ...
+</PublicationDelivery>
+````
+`````
+
+````elixir
+xml_1=Kino.Markdown.new("""
+```xml
+<!-- GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
+               <members>
+                  <StopPlace id="FR:76157:StopPlace:AUTOPT202405271601341344:ATOUMOD000" version="1">
+                     <Name>Chemin de la Corniche</Name>
+                     <PrivateCode>FR:76157:LMO:AUTOPT202405271601341344:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:a66e3fa7a1534b4c8eb9347a58a16383:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:941919f530f74dbe8c2430897e2f0918:LOC">
+                           <Longitude>1.0413157</Longitude>
+                           <Latitude>49.444458</Latitude>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="multimodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:2ee1e0dd47a64f4a82a37c053a3dc1d4:LOC" version="any">
+                        <Town>Canteleu</Town>
+                        <PostalRegion>76157</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>tram</TransportMode>
+                     <StopPlaceType>onstreetTram</StopPlaceType>
+                  </StopPlace>
+-->
+                  <StopPlace id="FR:76410:LMO:AUTOPT202405271601341800:ATOUMOD000" version="1">
+                     <Name>Hôtel de Ville de Maromme</Name>
+                     <PrivateCode>FR:76410:LMO:AUTOPT202405271601341800:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:bb6c30565fd1489c99d3a1a3f6120c1c:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:3cba9cc58dda433e98164ec3fe69d147:LOC">
+                           <Longitude>1.0401848</Longitude>
+                           <Latitude>49.4820606</Latitude>
+                           <gml:pos srsName="EPSG:2154">557942.286531513 6933172.42178157</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="monomodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:eedee9c06e0d43dd9e7dfe2504b81dee:LOC" version="any">
+                        <Town>Maromme</Town>
+                        <PostalRegion>76410</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>bus</TransportMode>
+                     <StopPlaceType>onstreetBus</StopPlaceType>
+                     <quays>
+                        <QuayRef ref="FR:76410:ZE:11107:ATOUMOD001" versionRef="1"/>
+                     </quays>
+                  </StopPlace>
+
+```
+""")
+xml_2=Kino.Markdown.new("""
+```xml
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+
+   <dataObjects>
+      <CompositeFrame id="FR:CompositeFrame:NETEX_FRANCE-20241120T051542:LOC" version="1.0">
+
+         <frames>
+              <GeneralFrame id="FR:GeneralFrame:NETEX_ARRET-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_ARRET"/>
+               <members>
+                  
+                  <StopPlace id="FR:76575:LMO:AUTOPT202405271601342882:ATOUMOD000" version="1">
+                     <Name>Ernest Renan</Name>
+                     <PrivateCode>FR:76575:LMO:AUTOPT202405271601342882:ATOUMOD000</PrivateCode>
+                     <Centroid id="ATOUMOD000:Centroid:53e35d0c6ca6413c9a935c60c96aa83a:LOC" version="any">
+                        <Location id="ATOUMOD000:Location:08f7e9955e234a1581eea5969c4931ba:LOC">
+                           <Longitude>1.0731568</Longitude>
+                           <Latitude>49.3983285</Latitude>
+                           <gml:pos srsName="EPSG:2154">560104.485616109 6923800.38240824</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <placeTypes>
+                        <TypeOfPlaceRef ref="monomodalStopPlace"/>
+                     </placeTypes>
+                     <PostalAddress id="ATOUMOD000:PostalAddress:0d39d6c7340e4bf080f4294ca6e688ae:LOC" version="any">
+                        <Town>Saint-Étienne-du-Rouvray</Town>
+                        <PostalRegion>76575</PostalRegion>
+                     </PostalAddress>
+                     <TransportMode>metro</TransportMode>
+                     <StopPlaceType>metroStation</StopPlaceType>
+                     <quays>
+                        <QuayRef ref="FR:76575:ZE:11399:ATOUMOD001" versionRef="1"/>
+                     </quays>
+                  </StopPlace>
+-->
+                  <Quay id="FR:76410:ZE:11107:ATOUMOD001" version="1" dataSourceRef="ATOUMOD000:Authority:001:LOC">
+                     <Name>Hôtel de Ville de Maromme</Name>
+                     <PrivateCode>11107</PrivateCode>
+                     <Centroid id="ATOUMOD001:Centroid:dc989ebe13ba4bf1926385eba8d1bfae:LOC" version="any">
+                        <Location id="ATOUMOD001:Location:476e70bcbcf540c688f77c2d86831709:LOC">
+                           <Longitude>1.0401848</Longitude>
+                           <Latitude>49.4820606</Latitude>
+                           <gml:pos srsName="EPSG:2154">557942.286531513 6933172.42178157</gml:pos>
+                        </Location>
+                     </Centroid>
+                     <PostalAddress id="ATOUMOD001:PostalAddress:1166444555ca42378c6be6341462a84c:LOC" version="any">
+                        <Town>Maromme</Town>
+                        <PostalRegion>76410</PostalRegion>
+                     </PostalAddress>
+                    <!--          
+                    <AccessibilityAssessment id="ATOUMOD001:AccessibilityAssessment:cf6d5d6fb0d9459ab8be58467828b3c7:LOC" version="any">
+                        <MobilityImpairedAccess>true</MobilityImpairedAccess>
+                        <suitabilities>
+                           <Suitability id="ATOUMOD001:Suitability:11107x1:LOC" version="any">
+                              <MobilityNeed>wheelchair</MobilityNeed>
+                              <Suitable>suitable</Suitable>
+                           </Suitability>
+                        </suitabilities>
+                     </AccessibilityAssessment>
+                     -->
+                     <SiteRef ref="FR:76410:LMO:AUTOPT202405271601341800:ATOUMOD000" versionRef="1"/>
+                     <TransportMode>bus</TransportMode>
+                  </Quay>
+                  <!--
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery>
+-->
+
+```
+""")
+Kino.Layout.tabs([
+  Arrêts: xml_1,
+Quai: xml_2])
+````
+
+### Fichier Network
+
+<!-- livebook:{"break_markdown":true} -->
+
+Le fichier 'réseaux' décrit :
+
+* le réseau `Network`;
+* les lignes `line`du réseau;
+* les groupes de lignes `GroupOfLines`
+* l'opérateur `Operator`
+* l'autorité organisatrice `Authority`
+* les liaisons intersite `SiteConnection`
+
+Le nombre d'éléments décrits dans ce fichier sont les suivants :
+
+<!-- livebook:{"break_markdown":true} -->
+
+`````XML
+<PublicationDelivery ...>
+  ...
+    <members>
+      <Network/> (x1) 
+      <Line/> (x100)
+      <GroupOfLines/> (x1)
+      <Operator/> (x1)
+      <Authority/> (x1)
+      <SiteConnection/> (x7963)
+
+    </members>
+  ...
+</PublicationDelivery>
+````
+`````
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier Line
+
+<!-- livebook:{"break_markdown":true} -->
+
+Ce fichier décrit chaque ligne identifiée dans le fichier reseau en terme de :
+
+* Itinéraires `Route`
+* Sens `Direction`
+* Parcours commercial `ServiceJourneyPattern`
+* Affichage de distination `Destination Display`
+* Point d'arrêt topologique `ScheduleStopPoint`
+* Affectation de Point d'arrêt `PassengerStopAssignement`
+* Tronçon d'itineraire `RouteLink`
+
+Le nombre d'éléments décrits dans ce fichier sont les suivants :
+
+<!-- livebook:{"break_markdown":true} -->
+
+`````XML
+<PublicationDelivery ...>
+  ...
+    <members>
+      <Route/> (x2) 
+      <Direction/> (x2)
+      <ServiceJourneyPattern/> (x2)
+      <DestinationDisplay/> (x2)
+      <ScheduleStopPoint/> (x30)
+      <PassengerStopAssignment/> (x30)
+      <RouteLink/> (x28)
+    </members>
+  ...
+</PublicationDelivery>
+````
+`````
+
+````elixir
+xml_1=Kino.Markdown.new("""
+```xml
+<!--  <GeneralFrame id="FR:GeneralFrame:NETEX_RESEAU-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAU"/>
+              <members> -->
+                  <Network id="ATOUMOD001:Network:001:LOC" version="1">
+                     <Name>Astuce (Métropole Rouen Normandie)</Name>
+                     <PrivateCode>2</PrivateCode>
+                     <members>
+                <LineRef ref="ATOUMOD001:Line:10:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:100:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:101:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:102:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:103:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:104:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:106:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:11:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:13:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:14:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:15:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:20:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:201:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:202:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:203:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:204:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:205:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:206:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:207:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:208:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:210:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:211:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:212:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:213:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:214:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:22:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:220:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:221:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:222:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:224:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:225:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:227:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:228:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:229:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:26:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:27:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:28:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:300:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:301:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:302:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:303:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:305:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:310:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:311:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:313:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:314:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:315:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:322:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:33:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:330:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:331:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:332:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:333:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:334:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:335:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:336:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:340:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:341:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:342:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:343:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:35:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:350:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:351:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:36:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:360:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:361:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:363:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:364:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:37:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:38:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:41:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:42:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:43:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:44:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:529:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:530:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:501:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:502:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:509:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:99:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:506:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:507:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:505:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:01:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:02:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:03:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:04:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:05:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:06:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:07:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:08:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:09:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:508:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:510:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:90:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:98:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:91:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:92:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:93:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:94:LOC" versionRef="1"/>
+                     </members>
+                     <AuthorityRef ref="ATOUMOD000:Authority:001:LOC" versionRef="any"/>
+                  </Network>
+<!--
+                  <Line id="ATOUMOD001:Line:98:LOC" version="1">
+                     <Name>La Pléiade &lt;&gt; Cateliers</Name>
+                     <ShortName>La Pléiade &lt;&gt; Cateliers</ShortName>
+                     <TransportMode>bus</TransportMode>
+                     <PublicCode>Noctambus</PublicCode>
+                     <PrivateCode>98</PrivateCode>
+                     <OperatorRef ref="ATOUMOD001:Operator:TCAR:LOC" versionRef="1"/>
+                     <Presentation>
+                        <Colour>29235C</Colour>
+                        <TextColour>ffde00</TextColour>
+                     </Presentation>
+                  </Line>
+
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery
+-->
+```
+""")
+xml_2=Kino.Markdown.new("""
+```xml
+<!--  <GeneralFrame id="FR:GeneralFrame:NETEX_RESEAU-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAU"/>
+                <members>
+                  <Network id="ATOUMOD001:Network:001:LOC" version="1">
+                     <Name>Astuce (Métropole Rouen Normandie)</Name>
+                     <PrivateCode>2</PrivateCode>
+                     <members>
+                <LineRef ref="ATOUMOD001:Line:10:LOC" versionRef="1"/>
+                ...
+								<LineRef ref="ATOUMOD001:Line:100:LOC" versionRef="1"/>
+				
+								<LineRef ref="ATOUMOD001:Line:93:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:94:LOC" versionRef="1"/>
+                     </members>
+                     <AuthorityRef ref="ATOUMOD000:Authority:001:LOC" versionRef="any"/>
+                  </Network>c
+
+                 <Line id="ATOUMOD001:Line:90:LOC" version="1">
+							<Name>Boulingrin &lt;&gt; Georges Braque / Technopôle</Name>
+							<ShortName>Boulingrin &lt;&gt; Georges Braque / Technopôle</ShortName>
+							<TransportMode>metro</TransportMode>
+							<PublicCode>Métro</PublicCode>
+							<PrivateCode>90</PrivateCode>
+							<OperatorRef ref="ATOUMOD001:Operator:TCAR:LOC" versionRef="1"/>
+							<Presentation>
+								<Colour>123E8B</Colour>
+								<TextColour>ffffff</TextColour>
+							</Presentation>
+						</Line>
+						... -->
+						<Line id="ATOUMOD001:Line:91:LOC" version="1">
+							<Name>Mont aux Malades &lt;&gt; CHU Charles Nicolle</Name>
+							<ShortName>Mont aux Malades &lt;&gt; CHU Charles Nicolle</ShortName>
+							<TransportMode>tram</TransportMode>
+							<PublicCode>T1</PublicCode>
+							<PrivateCode>91</PrivateCode>
+							<OperatorRef ref="ATOUMOD001:Operator:TCAR:LOC" versionRef="1"/>
+							<Presentation>
+								<Colour>E63027</Colour>
+								<TextColour>ffffff</TextColour>
+							</Presentation>
+						</Line>
+				<!--	<Line id="ATOUMOD001:Line:92:LOC" version="1">
+							<Name>Mairie - V. Schoelcher &lt;&gt; Tamarelle</Name>
+							<ShortName>Mairie - V. Schoelcher &lt;&gt; Tamarelle</ShortName>
+							<TransportMode>tram</TransportMode>
+							<PublicCode>T2</PublicCode>
+							<PrivateCode>92</PrivateCode>
+							<OperatorRef ref="ATOUMOD001:Operator:TCAR:LOC" versionRef="1"/>
+							<Presentation>
+								<Colour>008F5B</Colour>
+								<TextColour>ffffff</TextColour>
+							</Presentation>
+						</Line>
+						<Line id="ATOUMOD001:Line:93:LOC" version="1">
+							<Name>Monet &lt;&gt; Durécu-Lavoisier</Name>
+							<ShortName>Monet &lt;&gt; Durécu-Lavoisier</ShortName>
+							<TransportMode>tram</TransportMode>
+							<PublicCode>T3</PublicCode>
+							<PrivateCode>93</PrivateCode>
+							<OperatorRef ref="ATOUMOD001:Operator:TCAR:LOC" versionRef="1"/>
+							<Presentation>
+								<Colour>6D1C74</Colour>
+								<TextColour>ffffff</TextColour>
+							</Presentation>
+						</Line>
+				
+                  ...
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery
+-->
+```
+""")
+xml_3=Kino.Markdown.new("""
+```xml
+<!--  <GeneralFrame id="FR:GeneralFrame:NETEX_RESEAU-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAU"/>
+                <members>
+-->
+              <GroupOfLines id="ATOUMOD001:GroupOfLine:2:LOC" version="1">
+							<Name>Astuce</Name>
+							<members>
+								<LineRef ref="ATOUMOD001:Line:10:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:100:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:101:LOC" versionRef="1"/>  
+                <LineRef ref="ATOUMOD001:Line:102:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:103:LOC" versionRef="1"/>
+		<!--				<LineRef ref="ATOUMOD001:Line:104:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:106:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:11:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:13:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:14:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:15:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:20:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:201:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:202:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:203:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:204:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:205:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:206:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:207:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:208:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:210:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:211:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:212:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:213:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:214:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:22:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:220:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:221:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:222:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:224:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:225:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:227:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:228:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:229:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:26:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:27:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:28:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:300:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:301:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:302:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:303:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:305:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:310:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:311:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:313:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:314:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:315:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:322:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:33:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:330:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:331:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:332:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:333:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:334:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:335:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:336:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:340:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:341:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:342:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:343:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:35:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:350:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:351:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:36:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:360:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:361:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:363:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:364:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:37:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:38:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:41:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:42:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:43:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:44:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:529:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:530:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:501:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:502:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:509:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:99:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:506:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:507:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:505:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:01:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:02:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:03:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:04:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:05:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:06:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:07:LOC" versionRef="1"/>
+-->
+								<LineRef ref="ATOUMOD001:Line:08:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:09:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:508:LOC" versionRef="1"/>
+                <LineRef ref="ATOUMOD001:Line:510:LOC" versionRef="1"/> 
+								<LineRef ref="ATOUMOD001:Line:90:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:98:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:91:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:92:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:93:LOC" versionRef="1"/>
+								<LineRef ref="ATOUMOD001:Line:94:LOC" versionRef="1"/>
+							</members>
+						</GroupOfLines>		
+<!--                  ...
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery
+-->
+```
+""")
+xml_4=Kino.Markdown.new("""
+```xml
+<!--  <GeneralFrame id="FR:GeneralFrame:NETEX_RESEAU-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAU"/>
+                <members>
+-->
+             	<Operator id="ATOUMOD001:Operator:TCAR:LOC" version="1">
+							<PrivateCode>TCAR</PrivateCode>
+							<Name>Astuce</Name>
+							<OrganisationType>operator</OrganisationType>
+						</Operator>
+
+						<Authority id="ATOUMOD000:Authority:001:LOC" version="any">
+							<PrivateCode>TCAR</PrivateCode>
+							<CompanyNumber>001</CompanyNumber>
+							<Name>Astuce (Métropole Rouen Normandie)</Name>
+							<ContactDetails>
+								<Phone>02 35 52 52 52</Phone>
+								<Url>https://reseau-astuce.fr/</Url>
+							</ContactDetails>
+							<OrganisationType>authority</OrganisationType>
+						</Authority>
+
+<!--                  ...
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery
+-->
+```
+""")
+xml_5=Kino.Markdown.new("""
+```xml
+<!--  <GeneralFrame id="FR:GeneralFrame:NETEX_RESEAU-20241120T051542:LOC" version="1.0" dataSourceRef="TCAR">
+               <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_RESEAU"/>
+                <members>
+-->
+          <SiteConnection id="ATOUMOD001:SiteConnection:da01173165034e23b807c944dcc71f6e:LOC" version="1">
+							<Name>FR:76108:ZE:10022:ATOUMOD001 A FR:76108:ZE:10021:ATOUMOD001</Name>
+							<Distance>29</Distance>
+							<BothWays>true</BothWays>
+							<From>
+								<TransportMode>bus</TransportMode>
+								<StopPlaceRef ref="FR:76108:LMO:AUTOPT202405271601343682:ATOUMOD000" versionRef="1"/>
+								<QuayRef ref="FR:76108:ZE:10022:ATOUMOD001" versionRef="1"/>
+							</From>
+							<To>
+								<TransportMode>bus</TransportMode>
+								<StopPlaceRef ref="FR:76108:LMO:AUTOPT202405271601343680:ATOUMOD000" versionRef="1"/>
+								<QuayRef ref="FR:76108:ZE:10021:ATOUMOD001" versionRef="1"/>
+							</To>
+						</SiteConnection>
+						<SiteConnection id="ATOUMOD001:SiteConnection:345e9912a9254025ab624c19d0269264:LOC" version="1">
+							<Name>FR:76108:ZE:10028:ATOUMOD001 A FR:76108:ZE:10027:ATOUMOD001</Name>
+							<Distance>36</Distance>
+							<BothWays>true</BothWays>
+							<From>
+								<TransportMode>bus</TransportMode>
+								<StopPlaceRef ref="FR:76108:LMO:AUTOPT202405271601341192:ATOUMOD000" versionRef="1"/>
+								<QuayRef ref="FR:76108:ZE:10028:ATOUMOD001" versionRef="1"/>
+							</From>
+							<To>
+								<TransportMode>bus</TransportMode>
+								<StopPlaceRef ref="FR:76108:LMO:AUTOPT202405271601341190:ATOUMOD000" versionRef="1"/>
+								<QuayRef ref="FR:76108:ZE:10027:ATOUMOD001" versionRef="1"/>
+							</To>
+						</SiteConnection>
+
+<!--                  ...
+               </members>
+            </GeneralFrame>
+         </frames>
+      </CompositeFrame>
+   </dataObjects>
+</PublicationDelivery
+-->
+```
+""")
+Kino.Layout.tabs([
+ Réseau: xml_1,
+Ligne: xml_2,
+GroupeDeLignes: xml_3,
+Organisations: xml_4,
+CorrespondanceIntersite: xml_5])
+````
+
+## 3.4. Modélisation du "Théâtre des Arts"
+
+**Ajouter** Lien vers le fichier Arret (netex-france-formation/data/'_lieux_darrets/PAN/')
+
+## IV. AUTRE EXEMPLE : RTM Castellane
+
+Cette section illustre les possibilités offertes par NeTex pour représenter des lieux d'arrêts multimodaux structurés selon les récommandations du profils France Arrêts.
+
+Les informations présentés sont construites à partir de données reccueilies via des échagnes NeTEx et une Base de Données normalisée Transmodel.
+
+## 🔹Le Lieu d'arrêt dans la vraie vie
+
+La Régie des Transports Métropolitains (RTM) exploite un réseau de transports en commun dans la métropole Aix-Marseille-Provence, comprenant :
+
+* **Métro** : réseau de métro de Marseille compte deux lignes
+
+* **Tramway** : Le réseau de tramway comprend trois lignes principales.
+
+* **Bus** : Le réseau de bus de la RTM est constitué de 104 lignes, desservant l'ensemble de la métropole.
+
+* **Services maritimes** : La RTM propose des services maritimes, notamment des navettes reliant le Vieux-Port à des destinations comme la Pointe Rouge et l'Estaque.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/MRS1.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+La Castelanne est un lieu central où se situe un ensemble d'arrêt de différents modes.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/MRS2.JPG)
+
+## 🔹 Une représentation Transmodel / NeTEx
+
+Transmodel et NeTex permettent une représentation hiérarchique et organisée des Lieux d'arrêt complexes.
+
+**Transmodel** & **NeTex** offrent une vision organisée et représentative de la réalité du lieu d'arrêt.
+
+Un couplage avec **SIRI** (via des identifiants partagés) permet d'offrir des services puissant en termes de supervision (etat des équipements, accessibilités, cheminement, ...)
+
+Le résultat de cette représentation et son organisation hiérarchique mise à disposition des exploitants de la RTM est la suivante :
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Le Lieux d'arrêt Multitimodal
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RTM1.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Le lieu d'arrêt Monomodal Metro
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RTMpoleMetro.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Le lieu d'arret Métro (M2)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RTMmetro.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Lien vers la topologie et l'offre de transport
+
+<!-- livebook:{"break_markdown":true} -->
+
+Comme vu précédemment dans cette formation NeTex découple la représentation logique (Topologie, offre de transport, tarif) de la présentation Physique que nous venons de voir.
+
+Une passerelle entre les deux descriptions est nativement présente dans l'eco système Transmodel.
+
+Le couplage avec SIRI permet une adaptation simple aux évènements d'exploitation : Cas d'un changement de Quai
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/LienVersTopologieSSP.JPG)
+
+## EXERCICES
+
+## FIN
+
+🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Accessibilité") ou revenir à la partie précédente ("Introduction")
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="../3_reseau/reseau_rochefort.livemd">Lignes et Horaires - Rochefort</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="Stop_place.livemd">Lieux d'arrêt - Rouen</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="../5_accessibilite/accessibilite_transport.livemd">Accessibilité - transport</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
