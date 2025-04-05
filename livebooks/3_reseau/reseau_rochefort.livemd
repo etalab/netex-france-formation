@@ -275,12 +275,12 @@ tabs([
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
-    
+
 * Code : F
 * Nom : Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud
 * Mode : bus
 * Couleurs : Blanc sur fond Violet
-    
+
 ```xml
 <!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:F:LOC">
     <keyList>
@@ -371,9 +371,9 @@ Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
-    
+
 💡 _N'hésitez pas à utiliser le [plugin](https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer) de VisualStudioCode qui permet de visualiser un fichier XML sous forme tabulaire en regroupant et comptant les éléments_
-    
+
 Il y a 4 `Route` !
 
 ```xml
@@ -502,7 +502,7 @@ Dans l'extrait ci-dessous, on visualise la définition de la `Direction` ainsi q
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
-    
+
 On retrouve la Route qui a cet identifiant :
 
 ```xml
@@ -514,7 +514,7 @@ On retrouve la Route qui a cet identifiant :
 </Route>
 ```
 
-On récupère l'identifiant de la `Direction` référencée : 
+On récupère l'identifiant de la `Direction` référencée :
 
 ```xml
 <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC" version="any"/>
@@ -594,7 +594,7 @@ On retrouve le `ServiceJourneyPattern` qui a cet identifiant :
   <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
 ```
 
-On retrouve la `Route` via son identifiant référencée (RouteRef) : 
+On retrouve la `Route` via son identifiant référencée (RouteRef) :
 
 ```xml
 <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
@@ -981,7 +981,7 @@ Puis cliquez sur "Reevaluate" ci-dessous pour l'afficher:
 
 ```elixir
 Rochefort.Carto.show_route_link(
-  ~r/RBUS_B_B/, 
+  ~r/RBUS_B_B/,
   "//RouteLink[#{Kino.Input.read(numero_du_routelink)}]"
 )
 ```
