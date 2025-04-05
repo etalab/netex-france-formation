@@ -226,10 +226,12 @@ grid([xml_1, image_1, image_2], columns: {2, 1, 1})
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
-    <ul>
-      <li>Nom complet du réseau : R'bus (Rochefort Océan)</li>
-      <li>Nombre de lignes rattachées au réseau : 14</li>
-    </ul>
+
+    ```
+    * Nom complet du réseau : R'bus (Rochefort Océan)
+    * Nombre de lignes rattachées au réseau : 14
+    ```
+
   </div>
 </details>
 
