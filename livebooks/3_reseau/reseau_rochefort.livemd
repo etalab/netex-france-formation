@@ -222,12 +222,16 @@ grid([xml_1, image_1, image_2], columns: {2, 1, 1})
 
 * Quel est le nom complet du Réseau ?
 * Combien de lignes y sont rattachées ?
-  <details class="rounded-lg my-4">
+
+<details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
-  Nom complet du réseau : R'bus (Rochefort Océan)
-
-Nombre de lignes rattachées au réseau : 14
+    <ul>
+      <li>Nom complet du réseau : R'bus (Rochefort Océan)</li>
+      <li>Nombre de lignes rattachées au réseau : 14</li>
+    </ul>
+  </div>
+</details>
 
 ## 🔹 Fichier "commun" > Line - 00:18:00
 
