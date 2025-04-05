@@ -26,13 +26,28 @@ defmodule Rochefort do
     Code.require_file("lib/xml_support.ex", repo_root())
     Code.require_file("lib/helpers.ex", repo_root())
   end
-  
-  def list_netex_content(file \\ rbus_file()) do
+
+  def entries(file) do
     file
     |> ZipSupport.open_zip!()
     |> ZipSupport.list_zip_entries()
+  end
+
+  def list_netex_content(mode, file \\ rbus_file())
+  
+  def list_netex_content(:datatable, file) do
+    file
+    |> entries()
     |> Enum.map(& %{"name" => &1})
     |> Kino.DataTable.new()
+  end
+
+  def list_netex_content(:markdown, file) do
+    file
+    |> entries
+    |> Enum.map(& "* `#{&1}`")
+    |> Enum.join("\n")
+    |> Kino.Markdown.new()
   end
 end
 
@@ -154,13 +169,7 @@ Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.
 Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompresse, on voit que l'archive NeTEx comporte les fichiers suivants:
 
 ```elixir
-Rochefort.list_netex_content()
-```
-
-<!-- livebook:{"output":true} -->
-
-```text
-[%{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_calendriers.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_commun.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_A_A.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_B_B.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_C_C.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_D_D.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_E_E.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_F_F.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_J_J.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI1_RPI-1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI2_RPI-2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI3_RPI-3.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_RPI4_RPI-4.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S1_S1.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S2_S2.xml"}, %{"name" => "OFFRE_ca_rochefort_ocean_20250303000408Z/CA_ROCHEFORT_OCEAN_offre_Bus_RBUS_S3_S3.xml"}]
+Rochefort.list_netex_content(:markdown)
 ```
 
 ## DESCRIPTION GENERALE DU RESEAU - 00:10:00
