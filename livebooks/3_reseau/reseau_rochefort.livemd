@@ -51,9 +51,9 @@ defmodule Rochefort.Carto do
     routelink = content |> XmlSupport.xpath!(route_link_xpath) |> List.first()
 
     {:xmlObj, :string, data} = :xmerl_xpath.string(
-      ~c"string(gis:LineString/gis:posList/text())", 
+      ~c"string(gis:LineString/gis:posList/text())",
       routelink)
-    
+
     coordinates = data
     |> :erlang.list_to_binary()
     |> String.split(~r/\s/)
