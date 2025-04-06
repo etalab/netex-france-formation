@@ -1,10 +1,17 @@
-<!-- livebook:{"file_entries":[{"name":"ariane.png","type":"attachment"},{"name":"noemie.png","type":"attachment"},{"name":"thibaut.png","type":"attachment"},{"name":"thierry.png","type":"attachment"},{"name":"tutho.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"ariane.png","type":"attachment"},{"name":"jorge.png","type":"attachment"},{"name":"logos.png","type":"attachment"},{"name":"muriel.png","type":"attachment"},{"name":"noemie.png","type":"attachment"},{"name":"thibaut.png","type":"attachment"},{"name":"thierry.png","type":"attachment"},{"name":"tutho.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Introduction
 
 ## Bonjour et bienvenue !
 
+![logos](files/logos.png)
+
 Nous sommes très heureux de vous accueillir aujourd'hui pour cette formation NeTEx !
+
+||Prénom|Affiliation|
+|------|--------------------------------------|------------------|
+|![Jorge](files/jorge.png)|Jorge|Direction Générale des Infrastructures, des Transports et des Mobilités (DGITM)|
+|![Muriel](files/muriel.png)|Muriel|Direction Ministérielle de l'Accessibilité (DMA)|
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Remerciements & Logistique</summary>
@@ -13,7 +20,7 @@ Nous sommes très heureux de vous accueillir aujourd'hui pour cette formation Ne
 Remerciements : 
 
 * Direction Ministérielle de l'Accessibilité, représentée par Muriel Larrouy
-* Direction Générale des Infrastructures, des Transports et de la Mer, représentée par Jorge Gonzalez
+* Direction Générale des Infrastructures, des Transports et des Mobilités, représentée par Jorge Gonzalez
 
 Logistique :
 
@@ -48,7 +55,7 @@ Pendant les exercices, les autres formateurs sont là pour vous aider. N'hésite
   </div>
 </details>
 
-## Qui sommes-nous
+## Qui sommes-nous ?
 
 Avec vous durant toute la formation :
 
@@ -59,3 +66,20 @@ Avec vous durant toute la formation :
 |![Thibaut](files/thibaut.png)|Thibaut|Indépendant|Modélisation des réseaux de transport|
 |![Thierry](files/thierry.png)|Thierry|CS Group|La représentation de la multimodalité|
 |![Noémie](files/noemie.png)|Noémie|Jungle Bus|L'accessibilité des transports et de la voirie|
+
+<!-- livebook:{"break_markdown":true} -->
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;">Début</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;">Introduction</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="../2_bases/bases.livemd">Les bases</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>

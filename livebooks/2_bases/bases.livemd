@@ -1,16 +1,40 @@
+<!-- livebook:{"file_entries":[{"name":"Pt_selon_TM.png","type":"attachment"}],"persist_outputs":true} -->
+
 # Les concepts de base
 
-## Modèles de données, normes et profils
+## 1. INTRODUCTION
 
-Avant de nous plonger dans le monde des transports, posons ensemble quelques définitions. Il est important qu'on utilise toutes et tous le même vocabulaire et qu'on soit précis dans son usage.
-Pour ne pas complètement vous endormir avec chaque définition, j'ai prévu un petit cas pratique.
-Lançons-nous !
+Avant de nous plonger dans les représentations des réseaux, de la multimodalité ou de l'accessibilité, posons les bases.
 
-### Modèle de données
+### 1.1. Pourquoi cette partie ?
+
+Pour
+
+📌 Partager le même vocabulaire et être précis dans son usage
+
+📌 Démystifier la normalisation
+
+### 1.2. Ce que vous allez apprendre
+
+✅ Quelques définitions générales
+
+✅ Concepts de base utilisés dans les parties suivantes
+
+<br />
+
+💡 Bon à savoir : Aucun prérequis technique n’est nécessaire.
+
+## 2. MODÈLES DE DONNÉES, NORMES ET PROFILS
+
+### 2.1. Modèle de données
 
 Définition : un modèle abstrait **définissant des concepts et leurs attributs**, ainsi que les relations entre chaque concept. Le tout permet de s’accorder sur une **référence commune** avant d’échanger des informations (= des données)
 
-Autrement dit, cela représente :
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>En bref</summary>
+  <div class="p-4">
+
+Cela représente :
 * Des définitions de concepts
 * Des élémnents de caractérisation des concepts
 * Des relations entre les concepts
@@ -19,88 +43,290 @@ C'est utile pour :
 * S'accorder sur des concepts et leur description
 * Utiliser le même vocabulaire pour des implémentations différentes
 
-Exemple :
-_A dessiner en UML pour contenir les attributs_
+  </div>
+</details>
 
-Exercice :
+Dans notre cas : [Transmodel](https://transmodel-cen.eu/)
+
+Exemple :
+
+<!-- livebook:{"break_markdown":true} -->
+
+```mermaid
+classDiagram
+  direction LR
+    ORGANISATION *-- ORGANISATION_SECTION : est compose de 
+    ORGANISATION_SECTION <|-- EQUIPE
+    ORGANISATION_SECTION <|-- DEPARTEMENT
+    DEPARTEMENT  --> TYPE_D_OPERATION : caracterise par
+    DEPARTEMENT *-- EQUIPE : comprend
+
+    ORGANISATION : +Id
+    ORGANISATION : +Nom
+    ORGANISATION : +NomCommercial
+    ORGANISATION : +Statut
+
+    ORGANISATION_SECTION : +Id
+    ORGANISATION_SECTION : +Nom
+    ORGANISATION_SECTION : +NomCourt
+
+    DEPARTEMENT : +Id
+    DEPARTEMENT : +Nom
+
+    EQUIPE : +Id
+
+    TYPE_D_OPERATION : +Id
+
+```
+
+🫵 Exercice pratique
+
 Dans le modèle conceptuel de données ci-dessous,
+
 * Combien avons-nous de concepts ?
-* Combien d'attributs avons-nous dans le concept 'Nutriment' ?
+* Combien d'attributs avons-nous dans le concept 'ORGANISATION' ?
 * Quel est le concept portant la granularité la plus fine ?
 
-Dans notre cas : Transmodel
-
-### Normes
+### 2.2. Normes
 
 Définition : **document établi par consensus et approuvé par un organisme de normalisation reconnu** (ex. AFNOR, CEN, ISO), qui fournit, pour des usages communs et répétés, des règles, des lignes directrices ou des caractéristiques, pour des activités ou leurs résultats, garantissant un niveau d'ordre optimal dans un contexte donné.
 
-Autrement dit, cela représente :
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>En bref</summary>
+  <div class="p-4">
+
+Cela représente :
+
 * Des règles métier d'usage des concepts définis dans le modèle conceptuel de données
 * Des règles sur l'échange des données
 * Des choix prédéfinis sur la présence obligatoire ou non de certains concepts et attributs
 * Les valeurs permises pour certains attributs
 
 C'est utile pour :
+
 * Favoriser la standardisation des échanges de données
 * Garantir un certain niveau de qualité des données échangées
 
-Exemple :
-_To do_
+  </div>
+</details>
 
-Exercice :
-Les deux normes présentées ci-dessus :
-- Proviennent-elles du même modèle de données ?
-- Sont-elles les mêmes ?
-
-Dans notre cas : NeTEx et SIRI
+Dans notre cas : [NeTEx](https://netex-cen.eu/) et [SIRI](https://siri-cen.eu/)
 
 Norme vs standard : la seule différence est dans la gouvernance !
+
+<br />
+
 Une norme est définie par un organisme de normalisation (ex. AFNOR, ISO). Un standard est défini par un groupe d'acteur qui n'est pas un organisme de normalisation (ex. W3C, Unicode)
 
-### Profil de norme
+Exemple :
+
+<!-- livebook:{"break_markdown":true} -->
+
+```mermaid
+classDiagram
+  direction LR
+    ORGANISATION *-- ORGANISATION_SECTION : est compose de 
+    ORGANISATION_SECTION <|-- EQUIPE
+    ORGANISATION_SECTION <|-- DEPARTEMENT
+    DEPARTEMENT  --> TYPE_D_OPERATION : caracterise par
+    DEPARTEMENT *-- EQUIPE : comprend
+
+    ORGANISATION : -Id
+    ORGANISATION : +Nom, MultilingualString [0..1]
+    ORGANISATION : +NomCommercial, MultilingualString [0..1]
+    ORGANISATION : +Statut, Boolean [0..1]
+
+    ORGANISATION_SECTION : -Id
+    ORGANISATION_SECTION : +Nom, MultilingualString [0..1]
+    ORGANISATION_SECTION : +NomCourt, MultilingualString [0..1]
+    ORGANISATION_SECTION : #OrganisationRef
+
+    DEPARTEMENT : -Id
+    DEPARTEMENT : +Nom, MultilingualString
+    DEPARTEMENT : -equipes, EQUIPE [0..*]
+
+    EQUIPE : -Id
+    EQUIPE : #DepartmentRef
+
+    TYPE_D_OPERATION : -Id
+
+```
+
+🫵 Exercice pratique
+
+Nommez au moins une différence avec le modèle conceptuel de données présenté plus haut.
+
+### 2.3. Profils de norme
 
 Définition : **sous-ensemble défini à partir d’une norme** ou d’un standard qui peut comporter des règles spécifiques.
 
-Autrement dit, cela représente :
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>En bref</summary>
+  <div class="p-4">
+
+Cela représente :
+
 * Une vue réduite d'une norme ou d'un standard existant
 * Des règles métier ou d'échanges de données partagées par un groupe d'acteurs.
 
 C'est utile pour :
+
 * Favoriser l'usage d'une norme très riche
 * Soutenir les échanges entre un certain type d'acteurs (ex. travaillant dans une même région, fournissant des données à un même commanditaire)
 
+  </div>
+</details>
+
+Dans notre cas : le [profil France de NeTEx](https://normes.transport.data.gouv.fr/normes/netex/)
+
 Exemple :
-_To do_
 
-Exercice :
-Sur la base des normes mentionnées plus haut, citez au moins deux profils pertinents ?
+<!-- livebook:{"break_markdown":true} -->
 
-Dans notre cas : le profil France de NeTEx
+```mermaid
+classDiagram
+  direction LR
+    ORGANISATION *-- ORGANISATION_SECTION : est compose de 
+    ORGANISATION_SECTION <|-- EQUIPE
+    ORGANISATION_SECTION <|-- DEPARTEMENT
+    DEPARTEMENT  --> TYPE_D_OPERATION : caracterise par
+    DEPARTEMENT *-- EQUIPE : comprend
 
-## Les concepts de base dans NeTEx / Transmodel
+    ORGANISATION : -Id
+    ORGANISATION : +Nom, MultilingualString [1..1]
+    ORGANISATION : +NomCommercial, MultilingualString [1..1]
+    ORGANISATION : +Statut, Boolean [1..1]
 
-### Le transport public
+    ORGANISATION_SECTION : -Id
+    ORGANISATION_SECTION : +Nom, MultilingualString [0..1]
+    ORGANISATION_SECTION : +NomCourt, MultilingualString [0..1]
+    ORGANISATION_SECTION : #OrganisationRef
+
+    DEPARTEMENT : -Id
+    DEPARTEMENT : +Nom, MultilingualString
+    DEPARTEMENT : -equipes, EQUIPE [0..*]
+
+    EQUIPE : -Id
+    EQUIPE : #DepartmentRef
+
+    TYPE_D_OPERATION : -Id
+
+```
+
+🫵 Exercice pratique
+
+Nommez au moins une différence avec l'extrait de la norme présentée plus haut.
+
+## 3. LES BASES POUR COMPRENDRE TRANSMODEL ET NETEX
+
+### 3.1. Le transport public
 
 Dans Transmodel et toutes les normes qui en sont dérivées, le **Transport public** est tout service de transport promu et disponible à l'ensemble des usagers, quel que soit son mode d'opération. À noter, Transmodel ne réduit pas la définition du transport public à l'existence ou non de conditions d'accès aux services de transport.
 ![PT](files/PT_selon_TM.png) _© CEN, TC278, WG3, SG4 (CC-BY-SA)_
 
 À retenir :
+
 * périmètre plus large que les simples 'transports en communs'
 * richesse des concepts et des attributs pour modéliser toutes les réalités du transport public
 
-### Transmodel, NeTEx et SIRI
+### 3.2. Transmodel, NeTEx et SIRI
 
-Rappel : 
+Rappel :
+
 * Transmodel est le modèle conceptuel de données
 * NeTEx et SIRI sont des formats d'échanges normalisés issus de Transmodel
 
 Concrètement :
+
 * Les concepts utilisés dans NeTEx et SIRI sont définis dans Transmodel
+* Chaque concept (ou entité) a un identifiant qui permet de le référencer ailleurs (Id <> Ref)
 * NeTEx et SIRI portent une vue de Transmodel qui répond à leur périmètre fonctionnel
 
-NeTEx = **Ne**twork *T*imetable *Ex*change
+NeTEx = **Ne**twork **T**imetable **Ex**change
+
+<br />
+
 Pour toutes les données théoriques (= planifiées, connues d'avance) décrivant une offre de transport public allant de la description topologique du réseau à son offre tarifaire en passant par ses éléments d'accessibilité.
 
 SIRI = **S**ervice **I**nterface for **R**eal-time **I**nformation
+
+<br />
+
 Pour toutes les données en temps réel (= dynamiques, non connues d'avance) décrivant l'état d'une offre de transport public à un instant T allant de la position des véhicules à l'état de fonctionnement des ascenseurs en passant par les taux d'affluence.
 
+### 3.3. Les profils France de NeTEx et SIRI
+
+Rappel : un profil permet de faciliter une implémentation locale d'une norme
+
+En France, nous avons :
+
+* un profil France pour NeTEx
+* un profil France pour SIRI
+
+Le profil France de NeTEx comporte plusieurs parties :
+
+* [Éléments communs](https://normes.transport.data.gouv.fr/normes/netex/elements_communs/)
+* [Description des réseaux](https://normes.transport.data.gouv.fr/normes/netex/reseaux/)
+* [Description des arrêts](https://normes.transport.data.gouv.fr/normes/netex/arrets/)
+* [Horaires](https://normes.transport.data.gouv.fr/normes/netex/horaires/)
+* [Tarifs](https://normes.transport.data.gouv.fr/normes/netex/tarifs/)
+* [Accessibilité](https://normes.transport.data.gouv.fr/normes/netex/accessibilite/)
+* [Parking](https://normes.transport.data.gouv.fr/normes/netex/parkings/)
+
+Ce qu'il faut retenir : c'est l'ensemble de ces parties qui forment le profil France. On ne peut pas travailler sur la partie accessibilité sans tenir compte de la partie descriptive des arrêts, par exemple.
+
+### 3.4. Quelques concepts de base
+
+Pour faciliter la prise en main des concepts de base, il a été décidé de privilégier les traductions françaises des concepts contenus dans NeTEx (Transmodel). Les noms d'origine en anglais sont notés entre parenthèses et en _italique_.
+
+Pour décrire spacialement ce qui nous entoure :
+
+* POINT (_POINT_) : Un nœud de dimension 0 servant à la description spatiale du réseau.
+* TRONCON (_LINK_) : Un objet défini dans l’espace, orienté et de dimension 1, utilisé pour décrire la structure du réseau, définissant la connexion entre deux POINTs.
+
+Un POINT comprend les attributs obligatoires suivants :
+
+* Nom (_Name_) : le nom du POINT
+* Localisation (_Location_) : localisation du point
+
+Dans Localisation (_Location_), on retrouve notamment les attributs suivants :
+
+* Longitude
+* Latitude
+
+Cette imbrication est permise par l'usage du XML comme langage informatique grâce à l'imbrication de balises :
+
+```xml
+<Point>
+  <Name> Exemple de point</Name>
+  <Location>
+    <Longitude>-0.37315428391</Longitude>
+    <Latitude>49.21139117869</Latitude>
+  </Location>
+</Point>
+```
+
+Pour décrire finement une station de métro, par exemple, on utilisera les concepts suivants :
+
+* LIEU D'ARRÊT (_STOP PLACE_) : Lieu comprenant un ou plusieurs emplacements où les véhicules peuvent s’arrêter et où les voyageurs peuvent monter à bord ou descendre des véhicules ou préparer leur déplacement.
+* ACCÈS DE LIEU D’ARRÊT (_STOP PLACE ENTRANCE_) : Un ACCÈS DE LIEU D’ARRÊT est un accès physique à un LIEU D’ARRÊT (entrée ou sortie). Il peut comporter une porte, une barrière, un portillon ou tout autre signe distinctif d’un accès.
+* ZONE D’EMBARQUEMENT (_QUAY_) : Lieu tel qu’une plateforme, zone, quai ou voie à quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+
+De la même manière que pour les points, on pourra imbriquer plusieurs attributs descriptifs pour chaque concept.
+
+<!-- livebook:{"break_markdown":true} -->
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="../1_intro/intro.livemd">Introduction</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;">Les bases</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;" href="../3_reseau/reseau_rochefort.livemd">Lignes et Horaires - Rochefort</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>

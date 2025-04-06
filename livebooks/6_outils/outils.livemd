@@ -1,0 +1,165 @@
+<!-- livebook:{"file_entries":[{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
+
+# Les outils et ressources à votre disposition
+
+## 1. INTRODUCTION
+
+### 1.1. Pourquoi cette partie ?
+
+Pour
+
+📌 Vous outiller autant que nous pouvons
+
+📌 Vous permettre d'aller plus loin après cette formation
+
+### 1.2. Ce que vous allez apprendre
+
+✅ Où trouver l'information en autonomie
+
+✅ Mise en perspective des normes européennes
+
+✅ Comment participer à l'évolution des normes européennes
+
+## 2. OUTILS ET RESSOURCES DISPONIBLES
+
+### 2.1. Les outils
+
+| Type          | Titre                                          | Description                                                        | Lien                                                                                     |
+| ------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Documentation | Transmodel - Définitions                      | Dictionnaire de l'ensemble des concepts                            | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf |
+| Technique     | Transmodel - Modèle de données               | L'ensemble du modèle de données sous forme de diagramme UML      | https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea   |
+| Technique     | Transmodel - Fichier XML                       | L'ensemble du modèle de données sous forme de fichier XML        | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml         |
+| Technique     | NeTEx - Schéma XML                            | Les schémas XML (ou XSD) de NeTEx                                 | https://github.com/NeTEx-CEN/NeTEx                                                       |
+| Technique     | SIRI - Schéma XML                             | Les schémas XML (ou XSD) de SIRI                                  | https://github.com/SIRI-CEN/SIRI                                                         |
+| Logiciel      | Enterprise Architect Viewer                    | Pour visualiser le diagramme UML de Transmodel                     | https://sparxsystems.com/products/ea/downloads.html                                      |
+| Logiciel      | XMLSpy                                         | Outil de visualisation de la XSD de NeTEx et SIRI                  | https://www.altova.com/xmlspy-xml-editor/download                                        |
+| Logiciel      | Visual Code Studio                             | Pour lire et éditer des fichiers XML                              | https://code.visualstudio.com/download                                                   |
+| Logiciel      | Visual Code Studio - extension JSON & XML grid | Pour bénéfichier d'une vue sous forme de grille d'un fichier XML | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
+| Logiciel      | Notepad++                                      | Pour lire et éditer des fichiers XML                              | https://notepad-plus-plus.org/downloads/                                                 |
+
+Comment utiliser ces outils :
+
+* Documentation : référence pour les défintions des concepts utilisés
+* Technique : représentation des concepts, de leurs attributs et des relations entre les concepts ; également une aide à la création de jeux de données en NeTex et SIRI
+
+Exemple de vue sous forme de grille d'un fichier XML :
+![grid](files/grid_view.png)
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Pourquoi</summary>
+  <div class="p-4">
+
+Cela permet :
+
+* De visualiser rapidement le nombre d'éléments par type
+* D'analyser la structure d'un fichier XML
+
+C'est utile pour :
+
+* Déterminer les informations contenues dans le fichier
+* Vérifier rapidement le fichier et son adéquation à nos besoins
+
+  </div>
+</details>
+
+### 2.2. Les ressources
+
+Au niveau européen : l'espace de travail [GitHub](https://github.com/NeTEx-CEN/NeTEx) pour
+
+* Accéder à la XSD de NeTEx (version actuelle et future)
+* Explorer des exemples de fichiers XML
+* Poser des questions générales
+* Demander des changements
+
+Au niveau français : le [profil France](https://normes.transport.data.gouv.fr/normes/netex/) pour
+
+* Avoir une traduction des concepts de NeTEx et Transmodel
+* Explorer les éléments propres à la modélisation des transports publics en France
+* Bénéficier d'annexes facilitant la collecte de données, notamment pour la description de l'accessibilité
+
+![Profil France](files/netex_france.png)
+
+Au niveau français : l'espace de travail [GitHub](https://github.com/etalab/transport-profil-netex-fr) du profil France pour
+
+* Poser des questions générales
+* Demander des changements
+* Explorer des exemples de fichiers XML spécifiques à la France
+
+![GitHub Profil France](files/github.png)
+
+🫵 Exercice pratique
+
+Posez une question dans l'espace de travail GitHub du profil France de NeTEx.
+
+## 3. POUR ALLER PLUS LOIN
+
+### 3.1. Historique
+
+Transmodel est né en 1989, via un projet européen nommé Cassiope. Transmodel a été créé dans le but de doter l'Europe d'un vocabulaire et d'une grammaire commune pour décrire les transports publocs.
+
+<br />
+
+SIRI est né en 2006 dans le but d'avoir une interface standardisée d'échange de données qui permettent de décrire l'état à un instant T d'un réseau de transport public.
+
+<br />
+
+NeTEx est né en 2009 dans le but d'avoir une interface standardisée d'échange de données qui permettent de décrire un réseau de transport public avec l'ensemble de ses caractéristiques connues d'avance.
+
+<br />
+
+Transmodel, NeTEx et SIRI évoluent constamment pour prendre en commpte les nouveautés des offres de transport public en Europe. Ces évolutions sont portées par les experts du domaine, qui peuvent être saisis par tout acteur de l'écosystème.
+
+### 3.2. Gouvernance
+
+Transmodel, NeTEx et SIRI sont définis au sein du Comité Européen de Normalisation (CEN), plus particulièrement dans le Groupe de Travail dédié au Transport Public au sein du Comité Technique dédié au Transport routier (TC278 WG3).
+
+<br />
+
+Sont membres du CEN, les instances de normalisation nationales :
+
+* Des États Membres de l'Union Européenne
+* Des pays associés (ex. Grande Bretagne, Turquie )
+  <br />
+  Les normes du CEN sont définies par les experts mandatés par chaque membre sans limite du nombre d'experts. Tout le monde peut s'inscrire via son instance de normalisation nationale, c'est-à-dire à travers l'AFNOR pour la France.
+  <br />
+  Les experts peuvent être des représentants d'AOMs, d'opérateurs, d'industriels, de centre de recherches, etc.
+
+### 3.3. NeTEx et GTFS
+
+NeTEx est conçu pour :
+
+* L'information voyageur
+* Les échanges entre systèmes d'information
+* L'open data
+
+GTFS est conçu pour :
+
+* L'information voyageur, notamment la planfication de trajet
+* L'open data
+
+Parce que NeTEx repose sur un modèle conceptuel de données (Transmodel), il permet :
+
+* Une meilleure articulation des concepts
+* Une représentation plus fine de la réalité (ex. accessibilité, offre tarifaire détaillée, niveau d'occupation par voiture)
+* La génération de jeux de données spécifiques, notamment ceux exprimés en GTFS
+
+À retenir :
+
+* NeTEx et GTFS sont complémentaires car répondant à des cas d'usage différentes
+* NeTEx doit servir de base aux jeux de données en GTFS (pour aller du plus fin au plus généraliste)
+
+<!-- livebook:{"break_markdown":true} -->
+
+<div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="../5_accessibilite/accessibilite_voirie.livemd">Introduction</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;">Outils et ressources</a>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;">Fin</a>
+<i class="ri-arrow-right-fill"></i>
+</div>
+</div>
