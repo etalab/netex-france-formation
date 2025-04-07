@@ -468,6 +468,10 @@ graph LR
 </GeneralFrame>-->
 ```
 
+<!-- livebook:{"break_markdown":true} -->
+
+⚠️ Les séquences de points sont actuellement, dans le fichier de Rochefort, définies à l'intérieur du `ServiceJourneyPattern`, et non pas de la `Route`. En théorie dans le profil France : il est obligatoire de les avoir dans la `Route`, et facultatif dans le `ServiceJourneyPattern`.
+
 ## 🔹🔹Direction
 
 ### Fichier d'une ligne > LIGNE > Direction : on définit les directions possibles de nos Routes
