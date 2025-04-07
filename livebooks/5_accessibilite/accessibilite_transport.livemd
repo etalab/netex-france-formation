@@ -1,4 +1,4 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_article_loi.png","type":"attachment"},"type":"attachment"},{"name":"transport_example_01.png","type":"attachment"},{"name":"transport_example_02.png","type":"attachment"},{"name":"transport_example_03.png","type":"attachment"},{"name":"transport_example_04.png","type":"attachment"},{"name":"transport_example_05.png","type":"attachment"},{"name":"transport_example_06.png","type":"attachment"},{"name":"transport_example_07.png","type":"attachment"},{"name":"transport_example_08.png","type":"attachment"},{"name":"transport_exemple_implantation_quai.png","type":"attachment"},{"name":"transport_lisibilite_info_voy.png","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_article_loi.png","type":"attachment"},{"name":"transport_example_01.png","type":"attachment"},{"name":"transport_example_02.png","type":"attachment"},{"name":"transport_example_03.png","type":"attachment"},{"name":"transport_example_04.png","type":"attachment"},{"name":"transport_example_05.png","type":"attachment"},{"name":"transport_example_06.png","type":"attachment"},{"name":"transport_example_07.png","type":"attachment"},{"name":"transport_example_08.png","type":"attachment"},{"name":"transport_exemple_implantation_quai.png","type":"attachment"},{"name":"transport_lisibilite_info_voy.png","type":"attachment"}]} -->
 
 # Accessibilité - arrêt de transport
 
@@ -192,7 +192,7 @@ Par exemple :
 <div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
 <div class="flex">
 <i class="ri-arrow-left-fill"></i>
-<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd"> Description des arrêts</a>
+<a class="flex ml-2" style="color: #61758a;" href="../4_lieux_darret/Stop_place.livemd"> Description des arrêts</a>
 </div>
 <div class="flex">
 <i class="ri-home-fill"></i>
