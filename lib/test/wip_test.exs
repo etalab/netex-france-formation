@@ -28,7 +28,7 @@ defmodule Tests do
     summary = XmlSummariser.summarise!(content)
 
     assert summary == """
-           Root
+           <Root>
              (...) (x4)\
            """
   end
@@ -51,6 +51,6 @@ defmodule Tests do
       |> Stream.map(&IO.iodata_to_binary(&1))
       |> XmlSummariser.summarise!()
 
-    assert output =~ ~r/Line \(x14\)/
+    assert output =~ ~r/\<Line\> \(x14\)/
   end
 end

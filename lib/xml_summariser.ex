@@ -53,7 +53,7 @@ defmodule XmlSummariser do
           cond do
             state.level > 5 -> output
             state.level in 2..3 -> output ++ [indent <> "(...)"]
-            true -> output ++ [indent <> name]
+            true -> output ++ [indent <> "<" <> name <> ">"]
           end
         end)
 
