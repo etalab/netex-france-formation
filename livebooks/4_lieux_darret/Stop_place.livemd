@@ -73,7 +73,9 @@ Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux
 
 ## 2.1. Qu'est que la multi modalité ?
 
-La multimodalité dans les transports fait référence à l'utilisation combinée de plusieurs modes de transport pour effectuer un trajet.
+Dans le cadre de cette session nous utiliserons le terme **"Multimodal"** pour désigner la présence de différents modes de transports entre deux lieux.
+
+* Elle désigne en effet l’utilisation de transports différents pour aller d’un point A à un point B comme par exemple le train et le bus.
 
 Cela peut inclure des modes tels que la voiture, le train, le vélo, le bus, le métro, et même la marche. L'objectif est de tirer parti des avantages spécifiques de chaque mode pour optimiser les trajets en termes de temps, coût, confort ou impact environnemental.
 
@@ -93,6 +95,9 @@ Les lieux d’arrêt multimodaux sont des espaces conçus pour faciliter l’int
 
   Les infrastructures (ascenseurs, rampes, signalisation) sont souvent adaptées pour un meilleur confort des usagers.
 
+> Le vocabulaire distingue la multimodalité de l'**intermodalité**.
+> L’intermodalité se définie comme l’utilisation d’au moins deux modes de transports sur un même déplacement. C’est un terme qui est utilisé dans la géographie des transports et des mobilités.
+
 ## 2.2 Approche du Profil NeTex Arrêt France
 
 Le profil NeTEx France Arrêt décrit une organisation hiérarchique des lieux d'arret.
@@ -103,6 +108,8 @@ Ce profil spécifie un « Modèle d’arrêt partagé » français sous la forme
 
 Ce modèle définit des regroupements génériques de ces objets relativement simples : il s’agit en particulier de LIEU D’ARRÊT MULTIMODAL, PÔLE MONOMODAL, et GROUPE DE
 LIEUX D’ARRÊT qui sont des concepts intuitifs sur le terrain.
+
+Le Profil est un guide pour le choix des attribus optionnels à implémenter.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -122,7 +129,7 @@ LIEU comprenant un ou plusieurs emplacements où les véhicules peuvent s’arr�
 
 Ce type de lieu ne contiendra que des possibilités d’accès à des véhicules d’un même mode (le mode desservi sera donc l’un de ses attributs). Il correspond à ce qui est souvent appelé arrêt commercial (mais les vocabulaires varient…)
 
-🔹  **Pole monomodal**
+🔹  **Pole monomodal** (`STOP PLACE`)
 
 Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (`STOP PLACE` en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
 
@@ -189,6 +196,8 @@ Les éléments composants un lieu d'arrêt multimodal sont liés par les relatio
 ![](files/Capture.JPG)
 
 ## 2.4. Pour en savoir un peu plus ...
+
+> **Cette section n'est pas abordée en séance. Elle est destinée à ceux qui souhaite a posteriori en savoir un peu plus.**
 
 Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
 
@@ -284,7 +293,7 @@ La modélisation des `STOP PLACE` dans Transmodel repose sur une hiérarchisatio
 
 Cette approche permet une gestion avancée des infrastructures de transport, essentielle pour les opérateurs et les autorités organisatrices.
 
-💡 NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information
+> 💡 **NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information.**
 
 ## III. PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
 
@@ -1497,7 +1506,7 @@ Objet de cette partie, nous allons nous mettre à la place décortiquer les info
 
 <!-- livebook:{"break_markdown":true} -->
 
-Si l'on recherche des `Stop Place` et des `Quay` de nom "Théatre des Arts" nous trouvons 16 éléments.
+Si l'on recherche des `Stop Place` et des `Quay` de nom "Théâtre des Arts" nous trouvons 16 éléments.
 
 * En vrac :
 
@@ -1860,7 +1869,7 @@ La hierarchisation est implémentée :
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Amélioration 4 :  Pole Ajout d'un pôle Monomaodal
+### Amélioration 4 :  Ajout d'un pôle Monomaodal
 
 **Objectif** : intégrer la gare routière localisée à proximité du 'Théâtre des Arts' dans le lieu d'arrêt multimodal. La gare routière ayant un nom différent de 'théâtre des Arts' la notion de Pole monomodal est à utilliser.
 
@@ -1869,11 +1878,15 @@ Pour y parvenir (cf Profil NeTex France Arrêt):
 1- Créer un nouveau Lieu d'arrêt (le pole monomodal)
 
 * Ce lieu est de type 'MonomodalStopHub', de Mode 'Bus' et de Nom 'Théâtre des Arts'
+
 * 'ParentSiteRef' contient l'identifiant du Lieu d'arrêt Multimodal
 
-2- Créer un nouveau Lieu d'arrêt Monomodal avec les différentes zones d'embarquement.
+2- Intégrer la gare routière :
+
+* Créer  (Si non existant) un nouveau Lieu d'arrêt Monomodal avec les différentes zones d'embarquement.
 
 * Si nécessaire les zones d'embarquement peuvent être imbriquées pour modeliser les plate-formes avec 2 quais.
+
 * 'ParentSiteRef' contient l'identifiant du Pole Monomodal
 
 3- Modifier le ParentSiteRef du / des Lieux d'arrêt monomodaux bus existant avec l'identifiant un Pole Monomodal créé en (1)
