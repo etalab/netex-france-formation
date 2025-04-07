@@ -501,7 +501,7 @@ Dans la suite de la session nous allons être amenés à utiliser les fichiers *
 
 **La représentation faite d'un arrêt en NeTEx dépend du choix des organisations en charge de la modelisation.**
 
-* Plusieurs représentation d'un même lieu d'arrêt sont possible de la plus simple à la plus complexe.
+* Plusieurs représentations d'un même lieu d'arrêt sont possible de la plus simple à la plus complexe.
 
 * Cela ne préjuge pas de la capacité de Transmodel & NeTEx à prendre en charge une modélisation plus complète et précise.
 
@@ -515,7 +515,7 @@ Dans la suite de la session nous allons être amenés à utiliser les fichiers *
 
 Le fichier Arret décrit les `Stop Place`et les `Quay`. A partir d'un extrait de ce fichier nous pouvons lire les données qui définissent un arrêt et un Quai.
 
-Le nombre d'éléments décrits dans ce fichier sont les suivants :
+Le nombre d'éléments décrits dans ce fichier est le suivant :
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -683,7 +683,7 @@ La structure de ce fichier vous a été présentée ce matin, on y retrouve les 
 * l'autorité organisatrice `Authority`
 * les liaisons intersite `SiteConnection`
 
-Le nombre d'éléments décrits dans ce fichier sont les suivants :
+Le nombre d'éléments décrits dans ce fichier est le suivant :
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1142,23 +1142,23 @@ CorrespondanceIntersite: xml_5])
 
 La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
 
-Ce fichier décrit chaque ligne identifiée dans le fichier reseau en terme de :
+Ce fichier décrit chaque ligne identifiée dans le fichier 'Réseaux' en termes de :
 
 * Itinéraires `Route`
 * Sens `Direction`
 * Parcours commercial `ServiceJourneyPattern`
-* Affichage de distination `Destination Display`
+* Affichage de destination `Destination Display`
 * Point d'arrêt topologique `ScheduleStopPoint`
 * Affectation de Point d'arrêt `PassengerStopAssignement`
 * Tronçon d'itineraire `RouteLink`
 
-Le nombre d'éléments décrits dans ce fichier sont identifiés ci dessous.
+Le nombre d'éléments décrits dans ce fichier est identifié ci dessous.
 
-A noter la présence de 2 frames dans le fichier :
+A noter la présence de 2 `FRAMES` dans le fichier :
 
-* Une frame regroupent la description topologique de la ligne
+* Une regroupe la description topologique de la ligne,
 
-* Une frame regroupant la description des horaires théoriques de la ligne.
+* Une  regroupe la description des horaires théoriques de la ligne.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1522,7 +1522,7 @@ Affectation: xml_6])
 
 ## 3.4. Modélisation du "Théâtre des Arts"
 
-Objet de cette partie, nous allons nous mettre à la place décortiquer les informations contenues dans le fichiers NeTex pour construire le lieu d'arrêt.
+**Objectif de cette partie** : nous allons nous mettre à la place du SI d'information voyageur et ainsi décortiquer les informations contenues dans le fichier NeTEx pour construire le lieu d'arrêt.
 
 <span style="background-color: grey; color: white;">
 **A partir du fichier Arrets.xml**
@@ -1599,7 +1599,7 @@ Quels commentaires vous inspire cette modélisation ?
 
 ## 3.5 Cas pratique d'amélioration Théâtre des Arts
 
-> **NOTE** : Ce cas pratique ne préjuge pas des données mise à disposition du PAN. L'objectif ici est d'utiliser ces données pour illustrer les possibilités offertes par TRANSMODEL / NeTEx.
+> **NOTE** : Ce cas pratique ne préjuge pas des données mises à disposition du PAN. L'objectif ici est d'utiliser ces données pour illustrer les possibilités offertes par TRANSMODEL / NeTEx.
 
 **RAPPEL**
 
@@ -1611,9 +1611,10 @@ Quels commentaires vous inspire cette modélisation ?
 
 ### La représentation existante
 
-Sur la base de nos principes de repésentation, issus du **profil NeTEx France**, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTEx est la suivante :
+Sur la base de nos principes de représentation, issus du **profil NeTEx France**, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTEx est la suivante :
 
-* Un Lieu d'arrêt = Un Quai
+* Un Lieu d'arrêt = Un Quai,
+
 * Pas de regroupement
 
 <!-- livebook:{"break_markdown":true} -->
@@ -1907,7 +1908,7 @@ La hierarchisation est implémentée :
 
 ### Amélioration 4 :  Ajout d'un pôle Monomaodal
 
-**Objectif** : intégrer la gare routière localisée à proximité du 'Théâtre des Arts' dans le lieu d'arrêt multimodal. La gare routière ayant un nom différent de 'théâtre des Arts' la notion de Pole monomodal est à utilliser.
+**Objectif** : intégrer la gare routière localisée à proximité du 'Théâtre des Arts' dans le lieu d'arrêt multimodal. La gare routière ayant un nom différent de 'théâtre des Arts' la notion de **Pole monomodal** est à utilliser.
 
 Pour y parvenir (cf Profil NeTex France Arrêt):
 
@@ -1921,7 +1922,7 @@ Pour y parvenir (cf Profil NeTex France Arrêt):
 
 * Créer  (Si non existant) un nouveau Lieu d'arrêt Monomodal avec les différentes zones d'embarquement.
 
-* Si nécessaire les zones d'embarquement peuvent être imbriquées pour modeliser les plate-formes avec 2 quais.
+* Si nécessaire les zones d'embarquement peuvent être imbriquées pour modeliser les plates-formes avec 2 quais.
 
 * 'ParentSiteRef' contient l'identifiant du Pole Monomodal
 
@@ -1933,9 +1934,9 @@ Pour y parvenir (cf Profil NeTex France Arrêt):
 
 ## IV. AUTRE EXEMPLE : RTM Castellane
 
-Cette section illustre les possibilités offertes par NeTex pour représenter des lieux d'arrêts multimodaux structurés selon les récommandations du profils France Arrêts.
+Cette section illustre les possibilités offertes par NeTEx pour représenter des lieux d'arrêt multimodaux structurés selon les récommandations du profils France Arrêts.
 
-Les informations présentés sont construites à partir de données reccueilies via des échagnes NeTEx et une Base de Données normalisée Transmodel.
+Les informations présentées sont construites à partir de données recueillies via des échanges NeTEx et une Base de Données normalisée Transmodel.
 
 ## 🔹Le Lieu d'arrêt dans la vraie vie
 
@@ -1969,11 +1970,17 @@ Transmodel et NeTex permettent une représentation hiérarchique et organisée d
 
 Un couplage avec **SIRI** (via des identifiants partagés) permet d'offrir des services puissant en termes de supervision (etat des équipements, accessibilités, cheminement, ...)
 
-Le résultat de cette représentation et son organisation hiérarchique mise à disposition des exploitants de la RTM est la suivante :
+Le résultat de cette représentation et son organisation hiérarchique mise à disposition des exploitants de la RTM est le suivant :
 
 <!-- livebook:{"break_markdown":true} -->
 
 ### Le Lieux d'arrêt Multitimodal
+
+<!-- livebook:{"break_markdown":true} -->
+
+Un lieu d'arrêt multimodal Bus, Métro et Tram.
+
+Un Point d'intérêt lui est rattaché.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1985,11 +1992,23 @@ Le résultat de cette représentation et son organisation hiérarchique mise à 
 
 <!-- livebook:{"break_markdown":true} -->
 
+Le Lieu d'arrêt monomodal contient un lieu d'arret, des espaces et un accès.
+
+<!-- livebook:{"break_markdown":true} -->
+
 ![](files/RTMpoleMetro.JPG)
 
 <!-- livebook:{"break_markdown":true} -->
 
 ### Le lieu d'arret Métro (M2)
+
+<!-- livebook:{"break_markdown":true} -->
+
+En descendant dans le lieu d'arrêt Métro Ligne M2 on accède à :
+
+* Un accès au Quai
+* Une mezzanine avec des informations d'accessibilité et des équipements
+* 2 quais liés chacun à un point d'arrêt topologique
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -2001,7 +2020,7 @@ Le résultat de cette représentation et son organisation hiérarchique mise à 
 
 <!-- livebook:{"break_markdown":true} -->
 
-Comme vu précédemment dans cette formation NeTex découple la représentation logique (Topologie, offre de transport, tarif) de la présentation Physique que nous venons de voir.
+Comme vu précédemment dans cette formation NeTEx découple la représentation logique (Topologie, offre de transport, tarif) de la présentation Physique que nous venons de voir.
 
 Une passerelle entre les deux descriptions est nativement présente dans l'eco système Transmodel.
 
