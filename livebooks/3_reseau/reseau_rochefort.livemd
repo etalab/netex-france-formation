@@ -919,6 +919,8 @@ Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la
 
 ```mermaid
 graph TD
+  RouteLink("RouteLink (Tronçon d'itinéraire)") -- référence des --> RoutePoint
+  Network("Network (Réseau)") -- est un groupe de --> Line
   Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
   Route -- est sur une unique --> Line
   Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
