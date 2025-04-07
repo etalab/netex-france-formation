@@ -91,9 +91,9 @@ Nous commencerons par une introduction théorique aux concepts NeTEx relatifs au
 
 🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
 
-## II. LA MULTIMODALITE (niveau des lieux d'arrêt)
+## II. LA MULTIMODALITÉ (niveau des lieux d'arrêt)
 
-## 2.1. Qu'est que la multi modalité ?
+## 2.1. Qu'est que la multimodalité ?
 
 Dans le cadre de cette session nous utiliserons le terme **"Multimodal"** pour désigner la présence de différents modes de transports entre deux lieux.
 
@@ -173,13 +173,13 @@ Nous allons voir dans cette section les éléments Transmodel transmis via NeTEx
 
 Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
 
-> **A NOTER** :
-> 
-> 1- Dans le principe  concept Transmodel = Une balise XML NeTEx
-> 
-> 2- Transmodel ne definit pas les attributs
-> 
-> 3- Transmodel intègre depuis sa version 6.0 la norme **IFOPT** de description des lieux d'arrêt.
+**À NOTER** :
+ 
+1- Dans le principe  concept Transmodel = Une balise XML NeTEx
+
+2- Transmodel ne definit pas les attributs
+
+3- Transmodel intègre depuis sa version 6.0 la norme **IFOPT** de description des lieux d'arrêt.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -213,7 +213,7 @@ Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt
 
 Les éléments composants un lieu d'arrêt multimodal sont liés par les relations suivantes.
 
-**A NOTER** : Les relations entre objets se font via des balises XML contenant des identifiants (...Ref)
+**À NOTER** : Les relations entre objets se font via des balises XML contenant des identifiants (...Ref)
 
 <!-- livebook:{"break_markdown":true} -->
 
