@@ -2013,7 +2013,7 @@ Le couplage avec SIRI permet une adaptation simple aux évènements d'exploitati
 
 ## FIN
 
-🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Accessibilité") ou revenir à la partie précédente ("Introduction")
+À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Accessibilité") ou revenir à la partie précédente ("Introduction")
 
 <div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
 <div class="flex">
