@@ -12,14 +12,17 @@ Mix.install([
 
 Ce que vous allez apprendre :
 
-* comment représenter des cheminements piétons avec NeTEx
-* comment utiliser la documentation pour trouver les attributs d'accessibilité associés
+✅ Comment représenter des cheminements piétons avec NeTEx
+
+✅ Comment utiliser la documentation pour trouver les attributs d'accessibilité associés
 
 Déroulement de la formation :
 
-* cas pratique
-* lecture de la documentation et découverte de quelques attributs emblématiques
-* exercice pratique de prise en main d'un fichier réel
+📌 cas pratique
+
+📌 lecture de la documentation et découverte de quelques attributs emblématiques
+
+📌 exercice pratique de prise en main d'un fichier réel
 
 ## Cas d'usage
 
@@ -535,7 +538,7 @@ Mode opératoire :
 <a class="flex ml-2" style="color: #61758a;">Accessibilité - cheminements</a>
 </div>
 <div class="flex">
-<a class="flex mr-2" style="color: #61758a;" href="TODO.livemd">Conclusion</a>
+<a class="flex mr-2" style="color: #61758a;" href="../6_outils/outils.livemd">Outils</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>
