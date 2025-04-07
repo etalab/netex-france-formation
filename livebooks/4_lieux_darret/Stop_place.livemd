@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Alt_LA_MultiModal.JPG","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"MultiModal_PoleMono.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Alt_LA_MultiModal.JPG","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GareRoutiere.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"MultiModal_PoleMono.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"RepLA.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Toutmodes.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"},{"name":"lacOMPLEXE.JPG","type":"attachment"}]} -->
 
 # Lieux_Arret
 
@@ -11,9 +11,29 @@ Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
  
 ```
 
+## CONTENU DE LA SECTION
+
+### 🔹 Introduction
+
+Présentation du contenu, de la demarche et des objectifs
+
+### 🔹 La multimodalité
+
+Présentation de ce qu'est la multimodalité et de son application à cette session
+
+### 🔹 Cas pratique
+
+Sur la base d'un fichier NeTEx d'arrêt nous allons l'analyser et le reconstruire à partir de ses données.
+
+Des axes d'amélioration de sa représentativité "Multimodale" seront explorés
+
+### 🔹 Illustration d'une vision exploitant
+
+Présentation de la représentation d'un pole multimodal, vu des exploitants, construit à partir de données Transmodel / NeTEx
+
 ## I. INTRODUCTION
 
-Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux Stop Places.
+Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux lieux d'arrêt `STOP PLACE`).
 
 ## 1.1 Pourquoi cette partie ?
 
@@ -29,13 +49,15 @@ Pour bien utiliser ces fichiers, il est essentiel de savoir :
 
 ✅ Extraire les bonnes informations pour leur intégration dans d’autres systèmes (Systèmes d’Information Voyageurs, outils SIG, planificateurs d’itinéraires).
 
+> RAPPEL : NeTEx repose sur un pilier qu'est TRANSMODEL.
+
 ## 1.2 Ce que vous allez apprendre
 
 Au fil de cette formation, nous allons explorer :
 
 📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts.
 
-📌 Les principaux éléments XML décrivant un Stop Place (StopPlace, StopPlace Component, Quay).
+📌 Les principaux éléments XML décrivant un lieu d'arrêt (`STOPPLACE`, `ENTRANCE`, `QUAY`).
 
 📌 Comment lire un fichier NeTEx et en extraire des informations utiles.
 
@@ -45,13 +67,13 @@ Au fil de cette formation, nous allons explorer :
 
 ## 1.3 La démarche pour cette partie
 
-📌 Identifier un lieu d'arrêt multimodal representatif
+📌 Identifier un lieu d'arrêt multimodal représentatif
 
-📌 Décrire la réalité (Physique, Cartographique, Plan d Ligne)
+📌 Décrire la réalité (Physique, Cartographique, Plan de Lignes)
 
 📌 Identifier le Fichier NeTEx sur le PAN
 
-📌 Recontituer le Lieu d'arrêt décrit par le fichier NeTex
+📌 Recontituer le Lieu d'arrêt décrit par le fichier NeTEx
 
 📌 Comparaison avec la réalité
 
@@ -59,7 +81,7 @@ Au fil de cette formation, nous allons explorer :
 
 ## 1.4 Déroulement de la formation
 
-Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux lieux d'arrêt, suivie de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
+Nous commencerons par une introduction théorique aux concepts NeTEx relatifs aux lieux d'arrêt, suivi de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
 
 À la fin de cette partie, vous serez en mesure de lire, comprendre les principes de strucuration des fichiers NeTEx comprenant la description de Lieux d'arrêt pour des usages concrets.
 
@@ -73,17 +95,19 @@ Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux
 
 ## 2.1. Qu'est que la multi modalité ?
 
-La multimodalité dans les transports fait référence à l'utilisation combinée de plusieurs modes de transport pour effectuer un trajet.
+Dans le cadre de cette session nous utiliserons le terme **"Multimodal"** pour désigner la présence de différents modes de transports entre deux lieux.
+
+* La multimodalité désigne l’utilisation de transports différents pour aller d’un point A à un point B comme par exemple le train et le bus.
 
 Cela peut inclure des modes tels que la voiture, le train, le vélo, le bus, le métro, et même la marche. L'objectif est de tirer parti des avantages spécifiques de chaque mode pour optimiser les trajets en termes de temps, coût, confort ou impact environnemental.
 
-**Limitation de la formation** : Dans le cadre de cette formation nous allons nous attacher à décliner ce concept complexe sur la une des briques qui permet de mettre en oeuvre la multimodalité : **La description des lieux d'arrêt**.
+> **Limitation de la formation** : Dans le cadre de cette formation nous allons nous attacher à décliner ce concept complexe sur l'une des briques qui permet de mettre en oeuvre la multimodalité : **La description des lieux d'arrêt**.
 
 💡 **Pourquoi des lieux d'arrêt multimodaux** ?
 
 Les lieux d’arrêt multimodaux sont des espaces conçus pour faciliter l’interconnexion entre plusieurs modes de transport (bus, train, vélo, voiture, tramway). Leur mise en place répond à plusieurs enjeux liés à la mobilité, l’accessibilité et l’efficacité des transports en permettant :
 
-* de Faciliter l’interconnexion des transports
+* de faciliter l’interconnexion des transports
 
   Ces lieux permettent aux voyageurs de passer facilement d’un mode de transport à un autre (exemple : descendre d’un train et prendre un bus sans difficulté). Ils contribuent à optimiser le temps de trajet et réduisent les interruptions.
 
@@ -93,11 +117,21 @@ Les lieux d’arrêt multimodaux sont des espaces conçus pour faciliter l’int
 
   Les infrastructures (ascenseurs, rampes, signalisation) sont souvent adaptées pour un meilleur confort des usagers.
 
+> Le vocabulaire distingue la multimodalité de l'**intermodalité**.
+> L’intermodalité se définie comme l’utilisation d’au moins deux modes de transports sur un même déplacement. C’est un terme qui est utilisé dans la géographie des transports et des mobilités.
+
 ## 2.2 Approche du Profil NeTex Arrêt France
 
 Le profil NeTEx France Arrêt décrit une organisation hiérarchique des lieux d'arret.
 
 * https://normes.transport.data.gouv.fr/normes/netex/arrets/
+
+Ce profil spécifie un « Modèle d’arrêt partagé » français sous la forme d’un modèle conceptuel de données basé sur le concept LIEU D’ARRÊT `STOPPLACE`et les concepts liés.
+
+Ce modèle définit des regroupements génériques de ces objets relativement simples : il s’agit en particulier de LIEU D’ARRÊT MULTIMODAL, PÔLE MONOMODAL, et GROUPE DE
+LIEUX D’ARRÊT qui sont des concepts intuitifs sur le terrain.
+
+Le Profil est un guide pour le choix des attribus optionnels à implémenter.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -107,20 +141,27 @@ Le profil NeTEx France Arrêt décrit une organisation hiérarchique des lieux d
 
 Les définitions des éléments constituant cette organisation sont les suivantes :
 
-🔹 **Groupe de Lieux**
+🔹 **Zone d'Embarquement** (`QUAY`) :
 
-Le GROUPE DE LIEUX D’ARRÊT est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
+Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
 
-🔹 **Lieu d’arrêt multimodal** (`STOP PLACE`) : LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
+🔹  **Lieu d’arret monomodal** (`STOP PLACE`)
 
-📌  **Lieu d’arret monomodal** (`STOP PLACE`)
+LIEU comprenant un ou plusieurs emplacements où les véhicules peuvent s’arrêter et où les voyageurs peuvent monter à bord ou descendre des véhicules ou préparer leur déplacement.
 
-Lieu comprenant un ou plusieurs emplacements où les véhicules peuvent s’arrêter et où les voyageurs peuvent monter à bord ou descendre des véhicules ou préparer leur déplacement.
 Ce type de lieu ne contiendra que des possibilités d’accès à des véhicules d’un même mode (le mode desservi sera donc l’un de ses attributs). Il correspond à ce qui est souvent appelé arrêt commercial (mais les vocabulaires varient…)
 
-📌  **Pole monomodal** :Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (`STOP PLACE` en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
+🔹  **Pole monomodal** (`STOP PLACE`)
 
-🔹 **Zone d'Embarquement** (`QUAY`) :Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
+Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (`STOP PLACE` en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
+
+🔹 **Lieu d’arrêt multimodal** (`STOP PLACE`) :
+
+LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
+
+🔹 **Groupe de Lieux**
+
+C'est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
 
 ## 2.3. Les notions NeTex Associées
 
@@ -128,11 +169,17 @@ Ce type de lieu ne contiendra que des possibilités d’accès à des véhicules
 
 <!-- livebook:{"break_markdown":true} -->
 
-Nous allons voir dans cette section les éléments Transmodel transmis via NeTex qui permettent de définir un lieu d'arrêt.
+Nous allons voir dans cette section les éléments Transmodel transmis via NeTEx qui permettent de définir un lieu d'arrêt.
 
 Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
 
-**A NOTER** : Un concept Transmodel = Un balise XML NeTEx
+> **A NOTER** :
+> 
+> 1- Dans le principe  concept Transmodel = Une balise XML NeTEx
+> 
+> 2- Transmodel ne definit pas les attributs
+> 
+> 3- Transmodel intègre depuis sa version 6.0 la norme **IFOPT** de description des lieux d'arrêt.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -141,6 +188,14 @@ Transmodel définit les concepts suivants pour la définition des lieux d'arrêt
 📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement
 
 📌 Un Lieu d'arrêt peut être constitué de Lieux d'arrêt.
+
+Exemples de `STOPPLACE`
+
+* Une station de métro comprenant plusieurs quais et entrées.
+
+* Une gare ferroviaire intégrant plusieurs voies et correspondances avec des bus et tramways.
+
+* Un pôle d’échange multimodal combinant train, tram, bus et parkings relais.
 
 #### `QUAY` (Zone d'embarquement)
 
@@ -164,49 +219,57 @@ Les éléments composants un lieu d'arrêt multimodal sont liés par les relatio
 
 ![](files/Capture.JPG)
 
+<!-- livebook:{"break_markdown":true} -->
+
+Ces concepts permettent une représentation de Lieux (Trés) complexes
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/lacOMPLEXE.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RepLA.JPG)
+
 ## 2.4. Pour en savoir un peu plus ...
+
+> **Cette section n'est pas abordée en séance. Elle est destinée à ceux qui souhaite a posteriori en savoir un peu plus.**
 
 Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
 
 <!-- livebook:{"break_markdown":true} -->
 
-Dans le domaine des systèmes d’information pour le transport public, la modélisation des Stop Places (lieux d’arrêt) est un enjeu clé pour assurer une représentation cohérente et interopérable des infrastructures d’arrêt. Transmodel, le modèle de référence européen pour les données de transport, définit une structure hiérarchique et relationnelle permettant de représenter fidèlement ces éléments à différentes échelles.
+Dans le domaine des systèmes d’information pour le transport public, la modélisation des `STOP PLACE` (lieux d’arrêt) est un enjeu clé pour assurer une représentation cohérente et interopérable des infrastructures d’arrêt. Transmodel, le modèle de référence européen pour les données de transport, définit une structure hiérarchique et relationnelle permettant de représenter fidèlement ces éléments à différentes échelles.
 
-Un Stop Place n’est pas seulement un point d’arrêt unique, mais peut être un regroupement d’arrêts physiques, incluant plusieurs modes de transport et divers équipements d’infrastructure. La modélisation repose sur des principes de récursivité, de relations spatiales et d’agrégation hiérarchique, facilitant l’organisation des données et leur échange entre systèmes.
+Un `STOP PLACE` n’est pas seulement un point d’arrêt unique, mais peut être un regroupement d’arrêts physiques, incluant plusieurs modes de transport et divers équipements d’infrastructure. La modélisation repose sur des principes de récursivité, de relations spatiales et d’agrégation hiérarchique, facilitant l’organisation des données et leur échange entre systèmes.
 
-Les concepts fondamentaux des Stop Places dans Transmodel, sont présentés ci-après sur la base de leur structuration, des relations entre entités et des principes avancés de modélisation.
+Les concepts fondamentaux des `STOP PLACE` dans Transmodel, sont présentés ci-après sur la base de leur structuration, des relations entre entités et des principes avancés de modélisation.
 
-🔹🔹 Structure et Hiérarchie des Stop Places
+🔹🔹 Structure et Hiérarchie des `STOP PLACE`
 
-Dans Transmodel, la modélisation des Stop Places s’appuie sur une hiérarchie en plusieurs niveaux, permettant de structurer les infrastructures d’arrêt selon leur complexité et leur organisation spatiale. Cette hiérarchie se compose principalement des éléments suivants :
+Dans Transmodel, la modélisation des `STOP PLACE` s’appuie sur une hiérarchie en plusieurs niveaux, permettant de structurer les infrastructures d’arrêt selon leur complexité et leur organisation spatiale. Cette hiérarchie se compose principalement des éléments suivants :
 
-* **Stop Place** (Lieu d’arrêt principal)
+* **`STOP PLACE`** (Lieu d’arrêt principal)
 
-Le Stop Place est l’entité centrale du modèle. Il représente un site d’arrêt pouvant inclure plusieurs infrastructures d’arrêt individuelles. Un Stop Place peut être une simple station de bus, une gare ferroviaire ou une grande station multimodale combinant plusieurs types de transport (métro, tramway, bus, train).
+Le `STOP PLACE` est l’entité centrale du modèle. Il représente un site d’arrêt pouvant inclure plusieurs infrastructures d’arrêt individuelles. Un `STOP PLACE` peut être une simple station de bus, une gare ferroviaire ou une grande station multimodale combinant plusieurs types de transport (métro, tramway, bus, train).
 
-Exemples de Stop Places
+🔹🔹 La Récursivité dans la Modélisation des `STOP PLACE`
 
-📌 Une station de métro comprenant plusieurs quais et entrées.
+Un des concepts essentiels de la modélisation des `STOP PLACE`dans Transmodel est la récursivité.
 
-📌 Une gare ferroviaire intégrant plusieurs voies et correspondances avec des bus et tramways.
-
-📌 Un pôle d’échange multimodal combinant train, tram, bus et parkings relais.
-
-🔹🔹 La Récursivité dans la Modélisation des Stop Places
-
-Un des concepts essentiels de la modélisation des Stop Places dans Transmodel est la récursivité. Cela signifie qu’un Stop Place peut contenir d’autres Stop Places, formant ainsi une structure imbriquée adaptée aux infrastructures complexes.
+Cela signifie qu’un `STOP PLACE`peut contenir d’autres `STOP PLACE`, formant ainsi une structure imbriquée adaptée aux infrastructures complexes.
 
 * **Définition de la récursivité dans Transmodel**
 
-La récursivité permet d’exprimer des relations hiérarchiques où un Stop Place peut être composé d’autres Stop Places, qui eux-mêmes contiennent des Stop Areas et des Stop Points.
+La récursivité permet d’exprimer des relations hiérarchiques où un `STOP PLACE` peut être composé d’autres `STOP PLACE`, qui eux-mêmes contiennent des `STOP PLACE`.
 
 Exemple concret de récursivité :
 
-📌 Un aéroport international (Stop Place) peut contenir plusieurs terminaux (Stop Places imbriqués)
+📌 Un aéroport international (`STOP PLACE`) peut contenir plusieurs terminaux (Stop Places imbriqués)
 
-📌 Chaque terminal peut avoir plusieurs halls d’embarquement (Stop Areas).
+📌 Chaque terminal peut avoir plusieurs halls d’embarquement (`STOP PLACE COMPONENT`).
 
-📌 Chaque hall contient plusieurs portes de départ (Stop Points).
+📌 Chaque hall contient plusieurs portes de départ (`STOP PLACE COMPONENT`).
 
 Cette structuration permet une représentation modulaire et extensible des infrastructures de transport, facilitant la gestion des données et leur exploitation par des systèmes d’information.
 
@@ -216,15 +279,15 @@ La récursivité s’accompagne de relations spatiales et fonctionnelles entre l
 
 Quelques relations courantes dans Transmodel
 
-📌 Contenu/Contenant : un Stop Place peut contenir plusieurs Stop Areas et Stop Places secondaires.
+📌 Contenu/Contenant : un `STOP PLACE COMPONENT` peut contenir plusieurs `STOP PLACE COMPONENT` secondaires.
 
-📌 Proximité : deux Stop Places distincts peuvent être reliés s’ils sont situés à courte distance (ex. une gare et une station de bus adjacente).
+📌 Proximité : deux `STOP PLACE` distincts peuvent être reliés s’ils sont situés à courte distance (ex. une gare et une station de bus adjacente).
 
-📌 Connexion : un Stop Place peut être relié à un autre via des infrastructures de liaison (passages souterrains, passerelles, escaliers).
+📌 Connexion : un `STOP PLACE` peut être relié à un autre via des infrastructures de liaison (passages souterrains, passerelles, escaliers).
 
 🔹🔹 Autres Concepts Clés
 
-En complément de la récursivité, plusieurs autres principes sont fondamentaux dans la modélisation des Stop Places :
+En complément de la récursivité, plusieurs autres principes sont fondamentaux dans la modélisation des `STOP PLACE` :
 
 * **Accessibilité et équipements**
 
@@ -238,7 +301,7 @@ La prise en compte des équipements et de l’accessibilité est essentielle dan
 
 * **Correspondances et Intermodalité**
 
-Un Stop Place peut être relié à d’autres infrastructures de transport pour permettre des correspondances optimisées. Ces connexions peuvent être modélisées par :
+Un `STOP PLACE` peut être relié à d’autres infrastructures de transport pour permettre des correspondances optimisées. Ces connexions peuvent être modélisées par :
 
 📌 Arrêts adjacents (ex. arrêt de bus devant une gare ferroviaire).
 
@@ -256,7 +319,7 @@ Les arrêts peuvent être différenciés en :
 
 🔹🔹 Atouts de la modelisation NeTEx pour les lieux d'arrêt.
 
-La modélisation des Stop Places dans Transmodel repose sur une hiérarchisation rigoureuse, une structuration récursive, et une modélisation relationnelle des arrêts. Grâce à ces principes, les systèmes d’information de transport peuvent :
+La modélisation des `STOP PLACE` dans Transmodel repose sur une hiérarchisation rigoureuse, une structuration récursive, et une modélisation relationnelle des arrêts. Grâce à ces principes, les systèmes d’information de transport peuvent :
 
 📌 Structurer précisément les données des arrêts.
 
@@ -266,7 +329,7 @@ La modélisation des Stop Places dans Transmodel repose sur une hiérarchisation
 
 Cette approche permet une gestion avancée des infrastructures de transport, essentielle pour les opérateurs et les autorités organisatrices.
 
-💡 NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information**
+> 💡 **NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information.**
 
 ## III. PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
 
@@ -285,6 +348,20 @@ Situé en plein centre-ville de Rouen, le **Théâtre des Arts** est desservi pa
 Ce théâtre se trouve à proximité d'une **gare routière**, offrant ainsi une accessibilité renforcée.
 
 Il est important de noter que certains arrêts proches portent le nom **"Théâtre des Arts"**, tandis que d'autres possèdent des appellations différentes, comme **"Gare Routière"**.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/Toutmodes.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+La gare routière à proximité
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/GareRoutiere.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
 
 ### Objectifs de cette présentation
 
@@ -1465,7 +1542,7 @@ Objet de cette partie, nous allons nous mettre à la place décortiquer les info
 
 <!-- livebook:{"break_markdown":true} -->
 
-Si l'on recherche des `Stop Place` et des `Quay` de nom "Théatre des Arts" nous trouvons 16 éléments.
+Si l'on recherche des `Stop Place` et des `Quay` de nom "Théâtre des Arts" nous trouvons 16 éléments.
 
 * En vrac :
 
@@ -1524,11 +1601,17 @@ Quels commentaires vous inspire cette modélisation ?
 
 > **NOTE** : Ce cas pratique ne préjuge pas des données mise à disposition du PAN. L'objectif ici est d'utiliser ces données pour illustrer les possibilités offertes par TRANSMODEL / NeTEx.
 
+**RAPPEL**
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/OrgaLAProfilNeTEx.JPG)
+
 <!-- livebook:{"break_markdown":true} -->
 
 ### La représentation existante
 
-Sur la base de nos principes de repésentation, issus du **profil NeTEx France**, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTex est la suivante :
+Sur la base de nos principes de repésentation, issus du **profil NeTEx France**, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTEx est la suivante :
 
 * Un Lieu d'arrêt = Un Quai
 * Pas de regroupement
@@ -1552,6 +1635,8 @@ Une première possibilité d'amélioration consisterait à rattacher plusieurs Z
 <!-- livebook:{"break_markdown":true} -->
 
 Pour cela l'impact sur la description XML consisterait à modifier les liens entre les différents éléments et supprimer un lieu d'arrêt devenu inutile.
+
+Comparons le fichier actuel et les modifications qu'ils conviendrait d'effectuer pour implémenter cette modification.
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -1794,7 +1879,25 @@ Sinon cette optimisation n'est pas pertinente.
 
 ### Amélioration 3 : Lieu d'arrêt Multimodal
 
-TO DO
+Il s'agit de créer un nouveau STOP PLACE de Type Multimodal.
+
+La hierarchisation est implémentée :
+
+1- en ajoutant l'attribut **'ParentSiteRef'** à tous les lieux d'arrêt monomodaux rattachés contenant l'identifiant du Lieu d'arrêt Multimodal.
+
+2- Le type de ce lieu d'arrêt est : **'multimodalStopPlace'**.
+
+3- Son mode de transport est celui du plus haut niveau (cf Profil NeTEx France Arrêt). Dans notre cas il s'agira du mode **'Métro'**.
+
+> **INFORMATION** : Hierarchisation des modes de transport (Profil Arrêts NeTex France)
+> 
+> 1. Aérien
+> 2. Maritime/Fluvial
+> 3. Ferré
+> 4. Métro
+> 5. Tram
+> 6. Funiculaire/Câble
+> 7. Bus/Car/Trolley
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1802,11 +1905,27 @@ TO DO
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Amélioration 4 :  Pole Ajout d'un pôle Monomaodal
+### Amélioration 4 :  Ajout d'un pôle Monomaodal
 
-Objectif : intégrer la gare routière localisée à proximité du Théâtre des Arts
+**Objectif** : intégrer la gare routière localisée à proximité du 'Théâtre des Arts' dans le lieu d'arrêt multimodal. La gare routière ayant un nom différent de 'théâtre des Arts' la notion de Pole monomodal est à utilliser.
 
-TO DO
+Pour y parvenir (cf Profil NeTex France Arrêt):
+
+1- Créer un nouveau Lieu d'arrêt (le pole monomodal)
+
+* Ce lieu est de type 'MonomodalStopHub', de Mode 'Bus' et de Nom 'Théâtre des Arts'
+
+* 'ParentSiteRef' contient l'identifiant du Lieu d'arrêt Multimodal
+
+2- Intégrer la gare routière :
+
+* Créer  (Si non existant) un nouveau Lieu d'arrêt Monomodal avec les différentes zones d'embarquement.
+
+* Si nécessaire les zones d'embarquement peuvent être imbriquées pour modeliser les plate-formes avec 2 quais.
+
+* 'ParentSiteRef' contient l'identifiant du Pole Monomodal
+
+3- Modifier le ParentSiteRef du / des Lieux d'arrêt monomodaux bus existant avec l'identifiant un Pole Monomodal créé en (1)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1892,11 +2011,9 @@ Le couplage avec SIRI permet une adaptation simple aux évènements d'exploitati
 
 ![](files/LienVersTopologieSSP.JPG)
 
-## EXERCICES
-
 ## FIN
 
-🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Accessibilité") ou revenir à la partie précédente ("Introduction")
+À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Accessibilité") ou revenir à la partie précédente ("Introduction")
 
 <div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
 <div class="flex">
