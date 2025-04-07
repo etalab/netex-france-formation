@@ -64,7 +64,7 @@ defmodule Tests do
 
   def one!(list, regexp) do
     list
-    |> Enum.filter(& &1 =~ regexp)
+    |> Enum.filter(&(&1 =~ regexp))
     |> Helpers.one!()
   end
 
