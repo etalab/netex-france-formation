@@ -26,13 +26,28 @@ defmodule Rochefort do
     Code.require_file("lib/xml_support.ex", repo_root())
     Code.require_file("lib/helpers.ex", repo_root())
   end
-  
-  def list_netex_content(file \\ rbus_file()) do
+
+  def entries(file) do
     file
     |> ZipSupport.open_zip!()
     |> ZipSupport.list_zip_entries()
+  end
+
+  def list_netex_content(mode, file \\ rbus_file())
+  
+  def list_netex_content(:datatable, file) do
+    file
+    |> entries()
     |> Enum.map(& %{"name" => &1})
     |> Kino.DataTable.new()
+  end
+
+  def list_netex_content(:markdown, file) do
+    file
+    |> entries
+    |> Enum.map(& "* `#{&1}`")
+    |> Enum.join("\n")
+    |> Kino.Markdown.new()
   end
 end
 
@@ -51,9 +66,9 @@ defmodule Rochefort.Carto do
     routelink = content |> XmlSupport.xpath!(route_link_xpath) |> List.first()
 
     {:xmlObj, :string, data} = :xmerl_xpath.string(
-      ~c"string(gis:LineString/gis:posList/text())", 
+      ~c"string(gis:LineString/gis:posList/text())",
       routelink)
-    
+
     coordinates = data
     |> :erlang.list_to_binary()
     |> String.split(~r/\s/)
@@ -79,7 +94,7 @@ end
 :ok
 ```
 
-## INTRODUCTION
+## INTRODUCTION - 00:00:00
 
 Bienvenue dans la partie de formation qui traite du Réseau ! Nous aborderons entre autres les principes des Lignes, des Itinéraires, des Horaires et Calendriers...
 
@@ -103,7 +118,7 @@ Bienvenue dans la partie de formation qui traite du Réseau ! Nous aborderons en
 
 🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
 
-## PARTIR DU REEL - L'OFFRE DE "ROCHEFORT OCEAN"
+## PARTIR DU REEL - L'OFFRE DE "ROCHEFORT OCEAN" - 00:02:00
 
 Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
 
@@ -141,7 +156,7 @@ Il existe également sur le territoire :
 
 Ces lignes ne seront pas abordées lors de cette présentation
 
-## DIRECTION : LA DONNEE NETEX
+## DIRECTION : LA DONNEE NETEX - 00:05:00
 
 Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
 
@@ -151,25 +166,15 @@ Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.
 
 * [Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine]) pour des définitions plus précises des arrêts ainsi qu'un agrégat de l'offre régionale.
 
-* 🚨 TODO : faire un backup des données du PAN
-
-🫵 À vous : téléchargez le fichier NeTEx de R'bus, décompressez le, et observez les noms des fichiers
-
-* 🚨TODO: "Collapser" la vue des fichiers plus bas
-
 Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompresse, on voit que l'archive NeTEx comporte les fichiers suivants:
 
 ```elixir
-Rochefort.list_netex_content()
+Rochefort.list_netex_content(:markdown)
 ```
 
-## DESCRIPTION GENERALE DU RESEAU
+## DESCRIPTION GENERALE DU RESEAU - 00:10:00
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
-
-🫵 À vous : ouvrez le fichier "commun" avec un navigateur (ou autre logiciel de lecture de fichier XML)
-
-* 🚨TODO - proposer un outil en ligne qui permet de résumer le fichier ? (pas le plugin VSCode directement)
 
 ```xml
 <PublicationDelivery ...>
@@ -185,8 +190,6 @@ Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 </PublicationDelivery>
 ```
 
-* 🚨TODO - automatiser le résumé ci-dessus
-
 Les notions de `Network` et de `Line` sont définies dans les sections suivantes.
 En ce qui concerne les autres éléments du fichier, en voici des définitions succintes :
 
@@ -196,37 +199,52 @@ En ce qui concerne les autres éléments du fichier, en voici des définitions s
 
 * `SiteConnection` : un SiteConnection représente une connexion physique ou logique entre deux lieux (ex. gares, arrêts, terminaux, hubs de transport). Il est utilisé pour modéliser les correspondances piétonnes, les liaisons intermodales et les temps de transfert entre des sites de transport.
 
-## 🔹 Fichier "commun" > Network
+## 🔹 Fichier "commun" > Network - 00:13:00
 
 Dans le fichier commun/partie Network, on définit le réseau (et les lignes rattachées).
-
-🫵 À vous : trouvez la section Network dans le fichier commun
-
-* 🚨TODO: Ne pas distinguer lignes Scolaires / non Scolaires
-* 🚨TODO: Dire qu'on ne fait ici que des références aux Lignes (ça ne les définit pas)
-* 🚨TODO: Ajouter un WARNING : ne pas utiliser les identifiants à des fins sémantiques. On ne doit pas parser un identifiant pour en extraire des données. Ces identifiants doivent être traités comme opaques.
 
 **_Rappel définition_** : Un `Network` est un GROUPE DE LIGNES disposant d’un nom sous lequel un réseau de transport est connu.
 
 Cf [Profil France NETEX : Network](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#network-r%C3%A9seau)
 
+💡 Attention, ici les lignes ne sont que référencées (et non pas définies)
+
+💡 De manière générale, les identifiants NeTEx ne doivent pas être utilisées à des fins sémantiques. Un identifiant ne doit pas être "parsé" pour en extraire des données.
+
 ```elixir
 import Kino.Shorts
 
+
 xml_1 = "snippets/001-network.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
-xml_2 = "snippets/001-network-highlight-regular.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
 image_1 = "files/planReaseauRBus_lignes_regulieres.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
-xml_3 = "snippets/001-network-highlight-school.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
 image_2 = "files/planReaseauRBus_lignesScolaires.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
 
-tabs([
-  Network: xml_1,
-  "Lignes régulières": grid([xml_2, image_1], columns: {2, 1}),
-  "Lignes scolaires et RPI": grid([xml_3, image_2], columns: {2, 1})
-])
+grid([xml_1, image_1, image_2], columns: {2, 1, 1})
+
 ```
 
-## 🔹 Fichier "commun" > Line
+🫵 À vous :
+
+* téléchargez le fichier NeTEx de R'bus sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), décompressez le, et observez les noms des fichiers
+
+✍️ **Exercice** :
+
+* Quel est le nom complet du Réseau ?
+* Combien de lignes y sont rattachées ?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
+
+    ```
+    * Nom complet du réseau : R'bus (Rochefort Océan)
+    * Nombre de lignes rattachées au réseau : 14
+    ```
+
+  </div>
+</details>
+
+## 🔹 Fichier "commun" > Line - 00:18:00
 
 Pour chaque ligne, on définit des informations générales telles que son nom, son code, son mode, etc.
 
@@ -259,17 +277,19 @@ tabs([
 
 <!-- livebook:{"break_markdown":true} -->
 
-✍️ Exercice : trouvez le code, le nom le mode et les couleurs de la ligne F
+✍️ **Exercice : trouvez le code, le nom le mode et les couleurs de la ligne F**
+
+💡 _Attention, la couleur est exprimée au format hexadécimal. N'hésitez pas à utiliser un outil en ligne pour identifier la couleur voulue (ex : google.com : recherche "color hex")_
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
-    
+
 * Code : F
 * Nom : Rochefort / Echillais / Soubise / Saint-Nazaire / Port des Barques Font Renaud
 * Mode : bus
 * Couleurs : Blanc sur fond Violet
-    
+
 ```xml
 <!--<Line version="any" id="CA_ROCHEFORT_OCEAN:Line:F:LOC">
     <keyList>
@@ -301,11 +321,7 @@ tabs([
   </div>
 </details>
 
-## DESCRIPTION D'UNE LIGNE
-
-🫵 À vous : ouvrez le fichier de la ligne B
-
-<!-- livebook:{"break_markdown":true} -->
+## DESCRIPTION D'UNE LIGNE - 00:25:00
 
 ![](files/liste_fichiers_netex_ligneB.jpg)
 
@@ -357,8 +373,47 @@ Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 </GeneralFrame>
 ```
 
-* 🚨TODO - comptage de chaque entité
-* 🚨TODO - question auto-formation Thibaut - comment reconstruire la vue résumée de la ligne à partir du fichier NeTEX ? Réponse: les noms des arrêts et leur accessibilité est centralisée dans le référentiel régional (agrégat). Route -> ServiceJourneyPattern -> (...) -> ScheduleStopPoint -> Quay/StopPlace
+<!-- livebook:{"break_markdown":true} -->
+
+✍️ **Exercice** : combien y a-t-il de Route dans le fichier de la ligne B ?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
+
+💡 _N'hésitez pas à utiliser le [plugin](https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer) de VisualStudioCode qui permet de visualiser un fichier XML sous forme tabulaire en regroupant et comptant les éléments_
+
+Il y a 4 `Route` !
+
+```xml
+            <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+              <Name>Parc des Fourriers -> Hôpital</Name>
+              <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+              <DirectionType>inbound</DirectionType>
+              <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+            </Route>
+            <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC">
+              <Name>Hôpital -> Parc des Fourriers</Name>
+              <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+              <DirectionType>outbound</DirectionType>
+              <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC" version="any"/>
+            </Route>
+            <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_9523CEB527B7855DF453D065F3F80B97:LOC">
+              <Name>La Croix Breuil Magne -> Parc des Fourriers</Name>
+              <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+              <DirectionType>outbound</DirectionType>
+              <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_9523CEB527B7855DF453D065F3F80B97:LOC" version="any"/>
+            </Route>
+            <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
+              <Name>Parc des Fourriers -> La Croix Breuil Magne</Name>
+              <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+              <DirectionType>inbound</DirectionType>
+              <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+            </Route>
+```
+
+  </div>
+</details>
 
 ## 🔹🔹Route
 
@@ -376,12 +431,6 @@ Un ITINERAIRE appartient toujours à une LIGNE (`Line`). Une LIGNE est composée
 
 Cf [Profil France NETEX : Route](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-itin%C3%A9raire)
 
-* 🚨TODO - définitions pas très claires sur le profil France ; on peut faire des retours
-* 🚨TODO - si faisable : au survol de "Route", afficher la définition en popup, mettre un lien vers le doc de définitions générales etc.
-* 🚨TODO - expliquer que la structure précise d'un fichier peut varier d'un territoire à un autre, mais que cela est en cours d'homogénéisation (travaux GT7 etc)
-* 🚨TODO - Les séquences de points sont actuellement, dans le fichier de Rochefort, définies à l'intérieur du ServiceJourneyPattern, et pas de la Route. En théorie dans le profil France: il est obligatoire de les avoirs dans la Route, et facultatif dans le ServiceJourneyPattern.
-* 🚨TODO - mettre les fiches horaires pour clarifier la définition (pour indiquer qu'on ne dessert pas tous les arrêts (visualisation des terminus partiels, etc.))
-
 <!-- livebook:{"break_markdown":true} -->
 
 ```mermaid
@@ -395,10 +444,6 @@ graph LR
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/ligneB_arrets_Route.jpg)
-
-<!-- livebook:{"break_markdown":true} -->
-
-🚨TODO - je décroche : où sont les points, qui sont censés être là ??? Réponse: le RouteRef est pointé par un ServiceJourneyPattern, qui contient une séquence de ScheduleStopPoints, et via les refs des SSP on peut parfois mais pas tout le temps, remonter au RouteLink correspondant. Le PassengerStopAssignement permet  de faire le lien entre SCheduleStoppoint et Quay (qui est dans l'agrégat) et donc d'obtenir les informations d'accessibilités et les noms des arrêts (mutualisés sur la région).
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -459,6 +504,42 @@ Dans l'extrait ci-dessous, on visualise la définition de la `Direction` ainsi q
 </GeneralFrame>-->
 ```
 
+<!-- livebook:{"break_markdown":true} -->
+
+✍️ **Exercice** : Dans quelle `Direction` (trouver son `Name`) va la `Route` d'identifiant _CA_ROCHEFORT_OCEAN:Route:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC_ de la ligne B?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
+
+On retrouve la Route qui a cet identifiant :
+
+```xml
+<Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC">
+  <Name>Hôpital -> Parc des Fourriers</Name>
+  <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+  <DirectionType>outbound</DirectionType>
+  <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC" version="any"/>
+</Route>
+```
+
+On récupère l'identifiant de la `Direction` référencée :
+
+```xml
+<DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC" version="any"/>
+```
+
+On cherche l'élément `Direction` qui possède cet identifiant et on visualise son `Name` :
+
+```xml
+<Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC">
+  <Name>Parc des Fourriers</Name>
+</Direction>
+```
+
+  </div>
+</details>
+
 ## 🔹🔹ScheduledStopPoint
 
 ### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt planifiés
@@ -467,7 +548,7 @@ Dans l'extrait ci-dessous, on visualise la définition de la `Direction` ainsi q
 
 Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#scheduled-stop-point-point-darr%C3%AAt-planifi%C3%A9)
 
-💡 Un ScheduledStopPoint est un arrêt **logique** et non pas **physique**, et ne contient donc normalement pas des données de localisation. Néanmoins pour des questions pratiques (avoir un jeu de données presque autoporteur), la localisation a été précisée ici car les arrêts physiques sont définis dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Le lien avec ces arrêts physiques est fait à l'aide des `PassengerStopAssignment` définis dans le chapitre suivant.
+💡 Un `ScheduledStopPoint` est un arrêt **logique** et non pas **physique**. Néanmoins pour des questions pratiques (avoir un jeu de données presque autoporteur), la localisation a été précisée ici car les arrêts physiques sont définis dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Le lien avec ces arrêts physiques est fait à l'aide des `PassengerStopAssignment` définis dans le chapitre suivant.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -497,19 +578,79 @@ Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv
 
 <!-- livebook:{"break_markdown":true} -->
 
-TODO: pour nous
+✍️ **Exercice** :
 
-ROUTELINK: 
-CA_ROCHEFORT_OCEAN:RouteLink:B_9523CEB527B7855DF453D065F3F80B97_50_P204746_P105843_100:LOC
+1. A quel `Route` (trouver son Name) est rattaché le `ServiceJourneyPattern` (PARCOURS) d'identifiant _CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC_ ?
+2. Combien d'arrêts sont prévus dans ce PARCOURS ?
+3. Quelles sont les coordonnées géographiques du 3ème arrêt du PARCOURS ?
 
-FROMPOINTREF
-CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP204746ScheduledScheduled:LOC
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
 
-TOPOINTREF
+**Question 1**
 
-CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP105843ScheduledScheduled:LOC
+On retrouve le `ServiceJourneyPattern` qui a cet identifiant :
 
-TODO: comprendre pourquoi on ne retrouve pas systématiquement le RouteLink à partir des stop point ref
+```xml
+<ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
+  <Name>LA CROIX BREUIL MAGNE</Name>
+  <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+  <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_BE7025F3F49C102A55A60E2C0071A38B-B_BE7025F3F49C102A55A60E2C0071A38BaP105843ScheduledScheduled:LOC" version="any"/>
+  <pointsInSequence>
+    ...
+  </pointsInSequence>
+  <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+```
+
+On retrouve la `Route` via son identifiant référencée (RouteRef) :
+
+```xml
+<Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
+  <Name>Parc des Fourriers -> La Croix Breuil Magne</Name>
+  <LineRef ref="CA_ROCHEFORT_OCEAN:Line:B:LOC"/>
+  <DirectionType>inbound</DirectionType>
+  <DirectionRef ref="CA_ROCHEFORT_OCEAN:Direction:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+</Route>
+```
+--> son nom est "Parc des Fourriers -> La Croix Breuil Magne"
+On cherche l'élément `Direction` qui possède cet identifiant et on visualise son `Name` :
+
+```xml
+<Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
+  <Name>La Croix Breuil Magne</Name>
+</Direction>
+```
+
+**Question 2**
+
+On compte (via la plugin par exemple) le nombre d'éléments `StopPointInJourneyPattern` : il y en a 23 !
+
+**Question 3**
+
+Dans le `ServiceJourneyPattern`, on retrouve le `StopPointInJourneyPattern` tel que son attribut XML "order" est égal à 3.
+
+```xml
+<StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC">
+  <ScheduledStopPointRef ref="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC" version="any"/>
+  <ForAlighting>true</ForAlighting>
+  <ForBoarding>true</ForBoarding>
+  <RequestStop>false</RequestStop>
+</StopPointInJourneyPattern>
+```
+On récupère le `ScheduledStopPoint` via son identifiant référencée (ScheduledStopPointRef) :
+
+```xml
+<ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC">
+  <Location>
+    <Longitude>-0.959909</Longitude>
+    <Latitude>45.924866</Latitude>
+  </Location>
+</ScheduledStopPoint>
+```
+
+  </div>
+</details>
 
 ## 🔹🔹PassengerStopAssignment
 
@@ -598,15 +739,7 @@ Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
 
 <!-- livebook:{"break_markdown":true} -->
 
-* 🚨TODO: introduction textuelle.
-
-<!-- livebook:{"break_markdown":true} -->
-
 ![](files/ligneB_fiche_horaire.JPG)
-
-<!-- livebook:{"break_markdown":true} -->
-
-* 🚨TODO: source (lien)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -620,10 +753,6 @@ Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
 </GeneralFrame>
 ```
 
-<!-- livebook:{"break_markdown":true} -->
-
-* 🚨TODO: résumé
-
 ## 🔹🔹ServiceJourney
 
 ### Fichier d'une ligne > HORAIRES > ServiceJourney : on définit les courses
@@ -631,10 +760,6 @@ Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
 **_Rappel définition_** : Une COURSE (`ServiceJourney`) est le mouvement défini d’un véhicule utilisant un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) spécifié avec des arrêts et des horaires déterminés. C'est une instance de PARCOURS COMMERCIAL (`ServiceJourneyPattern`) pour un TYPE DE JOUR (`DayType`) donné.
 
 Cf [Profil France NETEX : ServiceJourney](https://normes.transport.data.gouv.fr/normes/netex/horaires/#service-journey-course-commerciale)
-
-<!-- livebook:{"break_markdown":true} -->
-
-* 🚨TODO Thibaut: refaire une phrase "en français pur" et la faire review par Ariane. Les "marquer" clairement pour faciliter la review.
 
 ```elixir
 service_journey = "snippets/004-service-journey.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -664,7 +789,7 @@ Kino.Layout.tabs([
 ])
 ```
 
-## DESCRIPTION DES PERIODES ET DES JOURS TYPES
+## DESCRIPTION DES PERIODES ET DES JOURS TYPES - 01:10:00
 
 🫵 À vous : ouvrez le fichier des calendriers
 
@@ -691,16 +816,108 @@ Kino.Layout.tabs([
 
 ```
 
-TODO: résumé
-TODO: exercices
+✍️ **Exercice** :
 
-## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES
+1. Quelles sont les conditions temporelles de validité du `ServiceJourney` (COURSE) d'identifiant _CA_ROCHEFORT_OCEAN:ServiceJourney:S11185:LOC_ ?
+
+2. Quel est l'horaire de passage au `ScheduledStopPoint` d'identifiant _CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC_ ?
+   (💡 Indice : le ServiceJourneyPattern référencé contient les _pointsInSequence_ dans le même ordre que les _passingTimes_ de la COURSE)
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
+  <div class="p-4">
+
+**Question 1**
+
+Dans le fichier de la ligne B, on retrouve le `ServiceJourney` qui a cet identifiant et on récupère le `DayType` référencé:
+
+```xml
+<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11185:LOC">
+  <!--<Name>LA CROIX BREUIL MAGNE</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_188097:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_188097:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>-->
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>
+  <!--<JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+  <passingTimes>
+    ...
+  </passingTimes>-->
+</ServiceJourney>
+```
+
+Dans le fichier des calendrier, on retrouve le `DayType` : la COURSE est valide du lundi au samedi !
+
+```xml
+<DayType version="any" id="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC">
+  <properties>
+    <PropertyOfDay>
+      <DaysOfWeek>Monday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Tuesday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Wednesday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Thursday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Friday</DaysOfWeek>
+    </PropertyOfDay>
+    <PropertyOfDay>
+      <DaysOfWeek>Saturday</DaysOfWeek>
+    </PropertyOfDay>
+  </properties>
+</DayType>
+```
+On récupère tous les `DayTypeAssignment` qui référencent ce `DayType` :
+
+```xml
+<DayTypeAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:DayTypeAssignment:S1ETE_LMWJVS15:LOC">
+    <OperatingPeriodRef ref="CA_ROCHEFORT_OCEAN:OperatingPeriod:S1ETE_LMWJVS-0:LOC" version="any"/>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" version="any"/>
+  </DayTypeAssignment>
+<DayTypeAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:DayTypeAssignment:S1ETE_LMWJVS16:LOC">
+  <Date>2025-07-14</Date>
+  <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" version="any"/>
+  <isAvailable>false</isAvailable>
+</DayTypeAssignment>
+<DayTypeAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:DayTypeAssignment:S1ETE_LMWJVS17:LOC">
+  <Date>2025-08-15</Date>
+  <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" version="any"/>
+  <isAvailable>false</isAvailable>
+</DayTypeAssignment>
+```
+Pour le 1er, on voit qu'il faut aller chercher l'`OperatingPeriod` correspondante :
+
+```xml
+<OperatingPeriod version="any" id="CA_ROCHEFORT_OCEAN:OperatingPeriod:S1ETE_LMWJVS-0:LOC">
+  <FromDate>2025-07-07T00:00:00</FromDate>
+  <ToDate>2025-08-30T00:00:00</ToDate>
+</OperatingPeriod>
+```
+
+On peut donc conclure que la COURSE est valide du lundi au samedi, tout l'été du 7 juillet 2025 au 30 août 2025, y compris les 14 juillet et 15 août !
+
+
+
+**Question 2**
+TODO
+
+  </div>
+</details>
+
+## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES - 01:25:00
 
 Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie:
-
-* 🚨TODO: lien vers la présentation Transmodel détaillée ?
-* 🚨TODO: rajouter RouteLink
-* 🚨TODO: rajouter Network en chapeau
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -721,7 +938,7 @@ graph TD
 
 ```
 
-## RouteLink - détails
+## RouteLink - détails - BONUS
 
 **_Rappel définition_** : Un TRONCON D'ITINERAIRE (`RouteLink`) est un tronçon orienté entre deux `RoutePoint` (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
@@ -773,16 +990,18 @@ Puis cliquez sur "Reevaluate" ci-dessous pour l'afficher:
 
 ```elixir
 Rochefort.Carto.show_route_link(
-  ~r/RBUS_B_B/, 
+  ~r/RBUS_B_B/,
   "//RouteLink[#{Kino.Input.read(numero_du_routelink)}]"
 )
 ```
 
+<!-- livebook:{"output":true} -->
+
+```maplibre
+{"events":{},"spec":{"bearing":0,"center":[-0.9572910070419312,45.925331115722656],"glyphs":"https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=Q4UbchekCfyvXvZcWRoU","id":"streets","layers":[{"id":"background","layout":{"visibility":"visible"},"paint":{"background-color":{"stops":[[6,"rgba(252, 247, 229, 1)"],[10,"rgba(252, 247, 229, 1)"],[14,"rgba(246, 241, 229, 1)"],[15,"rgba(246, 241, 229, 1)"]]}},"type":"background"},{"filter":["all",["==","class","crop"]],"id":"landcover_cropland","layout":{"visibility":"visible"},"paint":{"fill-color":"rgba(243, 235, 195, 1)","fill-opacity":{"base":1,"stops":[[4,1],[8,0]]}},"source":"openmaptiles","source-layer":"globallandcover","type":"fill"},{"filter":["all",["==","class","grass"]],"id":"landcover_grassland","paint":{"fill-color":"rgba(226, 236, 197, 1)","fill-opacity":{"base":1,"stops":[[4,1],[8,0]]}},"source":"openmaptiles","source-layer":"globallandcover","type":"fill"},{"filter":["all",["==","class","scrub"]],"id":"landcover_scrubland","paint":{"fill-color":"rgba(199, 230, 179, 1)","fill-opacity":{"base":1,"stops":[[4,1],[8,0]]}},"source":"openmaptiles","source-layer":"globallandcover","type":"fill"},{"filter":["all",["==","class","tree"]],"id":"landcover_treeland","paint":{"fill-color":"rgba(190, 222, 173, 1)","fill-opacity":{"base":1,"stops":[[4,1],[8,0]]}},"source":"openmaptiles","source-layer":"globallandcover","type":"fill"},{"filter":["all",["==","class","forest"]],"id":"landcover_forestland","paint":{"fill-color":"rgba(171, 217, 170, 1)","fill-opacity":{"base":1,"stops":[[4,1],[8,0]]}},"source":"openmaptiles","source-layer":"globallandcover","type":"fill"},{"filter":["all",["==","class","snow"]],"id":"landcover_snowland","layout":{"visibility":"visible"},"paint":{"fill-color":"hsl(0, 0%, 100%)","fill-opacity":{"base":1,"stops":[[4,1],[8,0]]}},"source":"openmaptiles","source-layer":"globallandcover","type":"fill"},{"filter":["all"],"id":"park_outline","layout":{"visibility":"visible"},"minzoom":9,"paint":{"line-color":"rgba(167, 203, 131, 1)","line-dasharray":[1,1.5],"line-opacity":1,"line-width":{"stops":[[9,0.5],[14,2]]}},"source":"openmaptiles","source-layer":"park","type":"line"},{"filter":["all",["in","class","residential","suburbs","neighbourhood"]],"id":"landuse_residential","layout":{"visibility":"visible"},"maxzoom":24,"metadata":{},"paint":{"fill-color":{"base":1,"stops":[[9,"rgba(233, 227, 210, 0.80)"],[12,"rgba(233, 227, 210, 0.55)"],[16,"rgba(233, 227, 210, 0.35)"]]}},"source":"openmaptiles","source-layer":"landuse","type":"fill"},{"filter":["all",["==","class","wood"]],"id":"landcover_wood","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-antialias":false,"fill-color":"hsla(98, 61%, 72%, 0.7)","fill-opacity":0.4},"source":"openmaptiles","source-layer":"landcover","type":"fill"},{"filter":["all",["==","class","grass"]],"id":"landcover_grass","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-antialias":false,"fill-color":"rgba(224, 232, 201, 1)","fill-opacity":0.3},"source":"openmaptiles","source-layer":"landcover","type":"fill"},{"filter":["==","class","cemetery"],"id":"landuse_cemetery","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"hsl(75, 37%, 81%)"},"source":"openmaptiles","source-layer":"landuse","type":"fill"},{"filter":["==","class","hospital"],"id":"landuse_hospital","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"rgba(249, 225, 220, 1)"},"source":"openmaptiles","source-layer":"landuse","type":"fill"},{"filter":["==","class","school"],"id":"landuse_school","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"rgb(236,238,204)"},"source":"openmaptiles","source-layer":"landuse","type":"fill"},{"filter":["all",["in","class","stadium","pitch","track"]],"id":"landuse_stadium","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"rgb(236,238,204)"},"source":"openmaptiles","source-layer":"landuse","type":"fill"},{"filter":["all",["in","class","garages"]],"id":"landuse_garage","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"rgba(236, 236, 236, 1)"},"source":"openmaptiles","source-layer":"landuse","type":"fill"},{"filter":["all",["in","class","dam"]],"id":"landuse_dam","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"rgba(209, 212, 190, 1)"},"source":"openmaptiles","source-layer":"landuse","type":"fill"},{"filter":["all",["==","brunnel","tunnel"]],"id":"waterway_tunnel","layout":{"line-cap":"round","visibility":"visible"},"minzoom":14,"paint":{"line-color":"#a0c8f0","line-dasharray":[2,4],"line-width":{"base":1.3,"stops":[[13,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"waterway","type":"line"},{"filter":["all",["==","class","river"],["!=","brunnel","tunnel"],["!=","intermittent",1]],"id":"waterway_river","layout":{"line-cap":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#a0c8f0","line-width":{"base":1.2,"stops":[[11,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"waterway","type":"line"},{"filter":["all",["==","class","river"],["!=","brunnel","tunnel"],["==","intermittent",1]],"id":"waterway_river_intermittent","layout":{"line-cap":"round"},"metadata":{},"paint":{"line-color":"#a0c8f0","line-dasharray":[3,2],"line-width":{"base":1.2,"stops":[[11,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"waterway","type":"line"},{"filter":["all",["!=","class","river"],["!=","brunnel","tunnel"],["!=","intermittent",1]],"id":"waterway_other","layout":{"line-cap":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#a0c8f0","line-width":{"base":1.3,"stops":[[13,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"waterway","type":"line"},{"filter":["all",["!=","class","river"],["!=","brunnel","tunnel"],["==","intermittent",1]],"id":"waterway_other_intermittent","layout":{"line-cap":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#a0c8f0","line-dasharray":[4,3],"line-width":{"base":1.3,"stops":[[13,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"waterway","type":"line"},{"filter":["all",["==","intermittent",1]],"id":"water_intermittent","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"rgba(172, 218, 251, 1)","fill-opacity":0.85},"source":"openmaptiles","source-layer":"water","type":"fill"},{"filter":["all",["!=","intermittent",1],["!=","brunnel","tunnel"]],"id":"water","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-color":"rgba(134, 204, 250, 1)"},"source":"openmaptiles","source-layer":"water","type":"fill"},{"filter":["all",["in","class","sand"]],"id":"landcover_sand","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-antialias":false,"fill-color":"#f2e9ac","fill-opacity":1},"source":"openmaptiles","source-layer":"landcover","type":"fill"},{"filter":["all",["in","class","sand"]],"id":"landcover_sand_outline","layout":{"visibility":"visible"},"metadata":{},"paint":{"line-color":"#f2e9ac","line-width":2},"source":"openmaptiles","source-layer":"landcover","type":"line"},{"filter":["==","$type","Polygon"],"id":"aeroway_fill","layout":{"visibility":"visible"},"metadata":{},"minzoom":11,"paint":{"fill-color":"rgba(229, 228, 224, 1)","fill-opacity":0.7},"source":"openmaptiles","source-layer":"aeroway","type":"fill"},{"filter":["all",["==","$type","LineString"],["==","class","runway"]],"id":"aeroway_runway","layout":{"visibility":"visible"},"metadata":{},"minzoom":11,"paint":{"line-color":"#f0ede9","line-width":{"base":1.2,"stops":[[11,3],[20,16]]}},"source":"openmaptiles","source-layer":"aeroway","type":"line"},{"filter":["all",["==","$type","LineString"],["==","class","taxiway"]],"id":"aeroway_taxiway","layout":{"visibility":"visible"},"metadata":{},"minzoom":11,"paint":{"line-color":"#f0ede9","line-width":{"base":1.2,"stops":[[11,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"aeroway","type":"line"},{"filter":["all",["in","class","ferry"]],"id":"ferry","layout":{"line-join":"round","visibility":"visible"},"paint":{"line-color":"rgba(108, 159, 182, 1)","line-dasharray":[2,2],"line-width":1.1},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway"],["==","ramp",1],["==","brunnel","tunnel"]],"id":"tunnel_motorway_link_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"#e9ac77","line-dasharray":[0.5,0.25],"line-opacity":1,"line-width":{"base":1.2,"stops":[[12,1],[13,3],[14,4],[20,15]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","service","track"]],"id":"tunnel_service_track_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#cfcdca","line-dasharray":[0.5,0.25],"line-width":{"base":1.2,"stops":[[12,0.5],[13,1],[14,4],[20,11]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","ramp","1"],["==","brunnel","tunnel"],[">","layer",0]],"id":"tunnel_link_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#e9ac77","line-opacity":1,"line-width":{"base":1.2,"stops":[[12,1],[13,3],[14,4],[20,15]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["==","class","minor"]],"id":"tunnel_minor_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#cfcdca","line-dasharray":[0.5,0.25],"line-width":{"base":1.2,"stops":[[12,0.5],[13,1.5],[14,4],[20,16]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","street","street_limited"]],"id":"tunnel_street_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#cfcdca","line-opacity":{"stops":[[12,0],[12.5,1]]},"line-width":{"base":1.2,"stops":[[12,0.5],[13,1],[14,4],[20,15]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","secondary","tertiary"]],"id":"tunnel_secondary_tertiary_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"rgba(195, 189, 187, 1)","line-dasharray":[0.5,0.25],"line-opacity":1,"line-width":{"base":1.2,"stops":[[8,1.5],[20,17]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","primary","trunk"]],"id":"tunnel_trunk_primary_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#e9ac77","line-dasharray":[0.5,0.25],"line-width":{"base":1.2,"stops":[[5,0.4],[6,0.7],[7,1.75],[20,22]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway"],["==","brunnel","tunnel"]],"id":"tunnel_motorway_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"#e9ac77","line-dasharray":[0.5,0.25],"line-width":{"base":1.2,"stops":[[5,0.4],[6,0.7],[7,1.75],[20,22]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["==","brunnel","tunnel"],["in","class","path","pedestrian"]],"id":"tunnel_path_pedestrian","layout":{"visibility":"visible"},"metadata":{},"paint":{"line-color":"rgba(204, 196, 176, 0.45)","line-dasharray":[1,0.75],"line-width":{"base":1.2,"stops":[[14,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway_link"],["==","ramp",1],["==","brunnel","tunnel"]],"id":"tunnel_motorway_link","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"#fc8","line-width":{"base":1.2,"stops":[[12.5,0],[13,1.5],[14,2.5],[20,11.5]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","service","track"]],"id":"tunnel_service_track","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-width":{"base":1.2,"stops":[[13,1.5],[16,2],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","service_construction","track_construction"]],"id":"tunnel_service_track_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[13,1.5],[16,2],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","ramp","1"],["==","brunnel","tunnel"],[">","layer",0]],"id":"tunnel_link","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff4c6","line-width":{"base":1.2,"stops":[[12.5,0],[13,1.5],[14,2.5],[20,11.5]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","minor"]],"id":"tunnel_minor","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-opacity":1,"line-width":{"base":1.2,"stops":[[12.9,0],[13,1],[14,2.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","minor_construction"]],"id":"tunnel_minor_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-opacity":1,"line-width":{"base":1.2,"stops":[[12.9,0],[13,1],[14,2.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","secondary","tertiary"]],"id":"tunnel_secondary_tertiary","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"rgba(245, 245, 243, 1)","line-width":{"base":1.2,"stops":[[6.5,0],[8,0.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","secondary_construction","tertiary_construction"]],"id":"tunnel_secondary_tertiary_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[6.5,0],[8,0.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","primary","trunk"]],"id":"tunnel_trunk_primary","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff4c6","line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","primary_construction","trunk_construction"]],"id":"tunnel_trunk_primary_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff4c6","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway"],["==","brunnel","tunnel"]],"id":"tunnel_motorway","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"#ffdaa6","line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway_construction"],["==","brunnel","tunnel"]],"id":"tunnel_motorway_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"#ffdaa6","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["in","class","rail"]],"id":"tunnel_major_rail","layout":{"visibility":"visible"},"metadata":{},"paint":{"line-color":"#bbb","line-width":{"base":1.4,"stops":[[14,0.4],[15,0.75],[20,2]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","tunnel"],["==","class","rail"]],"id":"tunnel_major_rail_hatching","layout":{"visibility":"visible"},"metadata":{},"paint":{"line-color":"#bbb","line-dasharray":[0.2,8],"line-width":{"base":1.4,"stops":[[14.5,0],[15,3],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","Polygon"],["==","class","pier"]],"id":"road_area_pier","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-antialias":true,"fill-color":"rgba(246, 241, 229, 1)"},"source":"openmaptiles","source-layer":"transportation","type":"fill"},{"filter":["all",["==","$type","LineString"],["in","class","pier"]],"id":"road_pier","layout":{"line-cap":"round","line-join":"round"},"metadata":{},"paint":{"line-color":"rgba(246, 241, 229, 1)","line-width":{"base":1.2,"stops":[[15,1],[17,4]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","Polygon"],["==","brunnel","bridge"]],"id":"road_area_bridge","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-antialias":true,"fill-color":"rgba(246, 241, 229, 0.6)"},"source":"openmaptiles","source-layer":"transportation","type":"fill"},{"filter":["all",["==","$type","Polygon"],["!has","brunnel"],["!in","class","bridge","pier"]],"id":"road_area_pattern","layout":{"visibility":"visible"},"metadata":{},"paint":{"fill-pattern":"pedestrian_polygon"},"source":"openmaptiles","source-layer":"transportation","type":"fill"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","class","service","track"]],"id":"road_service_track_casing","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#cfcdca","line-width":{"base":1.2,"stops":[[12,0.5],[13,1],[14,4],[20,11]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["!in","class","motorway","trunk","primary","pedestrian","path","track","service"],["==","ramp",1]],"id":"road_link_casing","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":13,"paint":{"line-color":"#e9ac77","line-opacity":1,"line-width":{"base":1.2,"stops":[[12,1],[13,3],[14,4],[20,15]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","ramp",1],["in","class","primary","trunk"]],"id":"road_trunk_primary_link_casing","layout":{"line-cap":"butt","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#e9ac77","line-width":{"base":1.2,"stops":[[5,0],[7,0.7],[20,14]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","class","motorway"],["==","ramp",1]],"id":"road_motorway_link_casing","layout":{"line-cap":"butt","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":10,"paint":{"line-color":"#e9ac77","line-opacity":1,"line-width":{"base":1.2,"stops":[[9.9,0],[10,1.4],[14,8],[20,12]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["!in","brunnel","bridge","tunnel"],["in","class","minor"],["!=","ramp","1"]],"id":"road_minor_casing","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#cfcdca","line-opacity":1,"line-width":{"base":1.2,"stops":[[12,0.7],[13,1],[14,4],[20,16]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","class","secondary","tertiary"],["!=","ramp",1]],"id":"road_secondary_tertiary_casing","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"rgba(195, 189, 187, 1)","line-opacity":1,"line-width":{"base":1.2,"stops":[[8,1.5],[20,17]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["!=","ramp",1],["in","class","primary","trunk"],["!=","ramp",1]],"id":"road_trunk_primary_casing","layout":{"line-cap":"butt","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#e9ac77","line-opacity":1,"line-width":{"base":1.2,"stops":[[5,0.4],[6,0.7],[7,1.75],[20,22]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","class","motorway"],["!=","ramp",1]],"id":"road_motorway_casing","layout":{"line-cap":"butt","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"#e9ac77","line-width":{"base":1.2,"stops":[[5,0.4],[6,0.7],[7,1.75],[20,22]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["!in","brunnel","bridge","tunnel"],["in","class","path","pedestrian"]],"id":"road_path_pedestrian","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"minzoom":12,"paint":{"line-color":"rgba(176, 169, 150, 0.45)","line-dasharray":[1,1],"line-width":{"base":1.2,"stops":[[12,1],[16,2],[20,3]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","ramp",1],["!in","class","motorway","trunk","primary","pedestrian","path","track","service"]],"id":"road_link","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":13,"paint":{"line-color":"#fea","line-width":{"base":1.2,"stops":[[12.5,0],[13,1.5],[14,2.5],[20,11.5]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","ramp",1],["in","class","primary","trunk"]],"id":"road_trunk_primary_link","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fea","line-width":{"base":1.2,"stops":[[5,0],[7,0.5],[20,10]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","class","motorway"],["==","ramp",1]],"id":"road_motorway_link","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":10,"paint":{"line-color":"#fc8","line-width":{"base":1.2,"stops":[[9.9,0],[10,1],[14,6],[20,10]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","class","service","track"]],"id":"road_service_track","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":13,"paint":{"line-color":"rgba(255, 255, 255, 1)","line-width":{"base":1.2,"stops":[[13,1.5],[16,2],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","class","service_construction","track_construction"]],"id":"road_service_track_construction","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":13,"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[13,1.5],[16,2],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["all",["!in","brunnel","bridge","tunnel"],["in","class","minor"]]],"id":"road_minor","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-opacity":1,"line-width":{"base":1.2,"stops":[[12.9,0],[13,1],[14,2.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["all",["!in","brunnel","bridge","tunnel"],["in","class","minor_construction"]]],"id":"road_minor_construction","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-opacity":1,"line-width":{"base":1.2,"stops":[[14,2.5],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","class","secondary","tertiary"]],"id":"road_secondary_tertiary","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"rgba(245, 245, 243, 1)","line-width":{"base":1.2,"stops":[[6.5,0],[8,0.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","class","secondary_construction","tertiary_construction"]],"id":"road_secondary_tertiary_construction","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[6.5,0],[8,0.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["!=","ramp",1],["in","class","primary","trunk"]],"id":"road_trunk_primary","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fea","line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["!=","ramp",1],["in","class","primary_construction","trunk_construction"]],"id":"road_trunk_primary_construction","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fea","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","class","motorway"],["!=","ramp",1]],"id":"road_motorway","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":{"base":1,"stops":[[5,"hsl(26, 87%, 62%)"],[6,"#fc8"]]},"line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","class","motorway_construction"],["!=","ramp",1]],"id":"road_motorway_construction","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":{"base":1,"stops":[[5,"hsl(26, 87%, 62%)"],[6,"#fc8"]]},"line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","class","rail"]],"id":"road_major_rail","metadata":{},"paint":{"line-color":"#bbb","line-width":{"base":1.4,"stops":[[14,0.4],[15,0.75],[20,2]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["==","class","rail"]],"id":"road_major_rail_hatching","metadata":{},"paint":{"line-color":"#bbb","line-dasharray":[0.2,8],"line-width":{"base":1.4,"stops":[[14.5,0],[15,3],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","subclass","tram","light_rail"]],"id":"road_minor_rail","metadata":{},"paint":{"line-color":"#bbb","line-width":{"base":1.4,"stops":[[14,0.4],[15,0.75],[20,2]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["!in","brunnel","bridge","tunnel"],["in","subclass","tram","light_rail"]],"id":"road_minor_rail_hatching","metadata":{},"paint":{"line-color":"#bbb","line-dasharray":[0.2,4],"line-width":{"base":1.4,"stops":[[14.5,0],[15,2],[20,6]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"id":"building","layout":{"visibility":"visible"},"maxzoom":14,"metadata":{},"minzoom":13,"paint":{"fill-color":"rgba(189, 185, 181, 0.3)","fill-outline-color":{"base":1,"stops":[[13,"hsla(35, 6%, 79%, 0.32)"],[14,"hsl(35, 6%, 79%)"]]}},"source":"openmaptiles","source-layer":"building","type":"fill"},{"filter":["all",["!has","hide_3d"]],"id":"building-3d","layout":{"visibility":"visible"},"metadata":{},"minzoom":14,"paint":{"fill-extrusion-base":{"property":"render_min_height","type":"identity"},"fill-extrusion-color":"rgba(189, 185, 181, 1)","fill-extrusion-height":{"property":"render_height","type":"identity"},"fill-extrusion-opacity":0.3},"source":"openmaptiles","source-layer":"building","type":"fill-extrusion"},{"filter":["all",["==","$type","LineString"],["==","brunnel","bridge"]],"id":"waterway-bridge-case","layout":{"line-cap":"butt","line-join":"miter"},"paint":{"line-color":"#bbbbbb","line-gap-width":{"base":1.3,"stops":[[13,0.5],[20,6]]},"line-width":{"base":1.6,"stops":[[12,0.5],[20,5]]}},"source":"openmaptiles","source-layer":"waterway","type":"line"},{"filter":["all",["==","$type","LineString"],["==","brunnel","bridge"]],"id":"waterway-bridge","layout":{"line-cap":"round","line-join":"round"},"paint":{"line-color":"rgba(134, 204, 250, 1)","line-width":{"base":1.3,"stops":[[13,0.5],[20,6]]}},"source":"openmaptiles","source-layer":"waterway","type":"line"},{"filter":["all",["==","class","motorway"],["==","ramp",1],["==","brunnel","bridge"]],"id":"bridge_motorway_link_casing","layout":{"line-join":"round"},"metadata":{},"minzoom":5,"paint":{"line-color":"#e9ac77","line-opacity":1,"line-width":{"base":1.2,"stops":[[9.9,0],[10,1.4],[14,8],[20,12]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","service","track"]],"id":"bridge_service_track_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#cfcdca","line-width":{"base":1.2,"stops":[[13,1.5],[20,11]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","link"],["==","brunnel","bridge"]],"id":"bridge_link_casing","layout":{"line-join":"round"},"metadata":{},"paint":{"line-color":"#e9ac77","line-opacity":1,"line-width":{"base":1.2,"stops":[[12,1],[13,3],[14,4],[20,15]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","street","street_limited"]],"id":"bridge_street_casing","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"hsl(36, 6%, 74%)","line-opacity":{"stops":[[12,0],[12.5,1]]},"line-width":{"base":1.2,"stops":[[12,0.5],[13,1],[14,4],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["==","brunnel","bridge"],["in","class","path","pedestrian"]],"id":"bridge_path_pedestrian_casing","layout":{"line-join":"miter","visibility":"visible"},"metadata":{},"paint":{"line-color":"hsl(35, 6%, 80%)","line-dasharray":[1,0],"line-width":{"base":1.2,"stops":[[14,1.5],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["in","brunnel","bridge","tunnel"],["in","class","minor"],["!=","ramp","1"]],"id":"bridge_minor_casing","layout":{"line-cap":"butt","line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#cfcdca","line-opacity":1,"line-width":{"base":1.2,"stops":[[12,0.7],[13,1],[14,4],[20,16]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","secondary","tertiary"]],"id":"bridge_secondary_tertiary_casing","layout":{"line-join":"round"},"metadata":{},"paint":{"line-color":"rgba(195, 189, 187, 1)","line-opacity":1,"line-width":{"base":1.2,"stops":[[8,1.5],[20,17]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","primary","trunk"]],"id":"bridge_trunk_primary_casing","layout":{"line-join":"round"},"metadata":{},"paint":{"line-color":"#e9ac77","line-width":{"base":1.2,"stops":[[5,0.4],[6,0.7],[7,1.75],[20,22]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway"],["==","brunnel","bridge"],["!=","ramp",1]],"id":"bridge_motorway_casing","layout":{"line-join":"round"},"metadata":{},"minzoom":5,"paint":{"line-color":"#e9ac77","line-width":{"base":1.2,"stops":[[5,0.4],[6,0.7],[7,1.75],[20,22]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","$type","LineString"],["==","brunnel","bridge"],["in","class","path","pedestrian"]],"id":"bridge_path_pedestrian","metadata":{},"paint":{"line-color":"hsl(0, 0%, 100%)","line-dasharray":[1,0.3],"line-width":{"base":1.2,"stops":[[14,0.5],[20,10]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway"],["==","ramp",1],["==","brunnel","bridge"]],"id":"bridge_motorway_link","layout":{"line-join":"round"},"metadata":{},"minzoom":5,"paint":{"line-color":"#fc8","line-width":{"base":1.2,"stops":[[9.9,0],[10,1],[14,6],[20,10]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","service","track"]],"id":"bridge_service_track","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-width":{"base":1.2,"stops":[[13,1.5],[16,2],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","service_construction","track_construction"]],"id":"bridge_service_track_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[13,1.5],[16,2],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","link"],["==","brunnel","bridge"]],"id":"bridge_link","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fea","line-width":{"base":1.2,"stops":[[12.5,0],[13,1.5],[14,2.5],[20,11.5]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","street","street_limited"]],"id":"bridge_street","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-opacity":1,"line-width":{"base":1.2,"stops":[[13.5,0],[14,2.5],[20,16]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","minor"]],"id":"bridge_minor","layout":{"line-join":"round"},"metadata":{},"paint":{"line-color":"#fff","line-opacity":1,"line-width":{"base":1.2,"stops":[[12.9,0],[13,1],[14,2.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","minor_construction"]],"id":"bridge_minor_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-opacity":1,"line-width":{"base":1.2,"stops":[[12.9,0],[13,1],[14,2.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","secondary","tertiary"]],"id":"bridge_secondary_tertiary","layout":{"line-join":"round"},"metadata":{},"paint":{"line-color":"rgba(245, 245, 243, 1)","line-width":{"base":1.2,"stops":[[6.5,0],[8,0.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","secondary_construction","tertiary_construction"]],"id":"bridge_secondary_tertiary_construction","layout":{"line-join":"round"},"metadata":{},"paint":{"line-color":"#fff","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[6.5,0],[8,0.5],[20,13]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","primary","trunk"]],"id":"bridge_trunk_primary","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fea","line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","brunnel","bridge"],["in","class","primary_construction","trunk_construction"]],"id":"bridge_trunk_primary_construction","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"paint":{"line-color":"#fea","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway"],["==","brunnel","bridge"],["!=","ramp",1]],"id":"bridge_motorway","layout":{"line-join":"round"},"metadata":{},"minzoom":5,"paint":{"line-color":"#fc8","line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","motorway_construction"],["==","brunnel","bridge"],["!=","ramp",1]],"id":"bridge_motorway_construction","layout":{"line-join":"round"},"metadata":{},"minzoom":5,"paint":{"line-color":"#fc8","line-dasharray":[2,2],"line-width":{"base":1.2,"stops":[[5,0],[7,1],[20,18]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","rail"],["==","brunnel","bridge"]],"id":"bridge_major_rail","metadata":{},"paint":{"line-color":"#bbb","line-width":{"base":1.4,"stops":[[14,0.4],[15,0.75],[20,2]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["==","class","rail"],["==","brunnel","bridge"]],"id":"bridge_major_rail_hatching","metadata":{},"paint":{"line-color":"#bbb","line-dasharray":[0.2,8],"line-width":{"base":1.4,"stops":[[14.5,0],[15,3],[20,8]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["==","class","aerialway"],"id":"cablecar","layout":{"line-cap":"round","visibility":"visible"},"minzoom":13,"paint":{"line-color":"hsl(0, 0%, 70%)","line-width":{"base":1,"stops":[[13,1],[19,2]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["==","class","aerialway"],"id":"cablecar-dash","layout":{"line-cap":"round","line-join":"bevel","visibility":"visible"},"minzoom":13,"paint":{"line-color":"rgba(164, 164, 164, 1)","line-dasharray":[2,2],"line-width":{"base":1,"stops":[[13,2],[19,4]]}},"source":"openmaptiles","source-layer":"transportation","type":"line"},{"filter":["all",["in","admin_level",3,4],["==","maritime",0]],"id":"boundary_3","layout":{"line-join":"round","visibility":"visible"},"metadata":{},"minzoom":3,"paint":{"line-color":"#9e9cab","line-dasharray":[5,3],"line-width":{"base":1,"stops":[[4,0.4],[5,0.7],[12,1.6]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["==","maritime",0],["==","disputed",0],["!has","claimed_by"]],"id":"boundary_2_z0-4","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"maxzoom":5,"metadata":{},"minzoom":0,"paint":{"line-color":"rgba(139, 139, 139, 1)","line-opacity":1,"line-width":{"base":1,"stops":[[3,1],[5,1.2]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["!has","claimed_by"],["==","disputed",0],["==","maritime",1]],"id":"boundary_2_z0-4_maritime","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"maxzoom":5,"metadata":{},"minzoom":0,"paint":{"line-color":"rgba(98,185,229,1)","line-opacity":1,"line-width":{"base":1,"stops":[[3,1],[5,1.2]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["==","maritime",0],["==","disputed",1]],"id":"boundary_2_z0-4_disputed","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"maxzoom":5,"metadata":{},"minzoom":0,"paint":{"line-color":"rgba(139, 139, 139, 1)","line-dasharray":[2,2],"line-opacity":1,"line-width":{"base":1,"stops":[[3,1],[5,1.2]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["==","maritime",1],["==","disputed",1]],"id":"boundary_2_z0-4_disputed_maritime","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"maxzoom":5,"metadata":{},"minzoom":0,"paint":{"line-color":"rgba(98,185,229,1)","line-dasharray":[2,2],"line-opacity":1,"line-width":{"base":1,"stops":[[3,1],[5,1.2]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["==","disputed",0],["==","maritime",0]],"id":"boundary_2_z5","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"rgba(139, 139, 139, 1)","line-opacity":1,"line-width":{"base":1,"stops":[[5,1.2],[12,3]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["==","disputed",1],["==","maritime",0]],"id":"boundary_2_z5_disputed","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"rgba(120, 120, 120, 1)","line-dasharray":[4,3],"line-opacity":1,"line-width":{"base":1,"stops":[[5,1.2],[12,3]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["==","disputed",1],["==","maritime",1]],"id":"boundary_2_z5_disputed_maritime","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"rgba(98,185,229,1)","line-dasharray":[4,3],"line-opacity":1,"line-width":{"base":1,"stops":[[5,1.2],[12,3]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","admin_level",2],["==","disputed",0],["==","maritime",1]],"id":"boundary_2_z5_maritime","layout":{"line-cap":"round","line-join":"round","visibility":"visible"},"metadata":{},"minzoom":5,"paint":{"line-color":"rgba(98,185,229,1)","line-opacity":1,"line-width":{"base":1,"stops":[[5,1.2],[12,3]]}},"source":"openmaptiles","source-layer":"boundary","type":"line"},{"filter":["all",["==","$type","LineString"]],"id":"water_name_line","layout":{"symbol-placement":"line","text-field":["concat",["get","name:latin"]," ",["get","name:nonlatin"]],"text-font":["Roboto Regular","Noto Sans Regular"],"text-max-width":5,"text-size":12,"visibility":"visible"},"metadata":{},"minzoom":0,"paint":{"text-color":"#5d60be","text-halo-color":"rgba(255,255,255,0.7)","text-halo-width":1},"source":"openmaptiles","source-layer":"water_name","type":"symbol"},{"filter":["all",["==","$type","Point"],["!=","class","ocean"]],"id":"water_name_point","layout":{"text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Regular","Noto Sans Regular"],"text-max-width":5,"text-size":12,"visibility":"visible"},"maxzoom":24,"metadata":{},"minzoom":2,"paint":{"text-color":"rgba(76, 125, 173, 1)","text-halo-color":"rgba(255,255,255,0)","text-halo-width":1},"source":"openmaptiles","source-layer":"water_name","type":"symbol"},{"filter":["all",["==","$type","Point"],["==","class","ocean"]],"id":"water_ocean_name_point","layout":{"text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Regular","Noto Sans Regular"],"text-max-width":5,"text-size":12,"visibility":"visible"},"metadata":{},"minzoom":0,"paint":{"text-color":"rgba(76, 125, 173, 1)","text-halo-color":"rgba(255,255,255,0)","text-halo-width":1},"source":"openmaptiles","source-layer":"water_name","type":"symbol"},{"filter":["all",["==","$type","Point"],[">=","rank",20],["any",["all",["in","class","pitch"],["in","subclass","soccer","tennis","baseball","basketball","swimming","golf"]]],["any",["!has","level"],["==","level",0]]],"id":"poi_z16_subclass","layout":{"icon-image":"{subclass}_11","text-anchor":"top","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":9,"text-offset":[0,0.6],"text-padding":2,"text-size":12,"visibility":"visible"},"metadata":{},"minzoom":16,"paint":{"text-color":"#666","text-halo-blur":0.5,"text-halo-color":"#ffffff","text-halo-width":1},"source":"openmaptiles","source-layer":"poi","type":"symbol"},{"filter":["all",["==","$type","Point"],["!=","class","swimming_pool"],[">=","rank",20],["none",["all",["in","class","pitch"],["in","subclass","soccer","tennis","baseball","basketball","swimming","golf"]]],["any",["!has","level"],["==","level",0]]],"id":"poi_z16","layout":{"icon-image":"{class}_11","text-anchor":"top","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":9,"text-offset":[0,0.6],"text-padding":2,"text-size":12,"visibility":"visible"},"metadata":{},"minzoom":16,"paint":{"text-color":"#666","text-halo-blur":0.5,"text-halo-color":"#ffffff","text-halo-width":1},"source":"openmaptiles","source-layer":"poi","type":"symbol"},{"filter":["all",["==","$type","Point"],["!=","class","swimming_pool"],[">=","rank",7],["<","rank",20],["any",["!has","level"],["==","level",0]]],"id":"poi_z15","layout":{"icon-image":"{class}_11","text-anchor":"top","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":9,"text-offset":[0,0.6],"text-padding":2,"text-size":12,"visibility":"visible"},"metadata":{},"minzoom":15,"paint":{"text-color":"#666","text-halo-blur":0.5,"text-halo-color":"#ffffff","text-halo-width":1},"source":"openmaptiles","source-layer":"poi","type":"symbol"},{"filter":["all",["==","$type","Point"],["!=","class","swimming_pool"],["any",["<","rank",7]],["any",["!has","level"],["==","level",0]]],"id":"poi_z14","layout":{"icon-image":"{class}_11","icon-size":0.9,"text-anchor":"top","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":9,"text-offset":[0,0.6],"text-padding":2,"text-size":12,"visibility":"visible"},"metadata":{},"minzoom":14.2,"paint":{"text-color":"#666","text-halo-blur":0.5,"text-halo-color":"#ffffff","text-halo-width":1},"source":"openmaptiles","source-layer":"poi","type":"symbol"},{"filter":["all",["in","class","bus","railway","airport"],["==","subclass","station"]],"id":"poi_transit","layout":{"icon-image":"{class}_11","icon-size":0.9,"text-anchor":"left","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":9,"text-offset":[0.9,0],"text-padding":2,"text-size":12,"visibility":"visible"},"metadata":{},"minzoom":15,"paint":{"text-color":"rgba(102, 102, 102, 1)","text-halo-blur":0.5,"text-halo-color":"#ffffff","text-halo-width":1},"source":"openmaptiles","source-layer":"poi","type":"symbol"},{"filter":["all",["==","oneway",1],["in","class","motorway","trunk","primary","secondary","tertiary","minor","service"]],"id":"road_oneway","layout":{"icon-image":"oneway","icon-padding":2,"icon-rotate":90,"icon-rotation-alignment":"map","icon-size":{"stops":[[15,0.5],[19,1]]},"symbol-placement":"line","symbol-spacing":75,"visibility":"visible"},"minzoom":15,"paint":{"icon-opacity":0.5},"source":"openmaptiles","source-layer":"transportation","type":"symbol"},{"filter":["all",["==","oneway",-1],["in","class","motorway","trunk","primary","secondary","tertiary","minor","service"]],"id":"road_oneway_opposite","layout":{"icon-image":"oneway","icon-padding":2,"icon-rotate":-90,"icon-rotation-alignment":"map","icon-size":{"stops":[[15,0.5],[19,1]]},"symbol-placement":"line","symbol-spacing":75},"minzoom":15,"paint":{"icon-opacity":0.5},"source":"openmaptiles","source-layer":"transportation","type":"symbol"},{"filter":["all",["in","subclass","gondola","cable_car"]],"id":"road_gondola_label","layout":{"symbol-placement":"line","text-anchor":"center","text-field":["concat",["get","name:latin"]," ",["get","name:nonlatin"]],"text-font":["Roboto Italic","Noto Sans Italic"],"text-offset":[0.8,0.8],"text-size":{"base":1,"stops":[[13,11],[15,12]]}},"metadata":{},"minzoom":13,"paint":{"text-color":"rgba(113, 103, 95, 1)","text-halo-blur":0.5,"text-halo-color":"rgba(255, 255, 255, 1)","text-halo-width":1},"source":"openmaptiles","source-layer":"transportation_name","type":"symbol"},{"filter":["all",["==","subclass","ferry"]],"id":"road_ferry_label","layout":{"symbol-placement":"line","text-anchor":"center","text-field":["concat",["get","name:latin"]," ",["get","name:nonlatin"]],"text-font":["Roboto Italic","Noto Sans Italic"],"text-offset":[0.8,0.8],"text-size":{"base":1,"stops":[[13,11],[15,12]]}},"minzoom":12,"paint":{"text-color":"rgba(46, 126, 168, 1)","text-halo-blur":0.5,"text-halo-width":1},"source":"openmaptiles","source-layer":"transportation_name","type":"symbol"},{"filter":["all",["!in","subclass","ferry","gondola","cable_car"]],"id":"road_label","layout":{"symbol-placement":"line","text-anchor":"center","text-field":["concat",["get","name:latin"]," ",["get","name:nonlatin"]],"text-font":["Roboto Regular","Noto Sans Regular"],"text-offset":[0,0.15],"text-size":{"base":1,"stops":[[13,11],[14,13]]}},"metadata":{},"paint":{"text-color":"#765","text-halo-blur":0.5,"text-halo-width":1},"source":"openmaptiles","source-layer":"transportation_name","type":"symbol"},{"filter":["all",["==","$type","Point"],["==","subclass","junction"],[">","ref_length",0]],"id":"highway-junction","layout":{"icon-image":"circle_8","icon-rotation-alignment":"viewport","icon-size":1,"icon-text-fit":"none","symbol-avoid-edges":true,"symbol-placement":"point","symbol-spacing":200,"symbol-z-order":"auto","text-anchor":"bottom-left","text-field":"Exit {ref}","text-font":["Noto Sans Regular"],"text-justify":"center","text-offset":[0.55,-0.4],"text-pitch-alignment":"auto","text-rotation-alignment":"viewport","text-size":10,"visibility":"visible"},"minzoom":15.5,"paint":{"icon-opacity":1,"text-color":"rgba(79, 77, 77, 1)"},"source":"openmaptiles","source-layer":"transportation_name","type":"symbol"},{"filter":["all",["<=","ref_length",6],["==","$type","LineString"],["!in","network","us-interstate","us-highway","us-state"]],"id":"highway-shield","layout":{"icon-image":"road_{ref_length}","icon-rotation-alignment":"viewport","icon-size":1,"symbol-avoid-edges":true,"symbol-placement":{"base":1,"stops":[[10,"point"],[11,"line"]]},"symbol-spacing":200,"text-field":"{ref}","text-font":["Noto Sans Regular"],"text-rotation-alignment":"viewport","text-size":10},"minzoom":8,"paint":{"text-color":"rgba(37, 36, 36, 1)"},"source":"openmaptiles","source-layer":"transportation_name","type":"symbol"},{"filter":["all",["<=","ref_length",6],["==","$type","LineString"],["in","network","us-interstate"]],"id":"highway-shield-us-interstate","layout":{"icon-image":"{network}_{ref_length}","icon-rotation-alignment":"viewport","icon-size":1,"symbol-avoid-edges":true,"symbol-placement":{"base":1,"stops":[[7,"point"],[7,"line"],[8,"line"]]},"symbol-spacing":200,"text-field":"{ref}","text-font":["Noto Sans Regular"],"text-rotation-alignment":"viewport","text-size":9},"minzoom":7,"paint":{"text-color":"rgba(255, 255, 255, 1)"},"source":"openmaptiles","source-layer":"transportation_name","type":"symbol"},{"filter":["all",["<=","ref_length",6],["==","$type","LineString"],["in","network","us-highway","us-state"]],"id":"highway-shield-us-other","layout":{"icon-image":"{network}_{ref_length}","icon-rotation-alignment":"viewport","icon-size":1,"symbol-avoid-edges":true,"symbol-placement":{"base":1,"stops":[[10,"point"],[11,"line"]]},"symbol-spacing":200,"text-field":"{ref}","text-font":["Noto Sans Regular"],"text-rotation-alignment":"viewport","text-size":9},"minzoom":9,"paint":{"text-color":"rgba(37, 36, 36, 1)"},"source":"openmaptiles","source-layer":"transportation_name","type":"symbol"},{"filter":["all",["has","iata"]],"id":"airport_label","layout":{"icon-image":"airport_11","icon-size":1,"text-anchor":"top","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Noto Sans Regular"],"text-max-width":9,"text-offset":[0,0.6],"text-optional":true,"text-padding":2,"text-size":{"stops":[[8,10],[14,13]]},"visibility":"visible"},"minzoom":8.5,"paint":{"text-color":"#666","text-halo-blur":0.5,"text-halo-color":"#ffffff","text-halo-width":1},"source":"openmaptiles","source-layer":"aerodrome_label","type":"symbol"},{"filter":["all",["==","class","gate"]],"id":"airport_gate","layout":{"text-field":"{ref}","text-font":["Roboto Medium","Noto Sans Regular"],"text-size":{"stops":[[17,9],[19,15]]}},"minzoom":16.5,"paint":{"text-color":"rgba(135, 135, 135, 1)","text-halo-color":"rgba(255, 255, 255, 1)","text-halo-width":1.5},"source":"openmaptiles","source-layer":"aeroway","type":"symbol"},{"filter":["all",["==","rank",1]],"id":"place_park","layout":{"symbol-avoid-edges":false,"symbol-spacing":1250,"text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-letter-spacing":0.1,"text-max-width":9,"text-size":{"base":1.2,"stops":[[12,10],[15,14]]},"text-transform":"none","visibility":"visible"},"metadata":{},"minzoom":12,"paint":{"text-color":"rgba(94, 141, 58, 1)","text-halo-blur":0.5,"text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":1.2},"source":"openmaptiles","source-layer":"park","type":"symbol"},{"filter":["all",["in","class","hamlet","island","islet","neighbourhood","suburb"]],"id":"place_other","layout":{"text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-letter-spacing":0.1,"text-max-width":9,"text-size":{"base":1.2,"stops":[[12,10],[15,14]]},"text-transform":"uppercase","visibility":"visible"},"metadata":{},"minzoom":8,"paint":{"text-color":"rgba(66, 62, 62, 1)","text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":1.2},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","class","village"]],"id":"place_village","layout":{"text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Regular","Noto Sans Regular"],"text-max-width":8,"text-size":{"base":1.2,"stops":[[10,12],[15,22]]}},"metadata":{},"minzoom":8,"paint":{"text-color":"#333","text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":1.2},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","class","town"]],"id":"place_town","layout":{"icon-image":{"base":1,"stops":[[0,"circle-stroked_16"],[10,""]]},"text-anchor":"bottom","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Regular","Noto Sans Regular"],"text-max-width":8,"text-offset":[0,0],"text-size":{"base":1.2,"stops":[[7,12],[11,16]]}},"metadata":{},"minzoom":6,"paint":{"text-color":"#333","text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":1.2},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","class","state"],["in","rank",3,4,5]],"id":"place_region","layout":{"text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Medium","Noto Sans Regular"],"text-letter-spacing":0.1,"text-padding":2,"text-size":{"stops":[[3,9],[5,10],[6,11]]},"text-transform":"uppercase","visibility":"visible"},"maxzoom":7,"metadata":{},"minzoom":5,"paint":{"text-color":"rgba(118, 116, 108, 1)","text-halo-color":"rgba(255,255,255,0.7)","text-halo-width":0.8},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","class","state"],["in","rank",1,2]],"id":"place_state","layout":{"text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Medium","Noto Sans Regular"],"text-letter-spacing":0.1,"text-padding":2,"text-size":{"stops":[[3,9],[5,11],[6,12]]},"text-transform":"uppercase","visibility":"visible"},"maxzoom":6,"metadata":{},"minzoom":3,"paint":{"text-color":"rgba(118, 116, 108, 1)","text-halo-color":"rgba(255,255,255,0.7)","text-halo-width":0.8},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","class","city"]],"id":"place_city","layout":{"icon-allow-overlap":true,"icon-image":{"base":1,"stops":[[0,"circle-stroked_16"],[10,""]]},"icon-optional":false,"text-anchor":"bottom","text-field":["concat",["get","name:latin"],"\n",["get","name:nonlatin"]],"text-font":["Roboto Medium","Noto Sans Regular"],"text-max-width":8,"text-offset":[0,0],"text-size":{"base":1.2,"stops":[[7,14],[11,24]]}},"metadata":{},"minzoom":5,"paint":{"text-color":"#333","text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":1.2},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","class","country"],["!has","iso_a2"]],"id":"country_other","layout":{"text-field":"{name:latin}","text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":6.25,"text-size":{"stops":[[3,9],[7,15]]},"text-transform":"none"},"metadata":{},"paint":{"text-color":"#334","text-halo-blur":1,"text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":0.8},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",[">=","rank",3],["==","class","country"],["has","iso_a2"]],"id":"country_3","layout":{"text-field":"{name:latin}","text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":6.25,"text-size":{"stops":[[3,11],[7,17]]},"text-transform":"none"},"metadata":{},"paint":{"text-color":"#334","text-halo-blur":1,"text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":0.8},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","rank",2],["==","class","country"],["has","iso_a2"]],"id":"country_2","layout":{"text-field":"{name:latin}","text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":6.25,"text-size":{"stops":[[2,11],[5,17]]},"text-transform":"none"},"metadata":{},"paint":{"text-color":"#334","text-halo-blur":1,"text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":0.8},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","rank",1],["==","class","country"],["has","iso_a2"]],"id":"country_1","layout":{"text-field":"{name:latin}","text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-max-width":6.25,"text-size":{"stops":[[1,11],[4,17],[6,19]]},"text-transform":"none"},"metadata":{},"paint":{"text-color":"#334","text-halo-blur":1,"text-halo-color":"rgba(255,255,255,0.8)","text-halo-width":0.8},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"filter":["all",["==","class","continent"]],"id":"continent","layout":{"text-field":"{name:latin}","text-font":["Roboto Condensed Italic","Noto Sans Italic"],"text-justify":"center","text-size":13,"text-transform":"uppercase"},"maxzoom":1,"metadata":{},"paint":{"text-color":"#633","text-halo-color":"rgba(255,255,255,0.7)","text-halo-width":1},"source":"openmaptiles","source-layer":"place","type":"symbol"},{"id":"housenumber","layout":{"text-field":"{housenumber}","text-font":["Roboto Medium","Noto Sans Regular"],"text-size":10},"minzoom":17.5,"paint":{"text-color":"rgba(119, 102, 85, 0.69)"},"source":"openmaptiles","source-layer":"housenumber","type":"symbol"},{"id":"geom_line","paint":{"line-color":"#f63b8a","line-opacity":0.7,"line-width":5},"source":"geom","type":"line"}],"metadata":{"maptiler:copyright":"This style was generated on MapTiler Cloud. Usage outside of MapTiler Cloud requires valid MapTiler Data Package: https://www.maptiler.com/data/package/ -- please contact us."},"name":"Streets","pitch":0,"sources":{"geom":{"data":{"geometry":{"coordinates":[[-0.9510250091552734,45.92617416381836],[-0.950980007648468,45.926109313964844],[-0.9517800211906433,45.925838470458984],[-0.9518700242042542,45.92591094970703],[-0.9529399871826172,45.927120208740234],[-0.9530400037765503,45.92715835571289],[-0.9531800150871277,45.92716979980469],[-0.9539200067520142,45.927101135253906],[-0.9538800120353699,45.92639923095703],[-0.9538999795913696,45.926231384277344],[-0.9539700150489807,45.926109313964844],[-0.9540600180625916,45.926021575927734],[-0.9542499780654907,45.9258918762207],[-0.9562399983406067,45.925228118896484],[-0.9563300013542175,45.92522048950195],[-0.9566100239753723,45.925228118896484],[-0.9573000073432922,45.92530059814453],[-0.9572910070419312,45.925331115722656]],"type":"LineString"},"properties":{},"type":"Feature"},"type":"geojson"},"maptiler_attribution":{"attribution":"<a href=\"https://www.maptiler.com/copyright/\" target=\"_blank\">&copy; MapTiler</a> <a href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\">&copy; OpenStreetMap contributors</a>","type":"vector"},"openmaptiles":{"type":"vector","url":"https://api.maptiler.com/tiles/v3/tiles.json?key=Q4UbchekCfyvXvZcWRoU"}},"sprite":"https://api.maptiler.com/maps/streets/sprite","version":8,"zoom":15}}
+```
+
 ## FIN
-
-TODO: Ouverture / conclusion...
-
-<!-- livebook:{"break_markdown":true} -->
 
 🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Lieux d'arrêts - Rouen") ou revenir à la partie précédente ("Introduction")
 
@@ -791,14 +1010,14 @@ TODO: Ouverture / conclusion...
 <div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
 <div class="flex">
 <i class="ri-arrow-left-fill"></i>
-<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">Introduction</a>
+<a class="flex ml-2" style="color: #61758a;" href="../2_bases/bases.livemd">Introduction</a>
 </div>
 <div class="flex">
 <i class="ri-home-fill"></i>
-<a class="flex ml-2" style="color: #61758a;" href="TODO.livemd">Lignes et Horaires - Rochefort</a>
+<a class="flex ml-2" style="color: #61758a;" href="reseau_rochefort.livemd">Lignes et Horaires - Rochefort</a>
 </div>
 <div class="flex">
-<a class="flex mr-2" style="color: #61758a;" href="TODO.livemd">Lieux d'arrêts - Rouen</a>
+<a class="flex mr-2" style="color: #61758a;" href="../4_lieux_darret/Stop_place.livemd">Lieux d'arrêts - Rouen</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>
