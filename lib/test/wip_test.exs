@@ -23,7 +23,18 @@ defmodule Tests do
     |> Helpers.one!()
   end
 
-  test "summarises" do
+  test "summarises XML binary" do
+    content = "<Root><Child/><Child/><Other/><Child/></Root>"
+    summary = XmlSummariser.summarise!(content)
+
+    assert summary == """
+           Root
+             (...) (x4)\
+           """
+  end
+
+  test "summarises XML stream" do
+    # useful to ensure we don't break the unzip/iodata/binary dance
     zip =
       @file_path
       |> Path.expand(@folder_root)
@@ -34,12 +45,12 @@ defmodule Tests do
       |> ZipSupport.list_zip_entries()
       |> one!(~r/commun/)
 
-    {:ok, output} =
+    output =
       zip
       |> Unzip.file_stream!(filename)
       |> Stream.map(&IO.iodata_to_binary(&1))
-      |> Saxy.parse_stream(XmlSummariser.Sax.Handler, [])
+      |> XmlSummariser.summarise!()
 
-    IO.puts(output)
+    assert output =~ ~r/Line \(x14\)/
   end
 end

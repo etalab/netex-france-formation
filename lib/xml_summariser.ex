@@ -1,11 +1,25 @@
 # TODO: port to xmerl_sax_handler to reduce external dependencies
 # NOTE: for much larger docs later, this is the way https://github.com/qcam/saxy/pull/100
 defmodule XmlSummariser do
-  @moduledoc """
-  A `Saxy` handler useful to provide a textual résumé of a XML.
-  """
+  # Works with file/unzip streams
+  def summarise!(stream) when is_struct(stream, Stream) or is_list(stream) do
+    {:ok, output} =
+      stream
+      |> Saxy.parse_stream(XmlSummariser.Sax.Handler, [])
+
+    output
+  end
+
+  # Raw binary version (useful for simple string passing)
+  def summarise!(binary) when is_binary(binary) do
+    summarise!([binary])
+  end
 
   defmodule Sax.Handler do
+    @moduledoc """
+    A `Saxy` handler useful to provide a textual résumé of a XML.
+    """
+
     @behaviour Saxy.Handler
 
     def format_line([item]), do: item
@@ -35,7 +49,7 @@ defmodule XmlSummariser do
       state =
         state
         |> Map.update!(:output, fn output ->
-          # TODO: support customisation
+          # TODO: support customisation, this is currently hardcoded to presentation specific needs
           cond do
             state.level > 5 -> output
             state.level in 2..3 -> output ++ [indent <> "(...)"]
