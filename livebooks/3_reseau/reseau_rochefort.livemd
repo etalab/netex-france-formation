@@ -236,10 +236,8 @@ grid([xml_1, image_1, image_2], columns: {2, 1, 1})
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
 
-    ```
-    * Nom complet du réseau : R'bus (Rochefort Océan)
-    * Nombre de lignes rattachées au réseau : 14
-    ```
+* Nom complet du réseau : R'bus (Rochefort Océan)
+* Nombre de lignes rattachées au réseau : 14
 
   </div>
 </details>
@@ -790,10 +788,6 @@ Kino.Layout.tabs([
 ```
 
 ## DESCRIPTION DES PERIODES ET DES JOURS TYPES - 01:10:00
-
-🫵 À vous : ouvrez le fichier des calendriers
-
-<!-- livebook:{"break_markdown":true} -->
 
 ![](files/liste_fichiers_netex_calendriers.jpg)
 
