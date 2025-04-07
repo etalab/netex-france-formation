@@ -36,7 +36,7 @@ Définition : un modèle abstrait **définissant des concepts et leurs attributs
 
 Cela représente :
 * Des définitions de concepts
-* Des élémnents de caractérisation des concepts
+* Des éléments de caractérisation des concepts
 * Des relations entre les concepts
 
 C'est utile pour :
@@ -55,10 +55,10 @@ Exemple :
 ```mermaid
 classDiagram
   direction LR
-    ORGANISATION *-- ORGANISATION_SECTION : est compose de 
+    ORGANISATION *-- ORGANISATION_SECTION : est composé de 
     ORGANISATION_SECTION <|-- EQUIPE
     ORGANISATION_SECTION <|-- DEPARTEMENT
-    DEPARTEMENT  --> TYPE_D_OPERATION : caracterise par
+    DEPARTEMENT  --> TYPE_D_OPERATION : caractérisé par
     DEPARTEMENT *-- EQUIPE : comprend
 
     ORGANISATION : +Id
@@ -125,10 +125,10 @@ Exemple :
 ```mermaid
 classDiagram
   direction LR
-    ORGANISATION *-- ORGANISATION_SECTION : est compose de 
+    ORGANISATION *-- ORGANISATION_SECTION : est composé de 
     ORGANISATION_SECTION <|-- EQUIPE
     ORGANISATION_SECTION <|-- DEPARTEMENT
-    DEPARTEMENT  --> TYPE_D_OPERATION : caracterise par
+    DEPARTEMENT  --> TYPE_D_OPERATION : caracterisé par
     DEPARTEMENT *-- EQUIPE : comprend
 
     ORGANISATION : -Id
@@ -186,10 +186,10 @@ Exemple :
 ```mermaid
 classDiagram
   direction LR
-    ORGANISATION *-- ORGANISATION_SECTION : est compose de 
+    ORGANISATION *-- ORGANISATION_SECTION : est composé de 
     ORGANISATION_SECTION <|-- EQUIPE
     ORGANISATION_SECTION <|-- DEPARTEMENT
-    DEPARTEMENT  --> TYPE_D_OPERATION : caracterise par
+    DEPARTEMENT  --> TYPE_D_OPERATION : caractérisé par
     DEPARTEMENT *-- EQUIPE : comprend
 
     ORGANISATION : -Id

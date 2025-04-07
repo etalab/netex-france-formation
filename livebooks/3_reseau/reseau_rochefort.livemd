@@ -104,7 +104,7 @@ Bienvenue dans la partie de formation qui traite du Réseau ! Nous aborderons en
 
 * Nous plongerons ensuite dans les données des fichiers NeTEx
 
-* Et nous metterons au fur et à mesure en lien le réel et les données NeTEx, pour ce qui concerne la topologie et les horaires des lignes ainsi que la définition des calendriers.
+* Et nous mettrons au fur et à mesure en lien le réel et les données NeTEx, pour ce qui concerne la topologie et les horaires des lignes ainsi que la définition des calendriers.
 
 🔹 **Ce que vous allez apprendre**
 
@@ -118,7 +118,7 @@ Bienvenue dans la partie de formation qui traite du Réseau ! Nous aborderons en
 
 🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
 
-## PARTIR DU REEL - L'OFFRE DE "ROCHEFORT OCEAN" - 00:02:00
+## PARTIR DU RÉEL - L'OFFRE DE "ROCHEFORT OCEAN" - 00:02:00
 
 Pour la suite de cette présentation, nous partons du réel, sur le territoire de la [Communauté d'agglomération de Rochefort Océan (CARO)](https://www.agglo-rochefortocean.fr).
 
@@ -152,11 +152,11 @@ Il existe également sur le territoire :
 
 * du TAD (Transport À la Demande),
 * des circuits scolaires (S ou RPI - Regroupement Pédagogique Intercommunal),
-* et des lignes régionales désservant la CARO.
+* et des lignes régionales desservant la CARO.
 
 Ces lignes ne seront pas abordées lors de cette présentation
 
-## DIRECTION : LA DONNEE NETEX - 00:05:00
+## DIRECTION : LA DONNÉE NETEX - 00:05:00
 
 Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
 
@@ -172,7 +172,7 @@ Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompr
 Rochefort.list_netex_content(:markdown)
 ```
 
-## DESCRIPTION GENERALE DU RESEAU - 00:10:00
+## DESCRIPTION GÉNÉRALE DU RÉSEAU - 00:10:00
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 
@@ -417,15 +417,15 @@ Il y a 4 `Route` !
 
 ### Fichier d'une ligne > LIGNE > Route : on définit les itinéraires
 
-**_Rappel définition_** : Un ITINERAIRE (`Route`) est une liste ordonnée de POINTs (`RoutePoints`) définissant un seul chemin à travers le réseau routier (ou ferré) dans une DIRECTION (`Direction`) donnée. Un ITINERAIRE peut passer deux fois par un même POINT.
+**_Rappel définition_** : Un ITINÉRAIRE (`Route`) est une liste ordonnée de POINTs (`RoutePoints`) définissant un seul chemin à travers le réseau routier (ou ferré) dans une DIRECTION (`Direction`) donnée. Un ITINÉRAIRE peut passer deux fois par un même POINT.
 
-Un ITINERAIRE appartient toujours à une LIGNE (`Line`). Une LIGNE est composée d'au moins un ITINERAIRE avec une DIRECTION. Une LIGNE peut donc comporter plusieurs ITINERAIREs, chacun avec sa DIRECTION.
+Un ITINÉRAIRE appartient toujours à une LIGNE (`Line`). Une LIGNE est composée d'au moins un ITINÉRAIRE avec une DIRECTION. Une LIGNE peut donc comporter plusieurs ITINÉRAIREs, chacun avec sa DIRECTION.
 
-💡 Les `RoutePoints` constitutifs d'un ITINERAIRE sont toujours des POINTs. Ils **peuvent** être des `ScheduledStopPoint`, comme dans l'exemple de Rochefort.
+💡 Les `RoutePoints` constitutifs d'un ITINÉRAIRE sont toujours des POINTs. Ils **peuvent** être des `ScheduledStopPoint`, comme dans l'exemple de Rochefort.
 
-💡 Les ITINERAIREs sont généralement très similaires d’un point de vue topologique, c’est-à-dire des variantes d’un itinéraire principal avec quelques écarts seulement sur certaines parties (par exemple : arrêts en moins ou terminus anticipé par rapport à un itinéraire plus "complet").
+💡 Les ITINÉRAIREs sont généralement très similaires d’un point de vue topologique, c’est-à-dire des variantes d’un itinéraire principal avec quelques écarts seulement sur certaines parties (par exemple : arrêts en moins ou terminus anticipé par rapport à un itinéraire plus "complet").
 
-💡 Deux ITINERAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront le plus souvent à la même LIGNE.
+💡 Deux ITINÉRAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront le plus souvent à la même LIGNE.
 
 Cf [Profil France NETEX : Route](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-itin%C3%A9raire)
 
@@ -476,7 +476,7 @@ graph LR
 
 ### Fichier d'une ligne > LIGNE > Direction : on définit les directions possibles de nos Routes
 
-**_Rappel définition_** :  une DIRECTION (`Direction`) représente le sens de circulation d'une ligne de transport, souvent utilisée pour décrire les parcours aller-retour ou les différentes orientations d'un ITINERAIRE (`Route`).
+**_Rappel définition_** :  une DIRECTION (`Direction`) représente le sens de circulation d'une ligne de transport, souvent utilisée pour décrire les parcours aller-retour ou les différentes orientations d'un ITINéRAIRE (`Route`).
 
 Dans l'extrait ci-dessous, on visualise la définition de la `Direction` ainsi que la référence de la `Route` vers cette `Direction` (DirectionRef)
 
@@ -546,7 +546,7 @@ On cherche l'élément `Direction` qui possède cet identifiant et on visualise 
 
 ### Fichier d'une ligne > LIGNE > ScheduledStopPoint : on définit les points d'arrêt planifiés
 
-**_Rappel définition_** : un POINT D'ARRET PLANIFIE (`ScheduledStopPoint`) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
+**_Rappel définition_** : un POINT D'ARRÊT PLANIFIÉ (`ScheduledStopPoint`) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
 
 Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#scheduled-stop-point-point-darr%C3%AAt-planifi%C3%A9)
 
@@ -582,7 +582,7 @@ Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv
 
 ✍️ **Exercice** :
 
-1. A quel `Route` (trouver son Name) est rattaché le `ServiceJourneyPattern` (PARCOURS) d'identifiant _CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC_ ?
+1. À quelle `Route` (trouver son Name) est rattaché le `ServiceJourneyPattern` (PARCOURS) d'identifiant _CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC_ ?
 2. Combien d'arrêts sont prévus dans ce PARCOURS ?
 3. Quelles sont les coordonnées géographiques du 3ème arrêt du PARCOURS ?
 
@@ -903,7 +903,7 @@ Pour le 1er, on voit qu'il faut aller chercher l'`OperatingPeriod` correspondant
 </OperatingPeriod>
 ```
 
-On peut donc conclure que la COURSE est valide du lundi au samedi, tout l'été du 7 juillet 2025 au 30 août 2025, y compris les 14 juillet et 15 août !
+On peut donc conclure que la COURSE est valide du lundi au samedi, tout l'été du 7 juillet 2025 au 30 août 2025, sauf les 14 juillet et 15 août !
 
 
 
@@ -986,7 +986,7 @@ On en conclut que l'horaire de passage à l'arrêt voulu (pour la COURSE donnée
   </div>
 </details>
 
-## RECAPITULATIFS DES CONCEPTS TRANSMODEL UTILISES - 01:25:00
+## RÉCAPITULATIFS DES CONCEPTS TRANSMODEL UTILISÉS - 01:25:00
 
 Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie:
 
