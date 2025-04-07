@@ -904,7 +904,80 @@ On peut donc conclure que la COURSE est valide du lundi au samedi, tout l'été 
 
 
 **Question 2**
-TODO
+
+Dans le fichier de la ligne B, on récupère le `ServiceJourneyPattern` référencé par le  `ServiceJourney` 
+
+
+```xml
+<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11185:LOC">
+  <!--<Name>LA CROIX BREUIL MAGNE</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_188097:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_188097:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>-->
+  <JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+  <!--<passingTimes>
+    ...
+  </passingTimes>-->
+</ServiceJourney>
+```
+
+Dans les pointsInSequence, on récupère celui qui a l'identifiant du `ScheduledStopPoint` voulu et on note son ordre : **order = 3**
+
+```xml
+<ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
+  <!--<Name>LA CROIX BREUIL MAGNE</Name>
+  <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+  <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_BE7025F3F49C102A55A60E2C0071A38B-B_BE7025F3F49C102A55A60E2C0071A38BaP105843ScheduledScheduled:LOC" version="any"/>
+  <pointsInSequence>
+    ...-->
+    <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC">
+      <ScheduledStopPointRef ref="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC" version="any"/>
+      <ForAlighting>true</ForAlighting>
+      <ForBoarding>true</ForBoarding>
+      <RequestStop>false</RequestStop>
+    </StopPointInJourneyPattern>
+    <!--...
+  </pointsInSequence>
+  <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+</ServiceJourneyPattern>-->
+```
+
+En retournant dans le `ServiceJourney`, on récupère le 3ème passingTime.
+
+```xml
+<passingTimes>
+  <!--<TimetabledPassingTime version="any">
+    <ArrivalTime>08:59:00</ArrivalTime>
+    <DepartureTime>08:59:00</DepartureTime>
+  </TimetabledPassingTime>
+  <TimetabledPassingTime version="any">
+    <ArrivalTime>09:01:00</ArrivalTime>
+    <DepartureTime>09:01:00</DepartureTime>
+  </TimetabledPassingTime>-->
+  <TimetabledPassingTime version="any">
+    <ArrivalTime>09:03:00</ArrivalTime>
+    <DepartureTime>09:03:00</DepartureTime>
+  </TimetabledPassingTime>
+  <!--<TimetabledPassingTime version="any">
+    <ArrivalTime>09:04:00</ArrivalTime>
+    <DepartureTime>09:04:00</DepartureTime>
+  </TimetabledPassingTime>-->
+  ...
+</passingTimes>
+```
+
+On en conclut que l'horaire de passage à l'arrêt voulu (pour la COURSE donnée) est : **09:03:00**
+
+
+
 
   </div>
 </details>
