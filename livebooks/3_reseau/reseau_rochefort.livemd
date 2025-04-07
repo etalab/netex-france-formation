@@ -236,10 +236,8 @@ grid([xml_1, image_1, image_2], columns: {2, 1, 1})
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
 
-    ```
-    * Nom complet du réseau : R'bus (Rochefort Océan)
-    * Nombre de lignes rattachées au réseau : 14
-    ```
+* Nom complet du réseau : R'bus (Rochefort Océan)
+* Nombre de lignes rattachées au réseau : 14
 
   </div>
 </details>
@@ -469,6 +467,10 @@ graph LR
     </members>
 </GeneralFrame>-->
 ```
+
+<!-- livebook:{"break_markdown":true} -->
+
+⚠️ Les séquences de points sont actuellement, dans le fichier de Rochefort, définies à l'intérieur du `ServiceJourneyPattern`, et non pas de la `Route`. En théorie dans le profil France : il est obligatoire de les avoir dans la `Route`, et facultatif dans le `ServiceJourneyPattern`.
 
 ## 🔹🔹Direction
 
@@ -791,10 +793,6 @@ Kino.Layout.tabs([
 
 ## DESCRIPTION DES PERIODES ET DES JOURS TYPES - 01:10:00
 
-🫵 À vous : ouvrez le fichier des calendriers
-
-<!-- livebook:{"break_markdown":true} -->
-
 ![](files/liste_fichiers_netex_calendriers.jpg)
 
 <!-- livebook:{"break_markdown":true} -->
@@ -910,7 +908,80 @@ On peut donc conclure que la COURSE est valide du lundi au samedi, tout l'été 
 
 
 **Question 2**
-TODO
+
+Dans le fichier de la ligne B, on récupère le `ServiceJourneyPattern` référencé par le  `ServiceJourney` 
+
+
+```xml
+<ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11185:LOC">
+  <!--<Name>LA CROIX BREUIL MAGNE</Name>
+  <AccessibilityAssessment version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityAssessment:GTFS_188097:LOC">
+    <MobilityImpairedAccess>true</MobilityImpairedAccess>
+    <limitations>
+      <AccessibilityLimitation version="any" id="CA_ROCHEFORT_OCEAN:AccessibilityLimitation:GTFS_188097:LOC">
+        <WheelchairAccess>true</WheelchairAccess>
+      </AccessibilityLimitation>
+    </limitations>
+  </AccessibilityAssessment>
+  <dayTypes>
+    <DayTypeRef ref="CA_ROCHEFORT_OCEAN:DayType:S1ETE_LMWJVS:LOC" versionRef="any"/>
+  </dayTypes>-->
+  <JourneyPatternRef ref="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+  <!--<passingTimes>
+    ...
+  </passingTimes>-->
+</ServiceJourney>
+```
+
+Dans les pointsInSequence, on récupère celui qui a l'identifiant du `ScheduledStopPoint` voulu et on note son ordre : **order = 3**
+
+```xml
+<ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
+  <!--<Name>LA CROIX BREUIL MAGNE</Name>
+  <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_BE7025F3F49C102A55A60E2C0071A38B:LOC" version="any"/>
+  <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_BE7025F3F49C102A55A60E2C0071A38B-B_BE7025F3F49C102A55A60E2C0071A38BaP105843ScheduledScheduled:LOC" version="any"/>
+  <pointsInSequence>
+    ...-->
+    <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC">
+      <ScheduledStopPointRef ref="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_BE7025F3F49C102A55A60E2C0071A38BaP104745ScheduledScheduled:LOC" version="any"/>
+      <ForAlighting>true</ForAlighting>
+      <ForBoarding>true</ForBoarding>
+      <RequestStop>false</RequestStop>
+    </StopPointInJourneyPattern>
+    <!--...
+  </pointsInSequence>
+  <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+</ServiceJourneyPattern>-->
+```
+
+En retournant dans le `ServiceJourney`, on récupère le 3ème passingTime.
+
+```xml
+<passingTimes>
+  <!--<TimetabledPassingTime version="any">
+    <ArrivalTime>08:59:00</ArrivalTime>
+    <DepartureTime>08:59:00</DepartureTime>
+  </TimetabledPassingTime>
+  <TimetabledPassingTime version="any">
+    <ArrivalTime>09:01:00</ArrivalTime>
+    <DepartureTime>09:01:00</DepartureTime>
+  </TimetabledPassingTime>-->
+  <TimetabledPassingTime version="any">
+    <ArrivalTime>09:03:00</ArrivalTime>
+    <DepartureTime>09:03:00</DepartureTime>
+  </TimetabledPassingTime>
+  <!--<TimetabledPassingTime version="any">
+    <ArrivalTime>09:04:00</ArrivalTime>
+    <DepartureTime>09:04:00</DepartureTime>
+  </TimetabledPassingTime>-->
+  ...
+</passingTimes>
+```
+
+On en conclut que l'horaire de passage à l'arrêt voulu (pour la COURSE donnée) est : **09:03:00**
+
+
+
 
   </div>
 </details>
@@ -925,6 +996,8 @@ Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la
 
 ```mermaid
 graph TD
+  RouteLink("RouteLink (Tronçon d'itinéraire)") -- référence des --> RoutePoint
+  Network("Network (Réseau)") -- est un groupe de --> Line
   Line("Line (Ligne)") -- est composée de plusieurs --> Route("Route (Itinéraire)")
   Route -- est sur une unique --> Line
   Route -- est composé de plusieurs --> RoutePoint@{ shape: procs, label: "RoutePoint (ex : ScheduledStopPoint)"}
