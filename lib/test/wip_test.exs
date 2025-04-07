@@ -38,7 +38,7 @@ defmodule Tests do
       zip
       |> Unzip.file_stream!(filename)
       |> Stream.map(&IO.iodata_to_binary(&1))
-      |> Saxy.parse_stream(Sax.Handlers.XmlSummariser, [])
+      |> Saxy.parse_stream(XmlSummariser.Sax.Handler, [])
 
     IO.puts(output)
   end
