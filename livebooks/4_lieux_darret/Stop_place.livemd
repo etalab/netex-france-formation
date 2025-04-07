@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Alt_LA_MultiModal.JPG","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GareRoutiere.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"MultiModal_PoleMono.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Toutmodes.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"}]} -->
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Alt_LA_MultiModal.JPG","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GareRoutiere.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"MultiModal_PoleMono.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"RepLA.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Toutmodes.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"},{"name":"lacOMPLEXE.JPG","type":"attachment"}]} -->
 
 # Lieux_Arret
 
@@ -11,9 +11,29 @@ Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
  
 ```
 
+## CONTENU DE LA SECTION
+
+### 🔹 Introduction
+
+Présentation du contenu, de la demarche et des objectifs
+
+### 🔹 La multimodalité
+
+Présentation de ce qu'est la multimodalité et de son application à cette session
+
+### 🔹 Cas pratique
+
+Sur la base d'un fichier NeTEx d'arrêt nous allons l'analyser et le reconstruire à partir de ses données.
+
+Des axes d'amélioration de sa représentativité "Multimodale" seront explorés
+
+### 🔹 Illustration d'une vision exploitant
+
+Présentation de la représentation d'un pole multimodal, vu des exploitants, construit à partir de données Transmodel / NeTEx
+
 ## I. INTRODUCTION
 
-Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux Stop Places.
+Bienvenue dans cette partie de la formation dédiée à l’interprétation des fichiers NeTEx décrivant des **lieux d’arrêt** dans le domaine du transport public. Cette session est conçue pour les débutants souhaitant comprendre la structure et le contenu des fichiers NeTEx (Network Timetable Exchange) et apprendre à extraire, analyser et exploiter les informations relatives aux lieux d'arrêt `STOP PLACE`).
 
 ## 1.1 Pourquoi cette partie ?
 
@@ -29,13 +49,15 @@ Pour bien utiliser ces fichiers, il est essentiel de savoir :
 
 ✅ Extraire les bonnes informations pour leur intégration dans d’autres systèmes (Systèmes d’Information Voyageurs, outils SIG, planificateurs d’itinéraires).
 
+> RAPPEL : NeTEx repose sur un pilier qu'est TRANSMODEL.
+
 ## 1.2 Ce que vous allez apprendre
 
 Au fil de cette formation, nous allons explorer :
 
 📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts.
 
-📌 Les principaux éléments XML décrivant un Stop Place (StopPlace, StopPlace Component, Quay).
+📌 Les principaux éléments XML décrivant un lieu d'arrêt (`STOPPLACE`, `ENTRANCE`, `QUAY`).
 
 📌 Comment lire un fichier NeTEx et en extraire des informations utiles.
 
@@ -45,13 +67,13 @@ Au fil de cette formation, nous allons explorer :
 
 ## 1.3 La démarche pour cette partie
 
-📌 Identifier un lieu d'arrêt multimodal representatif
+📌 Identifier un lieu d'arrêt multimodal représentatif
 
 📌 Décrire la réalité (Physique, Cartographique, Plan de Lignes)
 
 📌 Identifier le Fichier NeTEx sur le PAN
 
-📌 Recontituer le Lieu d'arrêt décrit par le fichier NeTex
+📌 Recontituer le Lieu d'arrêt décrit par le fichier NeTEx
 
 📌 Comparaison avec la réalité
 
@@ -59,7 +81,7 @@ Au fil de cette formation, nous allons explorer :
 
 ## 1.4 Déroulement de la formation
 
-Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux lieux d'arrêt, suivie de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
+Nous commencerons par une introduction théorique aux concepts NeTEx relatifs aux lieux d'arrêt, suivi de l'étude d'un cas pratique et d’exercices d’analyse de fichiers réels.
 
 À la fin de cette partie, vous serez en mesure de lire, comprendre les principes de strucuration des fichiers NeTEx comprenant la description de Lieux d'arrêt pour des usages concrets.
 
@@ -75,11 +97,11 @@ Nous commencerons par une introduction théorique au concepts NeTEx relatifs aux
 
 Dans le cadre de cette session nous utiliserons le terme **"Multimodal"** pour désigner la présence de différents modes de transports entre deux lieux.
 
-* Elle désigne en effet l’utilisation de transports différents pour aller d’un point A à un point B comme par exemple le train et le bus.
+* La multimodalité désigne l’utilisation de transports différents pour aller d’un point A à un point B comme par exemple le train et le bus.
 
 Cela peut inclure des modes tels que la voiture, le train, le vélo, le bus, le métro, et même la marche. L'objectif est de tirer parti des avantages spécifiques de chaque mode pour optimiser les trajets en termes de temps, coût, confort ou impact environnemental.
 
-**Limitation de la formation** : Dans le cadre de cette formation nous allons nous attacher à décliner ce concept complexe sur l'une des briques qui permet de mettre en oeuvre la multimodalité : **La description des lieux d'arrêt**.
+> **Limitation de la formation** : Dans le cadre de cette formation nous allons nous attacher à décliner ce concept complexe sur l'une des briques qui permet de mettre en oeuvre la multimodalité : **La description des lieux d'arrêt**.
 
 💡 **Pourquoi des lieux d'arrêt multimodaux** ?
 
@@ -156,6 +178,8 @@ Transmodel définit les concepts suivants pour la définition des lieux d'arrêt
 > 1- Dans le principe  concept Transmodel = Une balise XML NeTEx
 > 
 > 2- Transmodel ne definit pas les attributs
+> 
+> 3- Transmodel intègre depuis sa version 6.0 la norme **IFOPT** de description des lieux d'arrêt.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -194,6 +218,18 @@ Les éléments composants un lieu d'arrêt multimodal sont liés par les relatio
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/Capture.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Ces concepts permettent une représentation de Lieux (Trés) complexes
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/lacOMPLEXE.JPG)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/RepLA.JPG)
 
 ## 2.4. Pour en savoir un peu plus ...
 
@@ -1575,7 +1611,7 @@ Quels commentaires vous inspire cette modélisation ?
 
 ### La représentation existante
 
-Sur la base de nos principes de repésentation, issus du **profil NeTEx France**, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTex est la suivante :
+Sur la base de nos principes de repésentation, issus du **profil NeTEx France**, si l'on s'intéresse au lieu "Théâtre des Arts", l'offre proposée par la construction NeTEx est la suivante :
 
 * Un Lieu d'arrêt = Un Quai
 * Pas de regroupement
