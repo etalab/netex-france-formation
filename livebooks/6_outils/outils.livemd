@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"cen.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Les outils et ressources à votre disposition
 
@@ -112,17 +112,34 @@ Transmodel, NeTEx et SIRI évoluent constamment pour prendre en commpte les nouv
 ### 3.2. Gouvernance
 
 Transmodel, NeTEx et SIRI sont définis au sein du Comité Européen de Normalisation (CEN), plus particulièrement dans le Groupe de Travail dédié au Transport Public au sein du Comité Technique dédié au Transport routier (TC278 WG3).
-
+![CEN](files/cen.png)
 <br />
 
 Sont membres du CEN, les instances de normalisation nationales :
 
 * Des États Membres de l'Union Européenne
 * Des pays associés (ex. Grande Bretagne, Turquie )
-  <br />
-  Les normes du CEN sont définies par les experts mandatés par chaque membre sans limite du nombre d'experts. Tout le monde peut s'inscrire via son instance de normalisation nationale, c'est-à-dire à travers l'AFNOR pour la France.
-  <br />
-  Les experts peuvent être des représentants d'AOMs, d'opérateurs, d'industriels, de centre de recherches, etc.
+<br />
+
+Comment NeTEx évolue :
+* Travaux des experts nationaux au sein leur instance de normalisation. Chez nous l'AFNOR et plus particulière le Bureau de normalisation des transports, des routes et de leurs aménagements (BNTRA).
+* Remontée des travaux nantionaux au sein du groupe de travail dédié du CEN.
+* Discussions fonctionnelles et techniques au sein du CEN jusqu'à consensus.
+* Soumission des évolutions au vote par les membres du CEN
+* Si vote positif, confirmation de l'évolution de la norme au niveau CEN.
+* Travaux au sein des instances nationales pour prendre en compte les évolutions au niveau CEN.
+
+<br />
+
+Qui peut s'impliquer dans les discussions de normalisation ? **Tout le monde !**
+
+<br />
+
+Plus particulièrement pour NeTEx, c'est le Groupe de Travail dédié à l'information voyageur et à l'exploitation des services de mobilité (GT7) qui :
+* Pilote et maintien les profils France de NeTEx et SIRI
+* Consolide les demandes de changement portées par la France pour l'évolution de Transmodel, NeTEx et SIRI
+* Mandate des experts français pour contribuer aux travaux européens de normalisation.
+
 
 ### 3.3. NeTEx et GTFS
 
@@ -132,15 +149,19 @@ NeTEx est conçu pour :
 * Les échanges entre systèmes d'information
 * L'open data
 
+La vision principale de NeTEx : une approche systémtique de la description d'un réseau et d'une offre de transport public.
+
 GTFS est conçu pour :
 
 * L'information voyageur, notamment la planfication de trajet
 * L'open data
 
+La vision principale de GTFS : faciliter de la planification de trajet via l'attache aux arrêts composant un réseau et une offre de transport en commun.
+
 Parce que NeTEx repose sur un modèle conceptuel de données (Transmodel), il permet :
 
 * Une meilleure articulation des concepts
-* Une représentation plus fine de la réalité (ex. accessibilité, offre tarifaire détaillée, niveau d'occupation par voiture)
+* La modélisation de la réalité complexe d'une offre de transport public, notamment pour l'accessibilité, l'offre tarifaire détaillée, les liens avec les parkings, etc.
 * La génération de jeux de données spécifiques, notamment ceux exprimés en GTFS
 
 À retenir :
