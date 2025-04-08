@@ -51,6 +51,11 @@ defmodule Rochefort do
     |> Enum.join("\n")
     |> Kino.Markdown.new()
   end
+
+  def zip_stream(zip, entry_name) do
+    zip
+    |> Unzip.file_stream!(entry_name)
+  end
 end
 
 Rochefort.install_required_libraries()
