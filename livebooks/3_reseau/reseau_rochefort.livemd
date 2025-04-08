@@ -25,6 +25,7 @@ defmodule Rochefort do
     Code.compile_file("lib/zip_support.ex", repo_root())
     Code.compile_file("lib/kino_tooling.ex", repo_root())
     Code.require_file("lib/xml_support.ex", repo_root())
+    Code.require_file("lib/xml_summariser.ex", repo_root())
     Code.require_file("lib/helpers.ex", repo_root())
   end
 
