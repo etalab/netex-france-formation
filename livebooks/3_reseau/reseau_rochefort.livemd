@@ -2,7 +2,7 @@
 
 # Lignes et Horaires - Rochefort
 
-```elixir
+````elixir
 defmodule Rochefort do
   def repo_root do
     Path.join(__DIR__, "../..")
@@ -56,6 +56,28 @@ defmodule Rochefort do
     zip
     |> Unzip.file_stream!(entry_name)
   end
+
+  def xml_summary(file_filter, file \\ rbus_file()) when is_struct(file_filter, Regex) do
+    zip_handle = file
+    |> ZipSupport.open_zip!()
+
+    entry_name = zip_handle
+    |> ZipSupport.list_zip_entries()
+    |> Enum.filter(& &1 =~ file_filter)
+    |> Helpers.one!()
+
+    summary = zip_handle
+    |> Unzip.file_stream!(entry_name)
+    |> Stream.map(&IO.iodata_to_binary(&1))
+    |> XmlSummariser.summarise!()
+
+    """
+    ```xml
+    #{summary}
+    ```
+    """
+    |> Kino.Markdown.new()
+  end
 end
 
 Rochefort.install_required_libraries()
@@ -99,7 +121,7 @@ defmodule Rochefort.Carto do
 end
 
 :ok
-```
+````
 
 ## INTRODUCTION - 00:00:00
 
