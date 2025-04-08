@@ -205,18 +205,8 @@ Rochefort.list_netex_content(:markdown)
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 
-```xml
-<PublicationDelivery ...>
-  ...
-    <members>
-      <Network/> (x1)
-      <Line (x14) />
-      <Operator (x1) />
-      <Authority (x1) />
-      <SiteConnection (x81) />
-    </members>
-  ...
-</PublicationDelivery>
+```elixir
+Rochefort.xml_summary(~r/commun/)
 ```
 
 Les notions de `Network` et de `Line` sont définies dans les sections suivantes.
