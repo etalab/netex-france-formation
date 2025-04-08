@@ -16,7 +16,8 @@ defmodule Rochefort do
     Mix.install([
       {:kino, "~> 0.15.3"},
       {:kino_maplibre, "~> 0.1.12"},
-      {:unzip, "~> 0.12.0"}
+      {:unzip, "~> 0.12.0"},
+      {:saxy, "~> 1.6"}
     ])
   end
 
