@@ -2,7 +2,7 @@
 
 # Lignes et Horaires - Rochefort
 
-```elixir
+````elixir
 defmodule Rochefort do
   def repo_root do
     Path.join(__DIR__, "../..")
@@ -16,7 +16,8 @@ defmodule Rochefort do
     Mix.install([
       {:kino, "~> 0.15.3"},
       {:kino_maplibre, "~> 0.1.12"},
-      {:unzip, "~> 0.12.0"}
+      {:unzip, "~> 0.12.0"},
+      {:saxy, "~> 1.6"}
     ])
   end
 
@@ -24,6 +25,7 @@ defmodule Rochefort do
     Code.compile_file("lib/zip_support.ex", repo_root())
     Code.compile_file("lib/kino_tooling.ex", repo_root())
     Code.require_file("lib/xml_support.ex", repo_root())
+    Code.require_file("lib/xml_summariser.ex", repo_root())
     Code.require_file("lib/helpers.ex", repo_root())
   end
 
@@ -47,6 +49,33 @@ defmodule Rochefort do
     |> entries
     |> Enum.map(& "* `#{&1}`")
     |> Enum.join("\n")
+    |> Kino.Markdown.new()
+  end
+
+  def zip_stream(zip, entry_name) do
+    zip
+    |> Unzip.file_stream!(entry_name)
+  end
+
+  def xml_summary(file_filter, file \\ rbus_file()) when is_struct(file_filter, Regex) do
+    zip_handle = file
+    |> ZipSupport.open_zip!()
+
+    entry_name = zip_handle
+    |> ZipSupport.list_zip_entries()
+    |> Enum.filter(& &1 =~ file_filter)
+    |> Helpers.one!()
+
+    summary = zip_handle
+    |> Unzip.file_stream!(entry_name)
+    |> Stream.map(&IO.iodata_to_binary(&1))
+    |> XmlSummariser.summarise!()
+
+    """
+    ```xml
+    #{summary}
+    ```
+    """
     |> Kino.Markdown.new()
   end
 end
@@ -92,7 +121,7 @@ defmodule Rochefort.Carto do
 end
 
 :ok
-```
+````
 
 ## INTRODUCTION - 00:00:00
 
@@ -176,18 +205,8 @@ Rochefort.list_netex_content(:markdown)
 
 Dans l'archive, nous allons à présent descendre dans le fichier "commun".
 
-```xml
-<PublicationDelivery ...>
-  ...
-    <members>
-      <Network/> (x1)
-      <Line (x14) />
-      <Operator (x1) />
-      <Authority (x1) />
-      <SiteConnection (x81) />
-    </members>
-  ...
-</PublicationDelivery>
+```elixir
+Rochefort.xml_summary(~r/commun/)
 ```
 
 Les notions de `Network` et de `Line` sont définies dans les sections suivantes.
