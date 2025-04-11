@@ -578,6 +578,81 @@ Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv
 </GeneralFrame>-->
 ```
 
+## 🔹🔹PassengerStopAssignment
+
+### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
+
+**_Rappel définition_** : Un `PassengerStopAssignment` définit l'affectation d’un POINT D’ARRÊT PLANIFIÉ (`ScheduledStopPoint`) à un LIEU D’ARRÊT (ou un de ses composant de type ZONE D’EMBARQUEMENT (`Quay`) ou POSITION D’EMBARQUEMENT) pour un service passager.
+
+Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
+
+```mermaid
+graph LR
+  PassengerStopAssignment -- référence un --> ScheduledStopPoint
+  PassengerStopAssignment -- référence un --> Quay
+```
+
+💡 Comme indiqué dans la section précédente, un `PassengerStopAssignment` permet donc de faire le lien entre arrêt **logique** et arrêt **physique**.
+
+💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts, leur localisation précise, ainsi que les informations d'accessibilité plus détaillées.
+
+## 🔹🔹ServiceJourneyPattern
+
+### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
+
+**_Rappel définition_** : Un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers). Il liste les POINTs SUR PARCOURS (`PointInJourneyPattern`) parcourus, dans l'ordre, et sur un ITINERAIRE (`Route`) de référence (et donc dans la direction indiquée par l'itinéraire).
+
+Cf [Profil France NETEX : ServiceJourneyPattern](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#service-journey-pattern-parcours-commercial)
+
+💡 On parle aussi de MISSION COMMERCIALE.
+
+💡 Dans notre exemple de Rochefort, les `PointInJourneyPattern` sont de type `ScheduledStopPoint`, ce qui n'est pas systématiquement le cas. En effet ils peuvent être de type `TimingPoint`.
+
+<!-- livebook:{"break_markdown":true} -->
+
+```mermaid
+graph LR
+  Route("Route (Itinéraire)") -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
+  ServiceJourneyPattern -- est sur un unique --> Route
+  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ligneB_arrets_ServiceJourneyPattern.jpg)
+
+<!-- livebook:{"break_markdown":true} -->
+
+```xml
+<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
+    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
+    <members>
+      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
+      ...
+      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...
+      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+      ...-->
+      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
+        <Name>HOPITAL</Name>
+        <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
+        <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_F36FA40C125B3C6E9206EB371729B19A-B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
+        <pointsInSequence>
+          <StopPointInJourneyPattern order="1" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="2" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC">
+          <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104745ScheduledScheduled:LOC">
+          ...
+        </pointsInSequence>
+        <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
+      </ServiceJourneyPattern>
+      ...
+      <!--<ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
+      ...
+      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
+    </members>
+</GeneralFrame>-->
+```
+
 <!-- livebook:{"break_markdown":true} -->
 
 ✍️ **Exercice** :
@@ -653,81 +728,6 @@ On récupère le `ScheduledStopPoint` via son identifiant référencée (Schedul
 
   </div>
 </details>
-
-## 🔹🔹PassengerStopAssignment
-
-### Fichier d'une ligne > LIGNE > PassengerStopAssignment : on définit les affectations des arrêts
-
-**_Rappel définition_** : Un `PassengerStopAssignment` définit l'affectation d’un POINT D’ARRÊT PLANIFIÉ (`ScheduledStopPoint`) à un LIEU D’ARRÊT (ou un de ses composant de type ZONE D’EMBARQUEMENT (`Quay`) ou POSITION D’EMBARQUEMENT) pour un service passager.
-
-Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
-
-```mermaid
-graph LR
-  PassengerStopAssignment -- référence un --> ScheduledStopPoint
-  PassengerStopAssignment -- référence un --> Quay
-```
-
-💡 Comme indiqué dans la section précédente, un `PassengerStopAssignment` permet donc de faire le lien entre arrêt **logique** et arrêt **physique**.
-
-💡 Les `Quay` sont définis en dehors du cadre de cette présentation, dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Celui-ci contient entre autres la liste des `Quay` et des `StopPlace`, et permet notamment de retrouver le nom des arrêts, leur localisation précise, ainsi que les informations d'accessibilité plus détaillées.
-
-## 🔹🔹ServiceJourneyPattern
-
-### Fichier d'une ligne > LIGNE > ServiceJourneyPattern : on définit les parcours commerciaux
-
-**_Rappel définition_** : Un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers). Il liste les POINTs SUR PARCOURS (`PointInJourneyPattern`) parcourus, dans l'ordre, et sur un ITINERAIRE (`Route`) de référence (et donc dans la direction indiquée par l'itinéraire).
-
-Cf [Profil France NETEX : ServiceJourneyPattern](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#service-journey-pattern-parcours-commercial)
-
-💡 On parle aussi de MISSION COMMERCIALE.
-
-💡 Dans notre exemple de Rochefort, les `PointInJourneyPattern` sont de type `ScheduledStopPoint`, ce qui n'est pas systématiquement le cas. En effet ils peuvent être de type `TimingPoint`.
-
-<!-- livebook:{"break_markdown":true} -->
-
-```mermaid
-graph LR
-  Route("Route (Itinéraire)") -- est le support du -->ServiceJourneyPattern("ServiceJourneyPattern (Parcours commercial)")
-  ServiceJourneyPattern -- est sur un unique --> Route
-  ServiceJourneyPattern -- est composé de plusieurs  --> PointInJourneyPattern@{ shape: procs, label: "PointInJourneyPattern (ex : ScheduledStopPoint)"}
-```
-
-<!-- livebook:{"break_markdown":true} -->
-
-![](files/ligneB_arrets_ServiceJourneyPattern.jpg)
-
-<!-- livebook:{"break_markdown":true} -->
-
-```xml
-<!--<GeneralFrame version="any" id="CA_ROCHEFORT_OCEAN:NETEX_LIGNE-20250210000707Z:LOC">
-    <TypeOfFrameRef ref="FR:TypeOfFrame:NETEX_LIGNE:">version="1.1:FR-NETEX_LIGNE-2.2"</TypeOfFrameRef>
-    <members>
-      <RouteLink version="any" id="CA_ROCHEFORT_OCEAN:RouteLink:B_F36FA40C125B3C6E9206EB371729B19A_52_P105843_P104746_100:LOC">
-      ...
-      <Route version="any" id="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
-      ...
-      <Direction version="any" id="CA_ROCHEFORT_OCEAN:Direction:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
-      ...-->
-      <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19A:LOC">
-        <Name>HOPITAL</Name>
-        <RouteRef ref="CA_ROCHEFORT_OCEAN:Route:B_F36FA40C125B3C6E9206EB371729B19A:LOC" version="any"/>
-        <DestinationDisplayRef ref="CA_ROCHEFORT_OCEAN:DestinationDisplay:B_F36FA40C125B3C6E9206EB371729B19A-B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC" version="any"/>
-        <pointsInSequence>
-          <StopPointInJourneyPattern order="1" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP105843ScheduledScheduled:LOC">
-          <StopPointInJourneyPattern order="2" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104746ScheduledScheduled:LOC">
-          <StopPointInJourneyPattern order="3" version="any" id="CA_ROCHEFORT_OCEAN:StopPointInJourneyPattern:B_F36FA40C125B3C6E9206EB371729B19AaP104745ScheduledScheduled:LOC">
-          ...
-        </pointsInSequence>
-        <ServiceJourneyPatternType>passenger</ServiceJourneyPatternType>
-      </ServiceJourneyPattern>
-      ...
-      <!--<ScheduledStopPoint version="any" id="CA_ROCHEFORT_OCEAN:ScheduledStopPoint:B_9523CEB527B7855DF453D065F3F80B97aP104781ScheduledScheduled:LOC">
-      ...
-      <PassengerStopAssignment order="0" version="any" id="CA_ROCHEFORT_OCEAN:PassengerStopAssignment:B_71949A53A89CEE2A22C4F74ED125BEA3aP106997ScheduledScheduled:LOC">
-    </members>
-</GeneralFrame>-->
-```
 
 ## 🔹🔹RouteLink
 
