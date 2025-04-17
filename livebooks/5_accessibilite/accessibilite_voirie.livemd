@@ -395,6 +395,9 @@ Mode opératoire :
 * Identifier dans la documentation ce qui caractérise un passage piéton : objet SitePathLink, attribut **AccesFeatureType**, valeur **crossing**
 * Rechercher dans le fichier toutes les occurrences : `<AccessFeatureType>crossing</AccessFeatureType>`
 * Compter le nombre de résultats
+
+Réponse : il y a 90 passages piétons décrits dans le fichier.
+
  
   </div>
 </details>
@@ -414,7 +417,9 @@ Mode opératoire :
 * Identifier dans la documentation ce qui caractérise un feu piéton : objet CrossingEquipment, attribut **PedestrianLights**, valeur **true**
 * Rechercher dans le fichier toutes les occurrences : `<PedestrianLights>true</PedestrianLights>`
 * Compter le nombre de résultats
- 
+
+Réponse : il y a 44 passages piétons avec feu.
+
   </div>
 </details>
 
@@ -434,7 +439,7 @@ Mode opératoire :
 * Rechercher dans le fichier toutes les occurrences : `<AcousticCrossingAids>true</AcousticCrossingAids>`
 * Compter le nombre de résultats
 
-
+Réponse : il y a 4 passages piétons avec un feu sonore.
  
   </div>
 </details>
@@ -459,7 +464,9 @@ Mode opératoire :
 * Identifier dans la documentation ce qui caractérise une bande de guidage : objet SitePathLink, attribut **TactileGuidingStrip**, valeur **true**
 * Rechercher dans le fichier toutes les occurrences : `<TactileGuidingStrip>true</TactileGuidingStrip>`
 * Compter le nombre de résultats
- 
+
+Réponse : il n'y a pas de bandes de guidage décrites dans ce fichier.
+
   </div>
 </details>
 
@@ -495,8 +502,10 @@ Mode opératoire :
 * Identifier dans la documentation ce qui caractérise un passage piéton : objet SitePathLink, attribut **AccesFeatureType**, valeur **crossing**
 * Identifier dans la documentation ce qui caractérise la longueur d'un cheminement : objet SitePathLink, attribut **Distance**
 * Rechercher dans le fichier tous les passages piétons (avec `<AccessFeatureType>crossing</AccessFeatureType>`) et comparer leur longueur (`<Distance>(...)</Distance>`) jusqu'à trouver le plus long
-* Récupérer son identifiant 
- 
+* Récupérer son identifiant
+
+Réponse : il s'agit du passage piéton d'identifiant `Yukaimaps:SitePathLink:w-291_n-710_n-539:LOC`, qui mesure 18.19 m.
+
   </div>
 </details>
 
@@ -516,7 +525,9 @@ Mode opératoire :
 * Identifier dans la documentation ce qui caractérise les bordures de trottoir abaissées : objet CrossingEquipment, attribut **DroppedKerb**, valeur **true**
 * Retrouver l'objet CrossingEquipment associé au SitePathLink (`placeEquipments/CrossingEquipmentRef`)
 * Dans cet objet, rechercher l'attribut DroppedKerb et sa valeur
- 
+
+Réponse : ce passage piéton n'a pas de bordures abaissées.
+
   </div>
 </details>
 
