@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Pt_selon_TM.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"PT_selon_TM.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Les concepts de base
 
