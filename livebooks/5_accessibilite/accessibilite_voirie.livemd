@@ -18,11 +18,11 @@ Ce que vous allez apprendre :
 
 Déroulement de la formation :
 
-📌 cas pratique
+📌 Cas pratique
 
-📌 lecture de la documentation et découverte de quelques attributs emblématiques
+📌 Lecture de la documentation et découverte de quelques attributs emblématiques
 
-📌 exercice pratique de prise en main d'un fichier réel
+📌 Exercice pratique de prise en main d'un fichier réel
 
 ## Cas d'usage
 
@@ -45,7 +45,7 @@ Modélisation schématique associée :
 
 <!-- livebook:{"break_markdown":true} -->
 
-extrait NeTEx associé:
+Extrait NeTEx associé:
 
 ```xml
 
@@ -197,7 +197,7 @@ flooringtype = Kino.Layout.grid([flooringtype_xml, flooringtype_doc], columns: {
 
 accessibility_xml = Kino.Markdown.new("""
 
-pour un des 2 passages piétons :
+Pour un des 2 passages piétons :
 
 ```xml
 <SitePathLink id="Yukaimaps:SitePathLink:w-582_n-25403_n-25366:LOC" version="any">
@@ -223,7 +223,7 @@ pour un des 2 passages piétons :
 accessibility_doc = Kino.Markdown.new("""
 ![voir en annexe](files/voirie_doc_aa.png)
 
-dans l'annexe :
+Dans l'annexe :
 ![il y a des feux sonores d'aide à la traversée en bon état de marche](files/voirie_doc_aa_annexe.png)
 
 ![illustration de feu sonore](files/voirie_tactile_acoustic_crossing.png) _© nlehuby (CC-BY-SA 4.0)_
