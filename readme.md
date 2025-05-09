@@ -50,8 +50,17 @@ Dans l'ordre des Livebooks
 
 ### Crédits / attributions
 
-- TODO: jeux de données
-- TODO: mention des agglomérations présentées / photos
+Le contenu documentaire de ce dépôt sont placés sous la licence XXX.
+Les images présentées (illustrations, photos) ont leurs propres licences ou conditions de réutilisations. Si non précisé dans le livebook, elles sont également placées sous la licence XXX.
+
+Le code présent dans ce dépôt est placé sous la licence XXX.
+
+Ce dépôt comporte également des données d'exemple. Elles sont toutes issues du Point d'Accès National (les liens sont précisés dans les livebooks) et ont leur propre licence :
+- ODbL (Nouvelle-Aquitaine Mobilités) pour le jeu de donnée de la partie 3
+- LO (Syndicat mixte Atoumod, mars 2025) pour le jeu de donnée de la partie 4
+- ODbL (Jungle Bus / contributeurs OpenStreetMap) pour les jeux de données de la partie 5
+
+Merci aux producteurs de données qui utilisent le format NeTEx pour diffuser leurs données.
 
 ### Liens utiles
 
