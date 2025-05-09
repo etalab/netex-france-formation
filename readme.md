@@ -24,7 +24,7 @@ Vous devez suivre ces étapes :
 
 La navigation vers les autres parties de la formation se font sur la base des liens situés en bas de page. 
 
-** Note ** : Ouvrir le contenu directement en ligne dans ce dépôt GitHub est aussi possible mais l'ensemble du code de la formation sera également apparent.
+**Note** : Ouvrir le contenu directement en ligne dans ce dépôt GitHub est aussi possible mais l'ensemble du code de la formation sera également apparent.
 
 ## Structure du dépôt
 
@@ -82,6 +82,8 @@ Merci aux producteurs de données qui utilisent le format NeTEx pour diffuser le
 
 | Titre                                          | Description                                                        | Lien                                                                                     |
 | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Livebook                                       | Pour consulter le contenu de la formation                          | https://livebook.dev/#install                                                            |
+| GitHub Desktop                                 | Pour cloner le contenu du dépôt de la formation                    | https://github.com/apps/desktop                                                          |
 | Enterprise Architect Viewer                    | Pour visualiser le diagramme UML de Transmodel                     | https://sparxsystems.com/products/ea/downloads.html                                      |
 | XMLSpy                                         | Outil de visualisation de la XSD de NeTEx et SIRI                  | https://www.altova.com/xmlspy-xml-editor/download                                        |
 | Visual Code Studio                             | Pour lire et éditer des fichiers XML                              | https://code.visualstudio.com/download                                                   |
