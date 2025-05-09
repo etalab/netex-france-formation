@@ -50,10 +50,10 @@ Lire le paragraphe du profil.
 
 À retenir : 
 
-* les ÉVALUATIONS D'ACCESSIBILITÉ (`AccessibilityAssessment`) sont des attributs génériques qu'on peut retrouver sur différents objets (arrêts de bus, gare, ligne, point d'intérêt)
-* ils peuvent valoir true (oui), false (non), partial (partiel) ou unknown (inconnu)
-* des textes de loi permettent en général de connaitre les conditions à respecter pour mettre `true`
-* si on met `partial`, on doit mettre une information complémentaire pour détailler. Cette info est susceptible d'être présentée au public
+* Les ÉVALUATIONS D'ACCESSIBILITÉ (`AccessibilityAssessment`) sont des attributs génériques qu'on peut retrouver sur différents objets (arrêts de bus, gare, ligne, point d'intérêt)
+* Ils peuvent valoir true (oui), false (non), partial (partiel) ou unknown (inconnu)
+* Des textes de loi permettent en général de connaitre les conditions à respecter pour mettre `true`
+* Si on met `partial`, on doit mettre une information complémentaire pour détailler. Cette info est susceptible d'être présentée au public
     
   </div>
 </details>
@@ -62,9 +62,9 @@ Lire le paragraphe du profil.
 
 🫵 Sur la base des photos d'arrêts suivantes, que mettriez-vous comme valeur
 
-* pour WheelchairAccess ? (*on peut s’y déplacer en fauteuil roulant*)
-* pour VisualSignsAvailable ? (*une signalétique visuelle est disponible*)
-* pour AudibleSignalsAvailable ? (*une signalétique sonore est disponible*)
+* Pour WheelchairAccess ? (*on peut s’y déplacer en fauteuil roulant*)
+* Pour VisualSignsAvailable ? (*une signalétique visuelle est disponible*)
+* Pour AudibleSignalsAvailable ? (*une signalétique sonore est disponible*)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -134,15 +134,15 @@ Arrêté du 15 janvier 2007 portant application du décret n° 2006-1658 du 21 d
 
 ![capture d'écran des critères d'après la loi](files/transport_article_loi.png)
 
-source : https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000048288441/
+Source : https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000048288441/
 
-#### en résumé :
+#### En résumé :
 
 **WheelchairAccess** : le sol est plat, de revêtement lisse et stable, assez large pour faire demi-tour en fauteuil (1,50m) et sans obstacle permanent bloquant.
 
-- lisse : le revêtement ne cause pas de secousse
+- Lisse : le revêtement ne cause pas de secousse
 - stable : pas de risques de s’enfoncer ou de glisser
-- plat : pente de moins de 5%, dévers de moins de 2%
+- Plat : pente de moins de 5%, dévers de moins de 2%
 
 ![illustration : exemple de schéma d'implantation d'un quai](files/transport_exemple_implantation_quai.png)
 
@@ -150,9 +150,9 @@ _© Cerema. Points d’arrêts de bus et de cars accessibles à tous. De la norm
 Bron : Cerema, 2018. Collection : Références. ISBN : 978-2-37180-260-5_
 
 **VisualSignsAvailable** : Sont affichés :
-- le nom de l'arrêt
-- les lignes de transport desservies et leur destination 
-- en complément : un tableau présentant les horaires, le plan du réseau, de la ligne ou des abords / un écran d'affichage
+- Le nom de l'arrêt
+- Les lignes de transport desservies et leur destination 
+- En complément : un tableau présentant les horaires, le plan du réseau, de la ligne ou des abords / un écran d'affichage
 
 En pratique, il y a des critères additionnels sur la taille des caractères, la police, le contraste avec le fond, etc.
 
