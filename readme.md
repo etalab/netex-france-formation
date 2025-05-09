@@ -50,10 +50,10 @@ Dans l'ordre des Livebooks
 
 ### Crédits / attributions
 
-Le contenu documentaire de ce dépôt sont placés sous la licence XXX.
-Les images présentées (illustrations, photos) ont leurs propres licences ou conditions de réutilisations. Si non précisé dans le livebook, elles sont également placées sous la licence XXX.
+Le contenu documentaire de ce dépôt sont placés sous la licence CC-BY.
+Les images présentées (illustrations, photos) ont leurs propres licences ou conditions de réutilisations. Si non précisé dans le livebook, elles sont également placées sous la licence CC-BY.
 
-Le code présent dans ce dépôt est placé sous la licence XXX.
+Le code présent dans ce dépôt est placé sous la licence WTFPL.
 
 Ce dépôt comporte également des données d'exemple. Elles sont toutes issues du Point d'Accès National (les liens sont précisés dans les livebooks) et ont leur propre licence :
 - ODbL (Nouvelle-Aquitaine Mobilités) pour le jeu de donnée de la partie 3
