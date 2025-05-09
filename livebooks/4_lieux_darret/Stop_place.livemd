@@ -15,21 +15,21 @@ Code.compile_file("../../lib/kino_tooling.ex", __DIR__)
 
 ### 🔹 Introduction
 
-Présentation du contenu, de la demarche et des objectifs
+Présentation du contenu, de la demarche et des objectifs.
 
 ### 🔹 La multimodalité
 
-Présentation de ce qu'est la multimodalité et de son application à cette session
+Présentation de ce qu'est la multimodalité et de son application à cette session.
 
 ### 🔹 Cas pratique
 
 Sur la base d'un fichier NeTEx d'arrêt nous allons l'analyser et le reconstruire à partir de ses données.
 
-Des axes d'amélioration de sa représentativité "Multimodale" seront explorés
+Des axes d'amélioration de sa représentativité "Multimodale" seront explorés.
 
 ### 🔹 Illustration d'une vision exploitant
 
-Présentation de la représentation d'un pole multimodal, vu des exploitants, construit à partir de données Transmodel / NeTEx
+Présentation de la représentation d'un pôle multimodal, vu des exploitants, construit à partir de données Transmodel / NeTEx.
 
 ## I. INTRODUCTION
 
@@ -49,21 +49,21 @@ Pour bien utiliser ces fichiers, il est essentiel de savoir :
 
 ✅ Extraire les bonnes informations pour leur intégration dans d’autres systèmes (Systèmes d’Information Voyageurs, outils SIG, planificateurs d’itinéraires).
 
-> RAPPEL : NeTEx repose sur un pilier qu'est TRANSMODEL.
+> RAPPEL : NeTEx repose sur le pilier qu'est TRANSMODEL.
 
 ## 1.2 Ce que vous allez apprendre
 
 Au fil de cette formation, nous allons explorer :
 
-📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts.
+📌 Les bases du format NeTEx et son utilisation dans la modélisation des arrêts
 
-📌 Les principaux éléments XML décrivant un lieu d'arrêt (`STOPPLACE`, `ENTRANCE`, `QUAY`).
+📌 Les principaux éléments XML décrivant un lieu d'arrêt (`STOPPLACE`, `ENTRANCE`, `QUAY`)
 
-📌 Comment lire un fichier NeTEx et en extraire des informations utiles.
+📌 Comment lire un fichier NeTEx et en extraire des informations utiles
 
-📌 Comment interpréter les relations spatiales et fonctionnelles entre arrêts.
+📌 Comment interpréter les relations spatiales et fonctionnelles entre arrêts
 
-📌 Les bonnes pratiques pour exploiter efficacement ces fichiers.
+📌 Les bonnes pratiques pour exploiter efficacement ces fichiers
 
 ## 1.3 La démarche pour cette partie
 
@@ -77,7 +77,7 @@ Au fil de cette formation, nous allons explorer :
 
 📌 Comparaison avec la réalité
 
-📌Identifier des axes d'amélioration
+📌 Identifier des axes d'amélioration
 
 ## 1.4 Déroulement de la formation
 
@@ -107,7 +107,7 @@ Cela peut inclure des modes tels que la voiture, le train, le vélo, le bus, le 
 
 Les lieux d’arrêt multimodaux sont des espaces conçus pour faciliter l’interconnexion entre plusieurs modes de transport (bus, train, vélo, voiture, tramway). Leur mise en place répond à plusieurs enjeux liés à la mobilité, l’accessibilité et l’efficacité des transports en permettant :
 
-* de faciliter l’interconnexion des transports
+* De faciliter l’interconnexion des transports
 
   Ces lieux permettent aux voyageurs de passer facilement d’un mode de transport à un autre (exemple : descendre d’un train et prendre un bus sans difficulté). Ils contribuent à optimiser le temps de trajet et réduisent les interruptions.
 
@@ -120,18 +120,18 @@ Les lieux d’arrêt multimodaux sont des espaces conçus pour faciliter l’int
 > Le vocabulaire distingue la multimodalité de l'**intermodalité**.
 > L’intermodalité se définie comme l’utilisation d’au moins deux modes de transports sur un même déplacement. C’est un terme qui est utilisé dans la géographie des transports et des mobilités.
 
-## 2.2 Approche du Profil NeTex Arrêt France
+## 2.2 Approche du Profil France de NeTEx - Partie Arrêts
 
-Le profil NeTEx France Arrêt décrit une organisation hiérarchique des lieux d'arret.
+La partie Arrêts du profil France de NeTEx France décrit une organisation hiérarchique des lieux d'arrêt.
 
 * https://normes.transport.data.gouv.fr/normes/netex/arrets/
 
-Ce profil spécifie un « Modèle d’arrêt partagé » français sous la forme d’un modèle conceptuel de données basé sur le concept LIEU D’ARRÊT `STOPPLACE`et les concepts liés.
+Cette partie du profil spécifie un « Modèle d’arrêt partagé » français sous la forme d’un modèle conceptuel de données basé sur le concept LIEU D’ARRÊT `STOPPLACE`et les concepts liés.
 
 Ce modèle définit des regroupements génériques de ces objets relativement simples : il s’agit en particulier de LIEU D’ARRÊT MULTIMODAL, PÔLE MONOMODAL, et GROUPE DE
 LIEUX D’ARRÊT qui sont des concepts intuitifs sur le terrain.
 
-Le Profil est un guide pour le choix des attribus optionnels à implémenter.
+Le profil France est un guide pour le choix des attribus optionnels à implémenter.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -145,13 +145,13 @@ Les définitions des éléments constituant cette organisation sont les suivante
 
 Lieu tel qu’une plateforme, zone ou quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
 
-🔹  **Lieu d’arret monomodal** (`STOP PLACE`)
+🔹  **Lieu d’arret monomodal** (`STOP PLACE`) :
 
 LIEU comprenant un ou plusieurs emplacements où les véhicules peuvent s’arrêter et où les voyageurs peuvent monter à bord ou descendre des véhicules ou préparer leur déplacement.
 
 Ce type de lieu ne contiendra que des possibilités d’accès à des véhicules d’un même mode (le mode desservi sera donc l’un de ses attributs). Il correspond à ce qui est souvent appelé arrêt commercial (mais les vocabulaires varient…)
 
-🔹  **Pole monomodal** (`STOP PLACE`)
+🔹  **Pole monomodal** (`STOP PLACE`) :
 
 Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IFOPT de LIEU D'ARRÊT (`STOP PLACE` en anglais) : un Pôle Monomodal n’est composé que de LIEUx D’ARRÊT Monomodaux de modes identiques mais de nom différent.
 
@@ -159,11 +159,11 @@ Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IF
 
 LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
 
-🔹 **Groupe de Lieux**
+🔹 **Groupe de Lieux** : 
 
-C'est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport
+C'est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport.
 
-## 2.3. Les notions NeTex Associées
+## 2.3. Les notions NeTEx associées
 
 🔹  **Définitions**
 
@@ -185,11 +185,11 @@ Transmodel définit les concepts suivants pour la définition des lieux d'arrêt
 
 ### `STOPPLACE` (Lieu d'arrêt)
 
-📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement
+📌 C'est un emplacement comprenant un ou plusieurs endroits où des véhicules peuvent s’arrêter et où les usagers peuvent monter / descendre des véhicules ou préparer leur déplacement.
 
 📌 Un Lieu d'arrêt peut être constitué de Lieux d'arrêt.
 
-Exemples de `STOPPLACE`
+Exemples de `STOPPLACE` :
 
 * Une station de métro comprenant plusieurs quais et entrées.
 
@@ -207,7 +207,7 @@ Il s'agit d'un composant de Lieu d'arrêt accessible aux piétons mais sans acc�
 
 ### `STOPPLACEENTRANCE` (Entrée)
 
-Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt
+Concept qui permet de décrire les entrées (point d'accès) d'un Lieu d'arrêt.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -221,7 +221,7 @@ Les éléments composants un lieu d'arrêt multimodal sont liés par les relatio
 
 <!-- livebook:{"break_markdown":true} -->
 
-Ces concepts permettent une représentation de Lieux (Trés) complexes
+Ces concepts permettent une représentation de Lieux (très) complexes.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -231,7 +231,7 @@ Ces concepts permettent une représentation de Lieux (Trés) complexes
 
 ![](files/RepLA.JPG)
 
-## 2.4. Pour en savoir un peu plus ...
+## 2.4. Pour en savoir un peu plus...
 
 > **Cette section n'est pas abordée en séance. Elle est destinée à ceux qui souhaite a posteriori en savoir un peu plus.**
 
@@ -265,7 +265,7 @@ La récursivité permet d’exprimer des relations hiérarchiques où un `STOP P
 
 Exemple concret de récursivité :
 
-📌 Un aéroport international (`STOP PLACE`) peut contenir plusieurs terminaux (Stop Places imbriqués)
+📌 Un aéroport international (`STOP PLACE`) peut contenir plusieurs terminaux (Stop Places imbriqués).
 
 📌 Chaque terminal peut avoir plusieurs halls d’embarquement (`STOP PLACE COMPONENT`).
 
@@ -317,7 +317,7 @@ Les arrêts peuvent être différenciés en :
 
 📌 Arrêts virtuels : utilisés pour la planification et les itinéraires sans correspondance à un lieu physique unique.
 
-🔹🔹 Atouts de la modelisation NeTEx pour les lieux d'arrêt.
+🔹🔹 Atouts de la modélisation NeTEx pour les lieux d'arrêt
 
 La modélisation des `STOP PLACE` dans Transmodel repose sur une hiérarchisation rigoureuse, une structuration récursive, et une modélisation relationnelle des arrêts. Grâce à ces principes, les systèmes d’information de transport peuvent :
 
@@ -329,9 +329,9 @@ La modélisation des `STOP PLACE` dans Transmodel repose sur une hiérarchisatio
 
 Cette approche permet une gestion avancée des infrastructures de transport, essentielle pour les opérateurs et les autorités organisatrices.
 
-> 💡 **NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le vehicule transportant l'information.**
+> 💡 **NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le véhicule transportant l'information.**
 
-## III. PRESENTATION DU CAS D'USAGE : ASTUCE ROUEN
+## III. PRÉSENTATION DU CAS D'USAGE : ASTUCE ROUEN
 
 Cette section va nous permettre d'analyser une modelisation d'un lieu d'arrêt multimodal en partant du constat : Sa description dans son environnement réel et via sa représentation cartographique analyser sa représentation via les échanges NeTEx.
 
@@ -394,7 +394,7 @@ L'agglomeration Rouanaise :
 
 ## 3.2. Vue cartographique
 
-Une représentation de la zone géographique autour du théâtre des arts est disponible sur le site du transporteur.
+Une représentation de la zone géographique autour du Théâtre des Arts est disponible sur le site du transporteur.
 
 Y sont représentés :
 
@@ -405,7 +405,7 @@ Y sont représentés :
 
 * Des points d'intérêt ( Agence Astuce, station de chargement electrique)
 
-* Pour chaque point d'arret : le mode associé via le picto (Ferré vs Bus)
+* Pour chaque point d'arrêt : le mode associé via le picto (Ferré vs Bus)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -421,7 +421,7 @@ Les synoptiques de lignes du transporteur offrent une autre vison du (des) lieu(
 
 ## 💡 💡 Question
 
-Quelles sont les Principales caractériques de ce lieu d'arrêt ?
+Quelles sont les principales caractériques de ce lieu d'arrêt ?
 
 ## => Réponse
 
@@ -429,7 +429,7 @@ Proposition de réponse non exhaustive
 
 * **Multimodal** : Tram, BHNS, Bus
 
-* **Pas d'unicité géographiqe**  : les arrêts Théâtre des Arts sont plus éloignés du théâtre que d'autres ayant des noms différents : exemple gare routière
+* **Pas d'unicité géographiqe**  : les arrêts Théâtre des Arts sont plus éloignés du théâtre que d'autres ayant des noms différents (exemple : gare routière)
 
 * ...
 
@@ -439,7 +439,7 @@ Proposition de réponse non exhaustive
 
 <!-- livebook:{"break_markdown":true} -->
 
-Pour accèder aux fichiers utilisés pendant cette session, réalisez les op&rations suivantes :
+Pour accéder aux fichiers utilisés pendant cette session, réalisez les opérations suivantes :
 
 1. ***Télécharger le fichier sur le PAN***
 
@@ -459,7 +459,7 @@ Y télécharger le fichier NeTEx (en bas à droite")
 
 1. ***Rechercher & télécharger l'offre ASTUCE***
 
-Ce .zip agglomère toute l'offre transport public Normandie sous forme de .zip.
+Ce fichier agglomère toute l'offre transport public Normandie sous forme de .zip.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -485,9 +485,9 @@ Ce dossier contient
 
 * 1 Fichier : Reseaux.xml (Network, Line, GroupOfLines, Operator, Authority, SiteConnection)
 
-* N fichiers Lines (ServiceJOurney)
+* N fichiers Lines (ServiceJourney)
 
-Dans la suite de la session nous allons être amenés à utiliser les fichiers **Arrets**, **Réseaux** et **Lignes**
+Dans la suite de la session nous allons être amenés à utiliser les fichiers **Arrets**, **Reseaux** et **Lines**.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -499,7 +499,7 @@ Dans la suite de la session nous allons être amenés à utiliser les fichiers *
 
 <!-- livebook:{"break_markdown":true} -->
 
-**La représentation faite d'un arrêt en NeTEx dépend du choix des organisations en charge de la modelisation.**
+**La représentation faite d'un arrêt en NeTEx dépend du choix des organisations en charge de la modélisation.**
 
 * Plusieurs représentations d'un même lieu d'arrêt sont possible de la plus simple à la plus complexe.
 
@@ -513,7 +513,7 @@ Dans la suite de la session nous allons être amenés à utiliser les fichiers *
 
 > =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER ARRETS.XML**</span>
 
-Le fichier Arret décrit les `Stop Place`et les `Quay`. A partir d'un extrait de ce fichier nous pouvons lire les données qui définissent un arrêt et un Quai.
+Le fichier Arret décrit les `Stop Place`et les `Quay`. À partir d'un extrait de ce fichier nous pouvons lire les données qui définissent un arrêt et un Quai.
 
 Le nombre d'éléments décrits dans ce fichier est le suivant :
 
@@ -534,7 +534,7 @@ Le nombre d'éléments décrits dans ce fichier est le suivant :
 
 <!-- livebook:{"break_markdown":true} -->
 
-Regardons les éléments de définition d'un lieu d'arrêt
+Regardons les éléments de définition d'un lieu d'arrêt.
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -677,7 +677,7 @@ Quai: xml_2])
 La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
 
 * le réseau `Network`;
-* les lignes `line`du réseau;
+* les lignes `line` du réseau;
 * les groupes de lignes `GroupOfLines`
 * l'opérateur `Operator`
 * l'autorité organisatrice `Authority`
@@ -1147,18 +1147,18 @@ Ce fichier décrit chaque ligne identifiée dans le fichier 'Réseaux' en termes
 * Itinéraires `Route`
 * Sens `Direction`
 * Parcours commercial `ServiceJourneyPattern`
-* Affichage de destination `Destination Display`
+* Affichage de destination `DestinationDisplay`
 * Point d'arrêt topologique `ScheduleStopPoint`
 * Affectation de Point d'arrêt `PassengerStopAssignement`
 * Tronçon d'itineraire `RouteLink`
 
-Le nombre d'éléments décrits dans ce fichier est identifié ci dessous.
+Le nombre d'éléments décrits dans ce fichier est identifié ci-dessous.
 
-A noter la présence de 2 `FRAMES` dans le fichier :
+À noter la présence de 2 `FRAMES` dans le fichier :
 
 * Une regroupe la description topologique de la ligne,
 
-* Une  regroupe la description des horaires théoriques de la ligne.
+* Une regroupe la description des horaires théoriques de la ligne.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1191,7 +1191,7 @@ A noter la présence de 2 `FRAMES` dans le fichier :
 
 <!-- livebook:{"break_markdown":true} -->
 
-La section suivante présente le contenu du fichier NeTEx pour ses différents membres
+La section suivante présente le contenu du fichier NeTEx pour ses différents membres.
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -1538,7 +1538,7 @@ Affectation: xml_6])
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Etape 1 : identifier & extraire les éléments de nom "théâtre des Arts"
+### Étape 1 : identifier & extraire les éléments de nom "Théâtre des Arts".
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1552,15 +1552,15 @@ Si l'on recherche des `Stop Place` et des `Quay` de nom "Théâtre des Arts" nou
 
 ## 💡 💡 Question
 
-A partir du fichier "Arret.xml compléter les 2 informations manquantes
+À partir du fichier "Arret.xml compléter les 2 informations manquantes.
 
 ## => Réponse
 
 ![](files/Reponse.JPG)
 
-## 3.4.2 Etape 2 - Organiser en utilisant les liens
+## 3.4.2 Étape 2 - Organiser en utilisant les liens
 
-Sur la base des identifiants présents dans les éléments ayant pour nom "Théâtre des Arts", les relations suivantes peuvent être établis
+Sur la base des identifiants présents dans les éléments ayant pour nom "Théâtre des Arts", les relations suivantes peuvent être établies.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1568,21 +1568,21 @@ Sur la base des identifiants présents dans les éléments ayant pour nom "Thé�
 
 ## 💡 💡 Question
 
-Compléter les liens manquants
+Compléter les liens manquants.
 
 ## ==> Réponse
 
 ![](files/GrpLien2.JPG)
 
-## 3.4.3 Etape 3 - Regroupement Modal
+## 3.4.3 Étape 3 - Regroupement Modal
 
-Nous allons regrouper les éléments selon les informations "modales" qu'ils portent
+Nous allons regrouper les éléments selon les informations "modales" qu'ils portent.
 
 <!-- livebook:{"break_markdown":true} -->
 
 ![](files/GrpMode.JPG)
 
-## 3.4.4 Analyse modelisation NeTex "Théâtre des Arts
+## 3.4.4 Analyse modélisation NeTEx "Théâtre des Arts
 
 ## 💡 💡 Question
 
@@ -1590,7 +1590,7 @@ Quels commentaires vous inspire cette modélisation ?
 
 ## => Réponse
 
-**Analyse des regroupements** non exhaustive
+**Analyse des regroupements** non exhaustive :
 
 * Regroupement basic : 1 Lieu d'arrêt => 1 Zone d'embarquement.
 * Pas de hiérarchisation
@@ -1627,7 +1627,7 @@ Sur la base de nos principes de représentation, issus du **profil NeTEx France*
 
 <!-- livebook:{"break_markdown":true} -->
 
-Une première possibilité d'amélioration consisterait à rattacher plusieurs Zones d'embarquement `QUAY` à un même Lieu d'arrêt `STOPPLACE`
+Une première possibilité d'amélioration consisterait à rattacher plusieurs Zones d'embarquement `QUAY` à un même Lieu d'arrêt `STOPPLACE`.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1637,7 +1637,7 @@ Une première possibilité d'amélioration consisterait à rattacher plusieurs Z
 
 Pour cela l'impact sur la description XML consisterait à modifier les liens entre les différents éléments et supprimer un lieu d'arrêt devenu inutile.
 
-Comparons le fichier actuel et les modifications qu'ils conviendrait d'effectuer pour implémenter cette modification.
+Comparons le fichier actuel et les modifications qu'ils conviendrait d'effectuer pour implémenter cette amélioration.
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -1882,15 +1882,15 @@ Sinon cette optimisation n'est pas pertinente.
 
 Il s'agit de créer un nouveau STOP PLACE de Type Multimodal.
 
-La hierarchisation est implémentée :
+La hiérarchisation est implémentée :
 
-1- en ajoutant l'attribut **'ParentSiteRef'** à tous les lieux d'arrêt monomodaux rattachés contenant l'identifiant du Lieu d'arrêt Multimodal.
+1- En ajoutant l'attribut **'ParentSiteRef'** à tous les lieux d'arrêt monomodaux rattachés contenant l'identifiant du Lieu d'arrêt Multimodal.
 
 2- Le type de ce lieu d'arrêt est : **'multimodalStopPlace'**.
 
-3- Son mode de transport est celui du plus haut niveau (cf Profil NeTEx France Arrêt). Dans notre cas il s'agira du mode **'Métro'**.
+3- Son mode de transport est celui du plus haut niveau (cf. Partie Arrêts du profil France de NeTEx). Dans notre cas il s'agira du mode **'Métro'**.
 
-> **INFORMATION** : Hierarchisation des modes de transport (Profil Arrêts NeTex France)
+> **INFORMATION** : Hierarchisation des modes de transport (Partie Arrêts du profil France de NeTEx)
 > 
 > 1. Aérien
 > 2. Maritime/Fluvial
@@ -1908,25 +1908,25 @@ La hierarchisation est implémentée :
 
 ### Amélioration 4 :  Ajout d'un pôle Monomaodal
 
-**Objectif** : intégrer la gare routière localisée à proximité du 'Théâtre des Arts' dans le lieu d'arrêt multimodal. La gare routière ayant un nom différent de 'théâtre des Arts' la notion de **Pole monomodal** est à utilliser.
+**Objectif** : intégrer la gare routière localisée à proximité du 'Théâtre des Arts' dans le lieu d'arrêt multimodal. La gare routière ayant un nom différent de 'Théâtre des Arts', la notion de **Pole monomodal** est à utilliser.
 
-Pour y parvenir (cf Profil NeTex France Arrêt):
+Pour y parvenir (cf. Partie Arrêts du profil France de NeTEx):
 
 1- Créer un nouveau Lieu d'arrêt (le pole monomodal)
 
-* Ce lieu est de type 'MonomodalStopHub', de Mode 'Bus' et de Nom 'Théâtre des Arts'
+* Ce lieu est de type 'MonomodalStopHub', de Mode 'Bus' et de Nom 'Théâtre des Arts'.
 
-* 'ParentSiteRef' contient l'identifiant du Lieu d'arrêt Multimodal
+* 'ParentSiteRef' contient l'identifiant du Lieu d'arrêt Multimodal.
 
 2- Intégrer la gare routière :
 
 * Créer  (Si non existant) un nouveau Lieu d'arrêt Monomodal avec les différentes zones d'embarquement.
 
-* Si nécessaire les zones d'embarquement peuvent être imbriquées pour modeliser les plates-formes avec 2 quais.
+* Si nécessaire les zones d'embarquement peuvent être imbriquées pour modéliser les platesformes avec 2 quais.
 
-* 'ParentSiteRef' contient l'identifiant du Pole Monomodal
+* 'ParentSiteRef' contient l'identifiant du Pôle Monomodal.
 
-3- Modifier le ParentSiteRef du / des Lieux d'arrêt monomodaux bus existant avec l'identifiant un Pole Monomodal créé en (1)
+3- Modifier le ParentSiteRef du / des Lieux d'arrêt monomodaux bus existant avec l'identifiant un Pôle Monomodal créé en (1)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1934,7 +1934,7 @@ Pour y parvenir (cf Profil NeTex France Arrêt):
 
 ## IV. AUTRE EXEMPLE : RTM Castellane
 
-Cette section illustre les possibilités offertes par NeTEx pour représenter des lieux d'arrêt multimodaux structurés selon les récommandations du profils France Arrêts.
+Cette section illustre les possibilités offertes par NeTEx pour représenter des lieux d'arrêt multimodaux structurés selon les récommandations de la partie Arrêts du profil France de NeTEx.
 
 Les informations présentées sont construites à partir de données recueillies via des échanges NeTEx et une Base de Données normalisée Transmodel.
 
@@ -1956,7 +1956,7 @@ La Régie des Transports Métropolitains (RTM) exploite un réseau de transports
 
 <!-- livebook:{"break_markdown":true} -->
 
-La Castelanne est un lieu central où se situe un ensemble d'arrêt de différents modes.
+La Castelanne est un lieu central où se situe un ensemble d'arrêts de différents modes.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1964,11 +1964,11 @@ La Castelanne est un lieu central où se situe un ensemble d'arrêt de différen
 
 ## 🔹 Une représentation Transmodel / NeTEx
 
-Transmodel et NeTex permettent une représentation hiérarchique et organisée des Lieux d'arrêt complexes.
+Transmodel et NeTEx permettent une représentation hiérarchique et organisée des Lieux d'arrêt complexes.
 
 **Transmodel** & **NeTex** offrent une vision organisée et représentative de la réalité du lieu d'arrêt.
 
-Un couplage avec **SIRI** (via des identifiants partagés) permet d'offrir des services puissant en termes de supervision (etat des équipements, accessibilités, cheminement, ...)
+Un couplage avec **SIRI** (via des identifiants partagés) permet d'offrir des services puissants en termes de supervision (état des équipements, accessibilité, cheminement, ...)
 
 Le résultat de cette représentation et son organisation hiérarchique mise à disposition des exploitants de la RTM est le suivant :
 
@@ -1992,7 +1992,7 @@ Un Point d'intérêt lui est rattaché.
 
 <!-- livebook:{"break_markdown":true} -->
 
-Le Lieu d'arrêt monomodal contient un lieu d'arret, des espaces et un accès.
+Le Lieu d'arrêt monomodal contient un lieu d'arrêt, des espaces et un accès.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -2022,9 +2022,9 @@ En descendant dans le lieu d'arrêt Métro Ligne M2 on accède à :
 
 Comme vu précédemment dans cette formation NeTEx découple la représentation logique (Topologie, offre de transport, tarif) de la présentation Physique que nous venons de voir.
 
-Une passerelle entre les deux descriptions est nativement présente dans l'eco système Transmodel.
+Une passerelle entre les deux descriptions est nativement présente dans l'écosystème Transmodel.
 
-Le couplage avec SIRI permet une adaptation simple aux évènements d'exploitation : Cas d'un changement de Quai
+Le couplage avec SIRI permet une adaptation simple aux évènements d'exploitation : Cas d'un changement de Quai.
 
 <!-- livebook:{"break_markdown":true} -->
 
