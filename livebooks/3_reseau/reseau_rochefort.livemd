@@ -161,7 +161,7 @@ Source: [Fiche Mémo Mobilités de la Communauté d'agglomération Rochefort Oc�
 
 On retrouve sur le site associé R'Bus Transport la [liste des lignes disponibles](https://www.rbus-transport.com/horaires-par-ligne/).
 
-Voici les lignes régulières présentes au moment où cette formation a été conçue:
+Voici les lignes régulières présentes au moment où cette formation a été conçue :
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -183,19 +183,19 @@ Il existe également sur le territoire :
 * des circuits scolaires (S ou RPI - Regroupement Pédagogique Intercommunal),
 * et des lignes régionales desservant la CARO.
 
-Ces lignes ne seront pas abordées lors de cette présentation
+Ces lignes ne seront pas abordées lors de cette présentation.
 
 ## DIRECTION : LA DONNÉE NETEX - 00:05:00
 
-Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (à la donnée de transport), on retrouve des données reliées à ce territoire:
+Si on se rend à présent sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), le Point d'Accès National (aux données de transport), on retrouve des données reliées à ce territoire :
 
-* [Jeu de données Réseau urbain R'Bus](https://transport.data.gouv.fr/datasets?q=réseau+urbain+r%27bus), sur lequel nous allons zoomer ici, avec l'offre R'Bus, mais aussi:
+* [Jeu de données Réseau urbain R'Bus](https://transport.data.gouv.fr/datasets?q=réseau+urbain+r%27bus), sur lequel nous allons zoomer ici, avec l'offre R'Bus, mais aussi :
 
 * [Réseau interurbain - Charente-Maritime 17 - Nouvelle-Aquitaine](https://transport.data.gouv.fr/datasets?q=charente+maritime+17) pour les lignes régionales
 
 * [Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine]) pour des définitions plus précises des arrêts ainsi qu'un agrégat de l'offre régionale.
 
-Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompresse, on voit que l'archive NeTEx comporte les fichiers suivants:
+Si on télécharge le fichier NeTEx de R'Bus (archive ZIP), et qu'on la décompresse, on voit que l'archive NeTEx comporte les fichiers suivants :
 
 ```elixir
 Rochefort.list_netex_content(:markdown)
@@ -212,7 +212,7 @@ Rochefort.xml_summary(~r/commun/)
 Les notions de `Network` et de `Line` sont définies dans les sections suivantes.
 En ce qui concerne les autres éléments du fichier, en voici des définitions succintes :
 
-* `Operator` : un Operator représente une entreprise ou une entité qui exploite un service de transport public. Cela peut être une compagnie de bus, un exploitant ferroviaire, un opérateur de métro, etc. (ex : RATP, SNCF, Ilevia...)
+* `Operator` : un Operator représente une entreprise ou une entité qui exploite un service de transport public. Cela peut être une compagnie de bus, un exploitant ferroviaire, un opérateur de métro, etc. (ex : RATP, SNCF, Ilevia...).
 
 * `Authority` : Authority représente une autorité organisatrice des transports (AOT). C'est une entité qui planifie, régule ou finance les services de transport public. Cela peut être une organisation gouvernementale, une collectivité locale ou une entité privée ayant des responsabilités dans l’organisation des transports. Une Authority peut superviser plusieurs Operators (opérateurs de transport).
 
@@ -226,7 +226,7 @@ Dans le fichier commun/partie Network, on définit le réseau (et les lignes rat
 
 Cf [Profil France NETEX : Network](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#network-r%C3%A9seau)
 
-💡 Attention, ici les lignes ne sont que référencées (et non pas définies)
+💡 Attention, ici les lignes ne sont que référencées (et non pas définies).
 
 💡 De manière générale, les identifiants NeTEx ne doivent pas être utilisées à des fins sémantiques. Un identifiant ne doit pas être "parsé" pour en extraire des données.
 
@@ -244,7 +244,7 @@ grid([xml_1, image_1, image_2], columns: {2, 1, 1})
 
 🫵 À vous :
 
-* téléchargez le fichier NeTEx de R'bus sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), décompressez le, et observez les noms des fichiers
+* Téléchargez le fichier NeTEx de R'bus sur [https://transport.data.gouv.fr](http://transport.data.gouv.fr), décompressez le, et observez les noms des fichiers.
 
 ✍️ **Exercice** :
 
@@ -269,7 +269,7 @@ Pour chaque ligne, on définit des informations générales telles que son nom, 
 
 **_Rappel définition_** : Une LIGNE (`Line`) est un groupe d’ITINÉRAIREs (voir plus bas - `Route`) qui est en général connu du public par une appellation commune (nom ou numéro, extrémités de ligne, etc.).
 
-Cf [Profil France NETEX : Line](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#line-ligne)
+Cf. [Profil France NETEX : Line](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#line-ligne)
 
 L'objectif de la `Line` dans NETEX est de décrire de manière précise et structurée l'ensemble des éléments nécessaires à l'organisation et à l'exploitation d'un service de transport public. Cela permet aux autorités et opérateurs de transport de partager des informations sur les lignes de manière standardisée, facilitant ainsi la gestion des horaires et des itinéraires à l'échelle d'un réseau de transport.
 
@@ -294,9 +294,9 @@ tabs([
 
 <!-- livebook:{"break_markdown":true} -->
 
-✍️ **Exercice : trouvez le code, le nom le mode et les couleurs de la ligne F**
+✍️ **Exercice : Trouvez le code, le nom le mode et les couleurs de la ligne F**
 
-💡 _Attention, la couleur est exprimée au format hexadécimal. N'hésitez pas à utiliser un outil en ligne pour identifier la couleur voulue (ex : google.com : recherche "color hex")_
+💡 _Attention, la couleur est exprimée au format hexadécimal. N'hésitez pas à utiliser un outil en ligne pour identifier la couleur voulue (ex : google.com : recherche "color hex")._
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
@@ -346,8 +346,8 @@ tabs([
 
 Dans ce fichier, on définit :
 
-* la topologie de la ligne
-* ses horaires
+* La topologie de la ligne
+* Ses horaires
 
 ```elixir
 line_complete = "snippets/003-line-frames.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -392,13 +392,13 @@ Dans le GeneralFrame "LIGNE", on définit la topologie de la ligne.
 
 <!-- livebook:{"break_markdown":true} -->
 
-✍️ **Exercice** : combien y a-t-il de Route dans le fichier de la ligne B ?
+✍️ **Exercice** : Combien y a-t-il de Route dans le fichier de la ligne B ?
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
   <div class="p-4">
 
-💡 _N'hésitez pas à utiliser le [plugin](https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer) de VisualStudioCode qui permet de visualiser un fichier XML sous forme tabulaire en regroupant et comptant les éléments_
+💡 _N'hésitez pas à utiliser le [plugin](https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer) de VisualStudioCode qui permet de visualiser un fichier XML sous forme tabulaire en regroupant et comptant les éléments._
 
 Il y a 4 `Route` !
 
@@ -446,7 +446,7 @@ Un ITINÉRAIRE appartient toujours à une LIGNE (`Line`). Une LIGNE est composé
 
 💡 Deux ITINÉRAIREs utilisant la même d’infrastructure (ou des voies parallèles), mais avec des DIRECTIONS opposées, appartiendront le plus souvent à la même LIGNE.
 
-Cf [Profil France NETEX : Route](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-itin%C3%A9raire)
+Cf. [Profil France NETEX : Route](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-itin%C3%A9raire)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -527,7 +527,7 @@ Dans l'extrait ci-dessous, on visualise la définition de la `Direction` ainsi q
 
 <!-- livebook:{"break_markdown":true} -->
 
-✍️ **Exercice** : Dans quelle `Direction` (trouver son `Name`) va la `Route` d'identifiant _CA_ROCHEFORT_OCEAN:Route:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC_ de la ligne B?
+✍️ **Exercice** : Dans quelle `Direction` (trouver son `Name`) va la `Route` d'identifiant _CA_ROCHEFORT_OCEAN:Route:B_71949A53A89CEE2A22C4F74ED125BEA3:LOC_ de la ligne B ?
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Solution</summary>
@@ -567,9 +567,9 @@ On cherche l'élément `Direction` qui possède cet identifiant et on visualise 
 
 **_Rappel définition_** : un POINT D'ARRÊT PLANIFIÉ (`ScheduledStopPoint`) est un POINT où les passagers peuvent monter à bord ou descendre des véhicules.
 
-Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#scheduled-stop-point-point-darr%C3%AAt-planifi%C3%A9)
+Cf. [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#scheduled-stop-point-point-darr%C3%AAt-planifi%C3%A9)
 
-💡 Un `ScheduledStopPoint` est un arrêt **logique** et non pas **physique**. Néanmoins pour des questions pratiques (avoir un jeu de données presque autoporteur), la localisation a été précisée ici car les arrêts physiques sont définis dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Le lien avec ces arrêts physiques est fait à l'aide des `PassengerStopAssignment` définis dans le chapitre suivant.
+💡 Un `ScheduledStopPoint` est un arrêt **logique** et non pas **physique**. Néanmoins, pour des questions pratiques (avoir un jeu de données presque autoporteur), la localisation a été précisée ici car les arrêts physiques sont définis dans l'aggrégat des arrêts mutualisé au niveau régional ([Agrégat des réseaux urbains et interurbains de la région Nouvelle Aquitaine](https://transport.data.gouv.fr/datasets?q=Agrégat+des+réseaux+urbains+nouvelle+aquitaine])). Le lien avec ces arrêts physiques est fait à l'aide des `PassengerStopAssignment` définis dans le chapitre suivant.
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -603,7 +603,7 @@ Cf [Profil France NETEX : ScheduledStopPoint](https://normes.transport.data.gouv
 
 **_Rappel définition_** : Un `PassengerStopAssignment` définit l'affectation d’un POINT D’ARRÊT PLANIFIÉ (`ScheduledStopPoint`) à un LIEU D’ARRÊT (ou un de ses composant de type ZONE D’EMBARQUEMENT (`Quay`) ou POSITION D’EMBARQUEMENT) pour un service passager.
 
-Cf [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
+Cf. [Profil France NETEX : PassengerStopAssignment](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#passenger-stop-assignment-affectation-darr%C3%AAt-pour-passager)
 
 ```mermaid
 graph LR
@@ -621,7 +621,7 @@ graph LR
 
 **_Rappel définition_** : Un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) est un PARCOURS associé à une COURSE COMMERCIALE (transportant des passagers). Il liste les POINTs SUR PARCOURS (`PointInJourneyPattern`) parcourus, dans l'ordre, et sur un ITINERAIRE (`Route`) de référence (et donc dans la direction indiquée par l'itinéraire).
 
-Cf [Profil France NETEX : ServiceJourneyPattern](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#service-journey-pattern-parcours-commercial)
+Cf. [Profil France NETEX : ServiceJourneyPattern](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#service-journey-pattern-parcours-commercial)
 
 💡 On parle aussi de MISSION COMMERCIALE.
 
@@ -780,7 +780,7 @@ Dans le GeneralFrame "HORAIRES", on définit les horaires de la ligne.
 
 **_Rappel définition_** : Une COURSE (`ServiceJourney`) est le mouvement défini d’un véhicule utilisant un PARCOURS COMMERCIAL (`ServiceJourneyPattern`) spécifié avec des arrêts et des horaires déterminés. C'est une instance de PARCOURS COMMERCIAL (`ServiceJourneyPattern`) pour un TYPE DE JOUR (`DayType`) donné.
 
-Cf [Profil France NETEX : ServiceJourney](https://normes.transport.data.gouv.fr/normes/netex/horaires/#service-journey-course-commerciale)
+Cf. [Profil France NETEX : ServiceJourney](https://normes.transport.data.gouv.fr/normes/netex/horaires/#service-journey-course-commerciale)
 
 ```elixir
 service_journey = "snippets/004-service-journey.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
@@ -790,12 +790,12 @@ service_journey_passingTimes = "snippets/004-service-journey-passing-times.xml" 
 service_journey_dayTypes = "snippets/004-service-journey-day-types.xml" |> Tooling.file(__DIR__) |> Tooling.xml()
 
 dayTypes_description = Kino.Markdown.new("""
-Les dayTypes permettent de définir sur quels jours types la course est valable
+Les dayTypes permettent de définir sur quels jours types la course est valable.
 
-Ici, la fiche horaire indique par exemple : “Toute l’année (sauf jours fériés)” et “Du Lundi au Samedi”
+Ici, la fiche horaire indique par exemple : “Toute l’année (sauf jours fériés)” et “Du Lundi au Samedi”.
 
-Le fichier xml référence le DayType “S1ETE_LMWJVS”
-Celui-ci est réellement défini dans le fichier “calendrier”
+Le fichier xml référence le DayType “S1ETE_LMWJVS”.
+Celui-ci est réellement défini dans le fichier “calendrier”.
 """)
 
 serviceJourneyImg = "files/ligneB_fiche_horaire_ServiceJourney - cropped.jpg" |> Tooling.file(__DIR__) |> Kino.Image.new("image/jpeg")
@@ -846,7 +846,7 @@ Kino.Layout.tabs([
 
 **Question 1**
 
-Dans le fichier de la ligne B, on retrouve le `ServiceJourney` qui a cet identifiant et on récupère le `DayType` référencé:
+Dans le fichier de la ligne B, on retrouve le `ServiceJourney` qui a cet identifiant et on récupère le `DayType` référencé :
 
 ```xml
 <ServiceJourney version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourney:S11185:LOC">
@@ -928,7 +928,7 @@ On peut donc conclure que la COURSE est valide du lundi au samedi, tout l'été 
 
 **Question 2**
 
-Dans le fichier de la ligne B, on récupère le `ServiceJourneyPattern` référencé par le  `ServiceJourney` 
+Dans le fichier de la ligne B, on récupère le `ServiceJourneyPattern` référencé par le  `ServiceJourney`. 
 
 
 ```xml
@@ -952,7 +952,7 @@ Dans le fichier de la ligne B, on récupère le `ServiceJourneyPattern` référe
 </ServiceJourney>
 ```
 
-Dans les pointsInSequence, on récupère celui qui a l'identifiant du `ScheduledStopPoint` voulu et on note son ordre : **order = 3**
+Dans les pointsInSequence, on récupère celui qui a l'identifiant du `ScheduledStopPoint` voulu et on note son ordre : **order = 3**.
 
 ```xml
 <ServiceJourneyPattern version="any" id="CA_ROCHEFORT_OCEAN:ServiceJourneyPattern:B_BE7025F3F49C102A55A60E2C0071A38B:LOC">
@@ -997,7 +997,7 @@ En retournant dans le `ServiceJourney`, on récupère le 3ème passingTime.
 </passingTimes>
 ```
 
-On en conclut que l'horaire de passage à l'arrêt voulu (pour la COURSE donnée) est : **09:03:00**
+On en conclut que l'horaire de passage à l'arrêt voulu (pour la COURSE donnée) est : **09:03:00**.
 
 
 
@@ -1007,7 +1007,7 @@ On en conclut que l'horaire de passage à l'arrêt voulu (pour la COURSE donnée
 
 ## RÉCAPITULATIFS DES CONCEPTS TRANSMODEL UTILISÉS - 01:25:00
 
-Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie:
+Les concepts [Transmodel](https://transmodel-cen.eu) permettent de modéliser la réalité terrain du monde du transport (voir [Transmodel at a glance](https://transmodel-cen.eu/index.php/transmodel-at-a-glance/)). Voici le sous-ensemble sur lequel cette présentation s'appuie :
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1034,11 +1034,11 @@ graph TD
 
 **_Rappel définition_** : Un TRONCON D'ITINERAIRE (`RouteLink`) est un tronçon orienté entre deux `RoutePoint` (POINTs D’ITINÉRAIRE) permettant une définition univoque d’un chemin à travers le réseau.
 
-Cf [Profil France NETEX : RouteLink](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-link-tron%C3%A7on-ditin%C3%A9raire)
+Cf. [Profil France NETEX : RouteLink](https://normes.transport.data.gouv.fr/normes/netex/reseaux/#route-link-tron%C3%A7on-ditin%C3%A9raire)
 
 <!-- livebook:{"break_markdown":true} -->
 
-Dans notre exemple, le `RouteLink` part ici d'un `ScheduleStopPoint` et arrive à un autre `ScheduleStopPoint`, en suivant un tracé qui est son itinéraire intermédiaire, donné sous forme de coordonnées géographiques:
+Dans notre exemple, le `RouteLink` part ici d'un `ScheduleStopPoint` et arrive à un autre `ScheduleStopPoint`, en suivant un tracé qui est son itinéraire intermédiaire, donné sous forme de coordonnées géographiques :
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -1072,7 +1072,7 @@ Dans notre exemple, le `RouteLink` part ici d'un `ScheduleStopPoint` et arrive �
 
 Un programme informatique (ou un humain motivé) peut, à partir de ces coordonnées, afficher le tronçon sur une carte, comme ci-dessous.
 
-Choisissez la position (numéro d'index) du `RouteLink` dans le fichier:
+Choisissez la position (numéro d'index) du `RouteLink` dans le fichier :
 
 ```elixir
 numero_du_routelink = Kino.Input.text("Numéro du RouteLink", default: "1")
@@ -1095,7 +1095,7 @@ Rochefort.Carto.show_route_link(
 
 ## FIN
 
-🫵 À vous : utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Lieux d'arrêts - Rouen") ou revenir à la partie précédente ("Introduction")
+🫵 À vous : Utilisez les liens de navigations ci-dessous pour passer à la partie suivante ("Lieux d'arrêts - Rouen") ou revenir à la partie précédente ("Introduction").
 
 <!-- livebook:{"break_markdown":true} -->
 
