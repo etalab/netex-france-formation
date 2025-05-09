@@ -19,6 +19,8 @@ Nous vous invitons à créer un ticket dans ce dépôt. Pour ce faire, vous devi
 - décrire votre question ou problème
 - valider le tout en appuysant sur le bouton `Create`
 
+**Note** : les questions et problèmes de ce dépôt ne doivent concerner que le contenu de la formation et ses supports. Pour toute question / demande liée au profil France de NeTEx, merci de bien vouloir utiliser [l'espace de travail du profil France de NeTEx](https://github.com/etalab/transport-profil-netex-fr), piloté par le GT7.
+
 ### Structure du dépôt
 
 Voici les éléments principaux du dépôt:
