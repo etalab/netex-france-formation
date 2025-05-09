@@ -1,8 +1,12 @@
+# Généralités
+
 Ce dépôt contient un ensemble de présentations permettant de se former de façon interactive à l'usage de la norme européenne NeTEx. Le contenu regroupe à la fois des éléments théoriques et des exercices à faire.
 
 La formation s'appuie sur [Livebook](https://livebook.dev/), outil gratuit disponible [pour Windows et MacOS](https://livebook.dev/#install). L'installation est aussi possible sous Linux quoiqu'un peu plus complexe.
 
 Pour pouvoir dérouler cette formation, vous devez télécharger le contenu de ce dépôt.
+
+## Pour télécharger le contenu
 
 Vous avez deux possibilités:
 - (recommandé) "cloner" ce dépôt GitHub sur votre machine, par exemple avec [GitHub Desktop](https://github.com/apps/desktop)
@@ -10,18 +14,19 @@ Vous avez deux possibilités:
 
 Une fois le contenu récupéré, vous pouvez ouvrir directement les fichiers `.livemd` avec Livebook (voir plus bas).
 
-### En cas de question ou problème
+## Pour ouvrir le contenu
 
-Nous vous invitons à créer un ticket dans ce dépôt. Pour ce faire, vous deviez :
-- sélectionner `Issues` dans le ruban supérieur
-- cliquer sur `New issue`
-- entrer un titre
-- décrire votre question ou problème
-- valider le tout en appuysant sur le bouton `Create`
+Vous devez suivre ces étapes :
+1. Avoir installé Livebook sur votre machine
+2. Avoir télécharger le contenu de ce dépôt (voir point précédent)
+3. Dans le contenu téléchargé, naviguer jusqu'au sous-dossier `livebooks\1_intro`
+4. Ouvrir le fichier `intro.livemd`
 
-**Note** : les questions et problèmes de ce dépôt ne doivent concerner que le contenu de la formation et ses supports. Pour toute question / demande liée au profil France de NeTEx, merci de bien vouloir utiliser [l'espace de travail du profil France de NeTEx](https://github.com/etalab/transport-profil-netex-fr), piloté par le GT7.
+La navigation vers les autres parties de la formation se font sur la base des liens situés en bas de page. 
 
-### Structure du dépôt
+** Note ** : Ouvrir le contenu directement en ligne dans ce dépôt GitHub est aussi possible mais l'ensemble du code de la formation sera également apparent.
+
+## Structure du dépôt
 
 Voici les éléments principaux du dépôt:
 
@@ -36,7 +41,7 @@ Voici les éléments principaux du dépôt:
 - `lib` - code utilisé par les livebooks
 - `data` - capture des jeux de données utilisés pour la formation et ses exercices
 
-### Auteurs
+## Auteurs
 
 Dans l'ordre des Livebooks
 
@@ -48,7 +53,18 @@ Dans l'ordre des Livebooks
 |Thierry Hénault|CS Group|La représentation de la multimodalité|thierry.henault@cs-soprasteria.com|
 |Noémie Lehuby|Jungle Bus|L'accessibilité des transports et de la voirie|noemie@junglebus.io|
 
-### Crédits / attributions
+## En cas de question ou problème
+
+Nous vous invitons à créer un ticket dans ce dépôt. Pour ce faire, vous deviez :
+- sélectionner `Issues` dans le ruban supérieur
+- cliquer sur `New issue`
+- entrer un titre
+- décrire votre question ou problème
+- valider le tout en appuysant sur le bouton `Create`
+
+**Note** : les questions et problèmes de ce dépôt ne doivent concerner que le contenu de la formation et ses supports. Pour toute question / demande liée au profil France de NeTEx, merci de bien vouloir utiliser [l'espace de travail du profil France de NeTEx](https://github.com/etalab/transport-profil-netex-fr), piloté par le GT7.
+
+# Crédits / attributions
 
 Le contenu documentaire de ce dépôt sont placés sous la licence CC-BY.
 Les images présentées (illustrations, photos) ont leurs propres licences ou conditions de réutilisations. Si non précisé dans le livebook, elles sont également placées sous la licence CC-BY.
@@ -62,7 +78,7 @@ Ce dépôt comporte également des données d'exemple. Elles sont toutes issues 
 
 Merci aux producteurs de données qui utilisent le format NeTEx pour diffuser leurs données.
 
-### Liens utiles
+# Liens utiles
 
 | Titre                                          | Description                                                        | Lien                                                                                     |
 | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
