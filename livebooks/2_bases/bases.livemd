@@ -28,7 +28,7 @@ Pour
 
 ### 2.1. Modèle de données
 
-Définition : un modèle abstrait **définissant des concepts et leurs attributs**, ainsi que les relations entre chaque concept. Le tout permet de s’accorder sur une **référence commune** avant d’échanger des informations (= des données)
+Définition : un modèle abstrait **définissant des concepts et leurs attributs**, ainsi que les relations entre chaque concept. Le tout permet de s’accorder sur une **référence commune** avant d’échanger des informations (= des données).
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>En bref</summary>
@@ -116,7 +116,7 @@ Norme vs standard : la seule différence est dans la gouvernance !
 
 <br />
 
-Une norme est définie par un organisme de normalisation (ex. AFNOR, ISO). Un standard est défini par un groupe d'acteur qui n'est pas un organisme de normalisation (ex. W3C, Unicode)
+Une norme est définie par un organisme de normalisation (ex. AFNOR, ISO). Un standard est défini par un groupe d'acteurs qui n'est pas un organisme de normalisation (ex. W3C, Unicode)
 
 Exemple :
 
@@ -167,7 +167,7 @@ Définition : **sous-ensemble défini à partir d’une norme** ou d’un standa
 Cela représente :
 
 * Une vue réduite d'une norme ou d'un standard existant
-* Des règles métier ou d'échanges de données partagées par un groupe d'acteurs.
+* Des règles métier ou d'échanges de données partagées par un groupe d'acteurs
 
 C'est utile pour :
 
@@ -256,7 +256,7 @@ Pour toutes les données en temps réel (= dynamiques, non connues d'avance) dé
 
 ### 3.3. Les profils France de NeTEx et SIRI
 
-Rappel : un profil permet de faciliter une implémentation locale d'une norme
+Rappel : un profil permet de faciliter une implémentation locale d'une norme.
 
 En France, nous avons :
 
@@ -294,7 +294,7 @@ Dans Localisation (_Location_), on retrouve notamment les attributs suivants :
 * Longitude
 * Latitude
 
-Cette imbrication est permise par l'usage du XML comme langage informatique grâce à l'imbrication de balises :
+Cette imbrication est permise par l'usage du XML comme langage informatique grâce à l'imbrication des balises :
 
 ```xml
 <Point>
