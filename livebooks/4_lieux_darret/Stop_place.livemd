@@ -174,7 +174,7 @@ Nous allons voir dans cette section les éléments Transmodel transmis via NeTEx
 Transmodel définit les concepts suivants pour la définition des lieux d'arrêts. Cette structure peut s'imbriquer.
 
 **À NOTER** :
- 
+
 1- Dans le principe  concept Transmodel = Une balise XML NeTEx
 
 2- Transmodel ne definit pas les attributs
@@ -233,7 +233,7 @@ Ces concepts permettent une représentation de Lieux (très) complexes.
 
 ## 2.4. Pour en savoir un peu plus...
 
-> **Cette section n'est pas abordée en séance. Elle est destinée à ceux qui souhaite a posteriori en savoir un peu plus.**
+> **Cette section n'est pas abordée en séance. Elle est destinée à ceux qui souhaitent a posteriori en savoir un peu plus.**
 
 Nous allons ici brièvement décrire les principes de modelisation d'un lieu d'arrêt tels que définis dans Transmodel et mis en forme pour l'échange d'information au travers de fichier NeTEx.
 
@@ -374,7 +374,7 @@ Ensuite, à travers des exercices pratiques, nous explorerons des moyens d'amél
 Les sites de référence :
 
 * https://rouen.fr/transports-en-commun
-* https://www.reseau-astuce.fr/
+* https://www.myastuce.fr
 
 <!-- livebook:{"break_markdown":true} -->
 
