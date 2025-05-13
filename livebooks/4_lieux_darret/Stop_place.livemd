@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Alt_LA_MultiModal.JPG","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GareRoutiere.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"MultiModal_PoleMono.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"RepLA.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Toutmodes.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"},{"name":"lacOMPLEXE.JPG","type":"attachment"}]} -->
+<!-- livebook:{"file_entries":[{"name":"Agglo.JPG","type":"attachment"},{"name":"AggloRouen.jpeg","type":"attachment"},{"name":"Alt_LA_MultiModal.JPG","type":"attachment"},{"name":"AvecTrous.JPG","type":"attachment"},{"name":"Bus.jpeg","type":"attachment"},{"name":"Capture.JPG","type":"attachment"},{"name":"ChargementFichier1.JPG","type":"attachment"},{"name":"ChargementFichier2.JPG","type":"attachment"},{"name":"ChargementFichier3.JPG","type":"attachment"},{"name":"Existant.JPG","type":"attachment"},{"name":"Exo1.2.JPG","type":"attachment"},{"name":"GareRoutiere.JPG","type":"attachment"},{"name":"GrpLien.JPG","type":"attachment"},{"name":"GrpLien2.JPG","type":"attachment"},{"name":"GrpLienManquant.JPG","type":"attachment"},{"name":"GrpMode.JPG","type":"attachment"},{"name":"LA_MonomodalBus.JPG","type":"attachment"},{"name":"LA_MultiQuais.JPG","type":"attachment"},{"name":"Legende.JPG","type":"attachment"},{"name":"LienVersTopologieSSP.JPG","type":"attachment"},{"name":"MRS1.JPG","type":"attachment"},{"name":"MRS2.JPG","type":"attachment"},{"name":"ModesTransport.JPG","type":"attachment"},{"name":"MultiModal_PoleMono.JPG","type":"attachment"},{"name":"OrgaLAProfilNeTEx.JPG","type":"attachment"},{"name":"RTM1.JPG","type":"attachment"},{"name":"RTM4.JPG","type":"attachment"},{"name":"RTMmetro.JPG","type":"attachment"},{"name":"RTMpoleMetro.JPG","type":"attachment"},{"name":"RepLA.JPG","type":"attachment"},{"name":"Reponse.JPG","type":"attachment"},{"name":"ReseauAstuce.txt","type":"attachment"},{"name":"TdA1.JPG","type":"attachment"},{"name":"TdA2.JPG","type":"attachment"},{"name":"Toutmodes.JPG","type":"attachment"},{"name":"Tram.JPG","type":"attachment"},{"name":"lacOMPLEXE.JPG","type":"attachment"}]} -->
 
 # Lieux_Arret
 
@@ -87,7 +87,7 @@ Nous commencerons par une introduction théorique aux concepts NeTEx relatifs au
 
 <!-- livebook:{"break_markdown":true} -->
 
-💡 Bon à savoir : Aucun prérequis technique avancé n’est nécessaire, mais une familiarité avec les données de transport ou les formats XML sera un plus.
+💡 **Bon à savoir** : Aucun prérequis technique avancé n’est nécessaire, mais une familiarité avec les données de transport ou les formats XML sera un plus.
 
 🚀 Prêt à plonger dans l’univers de NeTEx ? Alors, commençons !
 
@@ -159,7 +159,7 @@ Le Pôle Monomodal correspond à une spécialisation de la notion normalisée IF
 
 LIEU D’ARRÊT Multimodal n’est composé que de LIEUx D’ARRÊT Monomodaux et Pôles Monomodaux de modes différents.
 
-🔹 **Groupe de Lieux** : 
+🔹 **Groupe de Lieux** :
 
 C'est un ensemble de LIEUX D’ARRÊT monomodaux, de LIEUX D’ARRÊT multimodaux ou de Pôles monomodaux regroupés pour être désignés d’un nom unique. On l’utilisera principalement pour regrouper les arrêts principaux d’une ville, ou grouper les arrêts autour d’un lieu tel qu’un aéroport.
 
@@ -330,6 +330,12 @@ La modélisation des `STOP PLACE` dans Transmodel repose sur une hiérarchisatio
 Cette approche permet une gestion avancée des infrastructures de transport, essentielle pour les opérateurs et les autorités organisatrices.
 
 > 💡 **NOTE : L'analyse et les algorithmes de regroupement des lieux d'arrêt restent de la responsabilité des systèmes en interface, NeTEx n'etant que le véhicule transportant l'information.**
+> 
+> 🔹🔹 **Les modes de transport et leur organisation Transmodel / NeTex**
+
+<!-- livebook:{"break_markdown":true} -->
+
+![](files/ModesTransport.JPG)
 
 ## III. PRÉSENTATION DU CAS D'USAGE : ASTUCE ROUEN
 
