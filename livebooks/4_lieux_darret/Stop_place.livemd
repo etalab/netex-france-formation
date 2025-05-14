@@ -1876,7 +1876,7 @@ MultiQuais: xml_2])
 ### Amélioration 2 : Regroupement Monomodaux
 
 Ce regroupement est une alternative si l'on ne prend pas en compte la proximité géographique.
-Sinon cette optimisation n'est pas pertinente.
+Sinon cette optimisation n'est pas forcément pertinente.
 
 <!-- livebook:{"break_markdown":true} -->
 
