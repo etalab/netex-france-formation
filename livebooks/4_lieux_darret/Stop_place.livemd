@@ -1912,7 +1912,7 @@ La hiérarchisation est implémentée :
 
 <!-- livebook:{"break_markdown":true} -->
 
-### Amélioration 4 :  Ajout d'un pôle Monomaodal
+### Amélioration 4 :  Ajout d'un pôle Monomodal
 
 **Objectif** : intégrer la gare routière localisée à proximité du 'Théâtre des Arts' dans le lieu d'arrêt multimodal. La gare routière ayant un nom différent de 'Théâtre des Arts', la notion de **Pole monomodal** est à utilliser.
 
