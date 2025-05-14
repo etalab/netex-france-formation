@@ -113,15 +113,17 @@ Transmodel, NeTEx et SIRI évoluent constamment pour prendre en compte les nouve
 
 Transmodel, NeTEx et SIRI sont définis au sein du Comité Européen de Normalisation (CEN), plus particulièrement dans le Groupe de Travail dédié au Transport Public au sein du Comité Technique dédié au Transport routier (TC278 WG3).
 ![CEN](files/cen.png)
+
 <br />
 
 Sont membres du CEN, les instances de normalisation nationales :
 
 * Des États Membres de l'Union Européenne
 * Des pays associés (ex. Grande Bretagne, Turquie)
-<br />
+  <br />
 
 Comment NeTEx évolue :
+
 * Travaux des experts nationaux au sein leur instance de normalisation. Chez nous l'AFNOR, et plus particulière le Bureau de normalisation des transports, des routes et de leurs aménagements (BNTRA).
 * Remontée des travaux nantionaux au sein du groupe de travail dédié du CEN.
 * Discussions fonctionnelles et techniques au sein du CEN jusqu'à consensus.
@@ -136,10 +138,10 @@ Qui peut s'impliquer dans les discussions de normalisation ? **Tout le monde !**
 <br />
 
 Plus particulièrement pour NeTEx en France, c'est le Groupe de Travail dédié à l'information voyageur et à l'exploitation des services de mobilité (GT7) qui :
+
 * Pilote et maintien les profils France de NeTEx et SIRI
 * Consolide les demandes de changement portées par la France pour l'évolution de Transmodel, NeTEx et SIRI au niveau européen
 * Mandate des experts français pour contribuer aux travaux européens de normalisation.
-
 
 ### 3.3. NeTEx et GTFS
 
@@ -172,16 +174,16 @@ Parce que NeTEx repose sur un modèle conceptuel de données (Transmodel), il pe
 <!-- livebook:{"break_markdown":true} -->
 
 <div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
- <div class="flex">
-  <i class="ri-arrow-left-fill"></i>
-  <a class="flex ml-2" style="color: #61758a;" href="../5_accessibilite/accessibilite_voirie.livemd">Introduction</a>
- </div>
- <div class="flex">
-  <i class="ri-home-fill"></i>
-  <a class="flex ml-2" style="color: #61758a;">Outils et ressources</a>
- </div>
- <div class="flex">
-  <a class="flex mr-2" style="color: #61758a;">Fin</a>
-  <i class="ri-arrow-right-fill"></i>
- </div>
+<div class="flex">
+<i class="ri-arrow-left-fill"></i>
+<a class="flex ml-2" style="color: #61758a;" href="../5_accessibilite/accessibilite_voirie.livemd">Accessibilité - Voirie</a>
+</div>
+<div class="flex">
+<i class="ri-home-fill"></i>
+<a class="flex ml-2" style="color: #61758a;">Les outils</a>
+</div>
+<div class="flex">
+<a class="flex mr-2" style="color: #61758a;"></a>
+<i class="ri-arrow-right-fill"></i>
+</div>
 </div>
