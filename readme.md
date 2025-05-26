@@ -10,7 +10,7 @@ Pour pouvoir dérouler cette formation, vous devez télécharger le contenu de c
 
 Vous avez deux possibilités:
 - (recommandé) "cloner" ce dépôt GitHub sur votre machine, par exemple avec [GitHub Desktop](https://github.com/apps/desktop)
-- (alternative) télécharger le zip de la [release](releases) et le décompresser sur votre machine
+- (alternative) télécharger le zip de la [release](https://github.com/etalab/netex-france-formation/releases) et le décompresser sur votre machine
 
 Une fois le contenu récupéré, vous pouvez ouvrir directement les fichiers `.livemd` avec Livebook (voir plus bas).
 
