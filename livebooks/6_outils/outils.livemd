@@ -33,8 +33,8 @@ Pour
 | Technique     | SIRI - Schéma XML                             | Les schémas XML (ou XSD) de SIRI                                  | https://github.com/SIRI-CEN/SIRI                                                         |
 | Logiciel      | Enterprise Architect Viewer                    | Pour visualiser le diagramme UML de Transmodel                     | https://sparxsystems.com/products/ea/downloads.html                                      |
 | Logiciel      | XMLSpy                                         | Outil de visualisation de la XSD de NeTEx et SIRI                  | https://www.altova.com/xmlspy-xml-editor/download                                        |
-| Logiciel      | Visual Code Studio                             | Pour lire et éditer des fichiers XML                              | https://code.visualstudio.com/download                                                   |
-| Logiciel      | Visual Code Studio - extension JSON & XML grid | Pour bénéfichier d'une vue sous forme de grille d'un fichier XML | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
+| Logiciel      | Visual Studio Code                             | Pour lire et éditer des fichiers XML                              | https://code.visualstudio.com/download                                                   |
+| Logiciel      | Visual Studio Code - extension JSON & XML grid | Pour bénéfichier d'une vue sous forme de grille d'un fichier XML | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
 | Logiciel      | Notepad++                                      | Pour lire et éditer des fichiers XML                              | https://notepad-plus-plus.org/downloads/                                                 |
 
 Comment utiliser ces outils :
