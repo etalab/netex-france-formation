@@ -22,11 +22,6 @@ Remerciements :
 * Direction Ministérielle de l'Accessibilité, représentée par Muriel Larrouy
 * Direction Générale des Infrastructures, des Transports et des Mobilités, représentée par Jorge Gonzalez
 
-Logistique :
-
-* Formation est pour vous donc pas besoin de demander pour prendre un appel urgent, aller aux toilettes, reprendre du café, etc.
-* Rappel que le déjeuner n'est pas pris en charge
-* Pour éviter la queue au déjeuner, nous irons tous ensemble à 12h pile.
   </div>
 </details>
 
@@ -41,15 +36,13 @@ Avant de commencer, merci de bien vouloir :
 Sur vos ordinateurs, assurez-vous d'avoir :
 
 * un navigateur tel que Chrome, Edge ou Firefox,
-* un éditeur de type Notepad, Notepad++ ou Visual Code Studio.
+* un éditeur de type Notepad, Notepad++ ou Visual Studio Code (VS Code).
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Interactivité</summary>
   <div class="p-4">
 
-Nous prendrons les questions à chaque fin de partie.
-Prenez des post-its pour les noter en cours de route si vous avez peur de les oublier. Cela nous servira également pour voir les questions les plus fréquentes.
-Si vous n'avez pas les bons outils sur vos ordinateurs, mettez-vous en binôme pour les exercices.
+Nous prendrons les questions à la fois au fil de l'eau et en fin de chaque partie. N'hésitez pas à poser toutes les qestions qui vous viennent.
 Pendant les exercices, les autres formateurs sont là pour vous aider. N'hésitez pas à les solliciter.
 
   </div>
