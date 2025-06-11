@@ -13,17 +13,11 @@ Nous sommes très heureux de vous accueillir aujourd'hui pour cette formation Ne
 |![Jorge](files/jorge.png)|Jorge|Direction Générale des Infrastructures, des Transports et des Mobilités (DGITM)|
 |![Muriel](files/muriel.png)|Muriel|Direction Ministérielle de l'Accessibilité (DMA)|
 
-<details class="rounded-lg my-4">
-  <summary class="cursor-pointer font-bold p-4"></i>Remerciements & Logistique</summary>
-  <div class="p-4">
-
 Remerciements : 
 
 * Direction Ministérielle de l'Accessibilité, représentée par Muriel Larrouy
 * Direction Générale des Infrastructures, des Transports et des Mobilités, représentée par Jorge Gonzalez
-
-  </div>
-</details>
+* NAPCORE
 
 ## Règles de base
 
