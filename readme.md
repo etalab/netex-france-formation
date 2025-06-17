@@ -18,7 +18,7 @@ Une fois le contenu récupéré, vous pouvez ouvrir directement les fichiers `.l
 
 Vous devez suivre ces étapes :
 1. Avoir installé Livebook sur votre machine
-2. Avoir télécharger le contenu de ce dépôt (voir point précédent)
+2. Avoir téléchargé le contenu de ce dépôt (voir point précédent). Si vous avez téléchargé le fichier zip (solution alternative), pensez à le décompresser.
 3. Dans le contenu téléchargé, naviguer jusqu'au sous-dossier `livebooks\1_intro`
 4. Ouvrir le fichier `intro.livemd`
 
