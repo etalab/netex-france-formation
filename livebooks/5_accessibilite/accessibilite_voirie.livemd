@@ -1,4 +1,4 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_aa_annexe1.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_acousticcrossingaids.png","type":"attachment"},{"name":"voirie_doc_crossingtype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_droppedkerb.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_doc_tactilewarningstrip.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_photo_kerb.png","type":"attachment"},{"name":"voirie_qgis_linestring.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_warning_strip.png","type":"attachment"},{"name":"voirie_xml_distance.png","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"formation_2i2l.png","type":"attachment"},{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_aa_annexe1.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_acousticcrossingaids.png","type":"attachment"},{"name":"voirie_doc_crossingtype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_droppedkerb.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_doc_tactilewarningstrip.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_photo_kerb.png","type":"attachment"},{"name":"voirie_qgis_linestring.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_warning_strip.png","type":"attachment"},{"name":"voirie_xml_distance.png","type":"attachment"}]} -->
 
 # Accessibilité - description des cheminements piétons
 
@@ -531,11 +531,38 @@ Réponse : ce passage piéton n'a pas de bordures abaissées.
   </div>
 </details>
 
+## Obligations légales
+
+Obligations à 3 échelles :
+
+* obligatoire dans la norme
+* obligatoire dans le profil
+* obligatoire du fait de la législation
+
+Concernant la législation : 
+Les collectivités territoriales ont l’obligation de collecter les données d’accessibilité de leur territoire pour garantir à tous le droit à la mobilité et alimenter des calculateurs d’itinéraires.
+
+[Arrêté du 28 mai 2024](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000049642987)
+
+Les points clefs :
+
+* périmètre : collecte dans un rayon de 200 mètres des arrêts prioritaires
+* attributs obligatoires :
+  * les évaluations d'accessibilité
+  * les attributs de voirie qui correspondent à un bloquage pour les UFR
+  * les attributs de voirie ayant attrait à la sécurité des personnes malvoyantes
+
 ## Outillage
 
 [**Accèslibre Mobilités**](https://mtes-mct.github.io/alm-docs/) : la suite logicielle pour collecter et publier les données d'accessibilité des transports et de la voirie
 
 ![logo ALM](https://mtes-mct.github.io/alm-docs/img/logo_AccesLibreMobilites.png)
+
+<!-- livebook:{"break_markdown":true} -->
+
+Jungle Bus anime des sessions de [formation de 2 jours](https://www.2i2l.fr/formation-openstreetmap-publier-les-donnees-d-accessibilite-de-voirie-pour-respecter-les-obligations-legales) pour apprendre à créer la données d'accessibilité avec OpenStreetMap et Accèslibre Mobilités :
+
+![formation OSM & NeTEx](files/formation_2i2l.png)
 
 <!-- livebook:{"break_markdown":true} -->
 

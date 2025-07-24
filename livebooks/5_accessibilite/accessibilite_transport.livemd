@@ -65,6 +65,7 @@ Lire le paragraphe du profil.
 * Pour WheelchairAccess ? (*on peut s’y déplacer en fauteuil roulant*)
 * Pour VisualSignsAvailable ? (*une signalétique visuelle est disponible*)
 * Pour AudibleSignalsAvailable ? (*une signalétique sonore est disponible*)
+* Pour TactileGuidanceAvailable ? (*il y a des éléments linéaires au sol qui peuvent être détectés et suivis avec une canne*)
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -164,6 +165,8 @@ Bron : Cerema, 2018. Collection : Références. ISBN : 978-2-37180-260-5_
 **AudibleSignalsAvailable** : il y a des annonces sonores.
 
 En pratique, parfois déclenchée par un bouton ou une télécommande universelle.
+
+**TactileGuidanceAvailable** : il y a une bande de guidage podotactile menant à la porte permettant d'embarquer dans le véhicule, et elle est connectée à des éléments linéaires au sol qui peuvent être détectés et suivis avec une canne
     
   </div>
 </details>
