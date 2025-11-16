@@ -55,7 +55,7 @@ Avec vous durant toute la formation :
 <a class="flex ml-2" style="color: #61758a;">Introduction</a>
 </div>
 <div class="flex">
-<a class="flex mr-2" style="color: #61758a;" href="../2_bases/bases.livemd">Les bases</a>
+<a class="flex mr-2" style="color: #61758a;" href="../2_bases_outils/bases.livemd">Les bases</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>
