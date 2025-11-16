@@ -87,11 +87,11 @@ Au niveau français : l'espace de travail [GitHub](https://github.com/etalab/tra
 
 ![GitHub Profil France](files/github.png)
 
-🫵 Exercice pratique
+🫵 Exercice pratique _(optionnel)_
 
 Posez une question dans l'espace de travail GitHub du profil France de NeTEx.
 
-## 3. POUR ALLER PLUS LOIN
+## 3. POUR ALLER PLUS LOIN -- QUAND VOUS AVEZ LE TEMPS
 
 ### 3.1. Historique
 
@@ -176,14 +176,14 @@ Parce que NeTEx repose sur un modèle conceptuel de données (Transmodel), il pe
 <div class="flex items-center w-full flex-start justify-between rounded-xl p-4" style="background-color: #f0f5f9; color: #61758a;">
 <div class="flex">
 <i class="ri-arrow-left-fill"></i>
-<a class="flex ml-2" style="color: #61758a;" href="../5_accessibilite/accessibilite_voirie.livemd">Accessibilité - Voirie</a>
+<a class="flex ml-2" style="color: #61758a;" href="../2_bases_outils/bases.livemd">Les concepts de base</a>
 </div>
 <div class="flex">
 <i class="ri-home-fill"></i>
 <a class="flex ml-2" style="color: #61758a;">Les outils</a>
 </div>
 <div class="flex">
-<a class="flex mr-2" style="color: #61758a;"></a>
+<a class="flex mr-2" style="color: #61758a;"  href="../3_reseau/reseau_rochefort.livemd">La représentation d'un réseau</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>

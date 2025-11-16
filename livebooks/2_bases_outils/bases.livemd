@@ -85,7 +85,18 @@ Dans le modèle conceptuel de données ci-dessous,
 
 * Combien avons-nous de concepts ?
 * Combien d'attributs avons-nous dans le concept 'ORGANISATION' ?
-* Quel est le concept portant la granularité la plus fine ?
+* Quel est le concept portant la granularité la plus fine (i.e., le concept décrivant l'objet le plus petit) ?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Et les réponses sont...</summary>
+  <div class="p-4">
+
+- Il y a 5 concepts.
+- Il y a 4 attributs dans le concept 'ORGANISATION'.
+- Il y a deux éléments de granularité fine : 'EQUIPE' et 'TYPE_D_OPERATION'.
+
+  </div>
+</details>
 
 ### 2.2. Normes
 
@@ -156,6 +167,16 @@ classDiagram
 
 Nommez au moins une différence avec le modèle conceptuel de données présenté plus haut.
 
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Et les réponses sont...</summary>
+  <div class="p-4">
+
+- Les attributs sont détaillés avec un type de données (ex. 'Nom' accepte les 'MultilingualString').
+- Les attributs ont une cardinalité (ex. 'Statut' a pour cardinalité [0..1], on ne peut donc que le remplir une seule fois).
+
+  </div>
+</details>
+
 ### 2.3. Profils de norme
 
 Définition : **sous-ensemble défini à partir d’une norme** ou d’un standard qui peut comporter des règles spécifiques.
@@ -216,6 +237,18 @@ classDiagram
 🫵 Exercice pratique
 
 Nommez au moins une différence avec l'extrait de la norme présentée plus haut.
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Et les réponses sont...</summary>
+  <div class="p-4">
+
+- Nom dans le concept 'ORGANISATION' est obligatoire (cardinalité 1..1).
+- NomCommercial dans le concept 'ORGANISATION' est obligatoire (cardinalité 1..1).
+- Statut dans le concept 'ORGANISATION' est obligatoire (cardinalité 1..1).
+
+  </div>
+</details>
+
 
 ## 3. LES BASES POUR COMPRENDRE TRANSMODEL ET NETEX
 
@@ -326,7 +359,7 @@ De la même manière que pour les points, on pourra imbriquer plusieurs attribut
 <a class="flex ml-2" style="color: #61758a;">Les bases</a>
 </div>
 <div class="flex">
-<a class="flex mr-2" style="color: #61758a;" href="../3_reseau/reseau_rochefort.livemd">Lignes et Horaires - Rochefort</a>
+<a class="flex mr-2" style="color: #61758a;" href="../2_bases/outils.livemd">Les outils</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>

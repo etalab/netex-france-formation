@@ -1,23 +1,12 @@
-<!-- livebook:{"file_entries":[{"name":"ariane.png","type":"attachment"},{"name":"jorge.png","type":"attachment"},{"name":"logos.png","type":"attachment"},{"name":"muriel.png","type":"attachment"},{"name":"noemie.png","type":"attachment"},{"name":"thibaut.png","type":"attachment"},{"name":"thierry.png","type":"attachment"},{"name":"tutho.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"ariane.png","type":"attachment"},{"name":"noemie.png","type":"attachment"},{"name":"thibaut.png","type":"attachment"},{"name":"thierry.png","type":"attachment"},{"name":"tutho.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Introduction
 
 ## Bonjour et bienvenue !
 
-![logos](files/logos.png)
-
 Nous sommes très heureux de vous accueillir aujourd'hui pour cette formation NeTEx !
 
-||Prénom|Affiliation|
-|------|--------------------------------------|------------------|
-|![Jorge](files/jorge.png)|Jorge|Direction Générale des Infrastructures, des Transports et des Mobilités (DGITM)|
-|![Muriel](files/muriel.png)|Muriel|Direction Ministérielle de l'Accessibilité (DMA)|
-
-Remerciements : 
-
-* Direction Ministérielle de l'Accessibilité, représentée par Muriel Larrouy
-* Direction Générale des Infrastructures, des Transports et des Mobilités, représentée par Jorge Gonzalez
-* NAPCORE
+Nous remercions chaleureusement AGIR Transport d'avoir organisé cette formation dédiée à NeTEx. Nous aurons le plaisir de passer 4 fois 2 heures avec vous.
 
 ## Règles de base
 
@@ -48,11 +37,11 @@ Avec vous durant toute la formation :
 
 ||Prénom|Affiliation|Expertise pour la formation|
 |------|--------------------------------------|------------------|-------------------------|
-|![Tu-Tho](files/tutho.png)|Tu-Tho|Indépendante|Concepts de base & Ressources|
+|![Noémie](files/noemie.png)|Noémie|Jungle Bus|Concepts de base, les outils et L'accessibilité des transports et de la voirie|
 |![Ariane](files/ariane.png)|Ariane|CS Group|Modélisation des réseaux de transport|
 |![Thibaut](files/thibaut.png)|Thibaut|Indépendant|Modélisation des réseaux de transport|
 |![Thierry](files/thierry.png)|Thierry|CS Group|La représentation de la multimodalité|
-|![Noémie](files/noemie.png)|Noémie|Jungle Bus|L'accessibilité des transports et de la voirie|
+|![Tu-Tho](files/tutho.png)|Tu-Tho|TT&J|Pour toutes vos questions|
 
 <!-- livebook:{"break_markdown":true} -->
 
