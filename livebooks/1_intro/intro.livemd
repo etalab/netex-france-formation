@@ -31,29 +31,28 @@ Pendant les exercices, les autres formateurs sont là pour vous aider. N'hésite
   </div>
 </details>
 
+## Calendrier
+
+Voici le programme des 4 sessions de formation :
+
+| Date              | Thème                                          | Vos formateurs             |
+| ----------------- | ----------------------------------------------- | -------------------------- |
+| 20 novembre 2025  | Les concepts de base et les outils              | Noémie et Thierry         |
+| 27 novembre 2025  | La modélisation d'un réseau de transport      | Ariane et Thibaut          |
+| 4 décembre 2025  | Arrêts multimodaux                             | Thierry, Ariane et Thibaut |
+| 11 décembre 2025 | L'accessibilité des transports et de la voirie | Noémie et Tu-Tho          |
+
 ## Qui sommes-nous ?
 
 Avec vous durant toute la formation :
 
 ||Prénom|Affiliation|Expertise pour la formation|
 |------|--------------------------------------|------------------|-------------------------|
-|![Noémie](files/noemie.png)|Noémie|Jungle Bus|Concepts de base, les outils <br /> L'accessibilité des transports et de la voirie|
+|![Noémie](files/noemie.png)|Noémie|Jungle Bus|- Concepts de base, les outils <br /> - L'accessibilité des transports et de la voirie|
 |![Ariane](files/ariane.png)|Ariane|CS Group|Modélisation des réseaux de transport|
 |![Thibaut](files/thibaut.png)|Thibaut|Indépendant|Modélisation des réseaux de transport|
 |![Thierry](files/thierry.png)|Thierry|CS Group|La représentation de la multimodalité|
 |![Tu-Tho](files/tutho.png)|Tu-Tho|TT&J|Pour toutes vos questions|
-
-
-## Calendrier
-
-Voici le programme des 4 sessions de formation : 
-
-|Date|Thème|Vos formateurs|
-|------|--------------------------------------|------------------|
-|20 novembre 2025|Les concepts de base et les outils|Noémie et Thierry|
-|27 novembre 2025|La modélisation d'un réseau de transport|Ariane et Thibaut|
-|4 décembre 2025|Arrêts multimodaux|Thierry, Ariane et Thibaut|
-|11 décembre 2025|L'accessibilité des transports et de la voirie|Noémie et Tu-Tho|
 
 <!-- livebook:{"break_markdown":true} -->
 

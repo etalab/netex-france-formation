@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"cen.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"PAN.png","type":"attachment"},{"name":"cen.png","type":"attachment"},{"name":"champ_fonctionnel_netex_GTFS.png","type":"attachment"},{"name":"champ_fonctionnel_transmodel.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"mapping_GTFS_netex_1.png","type":"attachment"},{"name":"mapping_GTFS_netex_2.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Les outils et ressources à votre disposition
 
@@ -24,31 +24,45 @@ Pour
 
 ### 2.1. Les outils
 
+Autour de Transmodel :
+
+| Type          | Titre                            | Description                                                   | Lien                                                                                                      |
+| ------------- | -------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Documentation | Transmodel - Définitions        | Dictionnaire de l'ensemble des concepts                       | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf                  |
+| Technique     | Transmodel - Modèle de données | L'ensemble du modèle de données sous forme de diagramme UML | en ligne : https://transmodel-cen.eu/model6.2/EARoot/EA3/EA1/EA2/EA2021.htm                               |
+| Technique     | Transmodel - Modèle de données | L'ensemble du modèle de données sous forme de diagramme UML | à télécharger : https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea |
+| Technique     | Transmodel - Fichier XML         | L'ensemble du modèle de données sous forme de fichier XML   | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml                          |
+
+<!-- livebook:{"break_markdown":true} -->
+
+Schémas XML (définition de la structure et le type de contenu d'un document XML):
 | Type          | Titre                                          | Description                                                        | Lien                                                                                     |
 | ------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| Documentation | Transmodel - Définitions                      | Dictionnaire de l'ensemble des concepts                            | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf |
-| Technique     | Transmodel - Modèle de données               | L'ensemble du modèle de données sous forme de diagramme UML      | https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea   |
-| Technique     | Transmodel - Fichier XML                       | L'ensemble du modèle de données sous forme de fichier XML        | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml         |
 | Technique     | NeTEx - Schéma XML                            | Les schémas XML (ou XSD) de NeTEx                                 | https://github.com/NeTEx-CEN/NeTEx                                                       |
 | Technique     | SIRI - Schéma XML                             | Les schémas XML (ou XSD) de SIRI                                  | https://github.com/SIRI-CEN/SIRI                                                         |
+
+<!-- livebook:{"break_markdown":true} -->
+
+Manipulation de XML et des outils techniques :
+| Type          | Titre                                          | Description                                                        | Lien                                                                                     |
+| ------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
 | Logiciel      | Enterprise Architect Viewer                    | Pour visualiser le diagramme UML de Transmodel                     | https://sparxsystems.com/products/ea/downloads.html                                      |
 | Logiciel      | XMLSpy                                         | Outil de visualisation de la XSD de NeTEx et SIRI                  | https://www.altova.com/xmlspy-xml-editor/download                                        |
 | Logiciel      | Visual Studio Code                             | Pour lire et éditer des fichiers XML                              | https://code.visualstudio.com/download                                                   |
-| Logiciel      | Visual Studio Code - extension JSON & XML grid | Pour bénéfichier d'une vue sous forme de grille d'un fichier XML | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
+| Logiciel      | Visual Studio Code - extension JSON & XML grid | Pour avoir une vue sous forme de grille d'un fichier XML | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
 | Logiciel      | Notepad++                                      | Pour lire et éditer des fichiers XML                              | https://notepad-plus-plus.org/downloads/                                                 |
-
-Comment utiliser ces outils :
-
-* Documentation : référence pour les défintions des concepts utilisés
-* Technique : représentation des concepts, de leurs attributs et des relations entre les concepts ; également une aide à la création de jeux de données en NeTex et SIRI
-
-Exemple de vue sous forme de grille d'un fichier XML :
-![grid](files/grid_view.png)
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Pourquoi</summary>
   <div class="p-4">
 
+Comment utiliser ces outils :
+
+* Documentation : référence pour les définitions des concepts utilisés
+* Technique : représentation des concepts, de leurs attributs et des relations entre les concepts ; également une aide à la création de jeux de données en NeTex et SIRI
+
+Exemple de vue sous forme de grille d'un fichier XML :
+![grid](files/grid_view.png)
 Cela permet :
 
 * De visualiser rapidement le nombre d'éléments par type
@@ -62,14 +76,9 @@ C'est utile pour :
   </div>
 </details>
 
+<!-- livebook:{"break_markdown":true} -->
+
 ### 2.2. Les ressources
-
-Au niveau européen : l'espace de travail [GitHub](https://github.com/NeTEx-CEN/NeTEx) pour
-
-* Accéder à la XSD de NeTEx (version actuelle et future)
-* Explorer des exemples de fichiers XML
-* Poser des questions générales
-* Demander des changements
 
 Au niveau français : le [profil France](https://normes.transport.data.gouv.fr/normes/netex/) pour
 
@@ -79,6 +88,19 @@ Au niveau français : le [profil France](https://normes.transport.data.gouv.fr/n
 
 ![Profil France](files/netex_france.png)
 
+<!-- livebook:{"break_markdown":true} -->
+
+Au niveau français : Le [Point d’Accès National aux données de transport](https://transport.data.gouv.fr/) (PAN) pour
+
+* publier ses données / retrouver des données publiées par d'autres acteurs
+* valider un jeu de données NeTEx (par exemple, pour notre [fichier de test](https://transport.data.gouv.fr/validation/510235?token=d58c1e35-4102-4393-968a-c126036c26eb))
+* avoir des statistiques sur l'ouverture de données
+* retrouver de la documentation (sur NeTEx, mais aussi sur la réglementation ou sur la publication de données)
+
+![capture d'écran de la page d'accueil du PAN](files/PAN.png)
+
+<!-- livebook:{"break_markdown":true} -->
+
 Au niveau français : l'espace de travail [GitHub](https://github.com/etalab/transport-profil-netex-fr) du profil France pour
 
 * Poser des questions générales
@@ -87,89 +109,119 @@ Au niveau français : l'espace de travail [GitHub](https://github.com/etalab/tra
 
 ![GitHub Profil France](files/github.png)
 
-🫵 Exercice pratique _(optionnel)_
+🫵 Démo
 
 Posez une question dans l'espace de travail GitHub du profil France de NeTEx.
 
-## 3. POUR ALLER PLUS LOIN -- QUAND VOUS AVEZ LE TEMPS
+<!-- livebook:{"break_markdown":true} -->
 
-### 3.1. Historique
+Au niveau européen : l'espace de travail [GitHub](https://github.com/NeTEx-CEN/NeTEx) pour
 
-Transmodel est né en 1989, via un projet européen nommé Cassiope. Transmodel a été créé dans le but de doter l'Europe d'un vocabulaire et d'une grammaire commune pour décrire les transports publics.
+* Accéder à la XSD de NeTEx (version actuelle et future)
+* Explorer des exemples de fichiers XML
+* Poser des questions générales
+* Demander des changements
 
-<br />
-
-SIRI est né en 2006 dans le but d'avoir une interface standardisée d'échange de données qui permettent de décrire l'état à un instant T d'un réseau de transport public.
-
-<br />
-
-NeTEx est né en 2009 dans le but d'avoir une interface standardisée d'échange de données qui permettent de décrire un réseau de transport public avec l'ensemble de ses caractéristiques connues d'avance.
-
-<br />
-
-Transmodel, NeTEx et SIRI évoluent constamment pour prendre en compte les nouveautés des offres de transport public en Europe. Ces évolutions sont portées par les experts du domaine, qui peuvent être saisis par tout acteur de l'écosystème.
+## 3. POUR ALLER PLUS LOIN
 
 ### 3.2. Gouvernance
 
-Transmodel, NeTEx et SIRI sont définis au sein du Comité Européen de Normalisation (CEN), plus particulièrement dans le Groupe de Travail dédié au Transport Public au sein du Comité Technique dédié au Transport routier (TC278 WG3).
-![CEN](files/cen.png)
+En France, c'est le GT7 (Groupe de Travail dédié à l'information voyageur et à l'exploitation des services de mobilité) qui :
+
+* Pilote et maintient les profils France de NeTEx et SIRI
+* Consolide les demandes de changement portées par la France pour l'évolution de Transmodel, NeTEx et SIRI au niveau européen
+* Mandate des experts français pour contribuer aux travaux européens de normalisation
+
+Qui peut s'impliquer dans les discussions de normalisation ? **Tout le monde !**
+
+Exemples de travaux en cours au sein du profil :
+
+* Définition d'une structure commune pour un fichier d'export NeTEx
+* Ajout d'attributs concernant l'accessibilité
+* Définition des critères métiers de collecte pour plusieurs attributs d'accessibilité
+
+<!-- livebook:{"break_markdown":true} -->
+
+Au niveau européen, Transmodel, NeTEx et SIRI sont définis au sein du Comité Européen de Normalisation (CEN), plus particulièrement dans le Groupe de Travail dédié au Transport Public au sein du Comité Technique dédié au Transport routier (TC278 WG3).
+
+![organigramme du CEN](files/cen.png)
 
 <br />
 
 Sont membres du CEN, les instances de normalisation nationales :
 
 * Des États Membres de l'Union Européenne
-* Des pays associés (ex. Grande Bretagne, Turquie)
+  * Chez nous l'AFNOR, et plus particulièrement le BNTRA (Bureau de normalisation des transports, des routes et de leurs aménagements) et le GT7
+* Des pays associés (ex. Grande Bretagne, Turquie, Norvège)
+
+La France est pilote sur Transmodel et NeTEx.
   <br />
+
+<!-- livebook:{"break_markdown":true} -->
 
 Comment NeTEx évolue :
 
-* Travaux des experts nationaux au sein leur instance de normalisation. Chez nous l'AFNOR, et plus particulière le Bureau de normalisation des transports, des routes et de leurs aménagements (BNTRA).
-* Remontée des travaux nantionaux au sein du groupe de travail dédié du CEN.
-* Discussions fonctionnelles et techniques au sein du CEN jusqu'à consensus.
+* Travaux au sein des instances nationales
+* Remontée des travaux nationaux au sein du groupe de travail dédié du CEN
+* Discussions fonctionnelles et techniques au sein du CEN jusqu'à consensus
 * Soumission des évolutions au vote par les membres du CEN
 * Si vote positif, confirmation de l'évolution de la norme au niveau CEN.
-* Travaux au sein des instances nationales pour prendre en compte les évolutions au niveau CEN.
+* Travaux au sein des instances nationales pour prendre en compte les évolutions
 
-<br />
+<!-- livebook:{"break_markdown":true} -->
 
-Qui peut s'impliquer dans les discussions de normalisation ? **Tout le monde !**
+### 3.3. Et le GTFS dans tout ça ?
 
-<br />
+**GTFS** c'est l'autre standard de référence pour la publication d'information de transport.
 
-Plus particulièrement pour NeTEx en France, c'est le Groupe de Travail dédié à l'information voyageur et à l'exploitation des services de mobilité (GT7) qui :
+| GTFS                                                          | NeTEx                                                                                                                                       |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| pensé en premier lieu pour l'information voyageur            | périmètre plus large que l'information voyageur : agrégation multi-organisations avec partage de responsabilité, gestion de flotte, etc |
+| centré sur le transport en commun                            | adresse aussi les véhicules partagés, mais aussi les équipements en gare, les POIs, les parkings, etc                                    |
+| format CSV                                                    | format XML                                                                                                                                  |
+| rayonnement international                                     | rayonnement principalement européen                                                                                                        |
+| catalogue de concepts et d'attributs nécessaire et suffisant | large modèle de données. Modélisation plus riche de l'accessibilité et de la tarification (notamment)                                   |
 
-* Pilote et maintien les profils France de NeTEx et SIRI
-* Consolide les demandes de changement portées par la France pour l'évolution de Transmodel, NeTEx et SIRI au niveau européen
-* Mandate des experts français pour contribuer aux travaux européens de normalisation.
+<!-- livebook:{"break_markdown":true} -->
 
-### 3.3. NeTEx et GTFS
+GTFS n'est pas basé sur le modèle conceptuel de Transmodel.
 
-NeTEx est conçu pour :
+Mais on peut faire des correspondances :
 
-* L'information voyageur
-* Les échanges entre systèmes d'information
-* L'open data
+![mapping général GTFS Transmodel](files/mapping_GTFS_netex_1.png)
 
-La vision principale de NeTEx : une approche systémique de la description d'un réseau et d'une offre de transport public.
+<!-- livebook:{"break_markdown":true} -->
 
-GTFS est conçu pour :
+puis on peut aussi faire correspondre les attributs :
 
-* L'information voyageur, notamment la planfication de trajet
-* L'open data
+![mapping fichier agency.csv](files/mapping_GTFS_netex_2.png)
 
-La vision principale de GTFS : faciliter de la planification de trajet via l'attache aux arrêts composant un réseau et une offre de transport en commun.
+[source](https://transmodel-cen.eu/wp-content/uploads/2024/08/2024-June_DATA4PT_GTFS-NeTEx-Mapping_vf.pdf)
 
-Parce que NeTEx repose sur un modèle conceptuel de données (Transmodel), il permet :
+<!-- livebook:{"break_markdown":true} -->
 
-* Une meilleure articulation des concepts
-* La modélisation de la réalité complexe d'une offre de transport public, notamment pour l'accessibilité, l'offre tarifaire détaillée, les liens avec les parkings, etc.
-* La génération de jeux de données spécifiques, notamment ceux exprimés en GTFS
+Mais ça ne veut pas dire que c'est équivalent !
+
+GTFS peut s'exporter en NeTEx sans perte.
+
+Mais NeTEx est plus large et peut contenir des informations qui n'existent pas dans GTFS.
+
+<!-- livebook:{"break_markdown":true} -->
+
+![schéma du champ fonctionnel de Transmodel](files/champ_fonctionnel_transmodel.png)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![schéma du champ fonctionnel de GTFS, de NeTEx et d'autres standards](files/champ_fonctionnel_netex_GTFS.png)
+
+[source des schémas](https://transmodel-cen.eu/wp-content/uploads/2024/08/2024-June_DATA4PT_GTFS-NeTEx-Mapping_vf.pdf)
+
+<!-- livebook:{"break_markdown":true} -->
 
 À retenir :
 
-* NeTEx et GTFS sont complémentaires car répondant à des cas d'usage différentes
-* NeTEx doit servir de base aux jeux de données en GTFS (pour aller du plus fin au plus généraliste)
+* NeTEx et GTFS sont complémentaires car répondant à des cas d'usage différents
+* Idéalement, NeTEx doit servir de base aux jeux de données en GTFS
 
 <!-- livebook:{"break_markdown":true} -->
 
