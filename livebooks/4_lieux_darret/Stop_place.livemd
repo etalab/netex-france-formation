@@ -1148,7 +1148,7 @@ CorrespondanceIntersite: xml_5])
 
 > =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER Ligne_ATOUMOD001_91.XML**</span>
 
-La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
+La structure de ce fichier vous a été présentée lors de la session précédente, on y retrouve les données suivantes :
 
 Ce fichier décrit chaque ligne identifiée dans le fichier 'Réseaux' en termes de :
 
