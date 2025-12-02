@@ -542,6 +542,12 @@ Le nombre d'éléments décrits dans ce fichier est le suivant :
 
 Regardons les éléments de définition d'un lieu d'arrêt.
 
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier Réseau
+
+<!-- livebook:{"continue_on_error":true,"reevaluate_automatically":true} -->
+
 ````elixir
 xml_1=Kino.Markdown.new("""
 ```xml
@@ -674,13 +680,9 @@ Kino.Layout.tabs([
 Quai: xml_2])
 ````
 
-### Fichier Réseau
-
-<!-- livebook:{"break_markdown":true} -->
-
 > =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER RESEAUX.XML**</span>
 
-La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
+La structure de ce fichier vous a été présentée lors de la session précédente, on y retrouve les données suivantes :
 
 * le réseau `Network`;
 * les lignes `line` du réseau;
