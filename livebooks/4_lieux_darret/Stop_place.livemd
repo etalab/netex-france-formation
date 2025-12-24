@@ -501,6 +501,14 @@ Dans la suite de la session nous allons être amenés à utiliser les fichiers *
 
 <!-- livebook:{"break_markdown":true} -->
 
+### Pour faire les exercices suivants
+
+Dans la mesure où les fichiers disponibles sur le PAN sont souvent mis à jour pour refléter l'état de l'offre, les exercices suivants de cette session se basent sur des fichiers XML "figés". Vous pouvez les télécharger en suivant ces liens : 
+- Fichier [**Arrêts**](https://github.com/etalab/netex-france-formation/blob/AGIR/livebooks/4_lieux_darret/files/XML/Arrets.xml) ;
+- Fichier [**Réseaux**](https://github.com/etalab/netex-france-formation/blob/AGIR/livebooks/4_lieux_darret/files/XML/Réseaux.xml) ;
+- Fichier [**Ligne**](https://github.com/etalab/netex-france-formation/blob/AGIR/livebooks/4_lieux_darret/files/XML/Ligne_ATOUMOD001_91.xml) ;
+
+
 ### Principes de Modélisation
 
 <!-- livebook:{"break_markdown":true} -->
