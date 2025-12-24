@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"ariane.png","type":"attachment"},{"name":"noemie.png","type":"attachment"},{"name":"thibaut.png","type":"attachment"},{"name":"thierry.png","type":"attachment"},{"name":"tutho.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"ariane.png","type":"attachment"},{"name":"noemie.png","type":"attachment"},{"name":"thibaut.png","type":"attachment"},{"name":"thierry.png","type":"attachment"},{"name":"tutho.png","type":"attachment"},{"name":"agir.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Introduction
 
@@ -7,6 +7,8 @@
 Nous sommes très heureux de vous accueillir aujourd'hui pour cette formation NeTEx !
 
 Nous remercions chaleureusement AGIR Transport d'avoir organisé cette formation dédiée à NeTEx. Nous aurons le plaisir de passer 4 fois 2 heures avec vous.
+
+![Agir](files/agir.png)
 
 ## Règles de base
 
@@ -39,7 +41,7 @@ Voici le programme des 4 sessions de formation :
 | ----------------- | ----------------------------------------------- | -------------------------- |
 | 20 novembre 2025  | Les concepts de base et les outils              | Noémie et Thierry         |
 | 27 novembre 2025  | La modélisation d'un réseau de transport      | Ariane et Thibaut          |
-| 4 décembre 2025  | Arrêts multimodaux                             | Thierry, Ariane et Thibaut |
+| 4 décembre 2025  | Arrêts multimodaux                             | Thierry, Thibaut et Tu-Tho |
 | 11 décembre 2025 | L'accessibilité des transports et de la voirie | Noémie et Tu-Tho          |
 
 ## Qui sommes-nous ?
