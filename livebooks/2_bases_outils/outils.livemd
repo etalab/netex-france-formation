@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"PAN.png","type":"attachment"},{"name":"cen.png","type":"attachment"},{"name":"champ_fonctionnel_netex_GTFS.png","type":"attachment"},{"name":"champ_fonctionnel_transmodel.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"mapping_GTFS_netex_1.png","type":"attachment"},{"name":"mapping_GTFS_netex_2.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"PAN.png","type":"attachment"},{"name":"cen.png","type":"attachment"},{"name":"Transmodel.png","type":"attachment"},{"name":"NeTEx-GTFS.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"mapping_GTFS_netex_1.png","type":"attachment"},{"name":"mapping_GTFS_netex_2.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Les outils et ressources à votre disposition
 
@@ -208,11 +208,11 @@ Mais NeTEx est plus large et peut contenir des informations qui n'existent pas d
 
 <!-- livebook:{"break_markdown":true} -->
 
-![schéma du champ fonctionnel de Transmodel](files/champ_fonctionnel_transmodel.png)
+![schéma du champ fonctionnel de Transmodel](files/Transmodel.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
-![schéma du champ fonctionnel de GTFS, de NeTEx et d'autres standards](files/champ_fonctionnel_netex_GTFS.png)
+![schéma du champ fonctionnel de GTFS, de NeTEx et d'autres standards](files/NeTEx-GTFS.png)
 
 [source des schémas](https://transmodel-cen.eu/wp-content/uploads/2024/08/2024-June_DATA4PT_GTFS-NeTEx-Mapping_vf.pdf)
 
