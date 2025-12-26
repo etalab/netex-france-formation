@@ -47,7 +47,7 @@ Dans l'ordre des Livebooks
 
 |Prénom & Nom |Affiliation |Expertise pour la formation | Email |
 |------|--------------------------------------|------------------|-------------------------|
-|Tu-Tho Thai|Indépendante|Concepts de base, OUtils et Ressources|tutho@ttandj.com|
+|Tu-Tho Thai|Indépendante|Concepts de base, Outils et Ressources|tutho@ttandj.com|
 |Noémie Lehuby|Jungle Bus|Concepts de base, Outils, Ressources & L'accessibilité des transports et de la voirie|noemie@junglebus.io|
 |Ariane Durand|CS Group|Modélisation des réseaux de transport|ariane.durand@cs-soprasteria.com|
 |Thibaut Barrère|Indépendant|Modélisation des réseaux de transport|thibaut.barrere@gmail.com|
