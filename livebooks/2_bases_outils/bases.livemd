@@ -402,16 +402,15 @@ C'est un fichier zip contenant un fichier xml.
 
 <details class="rounded-lg my-4">
 
-```
+
 <summary class="cursor-pointer font-bold p-4"></i>Accès au fichier</summary>
 <div class="p-4">
-```
+
 
 Le fichier utilisé est également archivé dans l'espace de travail dédié aux supports de formation. S'il n'est plus disponible en ligne à l'adresse indiquée, vous pouvez le retrouver dans `data/1_bases`
 
-
-
-
+</div>
+</details>
 
 Remarque : le profil France impose des contraintes sur la structure d'un export NeTEx et notamment sur les noms des fichiers. Cet export n'est pas conforme au profil.
 
@@ -426,9 +425,7 @@ Remarquez comment la notion de NIVEAU (_LEVEL_) est gérée :
 
 <!-- livebook:{"break_markdown":true} -->
 
-🫵 Exercice pratique
-
-À vous de jouer !
+🫵 Exercice pratique - À vous de jouer !
 
 * Téléchargez le fichier d'exemple et ouvrez le fichier xml dans votre éditeur de texte ou navigateur web : https://data4pt.org/NeTEx/GraphicKit/XML_Example_EPIP.zip
 
@@ -445,7 +442,6 @@ Remarquez comment la notion de NIVEAU (_LEVEL_) est gérée :
   Il y a une seule ligne (bus 91), d'identifiant NeTEx `LU::Line:3011:`
 
   </div>
-  </details>
 
 <!-- livebook:{"break_markdown":true} -->
 
