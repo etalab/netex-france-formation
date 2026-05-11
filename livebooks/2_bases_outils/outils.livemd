@@ -26,19 +26,19 @@ Pour
 
 Autour de Transmodel :
 
-| Type          | Titre                            | Description                                                   | Lien                                                                                                      |
-| ------------- | -------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Documentation | Transmodel - Définitions        | Dictionnaire de l'ensemble des concepts                       | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf                  |
+| Type          | Titre                            | Description                                               | Lien                                                                                                      |
+| ------------- | -------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Documentation | Transmodel - Définitions        | Dictionnaire de l'ensemble des concepts                    | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf                  |
 | Technique     | Transmodel - Modèle de données | L'ensemble du modèle de données sous forme de diagramme UML | en ligne : https://transmodel-cen.eu/model6.2/EARoot/EA3/EA1/EA2/EA2021.htm                               |
 | Technique     | Transmodel - Modèle de données | L'ensemble du modèle de données sous forme de diagramme UML | à télécharger : https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea |
-| Technique     | Transmodel - Fichier XML         | L'ensemble du modèle de données sous forme de fichier XML   | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml                          |
+| Technique     | Transmodel - Fichier XML         | L'ensemble du modèle de données sous forme de fichier XML | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml                          |
 
 <!-- livebook:{"break_markdown":true} -->
 
 Schémas XML (définition de la structure et le type de contenu d'un document XML):
-| Type          | Titre                                          | Description                                                        | Lien                                                                                     |
-| ------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| Technique     | NeTEx - Schéma XML                            | Les schémas XML (ou XSD) de NeTEx                                 | https://github.com/NeTEx-CEN/NeTEx                                                       |
+| Type          | Titre                                          | Description                                                      | Lien                                                                                     |
+| ------------- | ---------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Technique     | NeTEx - Schéma XML                            | Les schémas XML (ou XSD) de NeTEx                                 | https://github.com/TransmodelEcosystem/NeTEx                                                       |
 | Technique     | SIRI - Schéma XML                             | Les schémas XML (ou XSD) de SIRI                                  | https://github.com/SIRI-CEN/SIRI                                                         |
 
 <!-- livebook:{"break_markdown":true} -->
@@ -48,9 +48,9 @@ Manipulation de XML et des outils techniques :
 | ------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
 | Logiciel      | Enterprise Architect Viewer                    | Pour visualiser le diagramme UML de Transmodel                     | https://sparxsystems.com/products/ea/downloads.html                                      |
 | Logiciel      | XMLSpy                                         | Outil de visualisation de la XSD de NeTEx et SIRI                  | https://www.altova.com/xmlspy-xml-editor/download                                        |
-| Logiciel      | Visual Studio Code                             | Pour lire et éditer des fichiers XML                              | https://code.visualstudio.com/download                                                   |
-| Logiciel      | Visual Studio Code - extension JSON & XML grid | Pour avoir une vue sous forme de grille d'un fichier XML | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
-| Logiciel      | Notepad++                                      | Pour lire et éditer des fichiers XML                              | https://notepad-plus-plus.org/downloads/                                                 |
+| Logiciel      | Visual Studio Code                             | Pour lire et éditer des fichiers XML                               | https://code.visualstudio.com/download                                                   |
+| Logiciel      | Visual Studio Code - extension JSON & XML grid | Pour avoir une vue sous forme de grille d'un fichier XML           | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
+| Logiciel      | Notepad++                                      | Pour lire et éditer des fichiers XML                               | https://notepad-plus-plus.org/downloads/                                                 |
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Pourquoi</summary>

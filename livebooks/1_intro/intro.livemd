@@ -6,20 +6,16 @@
 
 Nous sommes très heureux de vous accueillir aujourd'hui pour cette formation NeTEx !
 
-Nous remercions chaleureusement AGIR Transport d'avoir organisé cette formation dédiée à NeTEx. Nous aurons le plaisir de passer 4 fois 2 heures avec vous.
-
-![Agir](files/agir.png)
+Cette formation pour l'équipe de Wordline a été pensée comme une introduction générale au contenu des formations dispensées en 2025 pour le compte de la DGITM et aux adhérents d'AGIR Transport. Nous vous partagerons le lien vers l'intégratlité du contenu de ces formations pour que vous puissiez continuer à explorer NeTEx à votre rythme.
 
 ## Règles de base
 
 Avant de commencer, merci de bien vouloir :
-
 * vous assurer que votre connexion internet fonctionne,
 * que les notifications de vos messageries sont coupées,
 * que votre téléphone est sur silencieux.
 
 Sur vos ordinateurs, assurez-vous d'avoir :
-
 * un navigateur tel que Chrome, Edge ou Firefox,
 * un éditeur de type Notepad, Notepad++ ou Visual Studio Code (VS Code).
 
@@ -33,28 +29,15 @@ Pendant les exercices, les autres formateurs sont là pour vous aider. N'hésite
   </div>
 </details>
 
-## Calendrier
-
-Voici le programme des 4 sessions de formation :
-
-| Date              | Thème                                          | Vos formateurs             |
-| ----------------- | ----------------------------------------------- | -------------------------- |
-| 20 novembre 2025  | Les concepts de base et les outils              | Noémie et Thierry         |
-| 27 novembre 2025  | La modélisation d'un réseau de transport      | Ariane et Thibaut          |
-| 4 décembre 2025  | Arrêts multimodaux                             | Thierry, Thibaut et Tu-Tho |
-| 11 décembre 2025 | L'accessibilité des transports et de la voirie | Noémie et Tu-Tho          |
-
 ## Qui sommes-nous ?
 
 Avec vous durant toute la formation :
 
 ||Prénom|Affiliation|Expertise pour la formation|
 |------|--------------------------------------|------------------|-------------------------|
-|![Noémie](files/noemie.png)|Noémie|Jungle Bus|- Concepts de base, les outils <br /> - L'accessibilité des transports et de la voirie|
-|![Ariane](files/ariane.png)|Ariane|CS Group|Modélisation des réseaux de transport|
-|![Thibaut](files/thibaut.png)|Thibaut|Indépendant|Modélisation des réseaux de transport|
-|![Thierry](files/thierry.png)|Thierry|CS Group|La représentation de la multimodalité|
-|![Tu-Tho](files/tutho.png)|Tu-Tho|TT&J|Pour toutes vos questions|
+|![Noémie](files/noemie.png)|Noémie|Jungle Bus| Membre active du CN03/GT7 et Référente accessibilité du groupe de normalisation |
+|![Thibaut](files/thibaut.png)|Thibaut|Indépendant & PAN|Co-lead du sous-groupe NeTEx (CEN TC278 WG3 SG9) et Développeur senior au PAN |
+|![Tu-Tho](files/tutho.png)|Tu-Tho|TT&J|Co-lead du sous-groupe NeTEx (CEN TC278 WG3 SG9) et Animatrice du CN03/GT7|
 
 <!-- livebook:{"break_markdown":true} -->
 
