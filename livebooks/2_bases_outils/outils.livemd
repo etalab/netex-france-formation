@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"PAN.png","type":"attachment"},{"name":"cen.png","type":"attachment"},{"name":"Transmodel.png","type":"attachment"},{"name":"NeTEx-GTFS.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"mapping_GTFS_netex_1.png","type":"attachment"},{"name":"mapping_GTFS_netex_2.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"NeTEx-GTFS.png","type":"attachment"},{"name":"PAN.png","type":"attachment"},{"name":"Transmodel.png","type":"attachment"},{"name":"cen.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"mapping_GTFS_netex_1.png","type":"attachment"},{"name":"mapping_GTFS_netex_2.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Les outils et ressources à votre disposition
 
@@ -105,11 +105,12 @@ Au niveau français : le [profil France](https://normes.transport.data.gouv.fr/n
 Au niveau français : Le [Point d’Accès National aux données de transport](https://transport.data.gouv.fr/) (PAN) pour
 
 * publier ses données / retrouver des données publiées par d'autres acteurs
-* valider un jeu de données NeTEx (par exemple, pour notre [fichier de test](https://transport.data.gouv.fr/validation/510235?token=d58c1e35-4102-4393-968a-c126036c26eb))
-* avoir des statistiques sur l'ouverture de données
+* valider un jeu de données NeTEx ([validation "à la demande"](https://transport.data.gouv.fr/validation?locale=fr&selected_subtile=netex&selected_tile=vehicles-sharing&type=netex), ou en [automatique](https://transport.data.gouv.fr/resources/82368#validation-report) pour les données déjà référencées sur le PAN
 * retrouver de la documentation (sur NeTEx, mais aussi sur la réglementation ou sur la publication de données)
 
 ![capture d'écran de la page d'accueil du PAN](files/PAN.png)
+
+![capture d'écran d'un résultat de validation XSD sur le PAN](files/pan-xsd-validation.png)
 
 <!-- livebook:{"break_markdown":true} -->
 
