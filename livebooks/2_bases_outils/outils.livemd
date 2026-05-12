@@ -54,6 +54,14 @@ Manipulation de XML et des outils techniques :
 | Logiciel      | Visual Studio Code - extension JSON & XML grid | Pour avoir une vue sous forme de grille d'un fichier XML           | https://marketplace.visualstudio.com/items?itemName=EddilbertMacharia.jsonxmlgridviewer  |
 | Logiciel      | Notepad++                                      | Pour lire et éditer des fichiers XML                               | https://notepad-plus-plus.org/downloads/                                                 |
 
+Outils de validation XML à partir de la XSD:
+
+| Type          | Titre                                          | Description                                                        | Lien                                                                                     |
+| ------------- | ---------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Logiciel      | `xmllint`                                      | Pour valider (XSD) des fichiers XML (pour développeur)             | https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home                                      |
+| Logiciel      | `xsd-validator`                                | Pour valider (XSD) des fichiers XML (pour développeur)             | https://github.com/thbar/xsd-validator                                                   |
+| Web           | Validation XML PAN                             | Pour valider (XSD) des fichiers XML (interface graphique)          | https://transport.data.gouv.fr/validation                                                |   
+
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Pourquoi</summary>
   <div class="p-4">
