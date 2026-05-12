@@ -137,7 +137,7 @@ Au niveau européen : l'espace de travail [GitHub](https://github.com/NeTEx-CEN/
 
 ## 3. POUR ALLER PLUS LOIN
 
-### 3.2. Gouvernance
+### 3.1. Gouvernance
 
 En France, c'est le GT7 (Groupe de Travail dédié à l'information voyageur et à l'exploitation des services de mobilité) qui :
 
@@ -183,7 +183,7 @@ Comment NeTEx évolue :
 
 <!-- livebook:{"break_markdown":true} -->
 
-### 3.3. Et le GTFS dans tout ça ?
+### 3.2. Et le GTFS dans tout ça ?
 
 **GTFS**, c'est l'autre standard de référence pour la publication d'information de transport.
 
