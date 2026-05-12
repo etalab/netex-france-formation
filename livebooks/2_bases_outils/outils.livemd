@@ -130,10 +130,10 @@ Posez une question dans l'espace de travail GitHub du profil France de NeTEx.
 
 Au niveau européen : l'espace de travail [GitHub](https://github.com/NeTEx-CEN/NeTEx) pour
 
-* Accéder à la XSD de NeTEx (version actuelle et future)
-* Explorer des exemples de fichiers XML
-* Poser des questions générales
-* Demander des changements
+* Accéder à la XSD de NeTEx (version actuelle et future - point d'entrée [`xsd/NeTEx_publication.xsd`](https://github.com/TransmodelEcosystem/NeTEx/blob/v2.0/xsd/NeTEx_publication.xsd))
+* Explorer des [exemples de fichiers XML](https://github.com/TransmodelEcosystem/NeTEx/tree/v2.0/examples)
+* Poser des questions générales ([issues](https://github.com/TransmodelEcosystem/NeTEx/issues))
+* Demander des changements (["pull-requests"](https://github.com/TransmodelEcosystem/NeTEx/pulls))
 
 ## 3. POUR ALLER PLUS LOIN
 
