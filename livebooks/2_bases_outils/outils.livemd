@@ -72,7 +72,9 @@ Comment utiliser ces outils :
 * Technique : représentation des concepts, de leurs attributs et des relations entre les concepts ; également une aide à la création de jeux de données en NeTex et SIRI
 
 Exemple de vue sous forme de grille d'un fichier XML :
+
 ![grid](files/grid_view.png)
+
 Cela permet :
 
 * De visualiser rapidement le nombre d'éléments par type
