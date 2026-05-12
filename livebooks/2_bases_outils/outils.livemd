@@ -106,7 +106,7 @@ Au niveau français : Le [Point d’Accès National aux données de transport](h
 
 * publier ses données / retrouver des données publiées par d'autres acteurs
 * valider un jeu de données NeTEx ([validation "à la demande"](https://transport.data.gouv.fr/validation?locale=fr&selected_subtile=netex&selected_tile=vehicles-sharing&type=netex), ou en [automatique](https://transport.data.gouv.fr/resources/82368#validation-report) pour les données déjà référencées sur le PAN
-* retrouver de la documentation (sur NeTEx, mais aussi sur la réglementation ou sur la publication de données)
+* retrouver de la [documentation](https://doc.transport.data.gouv.fr) (sur NeTEx, mais aussi sur la réglementation ou sur la publication de données)
 
 ![capture d'écran de la page d'accueil du PAN](files/PAN.png)
 
