@@ -26,12 +26,12 @@ Pour :
 
 Autour de Transmodel :
 
-| Type          | Titre                            | Description                                               | Lien                                                                                                      |
-| ------------- | -------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Documentation | Transmodel - Définitions        | Dictionnaire de l'ensemble des concepts                    | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf                  |
-| Technique     | Transmodel - Modèle de données | L'ensemble du modèle de données sous forme de diagramme UML | en ligne : https://transmodel-cen.eu/model6.2/EARoot/EA3/EA1/EA2/EA2021.htm                               |
-| Technique     | Transmodel - Modèle de données | L'ensemble du modèle de données sous forme de diagramme UML | à télécharger : https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea |
-| Technique     | Transmodel - Fichier XML         | L'ensemble du modèle de données sous forme de fichier XML | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml                          |
+| Type          | Titre                            | Description                                                   | Lien                                                                                                   |
+| ------------- | -------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Documentation | Transmodel - Définitions         | Dictionnaire de l'ensemble des concepts                       | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf               |
+| Technique     | Transmodel - Modèle de données   | L'ensemble du modèle de données sous forme de diagramme UML   | en ligne : https://transmodel-cen.eu/model6.2/EARoot/EA3/EA1/EA2/EA2021.htm                            |
+| Technique     | Transmodel - Modèle de données.  | L'ensemble du modèle de données sous forme de diagramme UML   | à télécharger : https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea |
+| Technique     | Transmodel - Fichier XML         | L'ensemble du modèle de données sous forme de fichier XML     | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml                       |
 
 <!-- livebook:{"break_markdown":true} -->
 
