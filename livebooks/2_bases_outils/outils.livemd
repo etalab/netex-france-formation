@@ -35,7 +35,8 @@ Autour de Transmodel :
 
 <!-- livebook:{"break_markdown":true} -->
 
-Schémas XML (définition de la structure et le type de contenu d'un document XML):
+Schémas XML (définition de la structure et le type de contenu d'un document XML) :
+
 | Type          | Titre                                          | Description                                                      | Lien                                                                                     |
 | ------------- | ---------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | Technique     | NeTEx - Schéma XML                            | Les schémas XML (ou XSD) de NeTEx                                 | https://github.com/TransmodelEcosystem/NeTEx                                                       |
