@@ -30,7 +30,7 @@ Autour de Transmodel :
 | ------------- | --------------------------------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | Documentation | Transmodel - Définitions         | Dictionnaire de l'ensemble des concepts                       | https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf                  |
 | Technique     | Transmodel - Modèle de données  | L'ensemble du modèle de données sous forme de diagramme UML | en ligne : https://transmodel-cen.eu/model6.2/EARoot/EA3/EA1/EA2/EA2021.htm                               |
-| Technique     | Transmodel - Modèle de données. | L'ensemble du modèle de données sous forme de diagramme UML | à télécharger : https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea |
+| Technique     | Transmodel - Modèle de données | L'ensemble du modèle de données sous forme de diagramme UML | à télécharger : https://transmodel-cen.eu/model6.2/Transmodel2024-EA%20extract%20for%20publication.qea |
 | Technique     | Transmodel - Fichier XML          | L'ensemble du modèle de données sous forme de fichier XML   | https://transmodel-cen.eu/model6.2/Transmodel2024-EA_extract_for_publication.xml                          |
 
 <!-- livebook:{"break_markdown":true} -->
@@ -69,7 +69,7 @@ Outils de validation XML à partir de la XSD:
 Comment utiliser ces outils :
 
 * Documentation : référence pour les définitions des concepts utilisés
-* Technique : représentation des concepts, de leurs attributs et des relations entre les concepts ; également une aide à la création de jeux de données en NeTex et SIRI
+* Technique : représentation des concepts, de leurs attributs et des relations entre les concepts ; également une aide à la création de jeux de données en NeTEx et SIRI
 
 Exemple de vue sous forme de grille d'un fichier XML :
 
@@ -105,7 +105,7 @@ Au niveau français : le [profil France](https://normes.transport.data.gouv.fr/n
 Au niveau français : Le [Point d’Accès National aux données de transport](https://transport.data.gouv.fr/) (PAN) pour
 
 * publier ses données / retrouver des données publiées par d'autres acteurs
-* valider un jeu de données NeTEx ([validation "à la demande"](https://transport.data.gouv.fr/validation?locale=fr&selected_subtile=netex&selected_tile=vehicles-sharing&type=netex), ou en [automatique](https://transport.data.gouv.fr/resources/82368#validation-report) pour les données déjà référencées sur le PAN
+* valider un jeu de données NeTEx ([validation "à la demande"](https://transport.data.gouv.fr/validation?locale=fr&selected_subtile=netex&selected_tile=vehicles-sharing&type=netex), ou en [automatique](https://transport.data.gouv.fr/resources/82368#validation-report) pour les données déjà référencées sur le PAN)
 * retrouver de la [documentation](https://doc.transport.data.gouv.fr) (sur NeTEx, mais aussi sur la réglementation ou sur la publication de données)
 
 ![capture d'écran de la page d'accueil du PAN](files/PAN.png)
@@ -185,12 +185,12 @@ Comment NeTEx évolue :
 
 ### 3.3. Et le GTFS dans tout ça ?
 
-**GTFS** c'est l'autre standard de référence pour la publication d'information de transport.
+**GTFS**, c'est l'autre standard de référence pour la publication d'information de transport.
 
 | GTFS                                                          | NeTEx                                                                                                                                       |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | pensé en premier lieu pour l'information voyageur            | périmètre plus large que l'information voyageur : agrégation multi-organisations avec partage de responsabilité, gestion de flotte, etc |
-| centré sur le transport en commun                            | adresse aussi les véhicules partagés, mais aussi les équipements en gare, les POIs, les parkings, etc                                    |
+| centré sur le transport en commun                            | adresse également les véhicules partagés, mais aussi les équipements en gare, les POIs, les parkings, etc                                    |
 | format CSV                                                    | format XML                                                                                                                                  |
 | rayonnement international                                     | rayonnement principalement européen                                                                                                        |
 | catalogue de concepts et d'attributs nécessaire et suffisant | large modèle de données. Modélisation plus riche de l'accessibilité et de la tarification (notamment)                                   |
