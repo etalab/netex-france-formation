@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"NeTEx-GTFS.png","type":"attachment"},{"name":"PAN.png","type":"attachment"},{"name":"Transmodel.png","type":"attachment"},{"name":"cen.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"mapping_GTFS_netex_1.png","type":"attachment"},{"name":"mapping_GTFS_netex_2.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"NeTEx-GTFS.png","type":"attachment"},{"name":"PAN.png","type":"attachment"},{"name":"Transmodel.png","type":"attachment"},{"name":"cen.png","type":"attachment"},{"name":"github.png","type":"attachment"},{"name":"grid_view.png","type":"attachment"},{"name":"mapping_GTFS_netex_1.png","type":"attachment"},{"name":"mapping_GTFS_netex_2.png","type":"attachment"},{"name":"netex_france.png","type":"attachment"},{"name":"pan-xsd-validation.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Les outils et ressources à votre disposition
 
