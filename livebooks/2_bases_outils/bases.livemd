@@ -1,4 +1,4 @@
-<!-- livebook:{"file_entries":[{"name":"PT_selon_TM.png","type":"attachment"}],"persist_outputs":true} -->
+<!-- livebook:{"file_entries":[{"name":"PT_selon_TM.png","type":"attachment"},{"name":"exemple_netex.png","type":"attachment"}],"persist_outputs":true} -->
 
 # Les concepts de base
 
@@ -85,7 +85,20 @@ Dans le modèle conceptuel de données ci-dessous,
 
 * Combien avons-nous de concepts ?
 * Combien d'attributs avons-nous dans le concept 'ORGANISATION' ?
-* Quel est le concept portant la granularité la plus fine ?
+* Quel est le concept portant la granularité la plus fine (i.e., le concept décrivant l'objet le plus petit) ?
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Et les réponses sont...</summary>
+  <div class="p-4">
+
+- Il y a 5 concepts.
+- Il y a 4 attributs dans le concept 'ORGANISATION'.
+- Il y a deux éléments de granularité fine : 'EQUIPE' et 'TYPE_D_OPERATION'.
+
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
 
 ### 2.2. Normes
 
@@ -156,6 +169,18 @@ classDiagram
 
 Nommez au moins une différence avec le modèle conceptuel de données présenté plus haut.
 
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Et les réponses sont...</summary>
+  <div class="p-4">
+
+- Les attributs sont détaillés avec un type de données (ex. 'Nom' accepte les 'MultilingualString').
+- Les attributs ont une cardinalité (ex. 'Statut' a pour cardinalité [0..1], on ne peut donc que le remplir une seule fois).
+
+  </div>
+</details>
+
+<!-- livebook:{"break_markdown":true} -->
+
 ### 2.3. Profils de norme
 
 Définition : **sous-ensemble défini à partir d’une norme** ou d’un standard qui peut comporter des règles spécifiques.
@@ -178,6 +203,19 @@ C'est utile pour :
 </details>
 
 Dans notre cas : le [profil France de NeTEx](https://normes.transport.data.gouv.fr/normes/netex/)
+
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Exemple fun</summary>
+  <div class="p-4">
+
+Il y a un mode de transport `snowCat` qui existe. 
+
+![image de snowCat](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Snowcoach_along_the_Madison_River_%2811296532413%29.jpg/960px-Snowcoach_along_the_Madison_River_%2811296532413%29.jpg)
+
+On ne l'a pas gardé dans le profil France.
+
+  </div>
+</details>
 
 Exemple :
 
@@ -217,6 +255,17 @@ classDiagram
 
 Nommez au moins une différence avec l'extrait de la norme présentée plus haut.
 
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Et les réponses sont...</summary>
+  <div class="p-4">
+
+- Nom dans le concept 'ORGANISATION' est obligatoire (cardinalité 1..1).
+- NomCommercial dans le concept 'ORGANISATION' est obligatoire (cardinalité 1..1).
+- Statut dans le concept 'ORGANISATION' est obligatoire (cardinalité 1..1).
+
+  </div>
+</details>
+
 ## 3. LES BASES POUR COMPRENDRE TRANSMODEL ET NETEX
 
 ### 3.1. Le transport public
@@ -226,21 +275,18 @@ Dans Transmodel et toutes les normes qui en sont dérivées, le **Transport publ
 
 À retenir :
 
-* périmètre plus large que les simples 'transports en communs'
+* périmètre plus large que les simples "transports en commun"
 * richesse des concepts et des attributs pour modéliser toutes les réalités du transport public
+
+<!-- livebook:{"break_markdown":true} -->
 
 ### 3.2. Transmodel, NeTEx et SIRI
 
 Rappel :
 
 * Transmodel est le modèle conceptuel de données
+  * Voici à quoi ça ressemble vraiment ([reprise de l'exemple plus haut sur les organisations](https://transmodel-cen.eu/model6.2/EARoot/EA2/EA3/EA3/EA735.htm))
 * NeTEx et SIRI sont des formats d'échanges normalisés issus de Transmodel
-
-Concrètement :
-
-* Les concepts utilisés dans NeTEx et SIRI sont définis dans Transmodel
-* Chaque concept (ou entité) a un identifiant qui permet de le référencer ailleurs (Id <> Ref)
-* NeTEx et SIRI portent une vue de Transmodel qui répond à leur périmètre fonctionnel
 
 NeTEx = **Ne**twork **T**imetable **Ex**change
 
@@ -253,6 +299,34 @@ SIRI = **S**ervice **I**nterface for **R**eal-time **I**nformation
 <br />
 
 Pour toutes les données en temps réel (= dynamiques, non connues d'avance) décrivant l'état d'une offre de transport public à un instant T allant de la position des véhicules à l'état de fonctionnement des ascenseurs en passant par les taux d'affluence.
+
+<br />
+
+Concrètement :
+
+* Les concepts utilisés dans NeTEx et SIRI sont définis dans Transmodel
+* Chaque concept (ou entité) a un identifiant qui permet de le référencer ailleurs (Id <> Ref)
+* NeTEx et SIRI portent une vue de Transmodel qui répond à leur périmètre fonctionnel
+
+<!-- livebook:{"break_markdown":true} -->
+
+#### Historique
+
+Transmodel est né en 1989, via un projet européen nommé Cassiope. Transmodel a été créé dans le but de doter l'Europe d'un vocabulaire et d'une grammaire commune pour décrire les transports publics.
+
+<br />
+
+SIRI est né en 2006 dans le but d'avoir une interface standardisée d'échange de données qui permettent de décrire l'état à un instant T d'un réseau de transport public.
+
+<br />
+
+NeTEx est né en 2009 dans le but d'avoir une interface standardisée d'échange de données qui permettent de décrire un réseau de transport public avec l'ensemble de ses caractéristiques connues d'avance.
+
+<br />
+
+Transmodel, NeTEx et SIRI évoluent constamment pour prendre en compte les nouveautés des offres de transport public en Europe. Ces évolutions sont portées par les experts du domaine, qui peuvent être saisis par tout acteur de l'écosystème.
+
+<!-- livebook:{"break_markdown":true} -->
 
 ### 3.3. Les profils France de NeTEx et SIRI
 
@@ -275,21 +349,23 @@ Le profil France de NeTEx comporte plusieurs parties :
 
 Ce qu'il faut retenir : c'est l'ensemble de ces parties qui forment le profil France. On ne peut pas travailler sur la partie accessibilité sans tenir compte de la partie descriptive des arrêts, par exemple.
 
+<!-- livebook:{"break_markdown":true} -->
+
 ### 3.4. Quelques concepts de base
 
 Pour faciliter la prise en main des concepts de base, il a été décidé de privilégier les traductions françaises des concepts contenus dans NeTEx (Transmodel). Les noms d'origine en anglais sont notés entre parenthèses et en _italique_.
 
 Pour décrire spacialement ce qui nous entoure :
 
+* TRONÇON (_LINK_) : Un objet défini dans l’espace, orienté et de dimension 1, utilisé pour décrire la structure du réseau, définissant la connexion entre deux POINTs.
 * POINT (_POINT_) : Un nœud de dimension 0 servant à la description spatiale du réseau.
-* TRONCON (_LINK_) : Un objet défini dans l’espace, orienté et de dimension 1, utilisé pour décrire la structure du réseau, définissant la connexion entre deux POINTs.
 
-Un POINT comprend les attributs obligatoires suivants :
+Un POINT comprend les "attributs" suivants :
 
 * Nom (_Name_) : le nom du POINT
-* Localisation (_Location_) : localisation du point
+* LOCALISATION (_LOCATION_) : position géographique du point
 
-Dans Localisation (_Location_), on retrouve notamment les attributs suivants :
+Dans LOCALISATION (_LOCATION_), on retrouve notamment les attributs suivants :
 
 * Longitude
 * Latitude
@@ -306,6 +382,8 @@ Cette imbrication est permise par l'usage du XML comme langage informatique grâ
 </Point>
 ```
 
+<!-- livebook:{"break_markdown":true} -->
+
 Pour décrire finement une station de métro, par exemple, on utilisera les concepts suivants :
 
 * LIEU D'ARRÊT (_STOP PLACE_) : Lieu comprenant un ou plusieurs emplacements où les véhicules peuvent s’arrêter et où les voyageurs peuvent monter à bord ou descendre des véhicules ou préparer leur déplacement.
@@ -313,6 +391,82 @@ Pour décrire finement une station de métro, par exemple, on utilisera les conc
 * ZONE D’EMBARQUEMENT (_QUAY_) : Lieu tel qu’une plateforme, zone, quai ou voie à quai où les voyageurs peuvent accéder aux véhicules de transport public, taxis, cars ou tout autre mode de transport.
 
 De la même manière que pour les points, on pourra imbriquer plusieurs attributs descriptifs pour chaque concept.
+
+<!-- livebook:{"break_markdown":true} -->
+
+### 3.5. Un peu de pratique
+
+Analysons ensemble un [fichier d'exemple](https://data4pt.org/NeTEx/GraphicKit/XML_Example_EPIP.zip).
+
+C'est un fichier zip contenant un fichier xml.
+
+<details class="rounded-lg my-4">
+
+```
+<summary class="cursor-pointer font-bold p-4"></i>Accès au fichier</summary>
+<div class="p-4">
+```
+
+Le fichier utilisé est également archivé dans l'espace de travail dédié aux supports de formation. S'il n'est plus disponible en ligne à l'adresse indiquée, vous pouvez le retrouver dans `data/1_bases`
+
+
+
+
+
+Remarque : le profil France impose des contraintes sur la structure d'un export NeTEx et notamment sur les noms des fichiers. Cet export n'est pas conforme au profil.
+
+Il contient des objets LIEU D'ARRÊT (_STOP PLACE_), qui contiennent eux-mêmes des objets ZONE D’EMBARQUEMENT (_QUAY_)
+
+![capture d'écran du fichier d'exemple netex : on y voir les attribut d'un objet STOP PLACE](files/exemple_netex.png)
+
+Remarquez comment la notion de NIVEAU (_LEVEL_) est gérée :
+
+* dans le _STOP PLACE_ on définit le niveau 0 : `<Level id="LU::Level:333_0:" version="1610542498">`
+* dans le _QUAY_ on référence ce niveau : `<LevelRef ref="LU::Level:333_0:" version="1610542498"/>`
+
+<!-- livebook:{"break_markdown":true} -->
+
+🫵 Exercice pratique
+
+À vous de jouer !
+
+* Téléchargez le fichier d'exemple et ouvrez le fichier xml dans votre éditeur de texte ou navigateur web : https://data4pt.org/NeTEx/GraphicKit/XML_Example_EPIP.zip
+
+<!-- livebook:{"break_markdown":true} -->
+
+* Combien de lignes de transport sont décrites dans ce fichier ?
+
+  Astuce : Le concept Transmodel associé est LINE
+
+  <details class="rounded-lg my-4">
+    <summary class="cursor-pointer font-bold p-4"></i>Et la réponse est...</summary>
+    <div class="p-4">
+
+  Il y a une seule ligne (bus 91), d'identifiant NeTEx `LU::Line:3011:`
+
+  </div>
+  </details>
+
+<!-- livebook:{"break_markdown":true} -->
+
+* La ligne 91 référence une AUTHORITY :
+
+  * De quoi s'agit-il ?
+  * Quelle est son nom ?
+
+  Astuce : le [dictionnaire des concepts de Transmodel](https://transmodel-cen.eu/wp-content/uploads/2024/09/Transmodel-v6.2-Data-Dictionary.pdf) fournit les définitions de tous les objets.
+
+  <details class="rounded-lg my-4">
+    <summary class="cursor-pointer font-bold p-4"></i>Et la réponse est...</summary>
+    <div class="p-4">
+
+  * AUTHORITY : The ORGANISATION on which the responsibility of organising the transport service in a certain area is placed.
+
+  * L'AUTHORITY a pour nom (attribut Name) : AVL
+
+    </div>
+
+  </details>
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -326,7 +480,7 @@ De la même manière que pour les points, on pourra imbriquer plusieurs attribut
 <a class="flex ml-2" style="color: #61758a;">Les bases</a>
 </div>
 <div class="flex">
-<a class="flex mr-2" style="color: #61758a;" href="../3_reseau/reseau_rochefort.livemd">Lignes et Horaires - Rochefort</a>
+<a class="flex mr-2" style="color: #61758a;" href="../2_bases_outils/outils.livemd">Les outils</a>
 <i class="ri-arrow-right-fill"></i>
 </div>
 </div>

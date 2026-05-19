@@ -501,6 +501,14 @@ Dans la suite de la session nous allons être amenés à utiliser les fichiers *
 
 <!-- livebook:{"break_markdown":true} -->
 
+### Pour faire les exercices suivants
+
+Dans la mesure où les fichiers disponibles sur le PAN sont souvent mis à jour pour refléter l'état de l'offre, les exercices suivants de cette session se basent sur des fichiers XML "figés". Vous pouvez les télécharger en suivant ces liens : 
+- Fichier [**Arrêts**](https://github.com/etalab/netex-france-formation/blob/AGIR/livebooks/4_lieux_darret/files/XML/Arrets.xml) ;
+- Fichier [**Réseaux**](https://github.com/etalab/netex-france-formation/blob/AGIR/livebooks/4_lieux_darret/files/XML/Réseaux.xml) ;
+- Fichier [**Ligne**](https://github.com/etalab/netex-france-formation/blob/AGIR/livebooks/4_lieux_darret/files/XML/Ligne_ATOUMOD001_91.xml) ;
+
+
 ### Principes de Modélisation
 
 <!-- livebook:{"break_markdown":true} -->
@@ -541,6 +549,12 @@ Le nombre d'éléments décrits dans ce fichier est le suivant :
 <!-- livebook:{"break_markdown":true} -->
 
 Regardons les éléments de définition d'un lieu d'arrêt.
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Fichier Réseau
+
+<!-- livebook:{"continue_on_error":true,"reevaluate_automatically":true} -->
 
 ````elixir
 xml_1=Kino.Markdown.new("""
@@ -674,13 +688,9 @@ Kino.Layout.tabs([
 Quai: xml_2])
 ````
 
-### Fichier Réseau
-
-<!-- livebook:{"break_markdown":true} -->
-
 > =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER RESEAUX.XML**</span>
 
-La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
+La structure de ce fichier vous a été présentée lors de la session précédente, on y retrouve les données suivantes :
 
 * le réseau `Network`;
 * les lignes `line` du réseau;
@@ -1146,7 +1156,7 @@ CorrespondanceIntersite: xml_5])
 
 > =>  <span style="color: rebeccapurple;">**TELECHARGER & OUVRIR LE FICHIER Ligne_ATOUMOD001_91.XML**</span>
 
-La structure de ce fichier vous a été présentée ce matin, on y retrouve les données suivantes :
+La structure de ce fichier vous a été présentée lors de la session précédente, on y retrouve les données suivantes :
 
 Ce fichier décrit chaque ligne identifiée dans le fichier 'Réseaux' en termes de :
 

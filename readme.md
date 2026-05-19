@@ -33,11 +33,11 @@ Voici les éléments principaux du dépôt:
 - `livebooks`
   - `1_intro/intro.livemd` - Introduction générale avec la présentation des formateurs et quelques règles de base
   - `2_bases/bases.livemd` - Les définitions et concepts de base nécessaires à la compréhensions des parties suivantes
+  - `2_bases/outils.livemd` - La présentation de l'ensemble des outils utiles pour creuser davantage le sujet
   - `3_reseau/reseau_rochefort.livemd` - La modélisation d'un réseau en NeTEx en partant d'un exemple concret
   - `4_reseau/Stop_place.livemd` - La modélisation de la multimodalité dans NeTEx
   - `5_accessibilite/accessibilite_transport.livemd` - La modélisation de l'accessibilité des transports avec NeTEx
-  - `5_accessibilite/accessibilite_voirie.livemd` - La modélisation de l'accessibilité de la voirie avec NeTEx
-  - `6_outils/outils.livemd` - La présentation de l'ensemble des outils utiles pour creuser davantage le sujet
+  - `5_accessibilite/accessibilite_voirie.livemd` - La modélisation de l'accessibilité de la voirie avec NeTEx 
 - `lib` - code utilisé par les livebooks
 - `data` - capture des jeux de données utilisés pour la formation et ses exercices
 
@@ -47,11 +47,11 @@ Dans l'ordre des Livebooks
 
 |Prénom & Nom |Affiliation |Expertise pour la formation | Email |
 |------|--------------------------------------|------------------|-------------------------|
-|Tu-Tho Thai|Indépendante|Concepts de base & Ressources|tutho@ttandj.com|
+|Tu-Tho Thai|Indépendante|Concepts de base, Outils et Ressources|tutho@ttandj.com|
+|Noémie Lehuby|Jungle Bus|Concepts de base, Outils, Ressources & L'accessibilité des transports et de la voirie|noemie@junglebus.io|
 |Ariane Durand|CS Group|Modélisation des réseaux de transport|ariane.durand@cs-soprasteria.com|
 |Thibaut Barrère|Indépendant|Modélisation des réseaux de transport|thibaut.barrere@gmail.com|
 |Thierry Hénault|CS Group|La représentation de la multimodalité|thierry.henault@cs-soprasteria.com|
-|Noémie Lehuby|Jungle Bus|L'accessibilité des transports et de la voirie|noemie@junglebus.io|
 
 ## En cas de question ou problème
 

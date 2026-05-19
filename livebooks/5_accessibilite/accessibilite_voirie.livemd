@@ -1,4 +1,4 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_aa_annexe1.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_acousticcrossingaids.png","type":"attachment"},{"name":"voirie_doc_crossingtype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_droppedkerb.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_doc_tactilewarningstrip.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_photo_kerb.png","type":"attachment"},{"name":"voirie_qgis_linestring.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_warning_strip.png","type":"attachment"},{"name":"voirie_xml_distance.png","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_gare_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_doc_aa.png","type":"attachment"},{"name":"voirie_doc_aa_annexe.png","type":"attachment"},{"name":"voirie_doc_aa_annexe1.png","type":"attachment"},{"name":"voirie_doc_accessfeaturetype.png","type":"attachment"},{"name":"voirie_doc_acousticcrossingaids.png","type":"attachment"},{"name":"voirie_doc_crossingtype.png","type":"attachment"},{"name":"voirie_doc_distance.png","type":"attachment"},{"name":"voirie_doc_droppedkerb.png","type":"attachment"},{"name":"voirie_doc_flooringtype.png","type":"attachment"},{"name":"voirie_doc_linestring.png","type":"attachment"},{"name":"voirie_doc_tactilewarningstrip.png","type":"attachment"},{"name":"voirie_exemple_modelisation.png","type":"attachment"},{"name":"voirie_exemple_netex_replie.png","type":"attachment"},{"name":"voirie_exemple_vue_dessus.png","type":"attachment"},{"name":"voirie_exemple_vue_panoramax.png","type":"attachment"},{"name":"voirie_gare_exemple_modelisation.png","type":"attachment"},{"name":"voirie_photo_kerb.png","type":"attachment"},{"name":"voirie_qgis_linestring.png","type":"attachment"},{"name":"voirie_tactile_acoustic_crossing.png","type":"attachment"},{"name":"voirie_wiki_Tactile_Paving_Types.png","type":"attachment"},{"name":"voirie_wiki_crossing.jpg","type":"attachment"},{"name":"voirie_wiki_pedestrian_lights.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_guiding_strip.png","type":"attachment"},{"name":"voirie_wiki_tactile_pavings.jpg","type":"attachment"},{"name":"voirie_wiki_tactile_warning_strip.png","type":"attachment"},{"name":"voirie_xml_distance.png","type":"attachment"}]} -->
 
 # Accessibilité - description des cheminements piétons
 
@@ -23,6 +23,8 @@ Déroulement de la formation :
 📌 Lecture de la documentation et découverte de quelques attributs emblématiques
 
 📌 Exercice pratique de prise en main d'un fichier réel
+
+📌 Reprise rapide de notre exemple précédent de gare
 
 ## Cas d'usage
 
@@ -530,6 +532,14 @@ Réponse : ce passage piéton n'a pas de bordures abaissées.
 
   </div>
 </details>
+
+## Aussi en gare ...
+
+![vue aérienne BD Ortho IGN de la gare de Tacoignières - Richebourg. On y voit un batiment voyageur, deux quais, deux cages d'ascenseur, deux cages d'escalier, une rampe, etc](files/transport_gare_exemple_vue_dessus.png)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![modélisation des cheminements et équipements dans la gare avec AccèsLibre Mobilités](files/voirie_gare_exemple_modelisation.png)
 
 ## Outillage
 

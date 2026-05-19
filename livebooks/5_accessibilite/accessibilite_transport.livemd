@@ -1,4 +1,4 @@
-<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_article_loi.png","type":"attachment"},{"name":"transport_example_01.png","type":"attachment"},{"name":"transport_example_02.png","type":"attachment"},{"name":"transport_example_03.png","type":"attachment"},{"name":"transport_example_04.png","type":"attachment"},{"name":"transport_example_05.png","type":"attachment"},{"name":"transport_example_06.png","type":"attachment"},{"name":"transport_example_07.png","type":"attachment"},{"name":"transport_example_08.png","type":"attachment"},{"name":"transport_exemple_implantation_quai.png","type":"attachment"},{"name":"transport_lisibilite_info_voy.png","type":"attachment"}]} -->
+<!-- livebook:{"autosave_interval_s":30,"file_entries":[{"name":"transport_article_loi.png","type":"attachment"},{"name":"transport_example_01.png","type":"attachment"},{"name":"transport_example_02.png","type":"attachment"},{"name":"transport_example_03.png","type":"attachment"},{"name":"transport_example_04.png","type":"attachment"},{"name":"transport_example_05.png","type":"attachment"},{"name":"transport_example_06.png","type":"attachment"},{"name":"transport_example_07.png","type":"attachment"},{"name":"transport_example_08.png","type":"attachment"},{"name":"transport_exemple_implantation_quai.png","type":"attachment"},{"name":"transport_gare_exemple_modelisation_geo.png","type":"attachment"},{"name":"transport_gare_exemple_modelisation_transmodel.png","type":"attachment"},{"name":"transport_gare_exemple_vue_dessus.png","type":"attachment"},{"name":"transport_lisibilite_info_voy.png","type":"attachment"}]} -->
 
 # Accessibilité - arrêt de transport
 
@@ -10,12 +10,13 @@ Ce que vous allez apprendre :
 
 Déroulement de la formation :
 
-* analyse d'un extrait de fichier en s'appuyant sur la documentation
+* analyse d'un extrait de fichier représentant un arrêt de bus, en s'appuyant sur la documentation
 * exercice pratique
+* exemple plus détaillé avec une gare
 
 ## Précédemment ...
 
-Nous avons déjà vu de l'accessibilité dans des fichiers NeTEx aujourd'hui. Par exemple :
+Nous avons déjà vu de l'accessibilité dans des fichiers NeTEx lors des précédentes sessions de cette formation. Par exemple :
 
 ```xml
 <Quay id="Yukaimaps:Quay:n-25372:LOC" version="any">
@@ -96,10 +97,16 @@ Exemple 4 :
 
 <!-- livebook:{"break_markdown":true} -->
 
-Exemple 5 : 
+<details class="rounded-lg my-4">
+  <summary class="cursor-pointer font-bold p-4"></i>Exemple 5</summary>
+  <div class="p-4">
+
 ![arrêt de bus exemple](files/transport_example_05.png) _© Adrien Pavie pour Jungle Bus (CC-BY-SA)_
 
 [Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=18.78/49.1809543/-0.2221841&pic=564faf33-cd0b-473b-a8d1-845744758882&speed=250&xyz=183.68/-21.20/1)
+
+  </div>
+</details>
 
 <!-- livebook:{"break_markdown":true} -->
 
@@ -122,7 +129,7 @@ Exemple 8 :
 
 [Voir sur Panoramax](https://panoramax.openstreetmap.fr/#background=streets&focus=pic&map=19.16/49.1654643/-0.3428899&pic=e82b9197-30d9-419a-8815-59a3322920c9&speed=250&xyz=109.73/-18.85/30)
 
-## Bonus
+<!-- livebook:{"break_markdown":true} -->
 
 <details class="rounded-lg my-4">
   <summary class="cursor-pointer font-bold p-4"></i>Quels sont les critères au fait ?</summary>
@@ -168,24 +175,125 @@ En pratique, parfois déclenchée par un bouton ou une télécommande universell
   </div>
 </details>
 
+## Exemple plus complet / complexe
+
+Je vous présente la Gare de Tacoignières – Richebourg dans les Yvelines :
+
+![vue aérienne BD Ortho IGN de la gare de Tacoignières - Richebourg. On y voit un batiment voyageur, deux quais, deux cages d'ascenseur, deux cages d'escalier, une rampe, etc](files/transport_gare_exemple_vue_dessus.png)
+
 <!-- livebook:{"break_markdown":true} -->
 
-<details class="rounded-lg my-4">
-  <summary class="cursor-pointer font-bold p-4"></i>Approche plus précise</summary>
-  <div class="p-4">
+Sa modélisation est la suivante :
+
+![rappel de la modélisation des arrêts du profil FR](https://normes.transport.data.gouv.fr/normes/netex/arrets/media/image2.png)
+
+<!-- livebook:{"break_markdown":true} -->
+
+![dessin géographique des éléments de la gare](files/transport_gare_exemple_modelisation_geo.png)
+
+![modélisation Transmodel de la gare en suivant le schéma](files/transport_gare_exemple_modelisation_transmodel.png)
+
+```xml
+<members>
+  <Quay id="Example:Quay:1:LOC" version="any"> ... </Quay>
+  <Quay id="Example:Quay:2:LOC" version="any"> ... </Quay>
+  <Entrance id="Example:Entrance:1:LOC" version="any"> ... </Entrance>
+  <Entrance id="Example:Entrance:2:LOC" version="any"> ... </Entrance>
+  <Entrance id="Example:Entrance:3:LOC" version="any"> ... </Entrance>
+  <StopPlace id="Example:StopPlace_rail:42:LOC" version="any">
+    <!-- <Name>Tacoignières – Richebourg</Name> -->
+    <!--<AccessibilityAssessment id="Example:AA:0:" version="any"> (...) </AccessibilityAssessment> -->
+    <entrances>
+      <EntranceRef ref="Example:Entrance:1:LOC" version="any"/>
+      <EntranceRef ref="Example:Entrance:2:LOC" version="any"/>
+      <EntranceRef ref="Example:Entrance:3:LOC" version="any"/>
+    </entrances>
+    <quays>
+      <QuayRef version="any" ref="Example:Quay:1:LOC"/>
+      <QuayRef version="any" ref="Example:Quay:2:LOC"/>
+    </quays>
+  </StopPlace>
+</members>
+```
+
+<!-- livebook:{"break_markdown":true} -->
+
+ÉVALUATIONS D'ACCESSIBILITÉ (`AccessibilityAssessment`) pour les 2 quais (Quay) :
+
+* WheelchairAccess (*on peut s’y déplacer en fauteuil roulant*)
+* VisualSignsAvailable (*une signalétique visuelle est disponible*)
+* AudibleSignalsAvailable (*une signalétique sonore est disponible*)
+
+Les critères sont ceux qu'on a vu précédemment.
+
+<!-- livebook:{"break_markdown":true} -->
+
+ÉVALUATIONS D'ACCESSIBILITÉ (`AccessibilityAssessment`) pour les 3 accès (Entrance) :
+
+* WheelchairAccess (*on peut s’y déplacer en fauteuil roulant*)
+* StepFreeAccess (*on peut s’y déplacer sans franchir de marche ou d’escalier*)
+
+Les critères plus détaillés sont :
+
+**StepFreeAccess** : il n’y a pas de marche infranchissable.
+
+En particulier, ça sera :
+
+* true s’il n’y a pas de marche ou s’il y a une marche de moins de 2 cm
+* partial s’il y a une marche de moins de 4 cm
+* false s’il y a une marche de plus de 4 cm
+
+**WheelchairAccess** : il y a une largeur de passage d’au moins 80 cm et pas de marche infranchissable. S’il y a une porte, elle s’ouvre sans forcer (moins de 50 Newton).
+
+On utilisera les mêmes valeurs de référence pour la hauteur de la marche éventuelle que pour StepFreeAccess.
+
+<!-- livebook:{"break_markdown":true} -->
+
+ÉVALUATIONS D'ACCESSIBILITÉ (`AccessibilityAssessment`) pour la gare (StopPlace) :
+
+* WheelchairAccess (*on peut s’y déplacer en fauteuil roulant*)
+* StepFreeAccess (*on peut s’y déplacer sans franchir de marche ou d’escalier*)
+* EscalatorFreeAccess (*on peut s’y déplacer sans utiliser d’escalator*)
+* LiftFreeAccess (*on peut s’y déplacer sans utiliser d’ascenseur*)
+* VisualSignsAvailable (*une signalétique visuelle est disponible*)
+* AudibleSignalsAvailable (*une signalétique sonore est disponible*)
+
+Les critères plus détaillés sont :
+
+**WheelchairAccess** : chaque quai est pratiquable en fauteuil roulant et il existe un cheminement pratiquable en fauteuil roulant entre chaque zone d'embarquement et au moins un accès.
+
+**StepFreeAccess** : il est possible d’atteindre chaque zone d'embarquement depuis au moins un accès sans franchir de marche.
+
+En particulier, ça sera :
+
+* true s’il n’y a pas de marche ou s’il y a une marche de moins de 2 cm
+* partial s’il y a une marche de moins de 4 cm
+* false s’il y a une marche de plus de 4 cm
+
+**EscalatorFreeAccess** : il est possible d’atteindre chaque zone d'embarquement depuis au moins un accès sans passer par un escalator.
+
+**LiftFreeAccess** : il est possible d’atteindre chaque zone d'embarquement depuis au moins un accès sans passer par un ascenseur.
+
+**AudibleSignalsAvailable** : il y a des annonces sonores.
+
+**VisualSignsAvailable** : il y a au moins le nom du lieu d'arrêt, les lignes desservies, et un tableau ou écran d'affichage (présentant les horaires, le plan du réseau, des lignes desservies ou des abords). Les textes écrits sont conformes aux recommandations en vigueur en terme de taille de caractère, de lisibilité de la police et de contraste visuel par rapport à l'arrière plan (voir arrêté du 15 janvier 2007 pour plus de détails).
+
+<!-- livebook:{"break_markdown":true} -->
+
+### Approche plus précise
 
 Les attributs AccessibilityAssessment proposent une approche synthétique qui peut manquer de finesse.
 
 Pour plus de précision, utiliser en complément des attributs plus précis et moins ouverts à interprétation.
 
 Par exemple :
-- AccessibilityInfoFacilityList : visualDisplays, largePrintTimetables
-- PassengerInformationEquipmentList : realTimeDepartures
-- MobilityFacilityList : tactilePlatformEdges
-- MobilityFacilityList : raisedKerb
-    
-  </div>
-</details>
+
+* AccessibilityInfoFacilityList : visualDisplays, largePrintTimetables
+* PassengerInformationEquipmentList : realTimeDepartures
+* MobilityFacilityList : tactilePlatformEdges
+* MobilityFacilityList : raisedKerb
+
+La description des cheminements et des équipements est également très pertinente pour la prise en compte de l'accessibilité.
 
 <!-- livebook:{"break_markdown":true} -->
 
